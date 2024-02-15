@@ -8,8 +8,8 @@ import type { Renderer } from "instantsearch.js/es/types";
 export const useAisStats = (widgetParams: StatsConnectorParams) => {
   // 1. Create a render function
   const renderStats: Renderer<StatsRenderState, StatsConnectorParams> = (
-    renderOptions,
-    isFirstRender,
+    _,
+    __,
   ) => {
     // render nothing
     return () => { };

@@ -12,7 +12,7 @@ export const useAisInfiniteHits = (
   const renderInfiniteHits: Renderer<
     InfiniteHitsRenderState,
     InfiniteHitsConnectorParams
-  > = (renderOptions, isFirstRender) => {
+  > = (_, __) => {
     // render nothing
     return () => { };
   };

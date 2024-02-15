@@ -10,7 +10,7 @@ export const useAisConfigure = (widgetParams: ConfigureConnectorParams) => {
   const renderConfigure: Renderer<
     ConfigureRenderState,
     ConfigureConnectorParams
-  > = (renderOptions, isFirstRender) => {
+  > = (_, __) => {
     // render nothing
     return () => { };
   };

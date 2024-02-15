@@ -8,8 +8,8 @@ import type { Renderer } from "instantsearch.js/es/types";
 export const useAisSortBy = (widgetParams: SortByConnectorParams) => {
   // 1. Create a render function
   const renderSortBy: Renderer<SortByRenderState, SortByConnectorParams> = (
-    renderOptions,
-    isFirstRender,
+    _,
+    __,
   ) => {
     // render nothing
     return () => { };

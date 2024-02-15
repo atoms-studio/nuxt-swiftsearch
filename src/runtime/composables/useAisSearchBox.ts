@@ -10,7 +10,7 @@ export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams) => {
   const renderSearchBox: Renderer<
     SearchBoxRenderState,
     SearchBoxConnectorParams
-  > = (renderOptions, isFirstRender) => {
+  > = (_, __) => {
     // render nothing
     return () => null;
   };

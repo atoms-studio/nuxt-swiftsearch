@@ -19,7 +19,7 @@ export const useAisRefinementList = (
   const renderRefinementList: Renderer<
     RefinementListRenderState,
     RefinementListConnectorParams
-  > = (renderOptions, isFirstRender) => {
+  > = (renderOptions, _) => {
     // save renderState
     if (import.meta.client) {
       refinementRenderState.value[widgetParams.attribute] = renderOptions;

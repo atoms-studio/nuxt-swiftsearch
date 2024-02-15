@@ -12,7 +12,7 @@ export const useAisToggleRefinement = (
   const renderToggleRefinement: Renderer<
     ToggleRefinementRenderState,
     ToggleRefinementConnectorParams
-  > = (renderOptions, isFirstRender) => {
+  > = (_, __) => {
     // render nothing
     return () => { };
   };
