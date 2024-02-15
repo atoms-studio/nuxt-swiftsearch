@@ -46,5 +46,4 @@ const widgetParams = computed(() => state.value.widgetParams);
 const suit = useSuit("ToggleRefinement");
 
 const on = computed(() => widgetParams.value?.on ?? true);
-const off = computed(() => widgetParams.value?.off ?? false);
 </script>

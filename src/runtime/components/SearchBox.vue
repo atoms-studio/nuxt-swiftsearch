@@ -9,6 +9,8 @@
       :refine="state.refine"
     >
       <AisSearchInput
+        ref="searchInput"
+        v-model="currentRefinement"
         :placeholder="placeholder"
         :autofocus="autofocus"
         :show-loading-indicator="showLoadingIndicator"
@@ -16,9 +18,7 @@
         :ignore-composition-events="ignoreCompositionEvents"
         :submit-title="submitTitle"
         :reset-title="resetTitle"
-        v-model="currentRefinement"
         @focus="emit('focus', $event)"
-        ref="searchInput"
         @blur="emit('blur', $event)"
         @reset="emit('reset')"
       >
@@ -62,6 +62,7 @@ const props = withDefaults(
     ignoreCompositionEvents: false,
     submitTitle: "Search",
     resetTitle: "Clear",
+    value: "",
   },
 );
 

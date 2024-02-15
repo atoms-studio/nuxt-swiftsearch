@@ -8,12 +8,12 @@
     @reset.prevent="onFormReset"
   >
     <input
+      ref="input"
       type="search"
       autocorrect="off"
       autocapitalize="off"
       autocomplete="off"
       spellcheck="false"
-      ref="input"
       maxlength="512"
       aria-label="Search"
       :placeholder="placeholder"
@@ -122,7 +122,6 @@ import { useSuit } from "../composables/useSuit";
 import { ref } from "vue";
 const suit = useSuit("SearchBox");
 
-const query = ref("");
 const input = ref<HTMLInputElement>();
 const props = withDefaults(
   defineProps<{
@@ -143,6 +142,7 @@ const props = withDefaults(
     ignoreCompositionEvents: false,
     submitTitle: "Search",
     resetTitle: "Clear",
+    value: "",
   },
 );
 
