@@ -1,6 +1,6 @@
 {
   "name": "@atoms-studio/nuxt-swiftsearch",
-  "version": "0.1.2",
+  "version": "0.1.0",
   "description": "A tailor made implementation of algolia instantsearch for nuxt 3",
   "repository": "@atoms-studio/nuxt-swiftsearch",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint --fix && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "release": "npm run lint --fix && npm run prepack && changelogen --release && npm publish --access public && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
