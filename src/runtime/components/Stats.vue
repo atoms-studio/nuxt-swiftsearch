@@ -1,13 +1,14 @@
 <template>
-  <div v-if="state" :class="suit()">
-    <slot v-bind="state" :results="instance.helper?.lastResults">
+  <div
+    v-if="state"
+    :class="suit()"
+  >
+    <slot
+      v-bind="state"
+      :results="instance.helper?.lastResults"
+    >
       <!-- prettier-ignore -->
-      <span :class="suit('text')"
-        ><template v-if="state.areHitsSorted"
-          >{{ sortedResultsSentence }}</template
-        ><template v-else>{{ resultsSentence }}</template
-        > found in {{ state.processingTimeMS.toLocaleString() }}ms</span
-      >
+      <span :class="suit('text')"><template v-if="state.areHitsSorted">{{ sortedResultsSentence }}</template><template v-else>{{ resultsSentence }}</template> found in {{ state.processingTimeMS.toLocaleString() }}ms</span>
     </slot>
   </div>
 </template>

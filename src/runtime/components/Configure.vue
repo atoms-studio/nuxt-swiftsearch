@@ -1,6 +1,6 @@
 <template>
   <div :class="suit()">
-    <slot v-bind="{ searchParameters, refine }"></slot>
+    <slot v-bind="{ searchParameters, refine }" />
   </div>
 </template>
 

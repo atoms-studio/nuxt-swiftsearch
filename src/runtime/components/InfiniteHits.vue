@@ -1,5 +1,8 @@
 <template>
-  <div v-if="state && state.results" :class="suit()">
+  <div
+    v-if="state && state.results"
+    :class="suit()"
+  >
     <slot
       v-if="showPrevious"
       name="loadPrevious"
@@ -31,8 +34,8 @@
       <ol :class="suit('list')">
         <li
           v-for="(item, index) in items"
-          :class="suit('item')"
           :key="item.objectID"
+          :class="suit('item')"
           @click="state.sendEvent('click:internal', item, 'Hit Clicked')"
           @auxclick="state.sendEvent('click:internal', item, 'Hit Clicked')"
         >

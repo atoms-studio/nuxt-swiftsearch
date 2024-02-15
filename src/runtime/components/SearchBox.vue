@@ -1,14 +1,14 @@
 <template>
-  <div v-if="state" :class="suit()">
+  <div
+    v-if="state"
+    :class="suit()"
+  >
     <slot
       :current-refinement="currentRefinement"
       :is-search-stalled="state.isSearchStalled"
       :refine="state.refine"
     >
       <AisSearchInput
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @reset="emit('reset')"
         :placeholder="placeholder"
         :autofocus="autofocus"
         :show-loading-indicator="showLoadingIndicator"
@@ -17,7 +17,10 @@
         :submit-title="submitTitle"
         :reset-title="resetTitle"
         v-model="currentRefinement"
+        @focus="emit('focus', $event)"
         ref="searchInput"
+        @blur="emit('blur', $event)"
+        @reset="emit('reset')"
       >
         <template #loading-indicator>
           <slot name="loading-indicator" />

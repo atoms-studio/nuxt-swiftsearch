@@ -1,7 +1,7 @@
 <template>
   <div
-    :class="[suit(''), !state.canRefine && suit('', 'noRefinement')]"
     v-if="state"
+    :class="[suit(''), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
       :items="items"
@@ -11,35 +11,40 @@
       :toggle-show-more="toggleShowMore"
       :can-toggle-show-more="state.canToggleShowMore"
       :is-showing-more="state.isShowingMore"
-      :createURL="state.createURL"
+      :create-u-r-l="state.createURL"
       :is-from-search="state.isFromSearch"
       :can-refine="state.canRefine"
       :send-event="state.sendEvent"
     >
-      <div :class="suit('searchBox')" v-if="searchable">
+      <div
+        v-if="searchable"
+        :class="suit('searchBox')"
+      >
         <AisSearchInput
           v-model="searchForFacetValues"
           :placeholder="searchablePlaceholder"
         />
       </div>
       <slot
+        v-if="state.isFromSearch && items.length === 0"
         name="noResults"
         :query="searchForFacetValues"
-        v-if="state.isFromSearch && items.length === 0"
       >
-        <div :class="suit('noResults')">No results.</div>
+        <div :class="suit('noResults')">
+          No results.
+        </div>
       </slot>
       <ul :class="suit('list')">
         <li
-          :class="[suit('item'), item.isRefined && suit('item', 'selected')]"
           v-for="item in items"
           :key="item.value"
+          :class="[suit('item'), item.isRefined && suit('item', 'selected')]"
         >
           <slot
             name="item"
             :item="item"
             :refine="refine"
-            :createURL="state.createURL"
+            :create-u-r-l="state.createURL"
           >
             <label :class="suit('label')">
               <input
@@ -48,28 +53,40 @@
                 :value="item.value"
                 :checked="item.isRefined"
                 @change="refine(item.value)"
-              />
-              <span v-if="searchable" :class="suit('labelText')">
-                <ais-highlight attribute="item" :hit="item" />
+              >
+              <span
+                v-if="searchable"
+                :class="suit('labelText')"
+              >
+                <ais-highlight
+                  attribute="item"
+                  :hit="item"
+                />
               </span>
-              <span v-else :class="suit('labelText')">{{ item.label }}</span>
+              <span
+                v-else
+                :class="suit('labelText')"
+              >{{ item.label }}</span>
               <span :class="suit('count')">{{ item.count }}</span>
             </label>
           </slot>
         </li>
       </ul>
       <button
+        v-if="showMore"
         :class="[
           suit('showMore'),
           {
             [suit('showMore', 'disabled')]: !state.canToggleShowMore,
           },
         ]"
-        @click="toggleShowMore"
-        v-if="showMore"
         :disabled="!state.canToggleShowMore"
+        @click="toggleShowMore"
       >
-        <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">
+        <slot
+          name="showMoreLabel"
+          :is-showing-more="state.isShowingMore"
+        >
           Show {{ state.isShowingMore ? "less" : "more" }}
         </slot>
       </button>

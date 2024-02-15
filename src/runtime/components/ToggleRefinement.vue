@@ -7,7 +7,7 @@
       :value="state.value"
       :can-refine="state.canRefine"
       :refine="state.refine"
-      :createURL="state.createURL"
+      :create-u-r-l="state.createURL"
       :send-event="state.sendEvent"
     >
       <label :class="suit('label')">
@@ -18,9 +18,12 @@
           :value="on"
           :checked="state.value.isRefined"
           @change="state.refine(state.value)"
-        />
+        >
         <span :class="suit('labelText')">{{ label || state.value.name }}</span>
-        <span v-if="state.value.count !== null" :class="suit('count')">{{
+        <span
+          v-if="state.value.count !== null"
+          :class="suit('count')"
+        >{{
           state.value.count.toLocaleString()
         }}</span>
       </label>

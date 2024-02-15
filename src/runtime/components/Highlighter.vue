@@ -1,15 +1,14 @@
 <template>
   <span :class="suit()">
     <component
+      :is="isHighlighted ? highlightedTagName : 'span'"
       v-for="({ value, isHighlighted }, index) in parsedHighlights as {
         value: string | undefined;
         isHighlighted: boolean;
       }[]"
-      :class="[isHighlighted && suit('highlighted')]"
       :key="index"
-      :is="isHighlighted ? highlightedTagName : 'span'"
-      >{{ value }}</component
-    >
+      :class="[isHighlighted && suit('highlighted')]"
+    >{{ value }}</component>
   </span>
 </template>
 
