@@ -10,7 +10,7 @@ export interface ModuleOptions { }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: "nuxt-swiftsearch",
+    name: "@atoms-studio/nuxt-swiftsearch",
     configKey: "swiftsearch",
   },
   // Default configuration options of the Nuxt module
