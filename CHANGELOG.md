@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://undefined/undefined/compare/v0.1.2...v0.1.1)
+
+### 🏡 Chore
+
+- Access public (933fd5e)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.2
 
 [compare changes](https://undefined/undefined/compare/v0.1.1...v0.1.2)
