@@ -29,6 +29,8 @@
 </template>
 
 <script setup lang="ts">
-const { state } = useWidget("sortBy");
+import { useAisWidget } from "../composables/useAisWidget";
+import { useSuit } from "../composables/useSuit";
+const { state } = useAisWidget("sortBy");
 const suit = useSuit("SortBy");
 </script>

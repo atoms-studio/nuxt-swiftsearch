@@ -15,6 +15,8 @@
 
 <script setup lang="ts">
 import type { Hit } from "instantsearch.js";
+import { computed } from "vue";
+import { parseAlgoliaHit } from "../utils/parseAlgoliaHit";
 
 const props = withDefaults(
   defineProps<{

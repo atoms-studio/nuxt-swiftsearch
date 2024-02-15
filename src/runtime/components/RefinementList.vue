@@ -77,6 +77,10 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useAisWidget } from "../composables/useAisWidget";
+import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
+import { computed, ref } from "vue";
+import { useSuit } from "../composables/useSuit";
 const props = withDefaults(
   defineProps<{
     attribute: string;
@@ -86,7 +90,7 @@ const props = withDefaults(
   { searchablePlaceholder: "Search here..." },
 );
 
-const { state: refinementsState, instance } = useWidget("refinementList");
+const { state: refinementsState, instance } = useAisWidget("refinementList");
 const refinementListState = useAisRefinementListRenderState();
 
 const state = computed(() => {

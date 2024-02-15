@@ -70,7 +70,10 @@
 </template>
 
 <script setup lang="ts">
-const { state, widgetParams } = useWidget("infiniteHits");
+import { useAisWidget } from "../composables/useAisWidget";
+import { useSuit } from "../composables/useSuit";
+import { computed } from "vue";
+const { state, widgetParams } = useAisWidget("infiniteHits");
 
 const suit = useSuit("infinite-hits");
 

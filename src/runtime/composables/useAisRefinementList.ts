@@ -4,6 +4,7 @@ import type {
   RefinementListConnectorParams,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import type { Renderer } from "instantsearch.js/es/types";
+import { useState } from "nuxt/app";
 
 export const useAisRefinementListRenderState = () =>
   useState<Record<string, RefinementListRenderState>>(

@@ -107,6 +107,8 @@
 </template>
 
 <script setup lang="ts">
+import { useSuit } from "../composables/useSuit";
+import { ref } from "vue";
 const suit = useSuit("SearchBox");
 
 const query = ref("");

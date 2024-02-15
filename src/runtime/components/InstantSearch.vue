@@ -10,6 +10,8 @@ import type {
   InstantSearchOptions,
   Widget,
 } from "instantsearch.js";
+import { useInstantSearch } from "../composables/useInstantSearch";
+import { toRefs, watch } from "vue";
 
 const props = defineProps<{
   configuration: InstantSearchOptions;

@@ -29,9 +29,12 @@
 </template>
 
 <script setup lang="ts">
+import { useAisWidget } from "../composables/useAisWidget";
+import { useSuit } from "../composables/useSuit";
+import { computed } from "vue";
 const props = defineProps<{ attribute: string; label?: string }>();
 
-const { state: refinementsState } = useWidget("toggleRefinement");
+const { state: refinementsState } = useAisWidget("toggleRefinement");
 
 const state = computed(() => refinementsState.value[props.attribute]);
 

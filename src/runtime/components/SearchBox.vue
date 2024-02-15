@@ -36,7 +36,10 @@
 </template>
 
 <script setup lang="ts">
-const { widgetParams, state } = useWidget("searchBox");
+import { useAisWidget } from "../composables/useAisWidget";
+const { widgetParams, state } = useAisWidget("searchBox");
+import { useSuit } from "../composables/useSuit";
+import { ref, computed } from "vue";
 const props = withDefaults(
   defineProps<{
     placeholder?: string;

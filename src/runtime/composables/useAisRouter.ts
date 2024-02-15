@@ -1,4 +1,6 @@
 import type { LocationQueryRaw } from "#vue-router";
+import { useRouter } from "nuxt/app";
+import { ref } from "vue";
 export const useAisRouter = () => {
   const router = useRouter();
   const algoliaRouter = ref<Record<string, any>>({

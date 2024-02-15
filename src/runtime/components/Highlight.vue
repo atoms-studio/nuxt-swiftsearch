@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import type { Hit } from "instantsearch.js";
+import { useSuit } from "../composables/useSuit";
 
 const suit = useSuit("Highlight");
 withDefaults(

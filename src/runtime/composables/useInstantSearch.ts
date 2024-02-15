@@ -6,6 +6,8 @@ import {
   waitForResults,
   getInitialResults,
 } from "instantsearch.js/es/lib/server";
+import { ref, computed, triggerRef, type Ref } from "vue";
+import { useState } from "nuxt/app";
 
 import instantsearch, { type InitialResults } from "instantsearch.js/es";
 
