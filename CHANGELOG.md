@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://undefined/undefined/compare/v0.1.3...v0.1.4)
+
+### 🚀 Enhancements
+
+- Added more widgets (3826080)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.3
 
 [compare changes](https://undefined/undefined/compare/v0.1.2...v0.1.3)
