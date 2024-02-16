@@ -28,7 +28,10 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.10.1"
+    "@nuxt/kit": "^3.10.1",
+    "algoliasearch": "^4.22.1",
+    "instantsearch.js": "^4.64.3",
+    "qs": "^6.11.2"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -37,12 +40,9 @@
     "@nuxt/schema": "^3.10.1",
     "@nuxt/test-utils": "^3.11.0",
     "@types/node": "^20.11.16",
-    "algoliasearch": "^4.22.1",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
-    "instantsearch.js": "^4.64.3",
     "nuxt": "^3.10.1",
-    "qs": "^6.11.2",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2"
   }
