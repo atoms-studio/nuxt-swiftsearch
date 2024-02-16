@@ -17,7 +17,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
 
   if (!state.value)
     throw new Error(
-      "Connector not found, did you forget to add the proper widget?",
+      `Connector for component ${widgetName} not found, did you forget to add the proper widget?`,
     );
 
   const widgetParams = computed(() => state.value.widgetParams);

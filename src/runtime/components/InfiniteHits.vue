@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.results" :class="suit()">
     <slot
       v-if="showPrevious"
       name="loadPrevious"
