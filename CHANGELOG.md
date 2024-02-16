@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://undefined/undefined/compare/v0.1.2...v0.1.3)
+
+### 🩹 Fixes
+
+- Package json (ecfe163)
+- Move required dependencies from dev to deps (d3f119c)
+
+### 🏡 Chore
+
+- Access public (933fd5e)
+- **release:** V0.1.1 (2af71fe)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.1
 
 [compare changes](https://undefined/undefined/compare/v0.1.2...v0.1.1)
