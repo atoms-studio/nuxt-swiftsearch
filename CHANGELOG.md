@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://undefined/undefined/compare/v0.1.4...v0.1.5)
+
+### 🩹 Fixes
+
+- Optimized dependencies (fa2ce0d)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.4
 
 [compare changes](https://undefined/undefined/compare/v0.1.3...v0.1.4)
