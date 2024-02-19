@@ -15,7 +15,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   // Default configuration options of the Nuxt module
   defaults: {},
-  setup() {
+  setup(_, nuxt) {
     const resolver = createResolver(import.meta.url);
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
@@ -27,5 +27,11 @@ export default defineNuxtModule<ModuleOptions>({
       path: resolver.resolve("./runtime/components"),
       prefix: "Ais",
     });
+    // transpiling modules
+    nuxt.options.vite ??= {}
+    nuxt.options.vite.optimizeDeps ??= {}
+    nuxt.options.vite.optimizeDeps.include ??= []
+    nuxt.options.vite.optimizeDeps.include.push(...["algoliasearch-helper", "@algolia/events", "hogan.js"])
+
   },
 });

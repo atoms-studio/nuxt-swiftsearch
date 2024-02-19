@@ -1,9 +1,12 @@
 <template>
-  <div :class="[suit(), noRefinement && suit('', 'noRefinement')]" v-if="state">
+  <div
+    v-if="state"
+    :class="[suit(), noRefinement && suit('', 'noRefinement')]"
+  >
     <slot
       :refine="state.refine"
       :items="state.items"
-      :createURL="state.createURL"
+      :create-u-r-l="state.createURL"
     >
       <ul :class="suit('list')">
         <li
@@ -15,7 +18,7 @@
             name="item"
             :refine="item.refine"
             :item="item"
-            :createURL="state.createURL"
+            :create-u-r-l="state.createURL"
           >
             <span :class="suit('label')">{{ capitalize(item.label) }}: </span>
             <span
@@ -27,14 +30,13 @@
                 name="refinement"
                 :refine="item.refine"
                 :refinement="refinement"
-                :createURL="state.createURL"
+                :create-u-r-l="state.createURL"
               >
                 <span :class="suit('categoryLabel')">
                   <q v-if="refinement.attribute === 'query'">{{
                     refinement.label
                   }}</q>
-                  <template v-else>{{ refinement.label }}</template> </span
-                ><button
+                  <template v-else>{{ refinement.label }}</template> </span><button
                   :class="suit('delete')"
                   type="button"
                   @click.left.exact="item.refine(refinement)"

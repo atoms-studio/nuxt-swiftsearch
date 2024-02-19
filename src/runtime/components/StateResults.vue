@@ -1,5 +1,8 @@
 <template>
-  <div :class="suit()" v-if="state && state.state && state.results">
+  <div
+    v-if="state && state.state && state.results"
+    :class="suit()"
+  >
     <slot v-bind="stateResults">
       <p>
         Use this component to have a different layout based on a certain state.
