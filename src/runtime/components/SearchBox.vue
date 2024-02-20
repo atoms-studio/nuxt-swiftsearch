@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :current-refinement="currentRefinement"
       :is-search-stalled="state.isSearchStalled"
@@ -40,7 +37,7 @@
 
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
-const { widgetParams, state } = useAisWidget("searchBox");
+const { state } = useAisWidget("searchBox");
 import { useSuit } from "../composables/useSuit";
 import { ref, computed } from "vue";
 const props = withDefaults(
@@ -52,7 +49,6 @@ const props = withDefaults(
     ignoreCompositionEvents?: boolean;
     submitTitle?: string;
     resetTitle?: string;
-    value?: string;
   }>(),
   {
     placeholder: "Search here...",
@@ -62,7 +58,6 @@ const props = withDefaults(
     ignoreCompositionEvents: false,
     submitTitle: "Search",
     resetTitle: "Clear",
-    value: "",
   },
 );
 
@@ -79,42 +74,16 @@ const emit = defineEmits([
   "reset",
 ]);
 
-const isControlled = computed(
-  () =>
-    typeof props.value !== "undefined" ||
-    typeof modelValue.value !== "undefined",
-);
-
-const model = computed(() => props.value || modelValue.value);
 const searchInput = ref<any>();
 const currentRefinement = computed({
   get() {
-    // if the input is controlled, but not up to date
-    // this means it didn't search, and we should pretend it was `set`
-    if (isControlled.value && model.value !== localValue.value) {
-      // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-      localValue.value = model.value ?? "";
-      emit("input", model.value);
-      emit("update:modelValue", model.value);
-      state.value.refine(model.value ?? "");
-    }
-
-    // we return the local value if the input is focused to avoid
-    // concurrent updates when typing
-    if (
-      searchInput.value &&
-      searchInput.value.isFocused &&
-      searchInput.value.isFocused()
-    ) {
-      return localValue.value;
-    }
-
-    return model.value || state.value.query || "";
+    return modelValue.value || state.value.query || "";
   },
   set(val) {
-    localValue.value = val;
-    state.value.refine(val);
-    if (isControlled.value) {
+    if (val !== state.value.query) {
+      state.value.refine(val);
+    }
+    if (modelValue.value) {
       emit("input", val);
       emit("update:modelValue", val);
     }

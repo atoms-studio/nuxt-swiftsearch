@@ -107,7 +107,7 @@ const props = withDefaults(
   { searchablePlaceholder: "Search here..." },
 );
 
-const { state: refinementsState, instance } = useAisWidget("refinementList");
+const { state: refinementsState} = useAisWidget("refinementList");
 const refinementListState = useAisRefinementListRenderState();
 
 const state = computed(() => {
@@ -119,22 +119,9 @@ const widgetParams = computed(
   () => refinementsState.value[props.attribute].widgetParams,
 );
 
-const noop = () => {};
-
 const suit = useSuit("RefinementList");
 
-// widget settings from params
-const operator = computed(() => widgetParams.value.operator ?? "or");
-
-const limit = computed(() => widgetParams.value.limit);
-
 const showMore = computed(() => widgetParams.value.showMore ?? false);
-
-const showMoreLimit = computed(() => widgetParams.value.showMoreLimit);
-
-const transformItems = computed(() => widgetParams.value.transformItems);
-
-const sortBy = computed(() => widgetParams.value.sortBy);
 
 const searchForFacetValuesQuery = ref("");
 
