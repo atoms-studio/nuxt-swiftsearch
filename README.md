@@ -1,12 +1,3 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: Nuxt Swiftsearch
-- Package name: @atoms-studio/nuxt-swiftsearch
-- Description: A tailor made implementation of algolia instantsearch for nuxt 3
--->
-
 # Nuxt Swiftsearch
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -22,11 +13,10 @@ A tailor made implementation of algolia instantsearch for nuxt 3.
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- 🍀 &nbsp;SSR First, client only on demand, as is any other nuxt component
+- 🗼 &nbsp;Centralized state, you can tap into it from anywhere in your app
+- 🌲 &nbsp;99% compatible with vue-instantsearch current implementation
+- 👮 &nbsp;Typed components
 
 ## Quick Setup
 
