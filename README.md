@@ -31,6 +31,9 @@ yarn add --dev @atoms-studio/nuxt-swiftsearch
 
 # Using npm
 npm install --save-dev @atoms-studio/nuxt-swiftsearch
+
+# Using bun
+bun add -D @atoms-studio/nuxt-swiftsearch
 ```
 
 2. Add `@atoms-studio/nuxt-swiftsearch` to the `modules` section of `nuxt.config.ts`

@@ -1,0 +1,53 @@
+title: "Nuxt Swiftsearch"
+description: "Nuxt Swiftsearch - a tailor made implementation of instantsearch for Nuxt"
+navigation: false
+hero:
+  title: "Nuxt Swiftsearch"
+  description: "A tailor made implementation of instantsearch for Nuxt"
+  orientation: horizontal
+  headline:
+    label: Made with Nuxt UI Pro
+    to: https://ui.nuxt.com/pro
+    icon: i-heroicons-arrow-top-right-on-square-20-solid
+  links:
+    - label: Get started
+      icon: i-heroicons-arrow-right-20-solid
+      trailing: true
+      to: "/getting-started"
+      size: lg
+  code: |
+    ```bash [Terminal]
+    # Using pnpm
+    pnpm add -D @atoms-studio/nuxt-swiftsearch
+
+    # Using yarn
+    yarn add --dev @atoms-studio/nuxt-swiftsearch
+
+    # Using npm
+    npm install --save-dev @atoms-studio/nuxt-swiftsearch
+
+    # Using bun
+    bun add -D @atoms-studio/nuxt-swiftsearch
+    ```
+features:
+  items:
+    - title: "Made with Nuxt, for Nuxt"
+      description: "Powered by Nuxt 3 for optimal SSR performances and SEO."
+      icon: "i-simple-icons-nuxtdotjs"
+      to: "https://nuxt.com"
+      target: "_blank"
+    - title: "SSR First"
+      description: "Works in SSR mode out of the box, add <ClientOnly> to opt-out!"
+      icon: "i-heroicons-sparkles-20-solid"
+      to: "https://content.nuxt.com"
+      target: "_blank"
+    - title: "Vue Instantsearch compatible"
+      description: "Compatible with Vue Instantsearch almost out of the box!"
+      icon: "i-simple-icons-algolia"
+      to: "https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/vue/"
+      target: "_blank"
+    - title: "Typed components"
+      description: "A fully typed development experience."
+      icon: "i-simple-icons-typescript"
+      to: "https://www.typescriptlang.org"
+      target: "_blank"
