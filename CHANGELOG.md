@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.7
+
+[compare changes](https://undefined/undefined/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- Docs (f73ec62)
+
+### 🏡 Chore
+
+- Updated readme, added better typings for router (829cf0d)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.6
 
 [compare changes](https://undefined/undefined/compare/v0.1.5...v0.1.6)
