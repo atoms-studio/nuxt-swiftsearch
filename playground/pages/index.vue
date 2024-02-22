@@ -1,12 +1,18 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration>
+    <AisInstantSearch
+      :widgets
+      :configuration
+    >
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
       <AisIndex index="airbnb">
         <AisInfiniteHits />
       </AisIndex>

@@ -9,7 +9,7 @@ A tailor made implementation of algolia instantsearch for nuxt 3.
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
   <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/@atoms-studio/nuxt-swiftsearch?file=playground%2Fapp.vue) -->
-  <!-- - [📖 &nbsp;Documentation](https://example.com) -->
+- [📖 &nbsp;Documentation](https://nuxt-swiftsearch.netlify.app)
 
 ## Features
 
