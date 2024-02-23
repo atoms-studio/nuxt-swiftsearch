@@ -6,7 +6,7 @@ import {
 } from "@nuxt/kit";
 
 // Module options TypeScript interface definition
-export interface ModuleOptions { }
+export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -28,10 +28,11 @@ export default defineNuxtModule<ModuleOptions>({
       prefix: "Ais",
     });
     // transpiling modules
-    nuxt.options.vite ??= {}
-    nuxt.options.vite.optimizeDeps ??= {}
-    nuxt.options.vite.optimizeDeps.include ??= []
-    nuxt.options.vite.optimizeDeps.include.push(...["algoliasearch-helper", "@algolia/events", "hogan.js"])
-
+    nuxt.options.vite ??= {};
+    nuxt.options.vite.optimizeDeps ??= {};
+    nuxt.options.vite.optimizeDeps.include ??= [];
+    nuxt.options.vite.optimizeDeps.include.push(
+      ...["algoliasearch-helper", "@algolia/events", "hogan.js", "qs"],
+    );
   },
 });
