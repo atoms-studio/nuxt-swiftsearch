@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.1.8
+
+[compare changes](https://undefined/undefined/compare/v0.1.7...v0.1.8)
+
+### 🩹 Fixes
+
+- **docs:** Ais-index link (f83e9f8)
+- Included qs dep transpilation and fixed tsc error (8aac72c)
+
+### 🏡 Chore
+
+- Added docs in readme (4301b50)
+- Added github link (eb03a08)
+- Oss docs license (ee581d3)
+- Changed logo (4c58f83)
+- **docs:** Added composables section (d5ca4f9)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.7
 
 [compare changes](https://undefined/undefined/compare/v0.1.6...v0.1.7)
