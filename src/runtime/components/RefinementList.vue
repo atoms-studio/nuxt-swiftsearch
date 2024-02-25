@@ -16,7 +16,10 @@
       :can-refine="state.canRefine"
       :send-event="state.sendEvent"
     >
-      <div v-if="searchable" :class="suit('searchBox')">
+      <div
+        v-if="searchable"
+        :class="suit('searchBox')"
+      >
         <AisSearchInput
           v-model="searchForFacetValues"
           :placeholder="searchablePlaceholder"
@@ -27,7 +30,9 @@
         name="noResults"
         :query="searchForFacetValues"
       >
-        <div :class="suit('noResults')">No results.</div>
+        <div :class="suit('noResults')">
+          No results.
+        </div>
       </slot>
       <ul :class="suit('list')">
         <li
@@ -48,11 +53,20 @@
                 :value="item.value"
                 :checked="item.isRefined"
                 @change="refine(item.value)"
-              />
-              <span v-if="searchable" :class="suit('labelText')">
-                <AisHighlight attribute="item" :hit="item" />
+              >
+              <span
+                v-if="searchable"
+                :class="suit('labelText')"
+              >
+                <AisHighlight
+                  attribute="item"
+                  :hit="item"
+                />
               </span>
-              <span v-else :class="suit('labelText')">{{ item.label }}</span>
+              <span
+                v-else
+                :class="suit('labelText')"
+              >{{ item.label }}</span>
               <span :class="suit('count')">{{ item.count }}</span>
             </label>
           </slot>
@@ -69,7 +83,10 @@
         :disabled="!state.canToggleShowMore"
         @click="toggleShowMore"
       >
-        <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">
+        <slot
+          name="showMoreLabel"
+          :is-showing-more="state.isShowingMore"
+        >
           Show {{ state.isShowingMore ? "less" : "more" }}
         </slot>
       </button>

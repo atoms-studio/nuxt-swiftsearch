@@ -8,8 +8,7 @@
       }[]"
       :key="index"
       :class="[isHighlighted && suit('highlighted')]"
-      >{{ value }}</component
-    >
+    >{{ value }}</component>
   </span>
 </template>
 
