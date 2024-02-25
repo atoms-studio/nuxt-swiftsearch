@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.12
+
+[compare changes](https://undefined/undefined/compare/v0.1.11...v0.1.12)
+
+### 🩹 Fixes
+
+- Listen to algolia erroring out (ff861bd)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.11
 
 [compare changes](https://undefined/undefined/compare/v0.1.10...v0.1.11)
