@@ -46,6 +46,12 @@ export const useInstantSearch = () => {
     instance.value.on("render", () => {
       triggerRef(_searchInstance);
     });
+    instance.value.on("error", ({ error }) => {
+      throw createError({
+        statusCode: 500,
+        statusMessage: error,
+      });
+    });
     instance.value.start();
   };
   return {

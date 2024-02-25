@@ -4,7 +4,7 @@ import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
 export const useAisRouter = () => {
   const router = useRouter();
-  const algoliaRouter: Ref<RouterProps> = ref({
+  const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
         const query = router.currentRoute.value.query;
