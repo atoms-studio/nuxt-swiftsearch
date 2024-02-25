@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.11
+
+[compare changes](https://undefined/undefined/compare/v0.1.10...v0.1.11)
+
+### 🩹 Fixes
+
+- **ts:** Fixed  useAisRouter not typing ref correctly (ba294aa)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.10
 
 [compare changes](https://undefined/undefined/compare/v0.1.9...v0.1.10)
