@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.10
+
+[compare changes](https://undefined/undefined/compare/v0.1.9...v0.1.10)
+
+### 🩹 Fixes
+
+- **ts:** Correctly typed useAisRouter (3c51e91)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.9
 
 [compare changes](https://undefined/undefined/compare/v0.1.8...v0.1.9)
