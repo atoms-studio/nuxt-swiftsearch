@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.9
+
+[compare changes](https://undefined/undefined/compare/v0.1.8...v0.1.9)
+
+### 🩹 Fixes
+
+- **ts:** Fixed typescript errors (3c56a2f)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.8
 
 [compare changes](https://undefined/undefined/compare/v0.1.7...v0.1.8)
