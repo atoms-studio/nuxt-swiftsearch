@@ -50,7 +50,6 @@
                 @change="refine(item.value)"
               />
               <span v-if="searchable" :class="suit('labelText')">
-                <!-- @ts-ignore -->
                 <AisHighlight attribute="item" :hit="item" />
               </span>
               <span v-else :class="suit('labelText')">{{ item.label }}</span>

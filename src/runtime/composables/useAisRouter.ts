@@ -40,6 +40,7 @@ export const useAisRouter = () => {
         }
         // @ts-ignore
         if (this._onPopState) {
+          // @ts-ignore
           window.removeEventListener("popstate", this._onPopState);
         }
         // @ts-ignore

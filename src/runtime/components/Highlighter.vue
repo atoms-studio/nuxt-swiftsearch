@@ -8,7 +8,8 @@
       }[]"
       :key="index"
       :class="[isHighlighted && suit('highlighted')]"
-    >{{ value }}</component>
+      >{{ value }}</component
+    >
   </span>
 </template>
 
@@ -16,10 +17,11 @@
 import type { Hit } from "instantsearch.js";
 import { computed } from "vue";
 import { parseAlgoliaHit } from "../utils/parseAlgoliaHit";
+import type { RefinementListItem } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 
 const props = withDefaults(
   defineProps<{
-    hit: Hit;
+    hit: Hit | RefinementListItem;
     attribute: string;
     highlightedTagName: string;
     highlightProperty: string;

@@ -1,5 +1,4 @@
 // copied from React InstantSearch
-import type { Hit } from "instantsearch.js";
 import { getPropertyByPath } from "instantsearch.js/es/lib/utils";
 
 const TAG_PLACEHOLDER = {
@@ -87,7 +86,7 @@ export function parseAlgoliaHit({
   postTag: string;
   highlightProperty: string;
   attribute: string;
-  hit: Hit;
+  hit: Record<string, any>;
 }) {
   if (!hit) throw new Error("`hit`, the matching record, must be provided");
 
