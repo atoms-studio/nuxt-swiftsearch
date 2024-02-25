@@ -1,11 +1,10 @@
 import { useRouter } from "nuxt/app";
 import { ref } from "vue";
-import type { InstantSearchOptions } from "instantsearch.js";
+import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
-type InstantSearchRouter = RouterProps;
 export const useAisRouter = () => {
   const router = useRouter();
-  const algoliaRouter = ref<InstantSearchRouter>({
+  const algoliaRouter: Ref<RouterProps> = ref({
     router: {
       read() {
         const query = router.currentRoute.value.query;
