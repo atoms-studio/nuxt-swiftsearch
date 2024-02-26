@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.14
+
+[compare changes](https://undefined/undefined/compare/v0.1.13...v0.1.14)
+
+### 🩹 Fixes
+
+- Added @babel/runtime dependency for npm/yarn package managers (e62e823)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.13
 
 [compare changes](https://undefined/undefined/compare/v0.1.12...v0.1.13)

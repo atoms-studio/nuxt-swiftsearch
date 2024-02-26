@@ -1,6 +1,6 @@
 {
   "name": "@atoms-studio/nuxt-swiftsearch",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "A tailor made implementation of algolia instantsearch for nuxt 3",
   "repository": "@atoms-studio/nuxt-swiftsearch",
   "license": "MIT",
