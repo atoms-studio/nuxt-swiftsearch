@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.13
+
+[compare changes](https://undefined/undefined/compare/v0.1.12...v0.1.13)
+
+### 🚀 Enhancements
+
+- **docs:** Added swiftsearch logo (993e0d4)
+
+### 🏡 Chore
+
+- Assert nuxt version > than 3.10 (7928e0b)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.12
 
 [compare changes](https://undefined/undefined/compare/v0.1.11...v0.1.12)
