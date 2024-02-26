@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { NavItem } from "@nuxt/content/dist/runtime/types";
+import type { NavItem } from '@nuxt/content/dist/runtime/types'
 
-const navigation = inject<NavItem[]>("navigation", []);
+const navigation = inject<NavItem[]>('navigation', [])
 
-const { header } = useAppConfig();
+const { header } = useAppConfig()
 </script>
 
 <template>
@@ -13,7 +13,9 @@ const { header } = useAppConfig();
         <UColorModeImage v-bind="{ class: 'h-6 w-auto', ...header?.logo }" />
         &nbsp; Nuxt Swiftsearch
       </template>
-      <template v-else> Nuxt Swiftsearch </template>
+      <template v-else>
+        Nuxt Swiftsearch
+      </template>
     </template>
 
     <template v-if="header?.search" #center>

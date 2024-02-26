@@ -28,6 +28,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
+    "@babel/runtime": "^7.23.9",
     "@nuxt/kit": "^3.10.1",
     "algoliasearch": "^4.22.1",
     "instantsearch.js": "^4.64.3",
