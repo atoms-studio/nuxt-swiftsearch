@@ -44,8 +44,10 @@
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
     "nuxt": "^3.10.1",
+    "playwright-core": "^1.42.1",
     "typescript": "^5.3.3",
     "vitest": "^1.2.2",
+    "vue-instantsearch": "^4.14.0",
     "vue-tsc": "^1.8.27"
   }
 }

@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.results" :class="suit()">
     <slot
       v-if="showPrevious"
       name="loadPrevious"
@@ -45,7 +42,7 @@
             :index="index"
             :send-event="state.sendEvent"
           >
-            objectID: {{ item.name }}, index: {{ index }}
+            objectID: {{ item.objectID }}, index: {{ index }}
           </slot>
         </li>
       </ol>
@@ -78,7 +75,7 @@ import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 const { state, widgetParams } = useAisWidget("infiniteHits");
 
-const suit = useSuit("infinite-hits");
+const suit = useSuit("InfiniteHits");
 
 const showPrevious = computed(() => {
   return widgetParams.value?.showPrevious ?? false;

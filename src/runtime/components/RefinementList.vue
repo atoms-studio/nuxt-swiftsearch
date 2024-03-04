@@ -104,7 +104,7 @@ const props = withDefaults(
     searchable?: boolean;
     searchablePlaceholder?: string;
   }>(),
-  { searchablePlaceholder: "Search here..." },
+  { searchablePlaceholder: "Search here…" },
 );
 
 const { state: refinementsState } = useAisWidget("refinementList");

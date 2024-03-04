@@ -1,15 +1,43 @@
-import { describe, it, expect } from 'vitest'
-import { fileURLToPath } from 'node:url'
-import { setup, $fetch } from '@nuxt/test-utils/e2e'
+import { describe, it, expect, beforeAll } from "vitest";
+import { fileURLToPath } from "node:url";
+import { setup, $fetch, createPage, createBrowser } from "@nuxt/test-utils/e2e";
 
-describe('ssr', async () => {
+const PORT = 7777;
+const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
+const stripHTMLComments = (htmlString: string) => {
+  return htmlString.replaceAll(/<!--(.*?)-->/g, "");
+};
+
+const componentsTestIds = ["infinitehits", "refinementlist"];
+
+describe("vue-instantsearch-snapshots", async () => {
   await setup({
-    rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
-  })
+    rootDir: fileURLToPath(new URL("./fixtures/basic", import.meta.url)),
+    browser: true,
+    server: true,
+    port: 7777,
+  });
 
-  it('renders the index page', async () => {
-    // Get response to a server-rendered page with `$fetch`.
-    const html = await $fetch('/')
-    expect(html).toContain('<div>basic</div>')
-  })
-})
+  it("matches instantsearch snapshots", async () => {
+    const page = await createPage(getTestUrl("/instantsearch"));
+    await page.waitForLoadState("networkidle");
+
+    for await (const testId of componentsTestIds) {
+      const comp = stripHTMLComments(
+        await page.getByTestId(testId).innerHTML(),
+      );
+      expect(comp).toMatchFileSnapshot(`./snapshots/${testId}`);
+    }
+  });
+
+  it("matches UI between implementations", async () => {
+    const page = await createPage(getTestUrl("/swiftsearch"));
+
+    for await (const testId of componentsTestIds) {
+      const comp = stripHTMLComments(
+        await page.getByTestId(testId).innerHTML(),
+      );
+      expect(comp).toMatchFileSnapshot(`./snapshots/${testId}`);
+    }
+  });
+});

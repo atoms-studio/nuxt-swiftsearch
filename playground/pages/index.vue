@@ -1,18 +1,12 @@
 <template>
   <div>
-    <AisInstantSearch
-      :widgets
-      :configuration
-    >
+    <AisInstantSearch :widgets :configuration>
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisIndex index="airbnb">
         <AisInfiniteHits />
       </AisIndex>
@@ -42,8 +36,6 @@ const widgets = computed(() => [
   useAisStats({}),
   useAisInfiniteHits({
     showPrevious: true,
-    // @ts-ignore need to understand how to correclty type transformItems, see https://github.com/algolia/instantsearch/discussions/6070
-    transformItems: (items) => items.map((item) => item.test),
   }),
   useAisRefinementList({
     attribute: "brand",
