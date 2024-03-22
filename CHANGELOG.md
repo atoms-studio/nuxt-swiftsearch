@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.21
+
+[compare changes](https://undefined/undefined/compare/v0.1.20...v0.1.21)
+
+### 🏡 Chore
+
+- Removed logs (ad26df1)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.20
 
 [compare changes](https://undefined/undefined/compare/v0.1.19...v0.1.20)
