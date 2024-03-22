@@ -12,7 +12,7 @@ import type {
   InstantSearch,
 } from "instantsearch.js";
 import { useInstantSearch } from "../composables/useInstantSearch";
-import { toRefs, watch, shallowRef } from "vue";
+import { toRefs, watch, shallowRef, provide } from "vue";
 import instantsearch, { type InitialResults } from "instantsearch.js/es";
 import { useState } from "nuxt/app";
 

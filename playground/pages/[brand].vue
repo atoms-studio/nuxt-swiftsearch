@@ -1,20 +1,33 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung"> Samsung Products </NuxtLink>
-    <NuxtLink to="/Apple"> Apple Products </NuxtLink>
-    <AisInstantSearch :widgets :configuration>
+    <NuxtLink to="/Samsung">
+      Samsung Products
+    </NuxtLink>
+    <NuxtLink to="/Apple">
+      Apple Products
+    </NuxtLink>
+    <AisInstantSearch
+      :widgets
+      :configuration
+    >
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
         <template #default="{ items }">
-          <div v-for="item in items" :key="item.objectID">
+          <div
+            v-for="item in items"
+            :key="item.objectID"
+          >
             {{ item.brand }} - {{ item.price }}
           </div>
         </template>
       </AisInfiniteHits>
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
       <AisIndex index="airbnb">
         <AisInfiniteHits />
       </AisIndex>
