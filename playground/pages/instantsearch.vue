@@ -1,7 +1,12 @@
 <template>
   <div>
-    <NuxtLink to="/"> Home</NuxtLink>
-    <AisInstantSearch index-name="instant_search" :search-client="client">
+    <NuxtLink to="/">
+      Home
+    </NuxtLink>
+    <AisInstantSearch
+      index-name="instant_search"
+      :search-client="client"
+    >
       <AisInfiniteHits data-testid="infinitehits" />
     </AisInstantSearch>
   </div>

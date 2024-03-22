@@ -1,7 +1,7 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung">Samsung Products</NuxtLink>
-    <NuxtLink to="/Apple">Apple Products</NuxtLink>
+    <NuxtLink to="/Samsung"> Samsung Products </NuxtLink>
+    <NuxtLink to="/Apple"> Apple Products </NuxtLink>
     <AisInstantSearch :widgets :configuration>
       <AisStats />
       <AisSearchBox />
@@ -9,7 +9,9 @@
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
         <template #default="{ items }">
-          <div v-for="item in items">{{ item.brand }} - {{ item.price }}</div>
+          <div v-for="item in items" :key="item.objectID">
+            {{ item.brand }} - {{ item.price }}
+          </div>
         </template>
       </AisInfiniteHits>
       <AisRefinementList attribute="brand" searchable />

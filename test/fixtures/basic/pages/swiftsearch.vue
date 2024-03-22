@@ -1,6 +1,9 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration>
+    <AisInstantSearch
+      :widgets
+      :configuration
+    >
       <!-- <AisStats data-testid="stats" /> -->
       <!-- <AisSearchBox data-testid="searchbox" /> -->
       <!-- <AisSortBy data-testid="sortby" /> -->
