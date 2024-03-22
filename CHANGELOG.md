@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.19
+
+[compare changes](https://undefined/undefined/compare/v0.1.18...v0.1.19)
+
+### 🚀 Enhancements
+
+- Added widget dirty checking (c2ef6b3)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.18
 
 [compare changes](https://undefined/undefined/compare/v0.1.17...v0.1.18)
