@@ -23,5 +23,8 @@ export const useAisToggleRefinement = (
   );
 
   // 3. Instantiate
-  return customToggleRefinement(widgetParams);
+  return {
+    ...customToggleRefinement(widgetParams),
+    $$widgetParams: widgetParams,
+  };
 };

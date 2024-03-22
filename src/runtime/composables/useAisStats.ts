@@ -19,5 +19,5 @@ export const useAisStats = (widgetParams: StatsConnectorParams) => {
   const customStats = connectStats(renderStats);
 
   // 3. Instantiate
-  return customStats(widgetParams);
+  return { ...customStats(widgetParams), $$widgetParams: widgetParams };
 };

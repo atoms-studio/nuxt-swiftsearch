@@ -23,5 +23,8 @@ export const useAisCurrentRefinements = (
   );
 
   // 3. Instantiate
-  return customCurrentRefinements(widgetParams);
+  return {
+    ...customCurrentRefinements(widgetParams),
+    $$widgetParams: widgetParams,
+  };
 };

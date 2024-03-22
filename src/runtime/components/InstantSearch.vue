@@ -15,6 +15,7 @@ import { useInstantSearch } from "../composables/useInstantSearch";
 import { toRefs, watch, shallowRef, provide, ref } from "vue";
 import instantsearch, { type InitialResults } from "instantsearch.js/es";
 import { useState } from "nuxt/app";
+import isEqual from "lodash.isequal";
 
 const props = defineProps<{
   configuration: InstantSearchOptions;
@@ -45,15 +46,27 @@ if (import.meta.client) {
 
 // watching if any widget parameter has changed to refresh only that widget
 watch(_widgets, (newWidgets, oldWidgets) => {
-  search.value.removeWidgets(oldWidgets);
-  search.value.addWidgets(newWidgets);
+  // dirty checking which widgets to change
+
+  const widgetsToAdd = newWidgets.filter(
+    (newW) =>
+      !oldWidgets.some(
+        // @ts-ignore
+        (oldW) => isEqual(oldW.$$widgetParams, newW.$$widgetParams),
+      ),
+  );
+  const widgetsToRemove = oldWidgets.filter(
+    (oldW) =>
+      !newWidgets.some((newW) =>
+        // @ts-ignore
+        isEqual(oldW.$$widgetParams, newW.$$widgetParams),
+      ),
+  );
+  console.log("removing", widgetsToRemove);
+  console.log("adding", widgetsToAdd);
+  search.value.removeWidgets(widgetsToRemove);
+  search.value.addWidgets(widgetsToAdd);
 });
-// accepting import meta hot updates
-if (import.meta.hot) {
-  import.meta.hot.accept(() => {
-    triggerRef(_searchInstance);
-  });
-}
 await setup(props.widgets);
 </script>
 

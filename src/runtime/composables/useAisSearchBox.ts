@@ -19,5 +19,5 @@ export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams) => {
   const customSearchBox = connectSearchBox(renderSearchBox);
 
   // 3. Instantiate
-  return customSearchBox(widgetParams);
+  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams };
 };

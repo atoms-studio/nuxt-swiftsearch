@@ -19,5 +19,5 @@ export const useAisSortBy = (widgetParams: SortByConnectorParams) => {
   const customSortBy = connectSortBy(renderSortBy);
 
   // 3. Instantiate
-  return customSortBy(widgetParams);
+  return { ...customSortBy(widgetParams), $$widgetParams: widgetParams };
 };

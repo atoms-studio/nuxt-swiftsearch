@@ -22,5 +22,5 @@ export const useAisInfiniteHits = (
     connectInfiniteHitsWithInsights(renderInfiniteHits);
 
   // 3. Instantiate
-  return customInfiniteHits(widgetParams);
+  return { ...customInfiniteHits(widgetParams), $$widgetParams: widgetParams };
 };

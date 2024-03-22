@@ -23,5 +23,8 @@ export const useAisClearRefinements = (
   );
 
   // 3. Instantiate
-  return customClearRefinements(widgetParams);
+  return {
+    ...customClearRefinements(widgetParams),
+    $$widgetParams: widgetParams,
+  };
 };

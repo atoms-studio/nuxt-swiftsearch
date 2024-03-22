@@ -32,5 +32,8 @@ export const useAisRefinementList = (
   const customRefinementList = connectRefinementList(renderRefinementList);
 
   // 3. Instantiate
-  return customRefinementList(widgetParams);
+  return {
+    ...customRefinementList(widgetParams),
+    $$widgetParams: widgetParams,
+  };
 };
