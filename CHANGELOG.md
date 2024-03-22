@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.1.15
+
+[compare changes](https://undefined/undefined/compare/v0.1.14...v0.1.15)
+
+### 🚀 Enhancements
+
+- **tests:** Added first basic test of consistency with vue-instantsearch (5e34200)
+- **docs:** Added clear refinements docs (987b39b)
+
+### 🏡 Chore
+
+- Added key on brand playground page (bda53f2)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.14
 
 [compare changes](https://undefined/undefined/compare/v0.1.13...v0.1.14)
