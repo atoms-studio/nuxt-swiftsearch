@@ -62,8 +62,6 @@ watch(_widgets, (newWidgets, oldWidgets) => {
         isEqual(oldW.$$widgetParams, newW.$$widgetParams),
       ),
   );
-  console.log("removing", widgetsToRemove);
-  console.log("adding", widgetsToAdd);
   search.value.removeWidgets(widgetsToRemove);
   search.value.addWidgets(widgetsToAdd);
 });

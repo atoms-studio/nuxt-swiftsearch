@@ -11,7 +11,6 @@ export const useAisRouter = () => {
         return Array.isArray(query) ? query[0] : query;
       },
       write(routeState) {
-        console.log("calling write", routeState);
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
         router.push({ query: routeState });
       },
