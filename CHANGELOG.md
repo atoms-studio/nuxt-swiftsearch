@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.20
+
+[compare changes](https://undefined/undefined/compare/v0.1.19...v0.1.20)
+
+### 🚀 Enhancements
+
+- Added lodash to deps (d962e55)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.19
 
 [compare changes](https://undefined/undefined/compare/v0.1.18...v0.1.19)
