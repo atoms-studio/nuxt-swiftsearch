@@ -1,5 +1,5 @@
 import type { RenderState } from "instantsearch.js";
-import { computed, inject, watch } from "vue";
+import { computed, inject, watch, ref } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
