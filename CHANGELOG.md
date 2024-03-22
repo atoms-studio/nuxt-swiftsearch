@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.16
+
+[compare changes](https://undefined/undefined/compare/v0.1.15...v0.1.16)
+
+### 🩹 Fixes
+
+- Added missing vue imports (247ae2c)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.15
 
 [compare changes](https://undefined/undefined/compare/v0.1.14...v0.1.15)
