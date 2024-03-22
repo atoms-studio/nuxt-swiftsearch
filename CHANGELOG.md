@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.17
+
+[compare changes](https://undefined/undefined/compare/v0.1.16...v0.1.17)
+
+### 🩹 Fixes
+
+- Ref missing (3a7ddeb)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.16
 
 [compare changes](https://undefined/undefined/compare/v0.1.15...v0.1.16)
