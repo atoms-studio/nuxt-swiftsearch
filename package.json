@@ -32,6 +32,7 @@
     "@nuxt/kit": "^3.10.1",
     "algoliasearch": "^4.22.1",
     "instantsearch.js": "^4.64.3",
+    "lodash.isequal": "^4.5.0",
     "qs": "^6.11.2"
   },
   "devDependencies": {
@@ -44,7 +45,6 @@
     "@types/node": "^20.11.16",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
-    "lodash.isequal": "^4.5.0",
     "nuxt": "^3.10.1",
     "playwright-core": "^1.42.1",
     "typescript": "^5.3.3",

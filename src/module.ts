@@ -34,7 +34,13 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.vite.optimizeDeps ??= {};
     nuxt.options.vite.optimizeDeps.include ??= [];
     nuxt.options.vite.optimizeDeps.include.push(
-      ...["algoliasearch-helper", "@algolia/events", "hogan.js", "qs"],
+      ...[
+        "algoliasearch-helper",
+        "@algolia/events",
+        "hogan.js",
+        "qs",
+        "lodash.isequal",
+      ],
     );
   },
 });
