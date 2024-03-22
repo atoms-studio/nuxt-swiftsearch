@@ -1,5 +1,5 @@
 import type { RenderState } from "instantsearch.js";
-import { computed, inject } from "vue";
+import { computed, inject, watch } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
@@ -10,10 +10,17 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
 
   const maybeInjectedIndex = inject<string | undefined>("index", undefined);
 
-  const state = computed(() => {
-    const index = maybeInjectedIndex ?? instance.value.indexName;
-    return instance.value.renderState[index][widgetName]!;
-  });
+  const index = maybeInjectedIndex ?? instance.value.indexName;
+  const state = ref(instance.value.renderState[index][widgetName]!);
+
+  watch(
+    instance,
+    () => {
+      // @ts-ignore
+      state.value = instance.value.renderState[index][widgetName]!;
+    },
+    { deep: true },
+  );
 
   if (!state.value)
     throw new Error(

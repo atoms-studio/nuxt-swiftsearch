@@ -19,5 +19,5 @@ export const useAisConfigure = (widgetParams: ConfigureConnectorParams) => {
   const customConfigure = connectConfigure(renderConfigure);
 
   // 3. Instantiate
-  return customConfigure(widgetParams);
+  return { ...customConfigure(widgetParams), $$widgetParams: widgetParams };
 };

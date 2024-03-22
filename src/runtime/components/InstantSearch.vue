@@ -9,29 +9,52 @@ import type {
   IndexWidget,
   InstantSearchOptions,
   Widget,
+  InstantSearch,
 } from "instantsearch.js";
 import { useInstantSearch } from "../composables/useInstantSearch";
-import { toRefs, watch } from "vue";
+import { toRefs, watch, shallowRef } from "vue";
+import instantsearch, { type InitialResults } from "instantsearch.js/es";
+import { useState } from "nuxt/app";
 
 const props = defineProps<{
   configuration: InstantSearchOptions;
   widgets: Array<Widget | IndexWidget>;
 }>();
-const { setup, getInstance } = useInstantSearch();
 
-const search = getInstance(props.configuration);
+const searchInstance = import.meta.server
+  ? ref(instantsearch(props.configuration))
+  : useState("instant_search_instance", () =>
+      shallowRef(instantsearch(props.configuration)),
+    );
 
-search.value.addWidgets(props.widgets);
+provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
-// react to widget change
-const { widgets: widgetsRef } = toRefs(props);
+const { setup, getInstance } = useInstantSearch(searchInstance);
 
-watch(widgetsRef, (newWidgets, oldWidgets) => {
+const search = getInstance();
+
+const _widgets = useState<Array<Widget | IndexWidget>>(
+  "_instant_search_widgets",
+  () => [],
+);
+
+// in client, statify widgets
+if (import.meta.client) {
+  _widgets.value = props.widgets;
+}
+
+// watching if any widget parameter has changed to refresh only that widget
+watch(_widgets, (newWidgets, oldWidgets) => {
   search.value.removeWidgets(oldWidgets);
   search.value.addWidgets(newWidgets);
 });
-
-await setup();
+// accepting import meta hot updates
+if (import.meta.hot) {
+  import.meta.hot.accept(() => {
+    triggerRef(_searchInstance);
+  });
+}
+await setup(props.widgets);
 </script>
 
 <style scoped></style>

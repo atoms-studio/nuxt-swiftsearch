@@ -1,11 +1,17 @@
 <template>
   <div>
+    <NuxtLink to="/Samsung">Samsung Products</NuxtLink>
+    <NuxtLink to="/Apple">Apple Products</NuxtLink>
     <AisInstantSearch :widgets :configuration>
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
-      <AisInfiniteHits> </AisInfiniteHits>
+      <AisInfiniteHits>
+        <template #default="{ items }">
+          <div v-for="item in items">{{ item.brand }} - {{ item.price }}</div>
+        </template>
+      </AisInfiniteHits>
       <AisRefinementList attribute="brand" searchable />
       <AisIndex index="airbnb">
         <AisInfiniteHits />
@@ -25,6 +31,8 @@ const indexBnb = useAisIndex({
 });
 
 indexBnb.addWidgets([useAisInfiniteHits({})]);
+const route = useRoute();
+const filters = computed(() => `brand:${route.params.brand}`);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -44,7 +52,9 @@ const widgets = computed(() => [
   }),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisConfigure({
-    searchParameters: {},
+    searchParameters: {
+      filters: filters.value,
+    },
   }),
   useAisSearchBox({}),
   indexBnb,
