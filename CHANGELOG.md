@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.1.25
+
+[compare changes](https://undefined/undefined/compare/v0.1.24...v0.1.25)
+
+### 🩹 Fixes
+
+- Fixed not awaiting nextTick, and widgets comparison (fb9ba78)
+
+### 🏡 Chore
+
+- Added more release commands (5dd6916)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.24
 
 [compare changes](https://undefined/undefined/compare/v0.1.23...v0.1.24)
