@@ -1,39 +1,32 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-    >
+    <AisInstantSearch :widgets :configuration>
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
-      <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
-      <AisIndex index="airbnb">
-        <AisInfiniteHits />
-      </AisIndex>
+      <AisInfiniteHits>
+        <template #default="{ items }">
+          <div v-for="item in items" :key="item.objectID">
+            {{ item.brand }} - {{ item.price }}
+          </div>
+        </template>
+      </AisInfiniteHits>
+      <AisRefinementList attribute="brand" searchable />
     </AisInstantSearch>
   </div>
 </template>
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
+import type { InstantSearchOptions } from "instantsearch.js/es/types";
+import { singleIndex as singleIndexMapping } from "instantsearch.js/es/lib/stateMappings";
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76");
 const algoliaRouter = useAisRouter();
 
-const indexBnb = useAisIndex({
-  indexName: "airbnb",
-});
-
-indexBnb.addWidgets([useAisInfiniteHits({})]);
+const route = useRoute();
+const filters = computed(() => `brand:${route.params.brand}`);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -53,17 +46,22 @@ const widgets = computed(() => [
   }),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisConfigure({
-    searchParameters: {},
+    searchParameters: {
+      filters: filters.value,
+      distinct: true,
+    },
   }),
   useAisSearchBox({}),
-  indexBnb,
 ]);
 
-const configuration = ref({
+const configuration = ref<InstantSearchOptions>({
   indexName: "instant_search",
-  routing: algoliaRouter.value,
+  routing: {
+    router: algoliaRouter.value.router,
+    stateMapping: singleIndexMapping("instant_search"),
+  },
   searchClient: client,
-});
+} as unknown as InstantSearchOptions);
 </script>
 
 <style scoped></style>

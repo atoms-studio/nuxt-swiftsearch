@@ -47,10 +47,12 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       // navigating to another page client side
       // can i await results?
       // awaiting for search queue empty before page change
-      await new Promise((resolve) => {
-        instance.value.mainHelper!.once("searchQueueEmpty", () =>
-          resolve(true),
-        );
+      nextTick(async () => {
+        await new Promise((resolve) => {
+          instance.value.mainHelper!.once("searchQueueEmpty", () =>
+            resolve(true),
+          );
+        });
       });
     }
     // if on client and we find results from server
