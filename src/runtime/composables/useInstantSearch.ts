@@ -3,6 +3,7 @@ import type {
   InstantSearch,
   Widget,
 } from "instantsearch.js/es/types";
+import isEqual from "lodash.isequal";
 import {
   waitForResults,
   getInitialResults,
@@ -32,9 +33,28 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   });
   const setup = async (widgets: Array<Widget | IndexWidget>) => {
     const instance = getInstance();
-    // adding widgetse to instance if not presents
+    // adding widgets to instance if not presents (new instance)
     if (!instance.value.mainIndex.getWidgets().length) {
       instance.value.addWidgets(widgets);
+    } else {
+      const oldWidgets = instance.value.mainIndex.getWidgets();
+      // compare widgets
+      const widgetsToAdd = widgets.filter(
+        (newW) =>
+          !oldWidgets.some(
+            // @ts-ignore
+            (oldW) => isEqual(oldW.$$widgetParams, newW.$$widgetParams),
+          ),
+      );
+      const widgetsToRemove = oldWidgets.filter(
+        (oldW) =>
+          !widgets.some((newW) =>
+            // @ts-ignore
+            isEqual(oldW.$$widgetParams, newW.$$widgetParams),
+          ),
+      );
+      instance.value.removeWidgets(widgetsToRemove);
+      instance.value.addWidgets(widgetsToAdd);
     }
 
     if (!instance.value.started && !_results.value) {
@@ -47,7 +67,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       // navigating to another page client side
       // can i await results?
       // awaiting for search queue empty before page change
-      nextTick(async () => {
+      await nextTick(async () => {
         await new Promise((resolve) => {
           instance.value.mainHelper!.once("searchQueueEmpty", () =>
             resolve(true),

@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.results" :class="suit()">
     <slot
       v-if="showPrevious"
       name="loadPrevious"
@@ -23,7 +20,7 @@
     </slot>
 
     <slot
-      :items="items"
+      :items="state.hits"
       :results="state.results"
       :is-last-page="state.isLastPage"
       :refine-previous="refinePrevious"
@@ -33,7 +30,7 @@
     >
       <ol :class="suit('list')">
         <li
-          v-for="(item, index) in items"
+          v-for="(item, index) in state.hits"
           :key="item.objectID"
           :class="suit('item')"
           @click="state.sendEvent('click:internal', item, 'Hit Clicked')"
@@ -84,11 +81,6 @@ const showPrevious = computed(() => {
   return widgetParams.value?.showPrevious ?? false;
 });
 
-const items = computed(() => {
-  // Fixes InstantSearch.js connectors API: every list
-  // of things must be called `items`
-  return state.value?.hits;
-});
 function refinePrevious() {
   state.value?.showPrevious();
 }
