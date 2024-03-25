@@ -23,6 +23,8 @@
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "release": "npm run lint --fix && npm run prepack && changelogen --release && npm publish --access public && git push --follow-tags",
+    "release-minor": "npm run lint --fix && npm run prepack && changelogen --release --minor && npm publish --access public && git push --follow-tags",
+    "release-major": "npm run lint --fix && npm run prepack && changelogen --release --major && npm publish --access public && git push --follow-tags",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
