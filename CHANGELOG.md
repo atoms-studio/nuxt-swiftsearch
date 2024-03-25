@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.22
+
+[compare changes](https://undefined/undefined/compare/v0.1.21...v0.1.22)
+
+### 🏡 Chore
+
+- Added test case, moved types isequal to deps for typechecking reasons (b352fd5)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.21
 
 [compare changes](https://undefined/undefined/compare/v0.1.20...v0.1.21)
