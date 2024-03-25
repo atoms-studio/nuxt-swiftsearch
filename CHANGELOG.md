@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.23
+
+[compare changes](https://undefined/undefined/compare/v0.1.22...v0.1.23)
+
+### 🩹 Fixes
+
+- Added nextTick before awaiting setup (9fb4287)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.22
 
 [compare changes](https://undefined/undefined/compare/v0.1.21...v0.1.22)
