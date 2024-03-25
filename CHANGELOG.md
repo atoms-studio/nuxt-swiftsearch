@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.1.24
+
+[compare changes](https://undefined/undefined/compare/v0.1.23...v0.1.24)
+
+### 🩹 Fixes
+
+- Removed useAsyncData (f45c92f)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.1.23
 
 [compare changes](https://undefined/undefined/compare/v0.1.22...v0.1.23)
