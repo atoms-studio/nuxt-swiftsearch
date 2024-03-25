@@ -1,6 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/nosearch">No Search</NuxtLink>
+    <NuxtLink to="/nosearch">
+      No Search
+    </NuxtLink>
   </div>
 </template>
 

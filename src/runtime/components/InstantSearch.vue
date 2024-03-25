@@ -65,9 +65,8 @@ watch(_widgets, (newWidgets, oldWidgets) => {
   search.value.removeWidgets(widgetsToRemove);
   search.value.addWidgets(widgetsToAdd);
 });
-await useAsyncData(async () => {
-  await setup(props.widgets);
-});
+
+await setup(props.widgets);
 </script>
 
 <style scoped></style>

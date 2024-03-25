@@ -1,18 +1,27 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration>
+    <AisInstantSearch
+      :widgets
+      :configuration
+    >
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
         <template #default="{ items }">
-          <div v-for="item in items" :key="item.objectID">
+          <div
+            v-for="item in items"
+            :key="item.objectID"
+          >
             {{ item.brand }} - {{ item.price }}
           </div>
         </template>
       </AisInfiniteHits>
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
     </AisInstantSearch>
   </div>
 </template>
