@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.2.1
+
+[compare changes](https://undefined/undefined/compare/v0.2.0...v0.2.1)
+
+### 🩹 Fixes
+
+- Do not await searchqueueempty if there is no search (d72fad3)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.2.0
 
 [compare changes](https://undefined/undefined/compare/v0.1.25...v0.2.0)
