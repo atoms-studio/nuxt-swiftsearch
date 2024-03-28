@@ -69,6 +69,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       // awaiting for search queue empty before page change
       await nextTick(async () => {
         await new Promise((resolve) => {
+          if (!instance.value.mainHelper!.hasPendingRequests()) resolve(true)
           instance.value.mainHelper!.once("searchQueueEmpty", () =>
             resolve(true),
           );
