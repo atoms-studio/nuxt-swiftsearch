@@ -23,17 +23,7 @@ A tailor made implementation of algolia instantsearch for nuxt 3.
 1. Add `@atoms-studio/nuxt-swiftsearch` dependency to your project
 
 ```bash
-# Using pnpm
-pnpm add -D @atoms-studio/nuxt-swiftsearch
-
-# Using yarn
-yarn add --dev @atoms-studio/nuxt-swiftsearch
-
-# Using npm
-npm install --save-dev @atoms-studio/nuxt-swiftsearch
-
-# Using bun
-bun add -D @atoms-studio/nuxt-swiftsearch
+npx nuxi@latest module add swiftsearch
 ```
 
 2. Add `@atoms-studio/nuxt-swiftsearch` to the `modules` section of `nuxt.config.ts`

@@ -18,16 +18,16 @@ hero:
   code: |
     ```bash [Terminal]
     # Using pnpm
-    pnpm add -D @atoms-studio/nuxt-swiftsearch
+    npx nuxi@latest module add swiftsearch
 
     # Using yarn
-    yarn add --dev @atoms-studio/nuxt-swiftsearch
+    npx nuxi@latest module add swiftsearch
 
     # Using npm
-    npm install --save-dev @atoms-studio/nuxt-swiftsearch
+    npx nuxi@latest module add swiftsearch
 
     # Using bun
-    bun add -D @atoms-studio/nuxt-swiftsearch
+    npx nuxi@latest module add swiftsearch
     ```
 features:
   items:
