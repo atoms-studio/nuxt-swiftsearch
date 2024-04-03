@@ -17,16 +17,6 @@ hero:
       size: lg
   code: |
     ```bash [Terminal]
-    # Using pnpm
-    npx nuxi@latest module add swiftsearch
-
-    # Using yarn
-    npx nuxi@latest module add swiftsearch
-
-    # Using npm
-    npx nuxi@latest module add swiftsearch
-
-    # Using bun
     npx nuxi@latest module add swiftsearch
     ```
 features:
