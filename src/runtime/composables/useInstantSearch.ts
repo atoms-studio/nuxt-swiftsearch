@@ -9,7 +9,7 @@ import {
   getInitialResults,
 } from "instantsearch.js/es/lib/server";
 import { computed, triggerRef, inject, nextTick, type Ref } from "vue";
-import { useState } from "nuxt/app";
+import { useState, createError } from "nuxt/app";
 
 import { type InitialResults } from "instantsearch.js/es";
 
@@ -69,7 +69,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       // awaiting for search queue empty before page change
       await nextTick(async () => {
         await new Promise((resolve) => {
-          if (!instance.value.mainHelper!.hasPendingRequests()) resolve(true)
+          if (!instance.value.mainHelper!.hasPendingRequests()) resolve(true);
           instance.value.mainHelper!.once("searchQueueEmpty", () =>
             resolve(true),
           );
