@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.2.2
+
+[compare changes](https://undefined/undefined/compare/v0.2.1...v0.2.2)
+
+### 🩹 Fixes
+
+- Imported createError from nuxt/app (de34490)
+
+### 📖 Documentation
+
+- Use new `nuxi module add` command in installation (372b754)
+
+### 🏡 Chore
+
+- Remove dupes (0214fc7)
+- Merge main (938f022)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Daniel Roe ([@danielroe](http://github.com/danielroe))
+
 ## v0.2.1
 
 [compare changes](https://undefined/undefined/compare/v0.2.0...v0.2.1)
