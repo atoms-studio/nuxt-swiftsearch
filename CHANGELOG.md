@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.1
+
+[compare changes](https://undefined/undefined/compare/v0.3.0...v0.3.1)
+
+### 🩹 Fixes
+
+- Added missing ref import (722cb68)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.3.0
 
 [compare changes](https://undefined/undefined/compare/v0.2.2...v0.3.0)
