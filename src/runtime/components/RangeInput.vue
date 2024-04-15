@@ -87,33 +87,36 @@ const refine = (data: { min: number; max: number }) => {
                     ($event?.currentTarget as HTMLInputElement)?.value,
                   ))
               "
-            />>
-            <span :class="suit('separator')">
-              <slot name="separator">to</slot>
-            </span>
-            <label :class="suit('label')">
-              <slot name="maxLabel" />
-              <input
-                type="number"
-                :class="[suit('input'), suit('input', 'max')]"
-                :step="step"
-                :min="state.range.min"
-                :max="state.range.max"
-                :placeholder="state.range?.min?.toString()"
-                :value="values.max"
-                label
-                @change="
-                  ($event) =>
-                    (maxInput = parseFloat(
-                      ($event?.currentTarget as HTMLInputElement)?.value,
-                    ))
-                "
-              />
-              <button :class="suit('submit')" type="submit">
-                <slot name="submitLabel"> Go </slot>
-              </button>
-            </label></label
-          >
+            >
+          </label>
+          <span :class="suit('separator')">
+            <slot name="separator">to</slot>
+          </span>
+          <label :class="suit('label')">
+            <slot name="maxLabel" />
+            <input
+              type="number"
+              :class="[suit('input'), suit('input', 'max')]"
+              :step="step"
+              :min="state.range.min"
+              :max="state.range.max"
+              :placeholder="state.range?.min?.toString()"
+              :value="values.max"
+              label
+              @change="
+                ($event) =>
+                  (maxInput = parseFloat(
+                    ($event?.currentTarget as HTMLInputElement)?.value,
+                  ))
+              "
+            >
+            <button
+              :class="suit('submit')"
+              type="submit"
+            >
+              <slot name="submitLabel"> Go </slot>
+            </button>
+          </label>
         </form>
       </slot>
     </div>
