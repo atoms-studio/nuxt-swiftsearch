@@ -9,6 +9,7 @@
       instance-key="index"
     >
       <AisStats />
+      <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
@@ -56,6 +57,9 @@ const widgets = computed(() => [
   }),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisSearchBox({}),
+  useAisRangeInput({
+    attribute: "price",
+  }),
   indexBnb,
 ]);
 
