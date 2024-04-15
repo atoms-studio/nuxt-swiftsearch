@@ -36,7 +36,6 @@ export const useAisStatefulCache = (key?: string) => {
       key: object | string,
       value: TValue,
     ): Readonly<Promise<TValue>> {
-      // eslint-disable-next-line functional/immutable-data
       cache.value[JSON.stringify(key)] = options.serializable
         ? JSON.stringify(value)
         : value;

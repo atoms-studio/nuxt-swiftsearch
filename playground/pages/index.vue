@@ -1,13 +1,22 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
-    <AisInstantSearch :widgets :configuration instance-key="index">
+    <NuxtLink to="/Samsung">
+      Go to brand
+    </NuxtLink>
+    <AisInstantSearch
+      :widgets
+      :configuration
+      instance-key="index"
+    >
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
       <AisIndex index="airbnb">
         <AisInfiniteHits />
       </AisIndex>

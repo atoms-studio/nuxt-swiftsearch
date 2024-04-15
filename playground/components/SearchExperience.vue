@@ -1,6 +1,9 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration>
+    <AisInstantSearch
+      :widgets
+      :configuration
+    >
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
@@ -10,7 +13,10 @@
           {{ item.brand }} - {{ item.price }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
     </AisInstantSearch>
   </div>
 </template>
