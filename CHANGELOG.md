@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.3.3
+
+[compare changes](https://undefined/undefined/compare/v0.3.2...v0.3.3)
+
+### 🩹 Fixes
+
+- Fixing typechecking (a41c07e)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.3.2
 
 [compare changes](https://undefined/undefined/compare/v0.3.1...v0.3.2)
