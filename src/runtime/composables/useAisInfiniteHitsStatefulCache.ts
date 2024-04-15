@@ -1,5 +1,6 @@
 import isEqual from "lodash.isequal";
 import { useState } from "#app";
+import { ref } from "vue";
 
 import type {
   InfiniteHitsCache,
