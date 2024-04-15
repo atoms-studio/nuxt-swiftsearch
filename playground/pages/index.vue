@@ -8,6 +8,7 @@
       :configuration
     >
       <AisStats />
+      <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
@@ -56,6 +57,9 @@ const widgets = computed(() => [
     searchParameters: {},
   }),
   useAisSearchBox({}),
+  useAisRangeInput({
+    attribute: "price",
+  }),
   indexBnb,
 ]);
 
