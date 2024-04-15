@@ -1,27 +1,16 @@
 <template>
   <div>
-    <AisInstantSearch
-      :widgets
-      :configuration
-    >
+    <AisInstantSearch :widgets :configuration>
       <AisStats />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
-        <template #default="{ items }">
-          <div
-            v-for="item in items"
-            :key="item.objectID"
-          >
-            {{ item.brand }} - {{ item.price }}
-          </div>
+        <template #item="{ item }">
+          {{ item.brand }} - {{ item.price }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
     </AisInstantSearch>
   </div>
 </template>
@@ -31,7 +20,10 @@ import algoliasearch from "algoliasearch";
 import type { InstantSearchOptions } from "instantsearch.js/es/types";
 import { singleIndex as singleIndexMapping } from "instantsearch.js/es/lib/stateMappings";
 
-const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76");
+const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {
+  responsesCache: useAisStatefulCache(),
+  requestsCache: useAisStatefulCache(),
+});
 const algoliaRouter = useAisRouter();
 
 const route = useRoute();

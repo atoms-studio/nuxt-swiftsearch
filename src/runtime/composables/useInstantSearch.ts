@@ -36,6 +36,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
     // adding widgets to instance if not presents (new instance)
     if (!instance.value.mainIndex.getWidgets().length) {
       instance.value.addWidgets(widgets);
+      // }
     } else {
       const oldWidgets = instance.value.mainIndex.getWidgets();
       // compare widgets
@@ -53,8 +54,8 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
             isEqual(oldW.$$widgetParams, newW.$$widgetParams),
           ),
       );
-      instance.value.removeWidgets(widgetsToRemove);
-      instance.value.addWidgets(widgetsToAdd);
+      if (widgetsToRemove.length) instance.value.removeWidgets(widgetsToRemove);
+      if (widgetsToAdd.length) instance.value.addWidgets(widgetsToAdd);
     }
 
     if (!instance.value.started && !_results.value) {
