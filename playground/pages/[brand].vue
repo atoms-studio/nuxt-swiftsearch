@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SearchExperience />
     <NuxtLink to="/Samsung">
       Samsung Products
     </NuxtLink>
@@ -15,7 +16,9 @@
     <NuxtLink to="/nosearch">
       Go to no search
     </NuxtLink>
-    <SearchExperience />
+    <NuxtLink to="/">
+      Go to home
+    </NuxtLink>
   </div>
 </template>
 
