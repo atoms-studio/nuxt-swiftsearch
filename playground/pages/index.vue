@@ -9,6 +9,8 @@
       instance-key="index"
     >
       <AisStats />
+      <AisClearRefinements :excluded-attributes="['free_shipping']" />
+      <AisClearRefinements :included-attributes="['free_shipping']" />
       <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />
@@ -18,9 +20,6 @@
         attribute="brand"
         searchable
       />
-      <AisIndex index="airbnb">
-        <AisInfiniteHits />
-      </AisIndex>
     </AisInstantSearch>
   </div>
 </template>
@@ -47,6 +46,7 @@ const widgets = computed(() => [
     ],
   }),
   useAisStats({}),
+  useAisClearRefinements({}),
   useAisInfiniteHits({
     showPrevious: true,
     cache: useAisInfiniteHitsStatefulCache("index"),
