@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.3.0
+
+[compare changes](https://undefined/undefined/compare/v0.2.2...v0.3.0)
+
+### 🚀 Enhancements
+
+- Added useState request/response cache and infinitehitscache (9cf8c6d)
+
+### 🩹 Fixes
+
+- Removed useless rule ignore (6ad0352)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.2.2
 
 [compare changes](https://undefined/undefined/compare/v0.2.1...v0.2.2)
