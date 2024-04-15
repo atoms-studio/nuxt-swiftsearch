@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.3.2
+
+[compare changes](https://undefined/undefined/compare/v0.3.1...v0.3.2)
+
+### 🚀 Enhancements
+
+- **range-input:** Add range input component (7f857e2)
+- **docs:** Added range input docs (2f167a6)
+
+### 🩹 Fixes
+
+- Precision property (3815860)
+
+### 🏡 Chore
+
+- Merge branch 'main' into feat-range-input (4cfe3a5)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.3.1
 
 [compare changes](https://undefined/undefined/compare/v0.3.0...v0.3.1)
