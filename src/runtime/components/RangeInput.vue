@@ -22,8 +22,8 @@ const state = computed(() => {
     : rangesState.value[props.attribute];
 });
 
-const minInput: Ref<number> = ref();
-const maxInput: Ref<number> = ref();
+const minInput: Ref<number | undefined> = ref();
+const maxInput: Ref<number | undefined> = ref();
 
 const step = computed(() => 1 / Math.pow(10, props.precision));
 
@@ -36,7 +36,7 @@ const values = computed(() => {
   };
 });
 
-const pick = (first: number | null | undefined, second: number) => {
+const pick = (first: number | null | undefined, second: number | undefined) => {
   if (first !== null && first !== undefined) {
     return first;
   } else {
@@ -78,40 +78,42 @@ const refine = (data: { min: number; max: number }) => {
               :step="step"
               :min="state.range.min"
               :max="state.range.max"
-              :placeholder="state.range.min.toString()"
+              :placeholder="state.range?.min?.toString()"
               :value="values.min"
+              label
               @change="
                 ($event) =>
                   (minInput = parseFloat(
                     ($event?.currentTarget as HTMLInputElement)?.value,
                   ))
               "
-            />
-          </label>
-          <span :class="suit('separator')">
-            <slot name="separator">to</slot>
-          </span>
-          <label :class="suit('label')">
-            <slot name="maxLabel" />
-            <input
-              type="number"
-              :class="[suit('input'), suit('input', 'max')]"
-              :step="step"
-              :min="state.range.min"
-              :max="state.range.max"
-              :placeholder="state.range.min.toString()"
-              :value="values.max"
-              @change="
-                ($event) =>
-                  (maxInput = parseFloat(
-                    ($event?.currentTarget as HTMLInputElement)?.value,
-                  ))
-              "
-            />
-          </label>
-          <button :class="suit('submit')" type="submit">
-            <slot name="submitLabel"> Go </slot>
-          </button>
+            />>
+            <span :class="suit('separator')">
+              <slot name="separator">to</slot>
+            </span>
+            <label :class="suit('label')">
+              <slot name="maxLabel" />
+              <input
+                type="number"
+                :class="[suit('input'), suit('input', 'max')]"
+                :step="step"
+                :min="state.range.min"
+                :max="state.range.max"
+                :placeholder="state.range?.min?.toString()"
+                :value="values.max"
+                label
+                @change="
+                  ($event) =>
+                    (maxInput = parseFloat(
+                      ($event?.currentTarget as HTMLInputElement)?.value,
+                    ))
+                "
+              />
+              <button :class="suit('submit')" type="submit">
+                <slot name="submitLabel"> Go </slot>
+              </button>
+            </label></label
+          >
         </form>
       </slot>
     </div>
