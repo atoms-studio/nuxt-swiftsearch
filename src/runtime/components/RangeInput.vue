@@ -44,7 +44,7 @@ const pick = (first: number | null | undefined, second: number | undefined) => {
   }
 };
 
-const refine = (data: { min: number; max: number }) => {
+const refine = (data: { min: number | undefined; max: number | undefined }) => {
   state.value.refine([data.min, data.max]);
 };
 </script>
