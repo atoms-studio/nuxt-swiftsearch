@@ -87,7 +87,7 @@ const refine = (data: { min: number; max: number }) => {
                     ($event?.currentTarget as HTMLInputElement)?.value,
                   ))
               "
-            />>
+            >>
             <span :class="suit('separator')">
               <slot name="separator">to</slot>
             </span>
@@ -108,12 +108,14 @@ const refine = (data: { min: number; max: number }) => {
                       ($event?.currentTarget as HTMLInputElement)?.value,
                     ))
                 "
-              />
-              <button :class="suit('submit')" type="submit">
+              >
+              <button
+                :class="suit('submit')"
+                type="submit"
+              >
                 <slot name="submitLabel"> Go </slot>
               </button>
-            </label></label
-          >
+            </label></label>
         </form>
       </slot>
     </div>
