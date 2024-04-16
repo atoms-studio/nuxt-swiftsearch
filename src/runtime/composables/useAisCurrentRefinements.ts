@@ -34,6 +34,6 @@ export const useAisCurrentRefinements = (
   return {
     ...customCurrentRefinements(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id
+    $$widgetId: id,
   };
 };
