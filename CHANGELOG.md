@@ -1,6 +1,36 @@
 # Changelog
 
 
+## v0.4.0
+
+[compare changes](https://undefined/undefined/compare/v0.3.3...v0.4.0)
+
+### 🚀 Enhancements
+
+- **clear-refinements:** Add some props for clear refinements (570f9ac)
+- Clear refinements dedupe solution (6fd656f)
+- Improvement on deduping (93ef611)
+- **clear-refinements:** Add some ids for all components fo algolia (67ccaec)
+- **clear-refinements:** Add imports (2715e10)
+- Refactoring state handling logic and added clear refinement widget (b1426d8)
+
+### 🩹 Fixes
+
+- Fixing range input template (7f3dd94)
+- Fixing ts range input (64faa09)
+- Types range input (3953405)
+- Added keep-alive logic when injecting state client side (bfd12d2)
+
+### 🏡 Chore
+
+- Merge (ecadd06)
+- Merge (a336974)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.3.3
 
 [compare changes](https://undefined/undefined/compare/v0.3.2...v0.3.3)
