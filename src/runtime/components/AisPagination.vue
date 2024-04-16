@@ -18,8 +18,6 @@ withDefaults(defineProps<{
     showPrevious: true
 })
 
-console.log('state', state)
-
 const emit = defineEmits<{
     (e: "page-change", page: number): void
 }>()
