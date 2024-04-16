@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.4.1
+
+[compare changes](https://undefined/undefined/compare/v0.4.0...v0.4.1)
+
+### 🚀 Enhancements
+
+- **hits:** Add hits component and update doc (5806b6c)
+- **hits:** Resolve index playground (fd458ba)
+- **hits:** Add pagination component (e21b05a)
+- **hits:** Add pagination component remove console logs (c5a6840)
+- **hits:** Add pagination example (c7b33a9)
+- **hits:** Update pagination docs (5587df9)
+- **hits:** Rename pagination component (890bd45)
+
+### 🩹 Fixes
+
+- **hits:** Edit doc clear refinements (ba03c97)
+
+### ❤️ Contributors
+
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.4.0
 
 [compare changes](https://undefined/undefined/compare/v0.3.3...v0.4.0)
