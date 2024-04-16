@@ -31,9 +31,7 @@
   const widgets = ref([
     useAisStats({}),
     useAisClearRefinements({}, "all"),
-    useAisHits({
-      escapeHTML
-    }),
+    useAisHits({}),
     useAisRefinementList({
       attribute: "brand",
       showMore: true,
