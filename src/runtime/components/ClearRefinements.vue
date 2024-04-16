@@ -1,6 +1,5 @@
 <template>
   <div v-if="state" :class="suit()">
-    clear refinements {{ id }}
     <slot
       :can-refine="canRefine"
       :refine="state.refine"

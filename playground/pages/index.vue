@@ -12,9 +12,6 @@
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
       <AisClearRefinements id="all" />
-
-      <!-- <AisClearRefinements :excluded-attributes="['free_shipping']" /> -->
-      <!-- <AisClearRefinements :included-attributes="['free_shipping']" /> -->
       <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />

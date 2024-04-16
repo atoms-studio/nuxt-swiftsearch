@@ -7,12 +7,19 @@ import type { Renderer } from "instantsearch.js/es/types";
 
 export const useAisToggleRefinement = (
   widgetParams: ToggleRefinementConnectorParams,
+  id: string = ""
 ) => {
+  const stateRef = ref<ToggleRefinementRenderState | null>();
   // 1. Create a render function
   const renderToggleRefinement: Renderer<
     ToggleRefinementRenderState,
     ToggleRefinementConnectorParams
-  > = (_, __) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`toggleRefinements-${id}`, stateRef);
+    }
     // render nothing
     return () => { };
   };
@@ -26,5 +33,6 @@ export const useAisToggleRefinement = (
   return {
     ...customToggleRefinement(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: id
   };
 };

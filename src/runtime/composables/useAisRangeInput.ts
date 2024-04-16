@@ -13,16 +13,22 @@ export const useAisRangeInputRenderState = () =>
   );
 export const useAisRangeInput = (
   widgetParams: RangeConnectorParams,
+  id: string = ""
 ) => {
+  const stateRef = ref<RangeRenderState | null>();
   const rangeRenderState = useAisRangeInputRenderState();
   // 1. Create a render function
   const renderRange: Renderer<
   RangeRenderState,
   RangeConnectorParams
-  > = (renderOptions, _) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      rangeRenderState.value[widgetParams.attribute] = renderOptions;
+      rangeRenderState.value[widgetParams.attribute] = renderState;
+    }
+    if (isFirstRender) {
+      provide(`rangeInput-${id}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -35,5 +41,6 @@ export const useAisRangeInput = (
   return {
     ...customRange(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: id
   };
 };

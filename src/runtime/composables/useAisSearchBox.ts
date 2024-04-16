@@ -5,12 +5,18 @@ import type {
 } from "instantsearch.js/es/connectors/search-box/connectSearchBox";
 import type { Renderer } from "instantsearch.js/es/types";
 
-export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams) => {
+export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, id: string = "") => {
+  const stateRef = ref<SearchBoxRenderState | null>();
   // 1. Create a render function
   const renderSearchBox: Renderer<
     SearchBoxRenderState,
     SearchBoxConnectorParams
-  > = (_, __) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`searchBox-${id}`, stateRef);
+    }
     // render nothing
     return () => null;
   };
@@ -19,5 +25,5 @@ export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams) => {
   const customSearchBox = connectSearchBox(renderSearchBox);
 
   // 3. Instantiate
-  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams };
+  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
 };

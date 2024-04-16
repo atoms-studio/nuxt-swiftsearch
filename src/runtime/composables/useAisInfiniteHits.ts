@@ -7,12 +7,19 @@ import type { Renderer } from "instantsearch.js/es/types";
 
 export const useAisInfiniteHits = (
   widgetParams: InfiniteHitsConnectorParams,
+  id: string = "",
 ) => {
+  const stateRef = ref<InfiniteHitsRenderState | null>();
   // 1. Create a render function
   const renderInfiniteHits: Renderer<
     InfiniteHitsRenderState,
     InfiniteHitsConnectorParams
-  > = (_, __) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`infiniteHits-${id}`, stateRef);
+    }
     // render nothing
     return () => { };
   };
@@ -22,5 +29,5 @@ export const useAisInfiniteHits = (
     connectInfiniteHitsWithInsights(renderInfiniteHits);
 
   // 3. Instantiate
-  return { ...customInfiniteHits(widgetParams), $$widgetParams: widgetParams };
+  return { ...customInfiniteHits(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
 };

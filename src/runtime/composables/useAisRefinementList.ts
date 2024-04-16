@@ -13,16 +13,23 @@ export const useAisRefinementListRenderState = () =>
   );
 export const useAisRefinementList = (
   widgetParams: RefinementListConnectorParams,
+  id: string = "",
 ) => {
+  const stateRef = ref<RefinementListRenderState | null>();
   const refinementRenderState = useAisRefinementListRenderState();
   // 1. Create a render function
   const renderRefinementList: Renderer<
     RefinementListRenderState,
     RefinementListConnectorParams
-  > = (renderOptions, _) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      refinementRenderState.value[widgetParams.attribute] = renderOptions;
+      refinementRenderState.value[widgetParams.attribute] = renderState;
+    }
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`refinementList-${id}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -35,5 +42,6 @@ export const useAisRefinementList = (
   return {
     ...customRefinementList(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: id
   };
 };
