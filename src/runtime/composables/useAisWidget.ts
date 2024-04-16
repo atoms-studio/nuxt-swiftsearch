@@ -1,9 +1,10 @@
 import type { RenderState } from "instantsearch.js";
-import { computed, inject, watch, ref } from "vue";
+import { computed, inject, watch, ref, type Ref, triggerRef } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
+  id?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
   const { getInstance } = useInstantSearch();
   const instance = getInstance();
@@ -11,13 +12,31 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const maybeInjectedIndex = inject<string | undefined>("index", undefined);
 
   const index = maybeInjectedIndex ?? instance.value.indexName;
-  const state = ref(instance.value.renderState[index][widgetName]!);
+  type _TWidgetRenderState =
+    (typeof instance.value.renderState)[typeof index][typeof widgetName];
 
+  type TWidgetRenderState = Ref<NonNullable<_TWidgetRenderState>>;
+  const _state = (
+    id
+      ? inject<any>(`${widgetName}-${id}`, undefined)
+      : ref(instance.value.renderState[index][widgetName]!)
+  ) as TWidgetRenderState;
+
+  // cache injected values on client via useState
+  const state = import.meta.server
+    ? _state
+    : id
+      ? useState(`${widgetName}-${id}`, () => _state)
+      : _state;
   watch(
     instance,
     () => {
-      // @ts-ignore
-      state.value = instance.value.renderState[index][widgetName]!;
+      if (!id) {
+        // @ts-ignore
+        state.value = instance.value.renderState[index][widgetName]!;
+      } else {
+        triggerRef(state);
+      }
     },
     { deep: true },
   );
@@ -27,7 +46,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
       `Connector for component ${widgetName} not found, did you forget to add the proper widget?`,
     );
 
-  const widgetParams = computed(() => state.value.widgetParams);
+  const widgetParams = computed(() => state.value!.widgetParams);
 
   return {
     instance,

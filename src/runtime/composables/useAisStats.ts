@@ -4,13 +4,17 @@ import type {
   StatsRenderState,
 } from "instantsearch.js/es/connectors/stats/connectStats";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
-export const useAisStats = (widgetParams: StatsConnectorParams) => {
+export const useAisStats = (widgetParams: StatsConnectorParams, id: string = "") => {
+  const stateRef = ref<StatsRenderState | null>();
   // 1. Create a render function
-  const renderStats: Renderer<StatsRenderState, StatsConnectorParams> = (
-    _,
-    __,
-  ) => {
+  const renderStats: Renderer<StatsRenderState, StatsConnectorParams> = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`stats-${id}`, stateRef);
+    }
     // render nothing
     return () => { };
   };
@@ -19,5 +23,5 @@ export const useAisStats = (widgetParams: StatsConnectorParams) => {
   const customStats = connectStats(renderStats);
 
   // 3. Instantiate
-  return { ...customStats(widgetParams), $$widgetParams: widgetParams };
+  return { ...customStats(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
 };

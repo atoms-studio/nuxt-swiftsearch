@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :current-refinement="currentRefinement"
       :is-search-stalled="state.isSearchStalled"
@@ -80,11 +77,11 @@ const emit = defineEmits([
 const searchInput = ref<any>();
 const currentRefinement = computed({
   get() {
-    return modelValue.value || state.value.query || "";
+    return modelValue.value || state.value!.query || "";
   },
   set(val) {
-    if (val !== state.value.query) {
-      state.value.refine(val);
+    if (val !== state.value!.query) {
+      state.value!.refine(val);
     }
     if (modelValue.value) {
       emit("input", val);

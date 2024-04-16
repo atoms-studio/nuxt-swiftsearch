@@ -32,7 +32,6 @@ const searchInstance = import.meta.server
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
 const { setup } = useInstantSearch(searchInstance);
-
 await setup(props.widgets);
 </script>
 

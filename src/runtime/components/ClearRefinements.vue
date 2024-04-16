@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :can-refine="canRefine"
       :refine="state.refine"
@@ -12,11 +9,9 @@
         type="reset"
         :class="[suit('button'), !canRefine && suit('button', 'disabled')]"
         :disabled="!canRefine"
-        @click.prevent="state.refine"
+        @click.prevent="refine"
       >
-        <slot name="resetLabel">
-          Clear refinements
-        </slot>
+        <slot name="resetLabel"> Clear refinements </slot>
       </button>
     </slot>
   </div>
@@ -24,10 +19,14 @@
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
-import { computed } from "vue";
-const { state } = useAisWidget("clearRefinements");
+
+const props = defineProps<{ id: string }>();
+
+const widget = useAisWidget("clearRefinements", props.id);
+
+const state = widget.state;
+const canRefine = computed(() => state.value?.hasRefinements);
+const refine = state.value!.refine;
 
 const suit = useSuit("ClearRefinements");
-
-const canRefine = computed(() => state.value.hasRefinements);
 </script>

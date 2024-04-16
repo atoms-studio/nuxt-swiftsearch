@@ -4,15 +4,23 @@ import type {
   CurrentRefinementsRenderState,
 } from "instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisCurrentRefinements = (
   widgetParams: CurrentRefinementsConnectorParams,
+  id: string = "",
 ) => {
+  const stateRef = ref<CurrentRefinementsRenderState | null>();
   // 1. Create a render function
   const renderCurrentRefinements: Renderer<
     CurrentRefinementsRenderState,
     CurrentRefinementsConnectorParams
-  > = (_, __) => {
+  > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
+    // render nothing, provide render state
+    if (isFirstRender) {
+      provide(`currentRefinements-${id}`, stateRef);
+    }
     // render nothing
     return () => null;
   };
@@ -26,5 +34,6 @@ export const useAisCurrentRefinements = (
   return {
     ...customCurrentRefinements(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: id,
   };
 };

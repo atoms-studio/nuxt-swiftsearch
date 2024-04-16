@@ -9,6 +9,9 @@
       instance-key="index"
     >
       <AisStats />
+      <AisClearRefinements id="free_shipping" />
+      <AisClearRefinements id="brand" />
+      <AisClearRefinements id="all" />
       <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />
@@ -19,7 +22,13 @@
         searchable
       />
       <AisIndex index="airbnb">
-        <AisInfiniteHits />
+        <AisInfiniteHits>
+          <template #item="{ item }">
+            {{ item.city }}
+          </template>
+        </AisInfiniteHits>
+        <AisRefinementList attribute="city" />
+        <AisClearRefinements id="bnb" />
       </AisIndex>
     </AisInstantSearch>
   </div>
@@ -27,7 +36,6 @@
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
-import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache";
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
@@ -36,7 +44,11 @@ const indexBnb = useAisIndex({
   indexName: "airbnb",
 });
 
-indexBnb.addWidgets([useAisInfiniteHits({})]);
+indexBnb.addWidgets([
+  useAisInfiniteHits({}),
+  useAisClearRefinements({}, "bnb"),
+  useAisRefinementList({ attribute: "city" }),
+]);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -47,6 +59,13 @@ const widgets = computed(() => [
     ],
   }),
   useAisStats({}),
+  useAisClearRefinements({ includedAttributes: ["brand"] }, "brand"),
+  useAisClearRefinements(
+    { includedAttributes: ["free_shipping"] },
+    "free_shipping",
+  ),
+  useAisClearRefinements({}, "all"),
+
   useAisInfiniteHits({
     showPrevious: true,
     cache: useAisInfiniteHitsStatefulCache("index"),
