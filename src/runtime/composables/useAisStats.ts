@@ -4,6 +4,7 @@ import type {
   StatsRenderState,
 } from "instantsearch.js/es/connectors/stats/connectStats";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisStats = (widgetParams: StatsConnectorParams, id: string = "") => {
   const stateRef = ref<StatsRenderState | null>();

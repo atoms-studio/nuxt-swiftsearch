@@ -4,6 +4,7 @@ import type {
   ToggleRefinementRenderState,
 } from "instantsearch.js/es/connectors/toggle-refinement/connectToggleRefinement";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisToggleRefinement = (
   widgetParams: ToggleRefinementConnectorParams,

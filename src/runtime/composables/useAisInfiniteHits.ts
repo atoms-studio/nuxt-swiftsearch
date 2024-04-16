@@ -4,6 +4,7 @@ import type {
   InfiniteHitsRenderState,
 } from "instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisInfiniteHits = (
   widgetParams: InfiniteHitsConnectorParams,

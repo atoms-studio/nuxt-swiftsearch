@@ -4,6 +4,7 @@ import type {
   CurrentRefinementsRenderState,
 } from "instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisCurrentRefinements = (
   widgetParams: CurrentRefinementsConnectorParams,

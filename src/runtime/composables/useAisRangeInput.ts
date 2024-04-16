@@ -5,6 +5,7 @@ import type {
 } from "instantsearch.js/es/connectors/range/connectRange";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
+import { provide, ref } from "vue";
 
 export const useAisRangeInputRenderState = () =>
   useState<Record<string, RangeRenderState>>(

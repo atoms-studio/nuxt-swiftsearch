@@ -4,6 +4,7 @@ import type {
   SearchBoxRenderState,
 } from "instantsearch.js/es/connectors/search-box/connectSearchBox";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, id: string = "") => {
   const stateRef = ref<SearchBoxRenderState | null>();

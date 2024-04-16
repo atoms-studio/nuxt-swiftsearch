@@ -4,6 +4,7 @@ import type {
   ConfigureRenderState,
 } from "instantsearch.js/es/connectors/configure/connectConfigure";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisConfigure = (widgetParams: ConfigureConnectorParams, id: string = "") => {
   const stateRef = ref<ConfigureRenderState | null>();

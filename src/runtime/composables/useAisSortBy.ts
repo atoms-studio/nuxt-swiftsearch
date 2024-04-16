@@ -4,6 +4,7 @@ import type {
   SortByRenderState,
 } from "instantsearch.js/es/connectors/sort-by/connectSortBy";
 import type { Renderer } from "instantsearch.js/es/types";
+import { provide, ref } from "vue";
 
 export const useAisSortBy = (widgetParams: SortByConnectorParams, id: string = "") => {
   const stateRef = ref<SortByRenderState | null>();
