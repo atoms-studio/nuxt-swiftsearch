@@ -4,6 +4,7 @@ import { useInstantSearch } from "./useInstantSearch";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
+  id?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
   const { getInstance } = useInstantSearch();
   const instance = getInstance();
@@ -11,7 +12,13 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const maybeInjectedIndex = inject<string | undefined>("index", undefined);
 
   const index = maybeInjectedIndex ?? instance.value.indexName;
-  const state = ref(instance.value.renderState[index][widgetName]!);
+  const state = id
+    ? inject<
+        Ref<
+          (typeof instance.value.renderState)[typeof index][typeof widgetName]
+        >
+      >(`${widgetName}-${id}`)!
+    : ref(instance.value.renderState[index][widgetName]!);
 
   watch(
     instance,
@@ -27,7 +34,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
       `Connector for component ${widgetName} not found, did you forget to add the proper widget?`,
     );
 
-  const widgetParams = computed(() => state.value.widgetParams);
+  const widgetParams = computed(() => state.value!.widgetParams);
 
   return {
     instance,

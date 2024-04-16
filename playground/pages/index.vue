@@ -1,32 +1,26 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-      instance-key="index"
-    >
+    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
+    <AisInstantSearch :widgets :configuration instance-key="index">
       <AisStats />
-      <AisClearRefinements :excluded-attributes="['free_shipping']" />
-      <AisClearRefinements :included-attributes="['free_shipping']" />
+      <AisClearRefinements id="free_shipping" />
+      <AisClearRefinements id="brand" />
+      <AisClearRefinements id="all" />
+
+      <!-- <AisClearRefinements :excluded-attributes="['free_shipping']" /> -->
+      <!-- <AisClearRefinements :included-attributes="['free_shipping']" /> -->
       <AisRangeInput attribute="price" />
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
     </AisInstantSearch>
   </div>
 </template>
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
-import { createInfiniteHitsSessionStorageCache } from "instantsearch.js/es/lib/infiniteHitsCache";
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
@@ -46,7 +40,13 @@ const widgets = computed(() => [
     ],
   }),
   useAisStats({}),
-  useAisClearRefinements({}),
+  useAisClearRefinements({ includedAttributes: ["brand"] }, "brand"),
+  useAisClearRefinements(
+    { includedAttributes: ["free_shipping"] },
+    "free_shipping",
+  ),
+  useAisClearRefinements({}, "all"),
+
   useAisInfiniteHits({
     showPrevious: true,
     cache: useAisInfiniteHitsStatefulCache("index"),
