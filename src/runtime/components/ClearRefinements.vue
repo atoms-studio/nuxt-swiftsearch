@@ -19,6 +19,7 @@
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+import { computed } from "vue"
 
 const props = defineProps<{ id: string }>();
 
