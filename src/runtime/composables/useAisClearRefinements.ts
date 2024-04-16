@@ -8,17 +8,18 @@ import { provide, ref } from "vue";
 
 export const useAisClearRefinements = (
   widgetParams: ClearRefinementsConnectorParams,
-  id: string,
+  id: string = "",
 ) => {
+  const stateRef = ref<ClearRefinementsRenderState | null>();
   // 1. Create a render function
   const renderClearRefinements: Renderer<
     ClearRefinementsRenderState,
     ClearRefinementsConnectorParams
   > = (renderState, isFirstRender) => {
+    stateRef.value = renderState;
     // render nothing, provide render state
-
     if (isFirstRender) {
-      provide(`clearRefinements-${id}`, ref(renderState));
+      provide(`clearRefinements-${id}`, stateRef);
     }
     return () => null;
   };

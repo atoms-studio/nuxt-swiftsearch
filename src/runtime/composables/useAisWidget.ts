@@ -12,19 +12,25 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const maybeInjectedIndex = inject<string | undefined>("index", undefined);
 
   const index = maybeInjectedIndex ?? instance.value.indexName;
-  const state = id
-    ? inject<
-        Ref<
-          (typeof instance.value.renderState)[typeof index][typeof widgetName]
-        >
-      >(`${widgetName}-${id}`)!
-    : ref(instance.value.renderState[index][widgetName]!);
+  type _TWidgetRenderState =
+    (typeof instance.value.renderState)[typeof index][typeof widgetName];
+
+  type TWidgetRenderState = Ref<NonNullable<_TWidgetRenderState>>;
+  const state = (
+    id
+      ? inject<TWidgetRenderState>(`${widgetName}-${id}`)
+      : ref(instance.value.renderState[index][widgetName]!)
+  ) as TWidgetRenderState;
 
   watch(
     instance,
     () => {
-      // @ts-ignore
-      state.value = instance.value.renderState[index][widgetName]!;
+      if (!id) {
+        // @ts-ignore
+        state.value = instance.value.renderState[index][widgetName]!;
+      } else {
+        triggerRef(state);
+      }
     },
     { deep: true },
   );
