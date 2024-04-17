@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.4.3
+
+[compare changes](https://undefined/undefined/compare/v0.4.2...v0.4.3)
+
+### 🩹 Fixes
+
+- Added missing useState import (186f587)
+
+### 🏡 Chore
+
+- Prettified files (d05b393)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.4.2
 
 [compare changes](https://undefined/undefined/compare/v0.4.1...v0.4.2)
