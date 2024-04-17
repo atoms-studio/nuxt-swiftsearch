@@ -12,8 +12,13 @@
       <AisHits />
       <NuxtLink :to="`/pagination/page/${parseInt(params.page as string) + 1}`">
         Go next page
-        </NuxtLink>
-      <AisPagination :show-first="false" :show-next="false" :show-last="false" :show-previous="false" />
+      </NuxtLink>
+      <AisPagination
+        :show-first="false"
+        :show-next="false"
+        :show-last="false"
+        :show-previous="false"
+      />
     </AisInstantSearch>
   </div>
 </template>

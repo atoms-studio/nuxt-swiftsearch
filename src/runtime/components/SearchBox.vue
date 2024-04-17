@@ -1,5 +1,8 @@
 <template>
-  <div v-if="state" :class="suit()">
+  <div
+    v-if="state"
+    :class="suit()"
+  >
     <slot
       :current-refinement="currentRefinement"
       :is-search-stalled="state.isSearchStalled"

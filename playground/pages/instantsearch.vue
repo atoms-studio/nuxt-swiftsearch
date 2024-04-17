@@ -1,6 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/"> Home </NuxtLink>
+    <NuxtLink to="/">
+      Home
+    </NuxtLink>
     <AisInstantSearch
       index-name="instant_search"
       :search-client="client"

@@ -11,7 +11,12 @@
       <NuxtLink to="/pagination/page/2">
         Go to page 2
       </NuxtLink>
-      <AisPagination :show-first="false" :show-next="false" :show-last="false" :show-previous="false" />
+      <AisPagination
+        :show-first="false"
+        :show-next="false"
+        :show-last="false"
+        :show-previous="false"
+      />
     </AisInstantSearch>
   </div>
 </template>

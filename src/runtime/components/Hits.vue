@@ -17,7 +17,9 @@
             name="item"
             :item="item"
             :index="itemIndex"
-          >objectID: {{ item.objectID }}, index: {{ itemIndex }}</slot>
+          >
+            objectID: {{ item.objectID }}, index: {{ itemIndex }}
+          </slot>
         </li>
       </ol>
     </slot>
