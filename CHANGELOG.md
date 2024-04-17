@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.4.2
+
+[compare changes](https://undefined/undefined/compare/v0.4.1...v0.4.2)
+
+### 🚀 Enhancements
+
+- **main:** Revert doc infinite hits (940b2f2)
+- **main:** Add computed (ca838a2)
+
+### 🩹 Fixes
+
+- **main:** Resolve clear refinements (c37998e)
+
+### ❤️ Contributors
+
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.4.1
 
 [compare changes](https://undefined/undefined/compare/v0.4.0...v0.4.1)
