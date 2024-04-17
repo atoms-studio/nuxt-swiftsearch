@@ -22,12 +22,9 @@ import { useSuit } from "../composables/useSuit";
 import { computed } from "vue"
 
 const props = defineProps<{ id: string }>();
-
-const widget = useAisWidget("clearRefinements", props.id);
-
-const state = widget.state;
-const canRefine = computed(() => state.value?.hasRefinements);
-const refine = state.value!.refine;
+const {state } = useAisWidget("clearRefinements", props.id);
+const canRefine = computed(() => state.value?.canRefine);
+const refine = () => state.value!.refine();
 
 const suit = useSuit("ClearRefinements");
 </script>
