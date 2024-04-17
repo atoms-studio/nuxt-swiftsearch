@@ -1,6 +1,7 @@
 import type { RenderState } from "instantsearch.js";
 import { computed, inject, watch, ref, type Ref, triggerRef } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
+import { useState } from "nuxt/app";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
