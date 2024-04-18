@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.4
+
+[compare changes](https://undefined/undefined/compare/v0.4.3...v0.4.4)
+
+### 🚀 Enhancements
+
+- **ids-current-refinements:** Add ids for current refinements (c9cae35)
+
+### ❤️ Contributors
+
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.4.3
 
 [compare changes](https://undefined/undefined/compare/v0.4.2...v0.4.3)
