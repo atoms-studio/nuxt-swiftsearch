@@ -4,20 +4,14 @@ import type {
   ConfigureRenderState,
 } from "instantsearch.js/es/connectors/configure/connectConfigure";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
 
-export const useAisConfigure = (widgetParams: ConfigureConnectorParams, id: string = "") => {
-  const stateRef = ref<ConfigureRenderState | null>();
+export const useAisConfigure = (widgetParams: ConfigureConnectorParams) => {
   // 1. Create a render function
   const renderConfigure: Renderer<
     ConfigureRenderState,
     ConfigureConnectorParams
-  > = (renderState, isFirstRender) => {
-    stateRef.value = renderState;
+  > = (_, __) => {
     // render nothing, provide render state
-    if (isFirstRender) {
-      provide(`configure-${id}`, stateRef);
-    }
     return () => { };
   };
 
@@ -25,5 +19,5 @@ export const useAisConfigure = (widgetParams: ConfigureConnectorParams, id: stri
   const customConfigure = connectConfigure(renderConfigure);
 
   // 3. Instantiate
-  return { ...customConfigure(widgetParams), $$widgetParams: widgetParams, $$widgetId: id};
+  return { ...customConfigure(widgetParams), $$widgetParams: widgetParams};
 };

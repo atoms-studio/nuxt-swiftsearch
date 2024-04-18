@@ -21,7 +21,9 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const props = defineProps<{ id: string }>();
+const props = withDefaults(defineProps<{ id?: string }>(), {
+  id: ''
+})
 const { state } = useAisWidget("clearRefinements", props.id);
 const canRefine = computed(() => state.value?.canRefine);
 const refine = () => state.value!.refine();
