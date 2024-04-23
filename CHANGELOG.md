@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.4.5
+
+[compare changes](https://undefined/undefined/compare/v0.4.4...v0.4.5)
+
+### 🚀 Enhancements
+
+- **docs:** Add current refinements docs (df50c2f)
+
+### 🩹 Fixes
+
+- Watch widgets config change (d17f53a)
+
+### 🏡 Chore
+
+- Merge main (251c8a9)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Mattia Marescotti ([@Met96](http://github.com/Met96))
+
 ## v0.4.4
 
 [compare changes](https://undefined/undefined/compare/v0.4.3...v0.4.4)
