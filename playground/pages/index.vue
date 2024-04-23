@@ -1,13 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-      instance-key="index"
-    >
+    <NuxtLink to="/?q=test"> Test query </NuxtLink>
+    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
+    <AisInstantSearch :widgets :configuration instance-key="index">
       <AisStats />
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
@@ -17,10 +12,7 @@
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
@@ -79,6 +71,7 @@ const widgets = computed(() => [
   useAisRangeInput({
     attribute: "price",
   }),
+  useAisConfigure({ searchParameters: {} }),
   indexBnb,
 ]);
 

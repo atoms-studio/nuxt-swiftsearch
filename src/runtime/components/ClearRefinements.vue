@@ -1,5 +1,8 @@
 <template>
-  <div v-if="state" :class="suit()">
+  <div
+    v-if="state"
+    :class="suit()"
+  >
     <slot
       :can-refine="canRefine"
       :refine="state.refine"
@@ -11,7 +14,9 @@
         :disabled="!canRefine"
         @click.prevent="refine"
       >
-        <slot name="resetLabel"> Clear refinements </slot>
+        <slot name="resetLabel">
+          Clear refinements
+        </slot>
       </button>
     </slot>
   </div>

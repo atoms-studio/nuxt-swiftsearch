@@ -12,7 +12,7 @@ import type {
   InstantSearch,
 } from "instantsearch.js";
 import { useInstantSearch } from "../composables/useInstantSearch";
-import { shallowRef, provide, ref } from "vue";
+import { shallowRef, provide, ref, toRefs, watch } from "vue";
 import instantsearch from "instantsearch.js/es";
 import { useState } from "nuxt/app";
 
@@ -21,6 +21,8 @@ const props = defineProps<{
   widgets: Array<Widget | IndexWidget>;
   instanceKey?: string;
 }>();
+
+const { widgets: widgetsRef } = toRefs(props);
 
 const searchInstance = import.meta.server
   ? ref(instantsearch(props.configuration))
@@ -33,6 +35,10 @@ provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
 const { setup } = useInstantSearch(searchInstance);
 await setup(props.widgets);
+
+watch(widgetsRef, async () => {
+  await setup(props.widgets);
+});
 </script>
 
 <style scoped></style>

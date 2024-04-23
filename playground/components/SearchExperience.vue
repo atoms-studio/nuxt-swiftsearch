@@ -1,23 +1,20 @@
 <template>
   <div>
-    <AisInstantSearch
-      :widgets
-      :configuration
-    >
+    <AisInstantSearch :widgets :configuration>
       <AisStats />
-      <AisSearchBox />
       <AisSortBy />
+      <AisRefinementList attribute="brand" />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
         <template #item="{ item }">
-          {{ item.brand }} - {{ item.price }}
+          {{ item.brand }} - {{ item.price }} - {{ item.name }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
     </AisInstantSearch>
+    <div @click="isFreeShipping = !isFreeShipping">
+      Change free shipping {{ isFreeShipping }}
+    </div>
   </div>
 </template>
 
@@ -35,6 +32,7 @@ const algoliaRouter = useAisRouter();
 const route = useRoute();
 const filters = computed(() => `brand:${route.params.brand}`);
 
+const isFreeShipping = ref(false);
 const widgets = computed(() => [
   useAisSortBy({
     items: [
@@ -56,6 +54,7 @@ const widgets = computed(() => [
     searchParameters: {
       filters: filters.value,
       distinct: true,
+      facetFilters: [`free_shipping:${isFreeShipping.value}`],
     },
   }),
   useAisSearchBox({}),
