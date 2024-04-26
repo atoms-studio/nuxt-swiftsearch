@@ -1,11 +1,17 @@
 <template>
   <div>
     <ClientOnly>
-      <NuxtLink to="/Samsung"> Go To brand </NuxtLink>
+      <NuxtLink to="/Samsung">
+        Go To brand
+      </NuxtLink>
     </ClientOnly>
-    <NuxtLink to="/Nobrands"> No products brands </NuxtLink>
+    <NuxtLink to="/Nobrands">
+      No products brands
+    </NuxtLink>
 
-    <NuxtLink to="/nosearch2"> Go to nosearch2 </NuxtLink>
+    <NuxtLink to="/nosearch2">
+      Go to nosearch2
+    </NuxtLink>
   </div>
 </template>
 

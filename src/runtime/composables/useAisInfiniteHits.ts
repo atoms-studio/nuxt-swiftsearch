@@ -29,7 +29,11 @@ export const useAisInfiniteHits = (
   const customInfiniteHits =
     connectInfiniteHitsWithInsights(renderInfiniteHits);
 
-  const significantParams = { ...widgetParams, cache: false };
+  const significantParams = {
+    ...widgetParams,
+    cache: false,
+    transformItems: null,
+  };
   // 3. Instantiate
   return {
     ...customInfiniteHits(widgetParams),
