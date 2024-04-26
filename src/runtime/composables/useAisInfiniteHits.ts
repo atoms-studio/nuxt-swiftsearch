@@ -22,13 +22,18 @@ export const useAisInfiniteHits = (
       provide(`infiniteHits-${id}`, stateRef);
     }
     // render nothing
-    return () => { };
+    return () => {};
   };
 
   // 2. Create the custom widget
   const customInfiniteHits =
     connectInfiniteHitsWithInsights(renderInfiniteHits);
 
+  const significantParams = { ...widgetParams, cache: false };
   // 3. Instantiate
-  return { ...customInfiniteHits(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
+  return {
+    ...customInfiniteHits(widgetParams),
+    $$widgetParams: significantParams,
+    $$widgetId: id,
+  };
 };

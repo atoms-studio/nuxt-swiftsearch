@@ -1,6 +1,10 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration>
+    <AisInstantSearch
+      :widgets
+      :configuration
+      :instance-key="'search-experience'"
+    >
       <AisStats />
       <AisSortBy />
       <AisRefinementList attribute="brand" />
@@ -44,6 +48,7 @@ const widgets = computed(() => [
   useAisStats({}),
   useAisInfiniteHits({
     showPrevious: true,
+    cache: useAisInfiniteHitsStatefulCache("ihits"),
   }),
   useAisRefinementList({
     attribute: "brand",

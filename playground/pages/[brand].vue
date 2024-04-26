@@ -8,9 +8,12 @@
     <NuxtLink to="/search?query=Apple"> Search for apple </NuxtLink>
     <NuxtLink to="/nosearch"> Go to no search </NuxtLink>
     <NuxtLink to="/"> Go to home </NuxtLink>
+    {{ data }}
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { data } = await useFetch("/api/testApi");
+</script>
 
 <style scoped></style>
