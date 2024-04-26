@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.7
+
+[compare changes](https://undefined/undefined/compare/v0.4.6...v0.4.7)
+
+### 🩹 Fixes
+
+- Remove FOWC when moving to other route and losing query params (74f9d49)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.4.6
 
 [compare changes](https://undefined/undefined/compare/v0.4.5...v0.4.6)
