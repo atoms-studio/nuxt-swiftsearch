@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.8
+
+[compare changes](https://undefined/undefined/compare/v0.4.7...v0.4.8)
+
+### 🩹 Fixes
+
+- Remove dirty checking transform items (5a1205f)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.4.7
 
 [compare changes](https://undefined/undefined/compare/v0.4.6...v0.4.7)
