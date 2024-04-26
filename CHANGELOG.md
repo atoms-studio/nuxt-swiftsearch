@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.4.6
+
+[compare changes](https://undefined/undefined/compare/v0.4.5...v0.4.6)
+
+### 🩹 Fixes
+
+- Removed cache from widget params dirty checking in infinite hits (0ae3bae)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.4.5
 
 [compare changes](https://undefined/undefined/compare/v0.4.4...v0.4.5)
