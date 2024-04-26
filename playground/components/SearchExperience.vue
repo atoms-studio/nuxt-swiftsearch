@@ -14,7 +14,10 @@
           {{ item.brand }} - {{ item.price }} - {{ item.name }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
     </AisInstantSearch>
     <div @click="isFreeShipping = !isFreeShipping">
       Change free shipping {{ isFreeShipping }}

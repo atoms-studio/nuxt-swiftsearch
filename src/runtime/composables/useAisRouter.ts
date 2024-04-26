@@ -4,6 +4,7 @@ import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
 export const useAisRouter = () => {
   const router = useRouter();
+  const instantiationRoute = router.currentRoute.value.name;
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
@@ -24,7 +25,9 @@ export const useAisRouter = () => {
         if (typeof window === "undefined") return;
         // @ts-ignore
         this._removeAfterEach = router.afterEach((to, from) => {
-          cb(this.read());
+          if (to.name === instantiationRoute) {
+            cb(this.read());
+          }
         });
 
         // @ts-ignore

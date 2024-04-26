@@ -1,10 +1,16 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration instance-key="index">
+    <AisInstantSearch
+      :widgets
+      :configuration
+      instance-key="index"
+    >
       <AisStats />
       <AisHits />
 
-      <NuxtLink to="/pagination/page/2"> Go to page 2 </NuxtLink>
+      <NuxtLink to="/pagination/page/2">
+        Go to page 2
+      </NuxtLink>
       <AisPagination
         :show-first="false"
         :show-next="false"
