@@ -42,7 +42,7 @@
 import { useSuit } from "../composables/useSuit";
 import HierarchicalMenuList from "./HierarchicalMenuList.vue";
 import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
-
+import { computed } from "vue";
 const suit = useSuit("HierarchicalMenu");
 
 const props = withDefaults(
