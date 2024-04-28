@@ -43,6 +43,7 @@ import { useSuit } from "../composables/useSuit";
 import HierarchicalMenuList from "./HierarchicalMenuList.vue";
 import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 import { computed } from "vue";
+import { useAisWidget } from "../composables/useAisWidget";
 const suit = useSuit("HierarchicalMenu");
 
 const props = withDefaults(
@@ -57,9 +58,11 @@ const props = withDefaults(
 
 const hierarchicalMenuRenderState = useAisHierarchicalMenuRenderState();
 
+const { state: hierarchicalMenuState } = useAisWidget("hierarchicalMenu");
+
 const state = computed(() => {
   return hierarchicalMenuRenderState.value[props.attribute]
     ? hierarchicalMenuRenderState.value[props.attribute]
-    : hierarchicalMenuRenderState.value[props.attribute];
+    : hierarchicalMenuState.value[props.attribute];
 });
 </script>

@@ -9,7 +9,7 @@ import { provide, ref } from "vue";
 
 export const useAisHierarchicalMenuRenderState = () =>
   useState<Record<string, HierarchicalMenuRenderState>>(
-    "ais_refinement_render_state",
+    "ais_hierarchical_menu_render_state",
     () => ({}),
   );
 export const useAisHierarchicalMenu = (
@@ -17,7 +17,7 @@ export const useAisHierarchicalMenu = (
   id: string = "",
 ) => {
   const stateRef = ref<HierarchicalMenuRenderState | null>();
-  const refinementRenderState = useAisHierarchicalMenuRenderState();
+  const hierarchicalRenderState = useAisHierarchicalMenuRenderState();
   // 1. Create a render function
   const renderHierarchicalMenu: Renderer<
     HierarchicalMenuRenderState,
@@ -26,11 +26,11 @@ export const useAisHierarchicalMenu = (
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      refinementRenderState.value[widgetParams.attributes[0]] = renderState;
+      hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
     }
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`refinementList-${id}`, stateRef);
+      provide(`hierarchical-menu-${id}`, stateRef);
     }
     // render nothing
     return () => null;
