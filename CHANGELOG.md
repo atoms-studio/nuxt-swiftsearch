@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.5.1
+
+[compare changes](https://undefined/undefined/compare/v0.5.0...v0.5.1)
+
+### 🩹 Fixes
+
+- Added missing import (2b2d8ff)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.5.0
 
 [compare changes](https://undefined/undefined/compare/v0.4.8...v0.5.0)
