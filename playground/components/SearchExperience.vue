@@ -14,11 +14,10 @@
           {{ item.brand }} - {{ item.price }} - {{ item.name }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
+      <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
     </AisInstantSearch>
+
     <div @click="isFreeShipping = !isFreeShipping">
       Change free shipping {{ isFreeShipping }}
     </div>
@@ -52,6 +51,13 @@ const widgets = computed(() => [
   useAisInfiniteHits({
     showPrevious: true,
     cache: useAisInfiniteHitsStatefulCache("ihits"),
+  }),
+  useAisHierarchicalMenu({
+    attributes: [
+      "hierarchicalCategories.lvl0",
+      "hierarchicalCategories.lvl1",
+      "hierarchicalCategories.lvl2",
+    ],
   }),
   useAisRefinementList({
     attribute: "brand",
