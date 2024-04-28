@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.5.2
+
+[compare changes](https://undefined/undefined/compare/v0.5.1...v0.5.2)
+
+### 🩹 Fixes
+
+- Resolved ssr issues, missing logic (40cb0c9)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.5.1
 
 [compare changes](https://undefined/undefined/compare/v0.5.0...v0.5.1)
