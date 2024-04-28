@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.5.0
+
+[compare changes](https://undefined/undefined/compare/v0.4.8...v0.5.0)
+
+### 🚀 Enhancements
+
+- Added hierarchical menu widget (393dfda)
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v0.4.8
 
 [compare changes](https://undefined/undefined/compare/v0.4.7...v0.4.8)
