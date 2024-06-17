@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.6.2
+
+[compare changes](https://undefined/undefined/compare/v0.6.1...v0.6.2)
+
+### 🩹 Fixes
+
+- Readded widgets watcher for computed widgets (c5dcd35)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.6.1
 
 [compare changes](https://undefined/undefined/compare/v0.6.0...v0.6.1)
