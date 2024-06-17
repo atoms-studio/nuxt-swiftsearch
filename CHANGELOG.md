@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.6.0
+
+[compare changes](https://undefined/undefined/compare/v0.5.2...v0.6.0)
+
+### 🚀 Enhancements
+
+- Removed memory leak by correctly cleaning objects (8f9d984)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.5.2
 
 [compare changes](https://undefined/undefined/compare/v0.5.1...v0.5.2)
