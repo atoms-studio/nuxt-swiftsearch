@@ -17,7 +17,6 @@
       <AisRefinementList attribute="brand" searchable />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
     </AisInstantSearch>
-
     <div @click="isFreeShipping = !isFreeShipping">
       Change free shipping {{ isFreeShipping }}
     </div>

@@ -50,7 +50,7 @@ if (searchInstance.value === null) {
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
-onUnmounted(() => {
+const unmountInstance = () => {
   searchInstance.value?.mainHelper?.removeAllListeners();
   searchInstance.value?.removeWidgets(props.widgets);
   searchInstance.value?.dispose();
@@ -60,9 +60,15 @@ onUnmounted(() => {
   refinementListRenderState.value = null;
   // @ts-ignore
   hierarchicalRenderState.value = null;
+};
+onUnmounted(() => {
+  unmountInstance();
 });
 const { setup } = useInstantSearch(searchInstance);
 await setup(props.widgets);
+watch(widgetsRef, async (wdgts) => {
+  await setup(wdgts);
+});
 </script>
 
 <style scoped></style>
