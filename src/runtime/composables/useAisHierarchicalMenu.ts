@@ -8,7 +8,7 @@ import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
 export const useAisHierarchicalMenuRenderState = () =>
-  useState<Record<string, HierarchicalMenuRenderState>>(
+  useState<Record<string, HierarchicalMenuRenderState> | null>(
     "ais_hierarchical_menu_render_state",
     () => ({}),
   );
@@ -23,10 +23,21 @@ export const useAisHierarchicalMenu = (
     HierarchicalMenuRenderState,
     HierarchicalMenuConnectorParams
   > = (renderState, isFirstRender) => {
-    stateRef.value = renderState;
+    const cleanState = Object.assign(
+      {},
+      {
+        ...renderState,
+        // @ts-ignore
+        instantSearchInstance: null,
+      },
+    );
+    stateRef.value = cleanState;
     // save renderState
     if (import.meta.client) {
-      hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
+      if (!hierarchicalRenderState.value) {
+        hierarchicalRenderState.value = {};
+      }
+      hierarchicalRenderState.value[widgetParams.attributes[0]] = cleanState;
     }
     // render nothing, provide render state
     if (isFirstRender) {

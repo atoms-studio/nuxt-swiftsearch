@@ -14,10 +14,7 @@
           {{ item.brand }} - {{ item.price }} - {{ item.name }}
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
     </AisInstantSearch>
 
@@ -53,7 +50,6 @@ const widgets = computed(() => [
   useAisStats({}),
   useAisInfiniteHits({
     showPrevious: true,
-    cache: useAisInfiniteHitsStatefulCache("ihits"),
   }),
   useAisHierarchicalMenu({
     attributes: [

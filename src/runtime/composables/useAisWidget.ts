@@ -1,5 +1,13 @@
 import type { RenderState } from "instantsearch.js";
-import { computed, inject, watch, ref, type Ref, triggerRef } from "vue";
+import {
+  computed,
+  inject,
+  watch,
+  ref,
+  type Ref,
+  triggerRef,
+  onUnmounted,
+} from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 import { useState } from "nuxt/app";
 
@@ -27,11 +35,14 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const state = import.meta.server
     ? _state
     : id
-      ? useState(`${widgetName}-${id}`, () => _state)
+      ? useState(`${widgetName}-${id}`, () => _state.value)
       : _state;
-  watch(
+  const unwatch = watch(
     instance,
     () => {
+      if (!instance.value) {
+        return;
+      }
       if (!id) {
         // @ts-ignore
         state.value = instance.value.renderState[index][widgetName]!;
@@ -41,6 +52,10 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
     },
     { deep: true },
   );
+
+  onUnmounted(() => {
+    unwatch();
+  });
 
   if (!state.value)
     throw new Error(

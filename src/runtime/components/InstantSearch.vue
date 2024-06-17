@@ -12,7 +12,17 @@ import type {
   InstantSearch,
 } from "instantsearch.js";
 import { useInstantSearch } from "../composables/useInstantSearch";
-import { shallowRef, provide, ref, toRefs, watch } from "vue";
+import {
+  shallowRef,
+  provide,
+  ref,
+  toRefs,
+  watch,
+  onUnmounted,
+  type Ref,
+} from "vue";
+import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
+import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 import instantsearch from "instantsearch.js/es";
 import { useState } from "nuxt/app";
 
@@ -24,6 +34,9 @@ const props = defineProps<{
 
 const { widgets: widgetsRef } = toRefs(props);
 
+const refinementListRenderState = useAisRefinementListRenderState();
+const hierarchicalRenderState = useAisHierarchicalMenuRenderState();
+
 const searchInstance = import.meta.server
   ? ref(instantsearch(props.configuration))
   : // : shallowRef(instantsearch(props.configuration));
@@ -31,14 +44,25 @@ const searchInstance = import.meta.server
       shallowRef(instantsearch(props.configuration)),
     );
 
+if (searchInstance.value === null) {
+  searchInstance.value = instantsearch(props.configuration);
+}
+
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
+onUnmounted(() => {
+  searchInstance.value?.mainHelper?.removeAllListeners();
+  searchInstance.value?.removeWidgets(props.widgets);
+  searchInstance.value?.dispose();
+  // @ts-ignore
+  searchInstance.value = null;
+  // @ts-ignore
+  refinementListRenderState.value = null;
+  // @ts-ignore
+  hierarchicalRenderState.value = null;
+});
 const { setup } = useInstantSearch(searchInstance);
 await setup(props.widgets);
-
-watch(widgetsRef, async () => {
-  await setup(props.widgets);
-});
 </script>
 
 <style scoped></style>

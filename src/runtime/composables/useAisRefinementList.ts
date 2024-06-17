@@ -8,7 +8,7 @@ import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
 export const useAisRefinementListRenderState = () =>
-  useState<Record<string, RefinementListRenderState>>(
+  useState<Record<string, RefinementListRenderState> | null>(
     "ais_refinement_render_state",
     () => ({}),
   );
@@ -23,10 +23,22 @@ export const useAisRefinementList = (
     RefinementListRenderState,
     RefinementListConnectorParams
   > = (renderState, isFirstRender) => {
-    stateRef.value = renderState;
+    const cleanState = Object.assign(
+      {},
+      {
+        ...renderState,
+        // @ts-ignore
+        instantSearchInstance: null,
+      },
+    );
+    stateRef.value = cleanState;
     // save renderState
     if (import.meta.client) {
-      refinementRenderState.value[widgetParams.attribute] = renderState;
+      if (!refinementRenderState.value)
+        // @ts-ignore
+        refinementRenderState.value = {};
+      // @ts-ignore
+      refinementRenderState.value[widgetParams.attribute] = cleanState;
     }
     // render nothing, provide render state
     if (isFirstRender) {
@@ -43,6 +55,6 @@ export const useAisRefinementList = (
   return {
     ...customRefinementList(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id
+    $$widgetId: id,
   };
 };

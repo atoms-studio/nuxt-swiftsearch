@@ -1,6 +1,8 @@
 <template>
   <div
-    v-if="state"
+    v-if="
+      state && state.items.length && instance && hierarchicalMenuRenderState
+    "
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
@@ -58,11 +60,12 @@ const props = withDefaults(
 
 const hierarchicalMenuRenderState = useAisHierarchicalMenuRenderState();
 
-const { state: hierarchicalMenuState } = useAisWidget("hierarchicalMenu");
+const { state: hierarchicalMenuState, instance } =
+  useAisWidget("hierarchicalMenu");
 
 const state = computed(() => {
-  return hierarchicalMenuRenderState.value[props.attribute]
-    ? hierarchicalMenuRenderState.value[props.attribute]
-    : hierarchicalMenuState.value[props.attribute];
+  return hierarchicalMenuRenderState.value?.[props.attribute]
+    ? hierarchicalMenuRenderState.value?.[props.attribute]
+    : hierarchicalMenuState.value?.[props.attribute];
 });
 </script>
