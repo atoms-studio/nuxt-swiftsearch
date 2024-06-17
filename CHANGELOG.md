@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.6.1
+
+[compare changes](https://undefined/undefined/compare/v0.6.0...v0.6.1)
+
+### 🩹 Fixes
+
+- Error reading instance (32bedf0)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.6.0
 
 [compare changes](https://undefined/undefined/compare/v0.5.2...v0.6.0)
