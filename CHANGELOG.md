@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.6.3
+
+[compare changes](https://undefined/undefined/compare/v0.6.2...v0.6.3)
+
+### 🩹 Fixes
+
+- Removed error when getting instance (975dad2)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.6.2
 
 [compare changes](https://undefined/undefined/compare/v0.6.1...v0.6.2)
