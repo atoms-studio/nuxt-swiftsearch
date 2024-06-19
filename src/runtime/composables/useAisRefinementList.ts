@@ -23,22 +23,14 @@ export const useAisRefinementList = (
     RefinementListRenderState,
     RefinementListConnectorParams
   > = (renderState, isFirstRender) => {
-    const cleanState = Object.assign(
-      {},
-      {
-        ...renderState,
-        // @ts-ignore
-        instantSearchInstance: null,
-      },
-    );
-    stateRef.value = cleanState;
+    stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
       if (!refinementRenderState.value)
         // @ts-ignore
         refinementRenderState.value = {};
       // @ts-ignore
-      refinementRenderState.value[widgetParams.attribute] = cleanState;
+      refinementRenderState.value[widgetParams.attribute] = renderState;
     }
     // render nothing, provide render state
     if (isFirstRender) {

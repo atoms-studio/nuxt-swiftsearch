@@ -24,7 +24,6 @@ import {
 import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
 import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 import instantsearch from "instantsearch.js/es";
-import { useState } from "nuxt/app";
 
 const props = defineProps<{
   configuration: InstantSearchOptions;
@@ -39,14 +38,7 @@ const hierarchicalRenderState = useAisHierarchicalMenuRenderState();
 
 const searchInstance = import.meta.server
   ? ref(instantsearch(props.configuration))
-  : // : shallowRef(instantsearch(props.configuration));
-    useState(`instant_search_instance-${props.instanceKey ?? ""}`, () =>
-      shallowRef(instantsearch(props.configuration)),
-    );
-
-if (searchInstance.value === null) {
-  searchInstance.value = instantsearch(props.configuration);
-}
+  : shallowRef(instantsearch(props.configuration));
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
@@ -67,7 +59,9 @@ onUnmounted(() => {
 const { setup } = useInstantSearch(searchInstance);
 await setup(props.widgets);
 watch(widgetsRef, async (wdgts) => {
-  await setup(wdgts);
+  if (searchInstance.value) {
+    await setup(wdgts);
+  }
 });
 </script>
 

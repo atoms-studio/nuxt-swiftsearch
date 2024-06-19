@@ -23,21 +23,13 @@ export const useAisHierarchicalMenu = (
     HierarchicalMenuRenderState,
     HierarchicalMenuConnectorParams
   > = (renderState, isFirstRender) => {
-    const cleanState = Object.assign(
-      {},
-      {
-        ...renderState,
-        // @ts-ignore
-        instantSearchInstance: null,
-      },
-    );
-    stateRef.value = cleanState;
+    stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
       if (!hierarchicalRenderState.value) {
         hierarchicalRenderState.value = {};
       }
-      hierarchicalRenderState.value[widgetParams.attributes[0]] = cleanState;
+      hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
     }
     // render nothing, provide render state
     if (isFirstRender) {
