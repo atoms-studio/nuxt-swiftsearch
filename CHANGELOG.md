@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.6.5
+
+[compare changes](https://undefined/undefined/compare/v0.6.4...v0.6.5)
+
+### 🩹 Fixes
+
+- Types (ce6c5bb)
+- Removed erroneous logic (11204ef)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.6.4
 
 [compare changes](https://undefined/undefined/compare/v0.6.3...v0.6.4)
