@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state && state.state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.state && state.results && instance" :class="suit()">
     <slot v-bind="stateResults">
       <p>
         Use this component to have a different layout based on a certain state.
@@ -29,15 +26,14 @@ const props = withDefaults(
   { catchError: false },
 );
 
-const { catchError } = toRefs(props);
 const instance = getInstance();
 
 // custom state
 const state = computed(() => {
-  const status = instance.value.status;
-  const error = instance.value.error;
-  const results = parentIndex.value.getResults();
-  const helper = parentIndex.value.getHelper();
+  const status = instance?.value?.status;
+  const error = instance?.value?.error;
+  const results = parentIndex?.value?.getResults();
+  const helper = parentIndex?.value?.getHelper();
   const state = helper ? helper.state : null;
   return {
     results,

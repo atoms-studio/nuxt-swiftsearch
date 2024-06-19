@@ -1,4 +1,4 @@
-import type { RenderState } from "instantsearch.js";
+import type { InstantSearch, RenderState } from "instantsearch.js";
 import {
   computed,
   inject,
@@ -16,11 +16,11 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   id?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
   const { getInstance } = useInstantSearch();
-  const instance = getInstance();
+  const instance = getInstance() as Ref<InstantSearch>;
 
   const maybeInjectedIndex = inject<string | undefined>("index", undefined);
 
-  const index = maybeInjectedIndex ?? instance.value.indexName;
+  const index = maybeInjectedIndex ?? instance.value!.indexName;
   type _TWidgetRenderState =
     (typeof instance.value.renderState)[typeof index][typeof widgetName];
 
