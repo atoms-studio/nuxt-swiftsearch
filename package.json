@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.23.9",
-    "@nuxt/kit": "^3.10.1",
+    "@nuxt/kit": "^3.12.2",
     "@types/lodash.isequal": "^4.5.8",
     "algoliasearch": "^4.22.1",
     "instantsearch.js": "^4.64.3",
@@ -42,7 +42,7 @@
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.10.1",
+    "@nuxt/schema": "^3.12.2",
     "@nuxt/test-utils": "^3.11.0",
     "@types/node": "^20.11.16",
     "changelogen": "^0.5.5",
@@ -55,3 +55,4 @@
     "vue-tsc": "^1.8.27"
   }
 }
+
