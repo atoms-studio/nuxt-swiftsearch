@@ -8,7 +8,7 @@ import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
 export const useAisHierarchicalMenuRenderState = () =>
-  useState<Record<string, HierarchicalMenuRenderState> | null>(
+  useState<Record<string, HierarchicalMenuRenderState>>(
     "ais_hierarchical_menu_render_state",
     () => ({}),
   );
@@ -26,9 +26,6 @@ export const useAisHierarchicalMenu = (
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      if (!hierarchicalRenderState.value) {
-        hierarchicalRenderState.value = {};
-      }
       hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
     }
     // render nothing, provide render state

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="state && refinementListState && instance"
+    v-if="state"
     :class="[suit(''), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
@@ -107,13 +107,13 @@ const props = withDefaults(
   { searchablePlaceholder: "Search here…" },
 );
 
-const { state: refinementsState, instance } = useAisWidget("refinementList");
+const { state: refinementsState } = useAisWidget("refinementList");
 const refinementListState = useAisRefinementListRenderState();
 
 const state = computed(() => {
-  return refinementListState.value?.[props.attribute]
-    ? refinementListState.value?.[props.attribute]
-    : refinementsState.value?.[props.attribute];
+  return refinementListState.value[props.attribute]
+    ? refinementListState.value[props.attribute]
+    : refinementsState.value[props.attribute];
 });
 const widgetParams = computed(
   () => refinementsState.value[props.attribute].widgetParams,

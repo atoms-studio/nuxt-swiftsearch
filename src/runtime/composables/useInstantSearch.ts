@@ -22,18 +22,20 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   );
 
   const getInstance = () => {
-    // instance can be nullable after 0.6.0
-    return _searchInstance as Ref<InstantSearch | null>;
+    if (_searchInstance!.value === null) {
+      throw new Error("instantiate instantsearch first");
+    }
+    return _searchInstance as Ref<InstantSearch>;
   };
 
   const parentIndex = computed(() => {
-    return getInstance()?.value?.mainIndex;
+    return getInstance().value.mainIndex;
   });
   const setup = async (widgets: Array<Widget | IndexWidget>) => {
-    const instance = getInstance() as Ref<InstantSearch>;
+    const instance = getInstance();
     // adding widgets to instance if not presents (new instance)
-    if (!instance?.value?.mainIndex.getWidgets().length) {
-      instance?.value?.addWidgets(widgets);
+    if (!instance.value.mainIndex.getWidgets().length) {
+      instance.value.addWidgets(widgets);
       // }
     } else {
       const oldWidgets = instance.value.mainIndex.getWidgets();

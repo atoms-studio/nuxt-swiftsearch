@@ -1,5 +1,8 @@
 <template>
-  <div v-if="state && instance" :class="suit()">
+  <div
+    v-if="state"
+    :class="suit()"
+  >
     <slot
       :items="state.options"
       :has-no-results="state.hasNoResults"
@@ -31,6 +34,6 @@
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
-const { state, instance } = useAisWidget("sortBy");
+const { state } = useAisWidget("sortBy");
 const suit = useSuit("SortBy");
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="state && instance"
+    v-if="state"
     :class="suit()"
   >
     <slot
