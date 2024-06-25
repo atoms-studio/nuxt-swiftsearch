@@ -4,4 +4,9 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true,
   },
+  experimental: {
+    componentIslands: {
+      selectiveClient: "deep",
+    },
+  },
 });

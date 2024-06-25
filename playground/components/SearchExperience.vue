@@ -10,14 +10,17 @@
       <AisRefinementList attribute="brand" />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits>
-        <template #item="{ item }">
-          {{ item.brand }} - {{ item.price }} - {{ item.name }}
+        <template #default="{ items }">
+          <Product
+            v-for="item in items"
+            :id="item.objectID"
+            :key="item.objectID"
+            :name="(item as unknown as TProduct).name"
+            :price="(item as unknown as TProduct).price"
+          />
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
     </AisInstantSearch>
 
@@ -85,6 +88,11 @@ const configuration = ref<InstantSearchOptions>({
   },
   searchClient: client,
 } as unknown as InstantSearchOptions);
+type TProduct = {
+  objectID: string;
+  name: string;
+  price: string;
+};
 </script>
 
 <style scoped></style>
