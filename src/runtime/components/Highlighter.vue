@@ -2,10 +2,7 @@
   <span :class="suit()">
     <component
       :is="isHighlighted ? highlightedTagName : 'span'"
-      v-for="({ value, isHighlighted }, index) in parsedHighlights as {
-        value: string | undefined;
-        isHighlighted: boolean;
-      }[]"
+      v-for="({ value, isHighlighted }, index) in parsedHighlights as ParsedHighlights"
       :key="index"
       :class="[isHighlighted && suit('highlighted')]"
     >{{ value }}</component>
@@ -17,6 +14,11 @@ import type { Hit } from "instantsearch.js";
 import { computed } from "vue";
 import { parseAlgoliaHit } from "../utils/parseAlgoliaHit";
 import type { RefinementListItem } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
+
+type ParsedHighlights = {
+  value: string | undefined;
+  isHighlighted: boolean;
+}[]
 
 const props = withDefaults(
   defineProps<{
