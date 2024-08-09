@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.5.3
+
+[compare changes](https://undefined/undefined/compare/v0.6.5...v0.5.3)
+
+### 🩹 Fixes
+
+- Revert "feat: removed memory leak by correctly cleaning objects" (85a4078)
+- Fixed some types and upgraded deps (f1cc9af)
+
+### 💅 Refactors
+
+- Moved type from template into script (0e7f52c)
+
+### 🏡 Chore
+
+- Upgraded nuxt version (eccc994)
+- Testing server component inside v-for (60a7273)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+- Martin Masevski <martin.masevski@gmail.com>
+
 ## v0.5.2
 
 [compare changes](https://undefined/undefined/compare/v0.5.1...v0.5.2)
