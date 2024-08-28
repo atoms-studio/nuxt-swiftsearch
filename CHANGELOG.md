@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.6.0
+
+[compare changes](https://undefined/undefined/compare/v0.5.4...v0.6.0)
+
+### 🚀 Enhancements
+
+- Added middleware management (d8fa716)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.5.4
 
 [compare changes](https://undefined/undefined/compare/v0.5.3...v0.5.4)
