@@ -20,7 +20,10 @@
           />
         </template>
       </AisInfiniteHits>
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
     </AisInstantSearch>
 

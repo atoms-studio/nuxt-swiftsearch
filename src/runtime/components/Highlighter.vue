@@ -5,8 +5,7 @@
       v-for="({ value, isHighlighted }, index) in parsedHighlights as ParsedHighlights"
       :key="index"
       :class="[isHighlighted && suit('highlighted')]"
-      >{{ value }}</component
-    >
+    >{{ value }}</component>
   </span>
 </template>
 
