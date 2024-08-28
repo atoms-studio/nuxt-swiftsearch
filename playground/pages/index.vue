@@ -1,16 +1,8 @@
 <template>
   <div>
-    <NuxtLink to="/?q=test">
-      Test query
-    </NuxtLink>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-      instance-key="index"
-    >
+    <NuxtLink to="/?q=test"> Test query </NuxtLink>
+    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
+    <AisInstantSearch :widgets :configuration :middlewares instance-key="index">
       <AisStats />
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
@@ -20,10 +12,7 @@
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
@@ -39,6 +28,7 @@
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
+import type { Middleware } from "instantsearch.js";
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
@@ -86,6 +76,17 @@ const widgets = computed(() => [
   indexBnb,
 ]);
 
+const middlewares = ref<Middleware[]>([
+  ({ instantSearchInstance }) => {
+    return {
+      onStateChange({ uiState }) {
+        console.log(uiState, "from middleware");
+      },
+      subscribe() {},
+      unsubscribe() {},
+    };
+  },
+]);
 const configuration = ref({
   indexName: "instant_search",
   routing: algoliaRouter.value,
