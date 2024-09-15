@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.7.1
+
+[compare changes](https://undefined/undefined/compare/v0.7.0...v0.7.1)
+
+### 🩹 Fixes
+
+- Added missing class on main component (128ab89)
+
+### 🏡 Chore
+
+- Fix linting (00a4ca5)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.7.0
 
 [compare changes](https://undefined/undefined/compare/v0.5.4...v0.7.0)
