@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     license: 'oss',
   },
   routeRules: {
-    '/api/search.json': { prerender: true },
+    '/**': { prerender: true}
   },
   devtools: {
     enabled: true,
