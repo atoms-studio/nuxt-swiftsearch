@@ -1,6 +1,26 @@
 # Changelog
 
 
+## v0.7.2
+
+[compare changes](https://undefined/undefined/compare/v0.7.1...v0.7.2)
+
+### 🩹 Fixes
+
+- Normalizing query against sortby undefined value in router (a61d6c1)
+
+### 📖 Documentation
+
+- Improved docs (d648a2e)
+
+### 🏡 Chore
+
+- Added prerendering for every doc page (b0832bf)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.7.1
 
 [compare changes](https://undefined/undefined/compare/v0.7.0...v0.7.1)
