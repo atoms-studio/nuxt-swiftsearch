@@ -9,7 +9,8 @@ export const useAisRouter = () => {
     router: {
       read() {
         const query = router.currentRoute.value.query;
-        return Array.isArray(query) ? query[0] : query;
+        const normalizedQuery = Array.isArray(query) ? query[0] : query;
+        return { sortBy: undefined, ...normalizedQuery };
       },
       write(routeState) {
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
