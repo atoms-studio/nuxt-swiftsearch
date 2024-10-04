@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.7.3
+
+[compare changes](https://undefined/undefined/compare/v0.7.2...v0.7.3)
+
+### 🩹 Fixes
+
+- FOWC in routing when in a catch all page (dac93e5)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.7.2
 
 [compare changes](https://undefined/undefined/compare/v0.7.1...v0.7.2)
