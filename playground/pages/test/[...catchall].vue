@@ -1,17 +1,10 @@
 <template>
   <div>
     <h1>Catch all page</h1>
-    <NuxtLink to="/?q=test">
-      Test query
-    </NuxtLink>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-      instance-key="index"
-    >
+    <NuxtLink to="/?q=test"> Test query </NuxtLink>
+    <NuxtLink to="/test/Apple"> Go to brand Apple </NuxtLink>
+    <NuxtLink to="/test/Samsung"> Go to Samsung </NuxtLink>
+    <AisInstantSearch :widgets :configuration instance-key="catchall">
       <AisStats />
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
@@ -20,39 +13,31 @@
       <AisSearchBox />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
-      <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
-      <AisIndex index="airbnb">
-        <AisInfiniteHits>
-          <template #item="{ item }">
-            {{ item.city }}
-          </template>
-        </AisInfiniteHits>
-        <AisRefinementList attribute="city" />
-        <AisClearRefinements id="bnb" />
-      </AisIndex>
+      <AisInfiniteHits>
+        <template #default="{ items }">
+          <Product
+            v-for="item in items"
+            :id="item.objectID"
+            :key="item.objectID"
+            :name="item.name"
+            :price="item.price"
+          />
+        </template>
+      </AisInfiniteHits>
+
+      <AisRefinementList attribute="brand" searchable />
     </AisInstantSearch>
   </div>
 </template>
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
+const { data } = await useFetch("/api/testApi");
+
+const filters = computed(() => `brand:${useRoute().params.catchall[0]}`);
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
-
-const indexBnb = useAisIndex({
-  indexName: "airbnb",
-});
-
-indexBnb.addWidgets([
-  useAisInfiniteHits({}),
-  useAisClearRefinements({}, "bnb"),
-  useAisRefinementList({ attribute: "city" }),
-]);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -83,8 +68,12 @@ const widgets = computed(() => [
   useAisRangeInput({
     attribute: "price",
   }),
-  useAisConfigure({ searchParameters: {} }),
-  indexBnb,
+  useAisConfigure({
+    searchParameters: {
+      filters: filters.value,
+      distinct: true,
+    },
+  }),
 ]);
 
 const configuration = ref({

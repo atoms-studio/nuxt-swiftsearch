@@ -1,20 +1,33 @@
-import { useRouter } from "nuxt/app";
+import { useRouter, useNuxtApp } from "nuxt/app";
 import { ref } from "vue";
 import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
+
+function stripUndefined(obj: Record<string, any>) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([k, v]) => v !== undefined),
+  );
+}
 export const useAisRouter = () => {
   const router = useRouter();
-  const instantiationRoute = router.currentRoute.value.path;
+  const app = useNuxtApp();
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
         const query = router.currentRoute.value.query;
         const normalizedQuery = Array.isArray(query) ? query[0] : query;
-        return { sortBy: undefined, ...normalizedQuery };
+        return stripUndefined(normalizedQuery);
       },
       write(routeState) {
+        // strip routeState and query from possible undefined values
+        if (
+          JSON.stringify(this.read()) ===
+          JSON.stringify(stripUndefined(routeState))
+        ) {
+          return;
+        }
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
-        router.push({ query: routeState });
+        router.push({ query: stripUndefined(routeState) });
       },
       createURL(routeState) {
         return router.resolve({
@@ -26,26 +39,15 @@ export const useAisRouter = () => {
         if (typeof window === "undefined") return;
         // @ts-ignore
         this._removeAfterEach = router.afterEach((to, from) => {
-          if (to.path === instantiationRoute) {
-            cb(this.read());
-          }
+          if (to.path === from.path) cb(this.read());
         });
-
-        // @ts-ignore
-        this._onPopState = () => {
+        app.hook("page:finish", () => {
           cb(this.read());
-        };
-        // @ts-ignore
-        window.addEventListener("popstate", this._onPopState);
+        });
       },
       dispose() {
         if (typeof window === "undefined") {
           return;
-        }
-        // @ts-ignore
-        if (this._onPopState) {
-          // @ts-ignore
-          window.removeEventListener("popstate", this._onPopState);
         }
         // @ts-ignore
         if (this._removeAfterEach) {

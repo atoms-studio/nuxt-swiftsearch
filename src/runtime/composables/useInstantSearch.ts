@@ -8,6 +8,10 @@ import {
   waitForResults,
   getInitialResults,
 } from "instantsearch.js/es/lib/server";
+import {
+  clearRefinements,
+  getRefinements,
+} from "instantsearch.js/es/lib/utils";
 import { computed, triggerRef, inject, nextTick, type Ref } from "vue";
 import { useState, createError } from "nuxt/app";
 
@@ -54,6 +58,23 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
             isEqual(oldW.$$widgetParams, newW.$$widgetParams),
           ),
       );
+
+      if (widgetsToAdd.length || widgetsToRemove.length) {
+        // clear refinements
+        const refs = getRefinements(
+          instance.value.mainIndex.getScopedResults()![0].results,
+          instance.value.mainIndex!.getScopedResults()![0].helper.state,
+          true,
+        );
+
+        instance.value.helper!.setState(
+          clearRefinements({
+            helper: instance.value.mainHelper!,
+            attributesToClear: refs.map((refinement) => refinement.attribute),
+          }),
+        );
+      }
+
       if (widgetsToRemove.length) instance.value.removeWidgets(widgetsToRemove);
       if (widgetsToAdd.length) instance.value.addWidgets(widgetsToAdd);
     }

@@ -1,17 +1,10 @@
 <template>
   <div>
-    <NuxtLink to="/?q=test">
-      Test query
-    </NuxtLink>
-    <NuxtLink to="/Samsung">
-      Go to brand
-    </NuxtLink>
-    <AisInstantSearch
-      :widgets
-      :configuration
-      :middlewares
-      instance-key="index"
-    >
+    <NuxtLink to="/?q=test"> Test query </NuxtLink>
+    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
+    <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
+
+    <AisInstantSearch :widgets :configuration :middlewares instance-key="index">
       <AisStats />
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
@@ -21,10 +14,7 @@
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <AisRefinementList attribute="brand" searchable />
       <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
