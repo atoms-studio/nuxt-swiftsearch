@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.8.0
+
+[compare changes](https://undefined/undefined/compare/v0.7.3...v0.8.0)
+
+### 🩹 Fixes
+
+- Routing integration for go back/change page (3f59f97)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.7.3
 
 [compare changes](https://undefined/undefined/compare/v0.7.2...v0.7.3)
