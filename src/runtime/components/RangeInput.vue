@@ -9,7 +9,7 @@ const props = withDefaults(
     attribute: string;
     precision?: number;
   }>(),
-  { precision: 1 },
+  { precision: 1 }
 );
 
 const { state: rangesState } = useAisWidget("range");
@@ -31,8 +31,8 @@ const values = computed(() => {
   const [minValue, maxValue] = state.value.start;
   const { min: minRange, max: maxRange } = state.value.range;
   return {
-    min: minValue !== -Infinity && minValue !== minRange ? minValue : minRange,
-    max: maxValue !== Infinity && maxValue !== maxRange ? maxValue : maxRange,
+    min: minValue !== -Infinity && minValue !== minRange ? minValue : undefined,
+    max: maxValue !== Infinity && maxValue !== maxRange ? maxValue : undefined,
   };
 });
 
@@ -65,8 +65,8 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
           :class="suit('form')"
           @submit.prevent="
             refine({
-              min: pick(minInput, state.range.min),
-              max: pick(maxInput, state.range.max),
+              min: pick(minInput, values.min),
+              max: pick(maxInput, values.max),
             })
           "
         >
@@ -100,7 +100,7 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
               :step="step"
               :min="state.range.min"
               :max="state.range.max"
-              :placeholder="state.range?.min?.toString()"
+              :placeholder="state.range?.max?.toString()"
               :value="values.max"
               label
               @change="
