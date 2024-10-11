@@ -1,6 +1,10 @@
 <template>
   <div>
-    <NuxtLink to="/?q=test"> Test query </NuxtLink>
+    <NuxtLink
+      to="/?instant_search%5Btoggle%5D%5Bfree_shipping%5D=true&instant_search%5Bquery%5D=testa"
+    >
+      Test query
+    </NuxtLink>
     <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
     <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
 

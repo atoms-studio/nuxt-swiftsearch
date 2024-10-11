@@ -1,10 +1,20 @@
 <template>
   <div>
     <h1>Catch all page</h1>
-    <NuxtLink to="/?q=test"> Test query </NuxtLink>
-    <NuxtLink to="/test/Apple"> Go to brand Apple </NuxtLink>
-    <NuxtLink to="/test/Samsung"> Go to Samsung </NuxtLink>
-    <AisInstantSearch :widgets :configuration instance-key="catchall">
+    <NuxtLink to="/?q=test">
+      Test query
+    </NuxtLink>
+    <NuxtLink to="/test/Apple">
+      Go to brand Apple
+    </NuxtLink>
+    <NuxtLink to="/test/Samsung">
+      Go to Samsung
+    </NuxtLink>
+    <AisInstantSearch
+      :widgets
+      :configuration
+      instance-key="catchall"
+    >
       <AisStats />
       <AisClearRefinements id="free_shipping" />
       <AisClearRefinements id="brand" />
@@ -25,7 +35,10 @@
         </template>
       </AisInfiniteHits>
 
-      <AisRefinementList attribute="brand" searchable />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+      />
     </AisInstantSearch>
   </div>
 </template>
