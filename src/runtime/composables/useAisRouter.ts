@@ -20,14 +20,17 @@ export const useAisRouter = () => {
       },
       write(routeState) {
         // strip routeState and query from possible undefined values
+        const currentQueryState = this.read();
         if (
-          JSON.stringify(this.read()) ===
+          JSON.stringify(currentQueryState) ===
           JSON.stringify(stripUndefined(routeState))
         ) {
           return;
         }
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
-        router.push({ query: stripUndefined(routeState) });
+        router.push({
+          query: { ...currentQueryState, ...stripUndefined(routeState) },
+        });
       },
       createURL(routeState) {
         return router.resolve({
