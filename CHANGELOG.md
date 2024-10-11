@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.8.1
+
+[compare changes](https://undefined/undefined/compare/v0.8.0...v0.8.1)
+
+### 🩹 Fixes
+
+- Correct default currentRefinement values and max placeholder in AisRangeInput (1bcc497)
+- Retained query in useAisRouter.ts (a8f89ca)
+
+### 📖 Documentation
+
+- Update explanation of how to use AisClearRefinements component (35a115c)
+
+### 🏡 Chore
+
+- More test cases in playground (1526956)
+- Merge branch 'main' of github.com:atoms-studio/nuxt-swiftsearch (926b404)
+- Merge branch 'main' of github.com:atoms-studio/nuxt-swiftsearch (a48e3ed)
+- Fix linting (e79126e)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+- Yuriystasiv <yuriy.stasiv@intive.com>
+
 ## v0.8.0
 
 [compare changes](https://undefined/undefined/compare/v0.7.3...v0.8.0)
