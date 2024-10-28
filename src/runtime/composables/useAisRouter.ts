@@ -12,15 +12,15 @@ function stripUndefined(obj: Record<string, any>) {
 }
 
 type QueryObject = {
-  [x:string]: string | number | string[] | boolean | QueryObject
+  [x:string]: QueryObject | string | string[] | number | boolean
 }
 
-const convertToNestedObject = (query: ParsedQuery): ParsedQuery => {
-  const result = {};
+const convertToNestedObject = (query: ParsedQuery): QueryObject => {
+  const result: QueryObject = {};
 
   Object.keys(query).forEach(key => {
       const value = query[key]
-      const keys: string[] = key.split(/[[\]]+/).filter(k => k); // Split the key and filter out empty strings
+      const keys = key.split(/[[\]]+/).filter(k => k); // Split the key and filter out empty strings
 
       let currentLevel: QueryObject = result;
 
@@ -29,8 +29,10 @@ const convertToNestedObject = (query: ParsedQuery): ParsedQuery => {
               currentLevel[k] = value;
           } else {
               if (!currentLevel[k]) {
+                // @ts-ignore
                   currentLevel[k] = isNaN(keys[index + 1]) ? {} : [];
               }
+              // @ts-ignore
               currentLevel = currentLevel[k];
           }
       });
