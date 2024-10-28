@@ -29,8 +29,8 @@
             v-for="item in items"
             :id="item.objectID"
             :key="item.objectID"
-            :name="item.name"
-            :price="item.price"
+            :name="item.name as string"
+            :price="item.price as string"
           />
         </template>
       </AisInfiniteHits>

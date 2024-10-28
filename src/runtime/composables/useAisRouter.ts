@@ -2,19 +2,64 @@ import { useRouter, useNuxtApp } from "nuxt/app";
 import { ref } from "vue";
 import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
+import { parseURL, parseQuery, type ParsedQuery } from "ufo"
+import type { LocationQuery } from "#vue-router";
 
 function stripUndefined(obj: Record<string, any>) {
   return Object.fromEntries(
-    Object.entries(obj).filter(([k, v]) => v !== undefined),
-  );
+    Object.entries(obj).filter(([k, v]) => k !== 'sortBy')
+  )
 }
+
+type QueryObject = {
+  [x:string]: string | number | string[] | boolean | QueryObject
+}
+
+const convertToNestedObject = (query: ParsedQuery): ParsedQuery => {
+  const result = {};
+
+  Object.keys(query).forEach(key => {
+      const value = query[key]
+      const keys: string[] = key.split(/[[\]]+/).filter(k => k); // Split the key and filter out empty strings
+
+      let currentLevel: QueryObject = result;
+
+      keys.forEach((k, index) => {
+          if (index === keys.length - 1) {
+              currentLevel[k] = value;
+          } else {
+              if (!currentLevel[k]) {
+                  currentLevel[k] = isNaN(keys[index + 1]) ? {} : [];
+              }
+              currentLevel = currentLevel[k];
+          }
+      });
+  });
+
+  return result;
+}
+
+const containsZeroIndexKey = (obj: LocationQuery) => {
+  const objString = JSON.stringify(obj);
+  const pattern = /\[0\]/;
+  return pattern.test(objString);
+}
+
 export const useAisRouter = () => {
   const router = useRouter();
   const app = useNuxtApp();
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
-        const query = router.currentRoute.value.query;
+        const currentRoute = router.currentRoute.value
+        let query
+        if(containsZeroIndexKey(currentRoute.query)){
+          const urlParsed = parseURL(currentRoute.fullPath)
+          const queryParsed = parseQuery(urlParsed.search)
+          query = convertToNestedObject(queryParsed)
+        }else {
+          query = currentRoute.query
+        }
         const normalizedQuery = Array.isArray(query) ? query[0] : query;
         return stripUndefined(normalizedQuery);
       },

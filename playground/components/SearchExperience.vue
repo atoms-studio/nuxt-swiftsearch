@@ -1,5 +1,16 @@
 <template>
   <div>
+    <NuxtLink :to="{
+      name: 'brand',
+      query: {
+        'refinementList[brand][0]': 'Samsung',
+      },
+      params: {
+        brand: 'Samsung',
+      },
+    }">GO TO BRAND FILTERED</NuxtLink>
+
+    <NuxtLink to="/Samsung?refinementList%5Bbrand%5D%5B0%5D=Samsung">GO TO BRAND FILTERED LINK</NuxtLink>
     <AisInstantSearch
       :widgets
       :configuration

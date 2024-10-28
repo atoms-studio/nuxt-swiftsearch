@@ -8,6 +8,14 @@
     <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
     <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
 
+    <NuxtLink :to="{
+      name: 'index',
+      query: {
+        'instant_search[toggle][free_shipping]': true,
+        'instant_search[refinementList][brand][0]': 'Apple'
+      }
+    }"> Go to brand route name</NuxtLink>
+
     <AisInstantSearch :widgets :configuration :middlewares instance-key="index">
       <AisStats />
       <AisClearRefinements id="free_shipping" />
@@ -19,7 +27,7 @@
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
       <AisRefinementList attribute="brand" searchable />
-      <AisIndex index="airbnb">
+      <!-- <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
             {{ item.city }}
@@ -27,7 +35,7 @@
         </AisInfiniteHits>
         <AisRefinementList attribute="city" />
         <AisClearRefinements id="bnb" />
-      </AisIndex>
+      </AisIndex> -->
     </AisInstantSearch>
   </div>
 </template>
@@ -39,15 +47,15 @@ import type { Middleware } from "instantsearch.js";
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
 
-const indexBnb = useAisIndex({
-  indexName: "airbnb",
-});
+// const indexBnb = useAisIndex({
+//   indexName: "airbnb",
+// });
 
-indexBnb.addWidgets([
-  useAisInfiniteHits({}),
-  useAisClearRefinements({}, "bnb"),
-  useAisRefinementList({ attribute: "city" }),
-]);
+// indexBnb.addWidgets([
+//   useAisInfiniteHits({}),
+//   useAisClearRefinements({}, "bnb"),
+//   useAisRefinementList({ attribute: "city" }),
+// ]);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -79,7 +87,7 @@ const widgets = computed(() => [
     attribute: "price",
   }),
   useAisConfigure({ searchParameters: {} }),
-  indexBnb,
+  // indexBnb,
 ]);
 
 const middlewares = ref<Middleware[]>([
