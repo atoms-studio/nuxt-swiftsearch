@@ -41,14 +41,8 @@ const convertToNestedObject = (query: ParsedQuery): QueryObject => {
   return result
 }
 
-
 const containsBrackets = (obj: LocationQuery) => {
-  for (const key in obj) {
-      if (key.includes('[') || key.includes(']')) {
-          return true
-      }
-  }
-  return false
+  return Object.keys(obj).some(key => key.includes('[') || key.includes(']'))
 }
 
 export const useAisRouter = () => {
