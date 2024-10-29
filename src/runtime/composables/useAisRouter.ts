@@ -63,10 +63,9 @@ export const useAisRouter = () => {
           const urlParsed = parseURL(currentRoute.fullPath)
           const queryParsed = parseQuery(urlParsed.search)
           query = convertToNestedObject(queryParsed)
-        }else {
+        } else {
           query = currentRoute.query
         }
-        console.log('query', query)
         const normalizedQuery = Array.isArray(query) ? query[0] : query;
         return stripUndefined(normalizedQuery);
       },

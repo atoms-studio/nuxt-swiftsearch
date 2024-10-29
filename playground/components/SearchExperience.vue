@@ -8,9 +8,9 @@
       params: {
         brand: 'Samsung',
       },
-    }">GO TO BRAND FILTERED</NuxtLink>
+    }">TEST QUERY OBJECT</NuxtLink>
 
-    <NuxtLink to="/Samsung?refinementList%5Bbrand%5D%5B0%5D=Samsung">GO TO BRAND FILTERED LINK</NuxtLink>
+    <NuxtLink to="/Samsung?refinementList%5Bbrand%5D%5B0%5D=Samsung">TEST QUERY URL</NuxtLink>
     <AisInstantSearch
       :widgets
       :configuration

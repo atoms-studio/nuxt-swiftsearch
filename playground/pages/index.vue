@@ -3,7 +3,7 @@
     <NuxtLink
       to="/?instant_search%5Btoggle%5D%5Bfree_shipping%5D=true&instant_search%5Bquery%5D=testa"
     >
-      Test query
+      Test query URL
     </NuxtLink>
     <br />
     <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
@@ -18,7 +18,7 @@
         'instant_search[refinementList][brand][0]': 'Apple',
         'instant_search[refinementList][brand][1]': 'Pelican'
       }
-    }"> Go to brand route name</NuxtLink>
+    }"> Test query OBJECT</NuxtLink>
 
     <AisInstantSearch :widgets :configuration :middlewares instance-key="index">
       <AisStats />
@@ -31,7 +31,7 @@
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
       <AisRefinementList attribute="brand" searchable />
-      <!-- <AisIndex index="airbnb">
+      <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
             {{ item.city }}
@@ -39,7 +39,7 @@
         </AisInfiniteHits>
         <AisRefinementList attribute="city" />
         <AisClearRefinements id="bnb" />
-      </AisIndex> -->
+      </AisIndex>
     </AisInstantSearch>
   </div>
 </template>
@@ -51,15 +51,15 @@ import type { Middleware } from "instantsearch.js";
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {});
 const algoliaRouter = useAisRouter();
 
-// const indexBnb = useAisIndex({
-//   indexName: "airbnb",
-// });
+const indexBnb = useAisIndex({
+  indexName: "airbnb",
+});
 
-// indexBnb.addWidgets([
-//   useAisInfiniteHits({}),
-//   useAisClearRefinements({}, "bnb"),
-//   useAisRefinementList({ attribute: "city" }),
-// ]);
+indexBnb.addWidgets([
+  useAisInfiniteHits({}),
+  useAisClearRefinements({}, "bnb"),
+  useAisRefinementList({ attribute: "city" }),
+]);
 
 const widgets = computed(() => [
   useAisSortBy({
@@ -91,14 +91,14 @@ const widgets = computed(() => [
     attribute: "price",
   }),
   useAisConfigure({ searchParameters: {} }),
-  // indexBnb,
+  indexBnb,
 ]);
 
 const middlewares = ref<Middleware[]>([
   ({ instantSearchInstance }) => {
     return {
       onStateChange({ uiState }) {
-        // console.log(uiState, "from middleware");
+        console.log(uiState, "from middleware");
       },
       subscribe() {},
       unsubscribe() {},
