@@ -5,46 +5,50 @@ import type { RouterProps } from "instantsearch.js/es/middlewares";
 import { parseURL, parseQuery, type ParsedQuery } from "ufo"
 import type { LocationQuery } from "#vue-router";
 
-function stripUndefined(obj: Record<string, any>) {
+type QueryObject = {
+  [x:string]: QueryObject | string | string[] | number | boolean
+}
+
+const stripUndefined = (obj: Record<string, any>) => {
   return Object.fromEntries(
     Object.entries(obj).filter(([k, v]) => k !== 'sortBy')
   )
 }
 
-type QueryObject = {
-  [x:string]: QueryObject | string | string[] | number | boolean
-}
-
 const convertToNestedObject = (query: ParsedQuery): QueryObject => {
-  const result: QueryObject = {};
+  const result: QueryObject = {}
 
   Object.keys(query).forEach(key => {
       const value = query[key]
-      const keys = key.split(/[[\]]+/).filter(k => k); // Split the key and filter out empty strings
+      const keys = key.split(/[[\]]+/).filter(k => k)
 
-      let currentLevel: QueryObject = result;
+      let currentLevel: QueryObject = result
 
       keys.forEach((k, index) => {
           if (index === keys.length - 1) {
-              currentLevel[k] = value;
+              currentLevel[k] = value
           } else {
               if (!currentLevel[k]) {
                 // @ts-ignore
-                  currentLevel[k] = isNaN(keys[index + 1]) ? {} : [];
+                  currentLevel[k] = isNaN(keys[index + 1]) ? {} : []
               }
               // @ts-ignore
-              currentLevel = currentLevel[k];
+              currentLevel = currentLevel[k]
           }
       });
   });
 
-  return result;
+  return result
 }
 
-const containsZeroIndexKey = (obj: LocationQuery) => {
-  const objString = JSON.stringify(obj);
-  const pattern = /\[0\]/;
-  return pattern.test(objString);
+
+const containsBrackets = (obj: LocationQuery) => {
+  for (const key in obj) {
+      if (key.includes('[') || key.includes(']')) {
+          return true
+      }
+  }
+  return false
 }
 
 export const useAisRouter = () => {
@@ -55,13 +59,14 @@ export const useAisRouter = () => {
       read() {
         const currentRoute = router.currentRoute.value
         let query
-        if(containsZeroIndexKey(currentRoute.query)){
+        if(containsBrackets(currentRoute.query)){
           const urlParsed = parseURL(currentRoute.fullPath)
           const queryParsed = parseQuery(urlParsed.search)
           query = convertToNestedObject(queryParsed)
         }else {
           query = currentRoute.query
         }
+        console.log('query', query)
         const normalizedQuery = Array.isArray(query) ? query[0] : query;
         return stripUndefined(normalizedQuery);
       },

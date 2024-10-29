@@ -5,14 +5,18 @@
     >
       Test query
     </NuxtLink>
+    <br />
     <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
+    <br />
     <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
-
+    <br />
     <NuxtLink :to="{
       name: 'index',
       query: {
-        'instant_search[toggle][free_shipping]': true,
-        'instant_search[refinementList][brand][0]': 'Apple'
+        'instant_search[toggle][free_shipping]': 'true',
+        'instant_search[query]': 'testa',
+        'instant_search[refinementList][brand][0]': 'Apple',
+        'instant_search[refinementList][brand][1]': 'Pelican'
       }
     }"> Go to brand route name</NuxtLink>
 
@@ -94,7 +98,7 @@ const middlewares = ref<Middleware[]>([
   ({ instantSearchInstance }) => {
     return {
       onStateChange({ uiState }) {
-        console.log(uiState, "from middleware");
+        // console.log(uiState, "from middleware");
       },
       subscribe() {},
       unsubscribe() {},
