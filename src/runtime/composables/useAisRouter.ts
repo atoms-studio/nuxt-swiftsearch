@@ -11,7 +11,7 @@ type QueryObject = {
 
 const stripUndefined = (obj: Record<string, any>) => {
   return Object.fromEntries(
-    Object.entries(obj).filter(([k, v]) => k !== 'sortBy')
+    Object.entries(obj).filter(([k, v]) => v !== undefined)
   )
 }
 
