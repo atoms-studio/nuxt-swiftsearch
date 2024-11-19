@@ -7,9 +7,9 @@ import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
-export const useAisRangeInputRenderState = () =>
+export const useAisRangeInputRenderState = (key: string = "") =>
   useState<Record<string, RangeRenderState>>(
-    "ais_range_render_state",
+    `ais_range_render_state${key}`,
     () => ({}),
   );
 export const useAisRangeInput = (
@@ -17,7 +17,7 @@ export const useAisRangeInput = (
   id: string = ""
 ) => {
   const stateRef = ref<RangeRenderState | null>();
-  const rangeRenderState = useAisRangeInputRenderState();
+  const rangeRenderState = useAisRangeInputRenderState(id);
   // 1. Create a render function
   const renderRange: Renderer<
   RangeRenderState,

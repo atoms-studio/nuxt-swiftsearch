@@ -7,9 +7,9 @@ import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
-export const useAisHierarchicalMenuRenderState = () =>
+export const useAisHierarchicalMenuRenderState = (key: string = "") =>
   useState<Record<string, HierarchicalMenuRenderState>>(
-    "ais_hierarchical_menu_render_state",
+    `ais_hierarchical_menu_render_state${key}`,
     () => ({}),
   );
 export const useAisHierarchicalMenu = (
@@ -17,7 +17,7 @@ export const useAisHierarchicalMenu = (
   id: string = "",
 ) => {
   const stateRef = ref<HierarchicalMenuRenderState | null>();
-  const hierarchicalRenderState = useAisHierarchicalMenuRenderState();
+  const hierarchicalRenderState = useAisHierarchicalMenuRenderState(id);
   // 1. Create a render function
   const renderHierarchicalMenu: Renderer<
     HierarchicalMenuRenderState,
