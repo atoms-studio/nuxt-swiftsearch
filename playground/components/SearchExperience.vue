@@ -71,7 +71,7 @@ const widgets = computed(() => [
       "hierarchicalCategories.lvl1",
       "hierarchicalCategories.lvl2",
     ],
-  }),
+  }, brand),
   useAisRefinementList({
     attribute: "brand",
     showMore: true,

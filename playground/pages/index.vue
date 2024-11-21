@@ -77,7 +77,7 @@ const widgets = computed(() => [
   useAisSearchBox({}),
   useAisRangeInput({
     attribute: "price",
-  }),
+  }, "price-index"),
   useAisConfigure({ searchParameters: {} }),
   indexBnb,
 ]);
