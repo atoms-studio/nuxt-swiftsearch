@@ -1,9 +1,13 @@
 <template>
   <div>
+
+    <h1 v-if="brand">{{ brand }}</h1>
+
     <AisInstantSearch
       :widgets
       :configuration
-      :instance-key="'search-experience'"
+      :key="`search-experience-${brand}`"
+      :instance-key="`search-experience-${brand}`"
     >
       <AisStats />
       <AisSortBy />
@@ -45,8 +49,8 @@ const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {
 const algoliaRouter = useAisRouter();
 
 const route = useRoute();
-const filters = computed(() => `brand:${route.params.brand}`);
-
+const brand = typeof route.params.brand === 'string' ? route.params.brand : '';
+const filters = computed(() => `brand:${brand}`);
 const isFreeShipping = ref(false);
 const widgets = computed(() => [
   useAisSortBy({
@@ -67,11 +71,11 @@ const widgets = computed(() => [
       "hierarchicalCategories.lvl1",
       "hierarchicalCategories.lvl2",
     ],
-  }),
+  }, brand),
   useAisRefinementList({
     attribute: "brand",
     showMore: true,
-  }),
+  }, brand),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisConfigure({
     searchParameters: {

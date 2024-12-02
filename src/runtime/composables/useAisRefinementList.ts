@@ -7,9 +7,9 @@ import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { provide, ref } from "vue";
 
-export const useAisRefinementListRenderState = () =>
+export const useAisRefinementListRenderState = (key: string = "") =>
   useState<Record<string, RefinementListRenderState>>(
-    "ais_refinement_render_state",
+    `ais_refinement_render_state${key}`,
     () => ({}),
   );
 export const useAisRefinementList = (
@@ -17,7 +17,7 @@ export const useAisRefinementList = (
   id: string = "",
 ) => {
   const stateRef = ref<RefinementListRenderState | null>();
-  const refinementRenderState = useAisRefinementListRenderState();
+  const refinementRenderState = useAisRefinementListRenderState(id);
   // 1. Create a render function
   const renderRefinementList: Renderer<
     RefinementListRenderState,

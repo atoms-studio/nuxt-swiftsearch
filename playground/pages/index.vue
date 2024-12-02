@@ -72,12 +72,12 @@ const widgets = computed(() => [
   useAisRefinementList({
     attribute: "brand",
     showMore: true,
-  }),
+  }, "brand-index"),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisSearchBox({}),
   useAisRangeInput({
     attribute: "price",
-  }),
+  }, "price-index"),
   useAisConfigure({ searchParameters: {} }),
   indexBnb,
 ]);

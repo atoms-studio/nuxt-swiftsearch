@@ -6,6 +6,7 @@
     <AisInstantSearch
       :widgets
       :configuration
+      instance-key="search"
     >
       <AisStats />
       <AisSearchBox />
@@ -61,7 +62,7 @@ const widgets = computed(() => [
   useAisRefinementList({
     attribute: "brand",
     showMore: true,
-  }),
+  }, "brand-search"),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisSearchBox({}),
   indexBnb,
