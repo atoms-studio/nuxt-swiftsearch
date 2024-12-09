@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.8.3
+
+[compare changes](https://undefined/undefined/compare/v0.8.2...v0.8.3)
+
+### 🩹 Fixes
+
+- Fixed removing last filter/clear all (a88a630)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.8.2
 
 [compare changes](https://undefined/undefined/compare/v0.8.1...v0.8.2)
