@@ -11,6 +11,7 @@ function stripUndefined(obj: Record<string, any>) {
 export const useAisRouter = () => {
   const router = useRouter();
   const app = useNuxtApp();
+  const prevState = ref<Record<string, any>>({})
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
@@ -25,12 +26,18 @@ export const useAisRouter = () => {
           JSON.stringify(currentQueryState) ===
           JSON.stringify(stripUndefined(routeState))
         ) {
+          prevState.value = stripUndefined(routeState)
           return;
         }
+        const prevStateKeys = Object.keys(prevState.value)
+        const queryStateToAppend = Object.fromEntries(Object.entries(currentQueryState).filter(([k, v]) => !prevStateKeys.includes(k)))
+
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
         router.push({
-          query: { ...currentQueryState, ...stripUndefined(routeState) },
+          query: { ...queryStateToAppend, ...stripUndefined(routeState) },
         });
+        // saving previous state
+        prevState.value = stripUndefined(routeState)
       },
       createURL(routeState) {
         return router.resolve({
