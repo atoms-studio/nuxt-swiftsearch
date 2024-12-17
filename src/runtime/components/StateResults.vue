@@ -26,7 +26,7 @@ const suit = useSuit("StateResults");
 
 const props = withDefaults(
   defineProps<{ catchError?: boolean; errorFn?: () => void }>(),
-  { catchError: false },
+  { catchError: false, errorFn: undefined },
 );
 
 const { catchError } = toRefs(props);
