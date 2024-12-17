@@ -1,18 +1,25 @@
 <template>
   <div>
-
-    <h1 v-if="brand">{{ brand }}</h1>
+    <h1 v-if="brand">
+      {{ brand }}
+    </h1>
 
     <AisInstantSearch
+      :key="`search-experience-${brand}`"
       :widgets
       :configuration
-      :key="`search-experience-${brand}`"
       :instance-key="`search-experience-${brand}`"
     >
       <AisStats />
+      <AisClearRefinements />
       <AisSortBy />
       <AisRefinementList attribute="brand" />
       <AisToggleRefinement attribute="free_shipping" />
+      <AisMenuSelect attribute="categories" />
+      <AisMenu
+        attribute="categories"
+        :show-more="true"
+      />
       <AisInfiniteHits>
         <template #default="{ items }">
           <Product
@@ -49,7 +56,7 @@ const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {
 const algoliaRouter = useAisRouter();
 
 const route = useRoute();
-const brand = typeof route.params.brand === 'string' ? route.params.brand : '';
+const brand = typeof route.params.brand === "string" ? route.params.brand : "";
 const filters = computed(() => `brand:${brand}`);
 const isFreeShipping = ref(false);
 const widgets = computed(() => [
@@ -65,17 +72,23 @@ const widgets = computed(() => [
     showPrevious: true,
     cache: useAisInfiniteHitsStatefulCache("ihits"),
   }),
-  useAisHierarchicalMenu({
-    attributes: [
-      "hierarchicalCategories.lvl0",
-      "hierarchicalCategories.lvl1",
-      "hierarchicalCategories.lvl2",
-    ],
-  }, brand),
-  useAisRefinementList({
-    attribute: "brand",
-    showMore: true,
-  }, brand),
+  useAisHierarchicalMenu(
+    {
+      attributes: [
+        "hierarchicalCategories.lvl0",
+        "hierarchicalCategories.lvl1",
+        "hierarchicalCategories.lvl2",
+      ],
+    },
+    brand
+  ),
+  useAisRefinementList(
+    {
+      attribute: "brand",
+      showMore: true,
+    },
+    brand
+  ),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisConfigure({
     searchParameters: {
@@ -85,6 +98,22 @@ const widgets = computed(() => [
     },
   }),
   useAisSearchBox({}),
+  useAisClearRefinements({}),
+  useAisMenu({
+    attribute: "categories",
+    limit: 5,
+    showMore: true,
+    showMoreLimit: 10,
+    sortBy: ["name:desc"],
+    transformItems: (items) => {
+      return items.map((item) => {
+        return {
+          ...item,
+          label: item.label.toUpperCase(),
+        };
+      });
+    },
+  }),
 ]);
 
 const configuration = ref<InstantSearchOptions>({
