@@ -7,6 +7,7 @@
     </NuxtLink>
     <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
     <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
+    <NuxtLink to="/autocomplete"> Autocomplete </NuxtLink>
 
     <AisInstantSearch :widgets :configuration :middlewares instance-key="index">
       <AisStats />
@@ -15,6 +16,7 @@
       <AisClearRefinements id="all" />
       <AisRangeInput attribute="price" />
       <AisSearchBox />
+      <AisAutocomplete />
       <AisSortBy />
       <AisToggleRefinement attribute="free_shipping" />
       <AisInfiniteHits />
@@ -75,6 +77,7 @@ const widgets = computed(() => [
   }, "brand-index"),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisSearchBox({}),
+  useAisAutocomplete({}),
   useAisRangeInput({
     attribute: "price",
   }, "price-index"),
