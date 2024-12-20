@@ -1,13 +1,17 @@
 <template>
   <div>
-    <NuxtLink
-      to="/?instant_search%5Btoggle%5D%5Bfree_shipping%5D=true&instant_search%5Bquery%5D=testa"
-    >
+    <NuxtLink to="/?instant_search%5Btoggle%5D%5Bfree_shipping%5D=true&instant_search%5Bquery%5D=testa">
       Test query
     </NuxtLink>
-    <NuxtLink to="/Samsung"> Go to brand </NuxtLink>
-    <NuxtLink to="/test/Samsung"> Go to brand catchall </NuxtLink>
-    <NuxtLink to="/autocomplete"> Autocomplete </NuxtLink>
+    <NuxtLink to="/Samsung">
+      Go to brand
+    </NuxtLink>
+    <NuxtLink to="/test/Samsung">
+      Go to brand catchall
+    </NuxtLink>
+    <NuxtLink to="/autocomplete">
+      Autocomplete
+    </NuxtLink>
 
     <AisInstantSearch
       :widgets
@@ -99,8 +103,8 @@ const middlewares = ref<Middleware[]>([
       onStateChange({ uiState }) {
         console.log(uiState, "from middleware");
       },
-      subscribe() {},
-      unsubscribe() {},
+      subscribe() { },
+      unsubscribe() { },
     };
   },
 ]);

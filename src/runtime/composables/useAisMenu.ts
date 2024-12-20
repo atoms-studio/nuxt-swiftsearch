@@ -33,7 +33,7 @@ export const useAisMenu = (
       provide(`menu-${id}`, stateRef);
     }
     // render nothing, provide render state
-    return () => {};
+    return () => { };
   };
   // 2. Create the custom widget
   const customConfigure = connectMenu(renderMenu);
