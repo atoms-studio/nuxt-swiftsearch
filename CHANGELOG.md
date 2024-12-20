@@ -1,6 +1,31 @@
 # Changelog
 
 
+## v0.9.0
+
+[compare changes](https://undefined/undefined/compare/v0.8.3...v0.9.0)
+
+### 🚀 Enhancements
+
+- Add ais-autocomplete widget (4ffa9c9)
+- Add AisMenu and AisMenuSelect components with usage documentation (cf215aa)
+
+### 🩹 Fixes
+
+- Update description for Hierarchical Menu Widget (f210fef)
+- Lint warnings (b2765c3)
+- Linting (ba2fcf1)
+
+### 🏡 Chore
+
+- Merge branch 'main' of github.com:atoms-studio/nuxt-swiftsearch (c7ae704)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+- Yuriystasiv <yuriy.stasiv@intive.com>
+- Tobias Lønnerød Madsen ([@TobbenTM](http://github.com/TobbenTM))
+
 ## v0.8.3
 
 [compare changes](https://undefined/undefined/compare/v0.8.2...v0.8.3)
