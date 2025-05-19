@@ -21,9 +21,6 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const _searchInstance =
     instance ??
     (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);
-  const _results = useState<InitialResults | null>(
-    "_instantsearch_ssr_results",
-  );
 
   const getInstance = () => {
     if (_searchInstance!.value === null) {
@@ -35,7 +32,10 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const parentIndex = computed(() => {
     return getInstance().value.mainIndex;
   });
-  const setup = async (widgets: Array<Widget | IndexWidget>) => {
+  const setup = async (widgets: Array<Widget | IndexWidget>, instanceKey: string = '') => {
+    const _results = useState<InitialResults | null>(
+      `instantsearch_ssr_results_${instanceKey}`,
+    );
     const instance = getInstance();
     // adding widgets to instance if not presents (new instance)
     if (!instance.value.mainIndex.getWidgets().length) {

@@ -30,17 +30,17 @@ const { widgets: widgetsRef, middlewares } = toRefs(props);
 const searchInstance = import.meta.server
   ? ref(instantsearch(props.configuration))
   : // : shallowRef(instantsearch(props.configuration));
-    useState(`instant_search_instance-${props.instanceKey ?? ""}`, () =>
-      shallowRef(instantsearch(props.configuration)),
-    );
+  useState(`instant_search_instance-${props.instanceKey ?? ""}`, () =>
+    shallowRef(instantsearch(props.configuration)),
+  );
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
 const { setup } = useInstantSearch(searchInstance);
-await setup(props.widgets);
+await setup(props.widgets, props.instanceKey);
 
 watch(widgetsRef, async () => {
-  await setup(props.widgets);
+  await setup(props.widgets, props.instanceKey);
 });
 
 // watching middlewares
