@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.9.1
+
+[compare changes](https://undefined/undefined/compare/v0.9.0...v0.9.1)
+
+### 🩹 Fixes
+
+- Fixed ssr results not beying keyed (52c76bf)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.9.0
 
 [compare changes](https://undefined/undefined/compare/v0.8.3...v0.9.0)
