@@ -65,7 +65,7 @@ const { state } = useAisWidget("currentRefinements", props.id);
 const suit = useSuit("CurrentRefinements");
 
 const noRefinement = computed(
-  () => state.value && state.value.items.length === 0,
+  () => state.value && state.value?.items?.length === 0,
 );
 
 const createItemKey = ({

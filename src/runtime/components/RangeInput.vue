@@ -28,8 +28,8 @@ const maxInput: Ref<number | undefined> = ref();
 const step = computed(() => 1 / Math.pow(10, props.precision));
 
 const values = computed(() => {
-  const [minValue, maxValue] = state.value.start;
-  const { min: minRange, max: maxRange } = state.value.range;
+  const [minValue, maxValue] = state.value?.start ?? [];
+  const { min: minRange, max: maxRange } = state.value?.range ?? {};
   return {
     min: minValue !== -Infinity && minValue !== minRange ? minValue : undefined,
     max: maxValue !== Infinity && maxValue !== maxRange ? maxValue : undefined,
@@ -45,7 +45,7 @@ const pick = (first: number | null | undefined, second: number | undefined) => {
 };
 
 const refine = (data: { min: number | undefined; max: number | undefined }) => {
-  state.value.refine([data.min, data.max]);
+  state.value?.refine([data.min, data.max]);
 };
 </script>
 <template>

@@ -77,10 +77,10 @@ const state = computed(() => {
 });
 
 const toggleShowMore = () => {
-  state.value.toggleShowMore();
+  state?.value?.toggleShowMore();
 };
 
 const showMoreButton = computed(() => {
-  return state.value.canRefine && props.showMore;
+  return state?.value?.canRefine && props.showMore;
 });
 </script>

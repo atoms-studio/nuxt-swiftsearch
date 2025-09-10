@@ -4,6 +4,7 @@ import type {
   Widget,
 } from "instantsearch.js/es/types";
 import isEqual from "lodash.isequal";
+import type { SearchParameters } from "algoliasearch-helper";
 import {
   waitForResults,
   getInitialResults,
@@ -62,8 +63,8 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       if (widgetsToAdd.length || widgetsToRemove.length) {
         // clear refinements
         const refs = getRefinements(
-          instance.value.mainIndex.getScopedResults()![0].results,
-          instance.value.mainIndex!.getScopedResults()![0].helper.state,
+          (instance.value.mainIndex.getScopedResults()?.[0]?.results ?? null),
+            instance.value.mainIndex.getScopedResults()?.[0]?.helper?.state ?? ({} as SearchParameters),
           true,
         );
 

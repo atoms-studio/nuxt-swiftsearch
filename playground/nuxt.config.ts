@@ -11,5 +11,23 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: "2024-08-09",
+
+  ssr: true,
+
+  nitro: {
+    experimental: {
+      wasm: true
+    }
+  },
+
+  vite: {
+    optimizeDeps: {
+      force: true
+    }
+  },
+
+  build: {
+    transpile: ['../src/module']
+  }
 });
 

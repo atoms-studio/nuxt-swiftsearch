@@ -26,7 +26,7 @@ export const useAisHierarchicalMenu = (
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
+      hierarchicalRenderState.value[widgetParams?.attributes?.[0] ?? ''] = renderState;
     }
     // render nothing, provide render state
     if (isFirstRender) {
