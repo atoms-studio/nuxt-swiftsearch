@@ -45,6 +45,7 @@
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
+
 const { data } = await useFetch("/api/testApi");
 
 const filters = computed(() => `brand:${useRoute().params.catchall?.[0] || ''}`);
@@ -95,5 +96,3 @@ const configuration = ref({
   searchClient: client,
 });
 </script>
-
-<style scoped></style>

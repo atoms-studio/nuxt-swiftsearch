@@ -26,8 +26,8 @@
             v-for="item in items"
             :id="item.objectID"
             :key="item.objectID"
-            :name="(item as unknown as TProduct).name"
-            :price="(item as unknown as TProduct).price"
+            :name="item.name"
+            :price="item.price"
           />
         </template>
       </AisInfiniteHits>
@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import algoliasearch from "algoliasearch";
-import type { InstantSearchOptions } from "instantsearch.js/es/types";
+import type { InstantSearchOptions, StateMapping, UiState } from "instantsearch.js/es/types";
 import { singleIndex as singleIndexMapping } from "instantsearch.js/es/lib/stateMappings";
 
 const client = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76", {
@@ -120,15 +120,10 @@ const configuration = ref<InstantSearchOptions>({
   indexName: "instant_search",
   routing: {
     router: algoliaRouter.value.router,
-    stateMapping: singleIndexMapping("instant_search"),
+    stateMapping: singleIndexMapping("instant_search") as StateMapping<UiState, UiState>,
   },
   searchClient: client,
-} as unknown as InstantSearchOptions);
-type TProduct = {
-  objectID: string;
-  name: string;
-  price: string;
-};
+})
 </script>
 
 <style scoped></style>
