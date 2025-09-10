@@ -4,14 +4,16 @@
     :class="suit()"
   >
     <slot v-bind="stateResults">
-      <p>
-        Use this component to have a different layout based on a certain state.
-      </p>
-      <p>Fill in the slot, and get access to the following things:</p>
-      <pre>results: {{ Object.keys(state.results) }}</pre>
-      <pre>state: {{ Object.keys(state.state) }}</pre>
-      <pre>status: {{ state.status }}</pre>
-      <pre>error: {{ state.error }}</pre>
+      <ClientOnly>
+        <p>
+          Use this component to have a different layout based on a certain state.
+        </p>
+        <p>Fill in the slot, and get access to the following things:</p>
+        <pre>results: {{ Object.keys(state.results) }}</pre>
+        <pre>state: {{ Object.keys(state.state) }}</pre>
+        <pre>status: {{ state.status }}</pre>
+        <pre>error: {{ state.error }}</pre>
+      </ClientOnly>
     </slot>
   </div>
 </template>
