@@ -123,6 +123,9 @@ const configuration = ref<InstantSearchOptions>({
     stateMapping: singleIndexMapping("instant_search"),
   },
   searchClient: client,
+  future: {
+    preserveSharedStateOnUnmount: true,
+  },
 } as unknown as InstantSearchOptions);
 type TProduct = {
   objectID: string;

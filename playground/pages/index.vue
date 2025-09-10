@@ -112,6 +112,9 @@ const configuration = ref({
   indexName: "instant_search",
   routing: algoliaRouter.value,
   searchClient: client,
+  future: {
+    preserveSharedStateOnUnmount: true,
+  },
 });
 </script>
 
