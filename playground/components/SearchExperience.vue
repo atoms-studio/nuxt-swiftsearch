@@ -13,8 +13,29 @@
       <AisStats />
       <AisClearRefinements />
       <AisSortBy />
-      <AisRefinementList attribute="brand" />
-      <AisToggleRefinement attribute="free_shipping" />
+      <AisPanel
+        component="refinementList"
+        attribute="brand"
+      >
+        <template #header="{ hasRefinements }">
+          <div>is Brand has refinements? {{ hasRefinements }}</div>
+        </template>
+        <template #default>
+          <AisRefinementList attribute="brand" />
+        </template>
+        <template #footer>
+          this is the footer
+        </template>
+      </AisPanel>
+      <AisPanel
+        component="toggleRefinement"
+        attribute="free_shipping"
+      >
+        <template #default="{ hasRefinements }">
+          <div>is Free Shipping has refinements? {{ hasRefinements }}</div>
+          <AisToggleRefinement attribute="free_shipping" />
+        </template>
+      </AisPanel>
       <AisMenuSelect attribute="categories" />
       <AisMenu
         attribute="categories"
