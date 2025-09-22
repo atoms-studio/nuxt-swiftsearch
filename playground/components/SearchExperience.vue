@@ -25,7 +25,7 @@
         }"
       >
         <template #header="{ hasRefinements }">
-          <div>is Brand has refinements? {{ hasRefinements }}</div>
+          <div>does Brand have refinements? {{ hasRefinements }}</div>
         </template>
         <template #default>
           <AisRefinementList attribute="brand" />
@@ -39,7 +39,7 @@
         attribute="free_shipping"
       >
         <template #default="{ hasRefinements }">
-          <div>is Free Shipping has refinements? {{ hasRefinements }}</div>
+          <div>does Free Shipping have refinements? {{ hasRefinements }}</div>
           <AisToggleRefinement attribute="free_shipping" />
         </template>
       </AisPanel>
