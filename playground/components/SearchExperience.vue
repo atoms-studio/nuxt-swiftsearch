@@ -16,6 +16,13 @@
       <AisPanel
         component="refinementList"
         attribute="brand"
+        :class-names="{
+          root: 'custom-panel',
+          header: 'custom-header',
+          body: 'custom-body',
+          noRefinement: 'custom-no-refinement',
+          footer: 'custom-footer'
+        }"
       >
         <template #header="{ hasRefinements }">
           <div>is Brand has refinements? {{ hasRefinements }}</div>

@@ -29,10 +29,21 @@ import type { RenderState } from 'instantsearch.js'
 import { useAisWidget } from '../composables/useAisWidget'
 import { useSuit } from '../composables/useSuit'
 
+type AisPanelClassKeys =
+  | 'ais-Panel'
+  | 'ais-Panel--noRefinement'
+  | 'ais-Panel-header'
+  | 'ais-Panel-body'
+  | 'ais-Panel-footer'
+
+type AliasKeys = 'root' | 'header' | 'body' | 'footer' | 'noRefinement'
+
+type ClassNamesProp = Partial<Record<AisPanelClassKeys | AliasKeys, string>>
+
 const props = withDefaults(defineProps<{
   component?: keyof RenderState["string"]
   attribute: string
-  classNames?: Record<string, string>
+  classNames?: ClassNamesProp
 }>(), {
   component: undefined,
   classNames: () => ({})
@@ -45,48 +56,46 @@ defineSlots<{
 }>()
 
 const suit = useSuit('Panel')
-
 const { state } = useAisWidget(props.component as keyof RenderState["string"])
 
 const hasRefinements = computed<boolean>(() => {
-  const s: any = state.value
-  if (!s) return false
-  const r = props.attribute in s ? s[props.attribute] : s
-  return !!(r && r.canRefine)
+  const widgetState: any = state.value
+  if (!widgetState) return false
+  const candidate = props.attribute in widgetState ? widgetState[props.attribute] : widgetState
+  return !!(candidate && candidate.canRefine)
 })
 
-const baseRoot = suit()
-const noRefine = `${baseRoot}--noRefinement`
+const baseRoot   = suit()
 const baseHeader = suit('header')
-const baseBody = suit('body')
+const baseBody   = suit('body')
 const baseFooter = suit('footer')
+const baseNoRef  = `${baseRoot}--noRefinement`
 
-function resolve(key: string): string {
-  return props.classNames[key] || ''
+function resolveClass(key: AisPanelClassKeys, alias?: AliasKeys): string {
+  const map = props.classNames || {}
+  if (map[key]) return map[key]!
+  if (alias && map[alias]) return map[alias]!
+  return ''
 }
 
 const rootClass = computed(() => {
-  const base = baseRoot
-  const custom = resolve('root')
-  const noRefinement = !hasRefinements.value ? noRefine : ''
-  return [base, custom, noRefinement].filter(Boolean).join(' ')
+  const customRoot = resolveClass('ais-Panel', 'root')
+  const noRefClass = !hasRefinements.value ? baseNoRef : ''
+  return [baseRoot, customRoot, noRefClass].filter(Boolean).join(' ')
 })
 
 const headerClass = computed(() => {
-  const base = baseHeader
-  const custom = resolve('header')
-  return [base, custom].filter(Boolean).join(' ')
+  const custom = resolveClass('ais-Panel-header', 'header')
+  return [baseHeader, custom].filter(Boolean).join(' ')
 })
 
 const bodyClass = computed(() => {
-  const base = baseBody
-  const custom = resolve('body')
-  return [base, custom].filter(Boolean).join(' ')
+  const custom = resolveClass('ais-Panel-body', 'body')
+  return [baseBody, custom].filter(Boolean).join(' ')
 })
 
 const footerClass = computed(() => {
-  const base = baseFooter
-  const custom = resolve('footer')
-  return [base, custom].filter(Boolean).join(' ')
+  const custom = resolveClass('ais-Panel-footer', 'footer')
+  return [baseFooter, custom].filter(Boolean).join(' ')
 })
 </script>
