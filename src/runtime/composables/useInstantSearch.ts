@@ -3,7 +3,7 @@ import type {
   InstantSearch,
   Widget,
 } from "instantsearch.js/es/types";
-import isEqual from "lodash.isequal";
+import { isEqual } from 'ohash'
 import {
   waitForResults,
   getInitialResults,

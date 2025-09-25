@@ -1,4 +1,4 @@
-import isEqual from "lodash.isequal";
+import { isEqual } from "ohash";
 import { useState } from "#app";
 import { ref } from "vue";
 
@@ -44,8 +44,8 @@ export const useAisInfiniteHitsStatefulCache = (key?: string) => {
         const maxPage = Math.max(ssrPage.value, state.page ?? 0);
         return cache && isEqual(cache.state, getStateWithoutPage(state))
           ? (Object.fromEntries(
-              Object.entries(cache.hits).slice(0, maxPage),
-            ) as InfiniteHitsCachedHits<BaseHit>)
+            Object.entries(cache.hits).slice(0, maxPage),
+          ) as InfiniteHitsCachedHits<BaseHit>)
           : null;
       } catch (error) {
         console.error(error);
