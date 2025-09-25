@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.9.2
+
+[compare changes](https://undefined/undefined/compare/v0.9.1...v0.9.2)
+
+### 🚀 Enhancements
+
+- Add AisRatingMenu component with usage documentation (4a43c9b)
+
+### 🏡 Chore
+
+- Linted and fixed merge (a86fabf)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+- Mauricio Paz ([@mauriciopazpp](http://github.com/mauriciopazpp))
+
 ## v0.9.1
 
 [compare changes](https://undefined/undefined/compare/v0.9.0...v0.9.1)
