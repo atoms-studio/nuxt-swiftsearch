@@ -4,26 +4,18 @@
       {{ brand }}
     </h1>
 
-    <AisInstantSearch
-      :key="`search-experience-${brand}`"
-      :widgets
-      :configuration
-      :instance-key="`search-experience-${brand}`"
-    >
+    <AisInstantSearch :key="`search-experience-${brand}`" :widgets :configuration
+      :instance-key="`search-experience-${brand}`">
       <AisStats />
       <AisClearRefinements />
       <AisSortBy />
-      <AisPanel
-        component="refinementList"
-        attribute="brand"
-        :class-names="{
-          root: 'custom-panel',
-          header: 'custom-header',
-          body: 'custom-body',
-          noRefinement: 'custom-no-refinement',
-          footer: 'custom-footer'
-        }"
-      >
+      <AisPanel component="refinementList" attribute="brand" :class-names="{
+        root: 'custom-panel',
+        header: 'custom-header',
+        body: 'custom-body',
+        noRefinement: 'custom-no-refinement',
+        footer: 'custom-footer'
+      }">
         <template #header="{ hasRefinements }">
           <div>does Brand have refinements? {{ hasRefinements }}</div>
         </template>
@@ -34,45 +26,28 @@
           this is the footer
         </template>
       </AisPanel>
-      <AisPanel
-        component="toggleRefinement"
-        attribute="free_shipping"
-      >
+      <AisPanel component="toggleRefinement" attribute="free_shipping">
         <template #default="{ hasRefinements }">
           <div>does Free Shipping have refinements? {{ hasRefinements }}</div>
           <AisToggleRefinement attribute="free_shipping" />
         </template>
       </AisPanel>
       <AisMenuSelect attribute="categories" />
-      <AisMenu
-        attribute="categories"
-        :show-more="true"
-      />
+      <AisMenu attribute="categories" :show-more="true" />
       <AisInfiniteHits>
         <template #default="{ items }">
-          <Product
-            v-for="item in items"
-            :id="item.objectID"
-            :key="item.objectID"
-            :name="(item as unknown as TProduct).name"
-            :price="(item as unknown as TProduct).price"
-          />
+          <Product v-for="item in items" :id="item.objectID" :key="item.objectID"
+            :name="(item as unknown as TProduct).name" :price="(item as unknown as TProduct).price" />
         </template>
       </AisInfiniteHits>
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
-      <AisNumericMenu
-        attribute="price"
-        :items="[
-          { label: 'All' },
-          { label: '<= 10$', end: 10 },
-          { label: '10$ - 100$', start: 10, end: 100 },
-          { label: '100$ - 500$', start: 100, end: 500 },
-          { label: '>= 500$', start: 500 },
-        ]"
-      />
+      <AisRefinementList attribute="brand" searchable />
+      <AisNumericMenu attribute="price" :items="[
+        { label: 'All' },
+        { label: '<= 10$', end: 10 },
+        { label: '10$ - 100$', start: 10, end: 100 },
+        { label: '100$ - 500$', start: 100, end: 500 },
+        { label: '>= 500$', start: 500 },
+      ]" />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
       <AisRatingMenu attribute="rating" />
     </AisInstantSearch>
@@ -162,6 +137,7 @@ const widgets = computed(() => [
       { label: '100$ - 500$', start: 100, end: 500 },
       { label: '>= 500$', start: 500 },
     ],
+  }),
   useAisRatingMenu({
     attribute: "rating",
   }),
