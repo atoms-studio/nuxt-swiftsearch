@@ -46,6 +46,7 @@
         ]"
       />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
+      <AisRatingMenu attribute="rating" />
     </AisInstantSearch>
 
     <div @click="isFreeShipping = !isFreeShipping">
@@ -133,6 +134,8 @@ const widgets = computed(() => [
       { label: '100$ - 500$', start: 100, end: 500 },
       { label: '>= 500$', start: 500 },
     ],
+  useAisRatingMenu({
+    attribute: "rating",
   }),
 ]);
 
