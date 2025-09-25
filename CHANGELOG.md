@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.9.3
+
+[compare changes](https://undefined/undefined/compare/v0.9.2...v0.9.3)
+
+### 🩹 Fixes
+
+- **perf:** Swapped lodash.isEqual with ohash (7b7dc3a)
+
+### 🏡 Chore
+
+- Linted and fixed merge (abe5660)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.9.2
 
 [compare changes](https://undefined/undefined/compare/v0.9.1...v0.9.2)
