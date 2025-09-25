@@ -8,16 +8,18 @@
       :current-refinement="state.currentRefinement"
       :indices="state.indices"
     >
-      <p>
-        This widget doesn't render anything without a filled in default slot.
-      </p>
-      <p>query, function to refine and results are provided.</p>
-      <pre>refine: Function</pre>
-      <pre>currentRefinement: "{{ state.currentRefinement }}"</pre>
-      <details>
-        <summary><code>indices</code>:</summary>
-        <pre>{{ state.indices }}</pre>
-      </details>
+      <ClientOnly>
+        <p>
+          This widget doesn't render anything without a filled in default slot.
+        </p>
+        <p>query, function to refine and results are provided.</p>
+        <pre>refine: Function</pre>
+        <pre>currentRefinement: "{{ state.currentRefinement }}"</pre>
+        <details>
+          <summary><code>indices</code>:</summary>
+          <pre>{{ state.indices }}</pre>
+        </details>
+      </ClientOnly>
     </slot>
   </div>
 </template>
