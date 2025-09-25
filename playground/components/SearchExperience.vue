@@ -36,6 +36,7 @@
         searchable
       />
       <AisHierarchicalMenu attribute="hierarchicalCategories.lvl0" />
+      <AisRatingMenu attribute="rating" />
     </AisInstantSearch>
 
     <div @click="isFreeShipping = !isFreeShipping">
@@ -113,6 +114,9 @@ const widgets = computed(() => [
         };
       });
     },
+  }),
+  useAisRatingMenu({
+    attribute: "rating",
   }),
 ]);
 

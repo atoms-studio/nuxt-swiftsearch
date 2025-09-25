@@ -23,7 +23,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
     (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);
 
   const getInstance = () => {
-    if (_searchInstance!.value === null) {
+    if (!_searchInstance || _searchInstance.value === null) {
       throw new Error("instantiate instantsearch first");
     }
     return _searchInstance as Ref<InstantSearch>;
