@@ -1,6 +1,6 @@
 <template>
   <ul
-    v-if="items && items.length > 0"
+    v-if="items && items?.length > 0"
     :class="[
       suit('list'),
       level > 0 && suit('list', 'child'),

@@ -41,7 +41,7 @@ const { state: refinementsState } = useAisWidget("toggleRefinement");
 
 const state = computed(() => refinementsState.value[props.attribute]);
 
-const widgetParams = computed(() => state.value.widgetParams);
+const widgetParams = computed(() => state?.value?.widgetParams);
 
 const suit = useSuit("ToggleRefinement");
 

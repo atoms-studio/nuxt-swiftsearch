@@ -1,3 +1,6 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config';
+
 export default defineNuxtConfig({
   modules: ["../src/module"],
   devtools: { enabled: true },
@@ -6,10 +9,6 @@ export default defineNuxtConfig({
     typeCheck: true,
   },
 
-  experimental: {
-    componentIslands: true,
-  },
-
-  compatibilityDate: "2024-08-09",
+  compatibilityDate: "2024-08-09"
 });
 

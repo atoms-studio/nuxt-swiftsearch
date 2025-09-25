@@ -1,4 +1,5 @@
 import type { RouterProps } from "instantsearch.js/es/middlewares";
+
 export const useCustomRouting = () => {
   const router = useRouter();
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
@@ -13,7 +14,7 @@ export const useCustomRouting = () => {
           ? { ...queryObj, page: parseInt(router.currentRoute.value.params.page! as string) }
           : queryObj;
       },
-      write(routeState) {
+      write(routeState: Record<string, unknown>) {
         console.log(routeState, "write");
         // if I have a page
         const iHavePage = !!routeState?.page;
@@ -27,7 +28,7 @@ export const useCustomRouting = () => {
           : // @ts-ignore
             router.push({ query: { ...routeState } });
       },
-      createURL(routeState) {
+      createURL(routeState: Record<string, unknown>) {
         console.log(routeState, "createUrl");
         return router.resolve({
           // @ts-ignore see comment above

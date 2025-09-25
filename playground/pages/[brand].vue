@@ -29,5 +29,3 @@
 <script setup lang="ts">
 const { data } = await useFetch("/api/testApi");
 </script>
-
-<style scoped></style>

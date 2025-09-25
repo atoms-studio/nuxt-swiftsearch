@@ -20,7 +20,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const _state = (
     id
       ? inject<any>(`${widgetName}-${id}`, undefined)
-      : ref(instance.value.renderState[index][widgetName]!)
+      : ref(instance.value.renderState?.[index]?.[widgetName]!)
   ) as TWidgetRenderState;
 
   // cache injected values on client via useState
@@ -34,7 +34,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
     () => {
       if (!id) {
         // @ts-ignore
-        state.value = instance.value.renderState[index][widgetName]!;
+        state.value = instance.value.renderState?.[index]?.[widgetName]!;
       } else {
         triggerRef(state);
       }

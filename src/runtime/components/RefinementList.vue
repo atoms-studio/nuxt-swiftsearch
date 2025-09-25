@@ -26,7 +26,7 @@
         />
       </div>
       <slot
-        v-if="state.isFromSearch && items.length === 0"
+        v-if="state.isFromSearch && items?.length === 0"
         name="noResults"
         :query="searchForFacetValues"
       >
@@ -116,12 +116,12 @@ const state = computed(() => {
     : refinementsState.value[props.attribute];
 });
 const widgetParams = computed(
-  () => refinementsState.value[props.attribute].widgetParams,
+  () => refinementsState.value[props.attribute]?.widgetParams,
 );
 
 const suit = useSuit("RefinementList");
 
-const showMore = computed(() => widgetParams.value.showMore ?? false);
+const showMore = computed(() => widgetParams.value?.showMore ?? false);
 
 const searchForFacetValuesQuery = ref("");
 
@@ -130,17 +130,17 @@ const searchForFacetValues = computed({
     return searchForFacetValuesQuery.value;
   },
   set(value) {
-    state.value.searchForItems(value);
+    state?.value?.searchForItems(value);
     searchForFacetValuesQuery.value = value;
   },
 });
 
 const toggleShowMore = () => {
-  state.value.toggleShowMore();
+  state?.value?.toggleShowMore();
 };
 
 const items = computed(() =>
-  state.value.items.map((item) =>
+  state?.value?.items.map((item) =>
     Object.assign({}, item, {
       _highlightResult: { item: { value: item.highlighted } },
     }),
@@ -148,7 +148,7 @@ const items = computed(() =>
 );
 
 const refine = (value: string) => {
-  state.value.refine(value);
+  state?.value?.refine(value);
   searchForFacetValuesQuery.value = "";
 };
 </script>

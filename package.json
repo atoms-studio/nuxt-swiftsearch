@@ -13,7 +13,6 @@
     }
   },
   "main": "./dist/module.cjs",
-  "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
@@ -31,7 +30,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.23.9",
-    "@nuxt/kit": "^3.12.2",
+    "@nuxt/kit": "^4.1.1",
     "@types/lodash.isequal": "^4.5.8",
     "algoliasearch": "^4.22.1",
     "instantsearch.js": "^4.64.3",
@@ -41,16 +40,16 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
-    "@nuxt/module-builder": "^0.5.5",
-    "@nuxt/schema": "^3.12.2",
-    "@nuxt/test-utils": "^3.11.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.1.1",
+    "@nuxt/test-utils": "^3.19.2",
     "@types/node": "^20.11.16",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
-    "nuxt": "^3.12.4",
+    "nuxt": "^4.1.1",
     "playwright-core": "^1.42.1",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2",
+    "vitest": "^3.2.4",
     "vue-instantsearch": "^4.14.0",
     "vue-tsc": "^2.0.29"
   }
