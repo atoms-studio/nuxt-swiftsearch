@@ -1,16 +1,18 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { fileURLToPath } from "node:url";
 import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
 
 const PORT = 7781;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
+const fixtureRoot = decodeURIComponent(
+  new URL("./fixtures/parity", import.meta.url).pathname,
+);
 
 const decodeUrl = (url: string) => decodeURIComponent(url);
 
 describe("swiftsearch routing", async () => {
   beforeAll(async () => {
     await setup({
-      rootDir: fileURLToPath(new URL("./fixtures/parity", import.meta.url)),
+      rootDir: fixtureRoot,
       browser: true,
       server: true,
       dev: false,

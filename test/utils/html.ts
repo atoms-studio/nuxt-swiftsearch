@@ -1,5 +1,3 @@
-import type { Page } from "playwright-core";
-
 export const stripHtmlComments = (html: string) => {
   return html.replace(/<!--([\s\S]*?)-->/g, "");
 };
@@ -24,12 +22,11 @@ export const extractTestIdInnerHtml = (markup: string, testId: string) => {
   return match ? normalizeHtml(match[1]) : null;
 };
 
-export const collectNormalizedMarkup = async (page: Page, testIds: string[]) => {
+export const collectNormalizedMarkup = async (page: any, testIds: string[]) => {
   const result: Record<string, string> = {};
 
   for (const testId of testIds) {
     const element = page.getByTestId(testId);
-    await element.waitFor({ state: "visible" });
     const markup = await element.innerHTML();
     result[testId] = normalizeHtml(markup);
   }

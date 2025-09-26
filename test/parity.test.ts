@@ -1,7 +1,6 @@
 import { describe, it, expect, beforeAll } from "vitest";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath } from 'node:url'
 import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
-import type { Page } from "playwright-core";
 import {
   collectNormalizedMarkup,
   extractTestIdInnerHtml,
@@ -9,6 +8,9 @@ import {
 
 const PORT = 7780;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
+
+
+type TestPage = Awaited<ReturnType<typeof createPage>>;
 
 const widgetTestIds = [
   "searchbox",
@@ -33,19 +35,17 @@ const widgetTestIds = [
   "index-refinementlist",
 ];
 
-const waitForResults = async (page: Page) => {
-  await page.waitForLoadState("networkidle");
-  await page.waitForTimeout(500);
-};
 
-const runWidgetInteractions = async (page: Page) => {
+
+const runWidgetInteractions = async (page: TestPage) => {
   const searchInput = page
     .getByTestId("searchbox")
     .locator("input[type='search'], input[type='text']")
     .first();
   await searchInput.fill("apple");
   await searchInput.press("Enter");
-  await waitForResults(page);
+  await page.waitForLoadState("networkidle");
+
 
   const brandFilter = page
     .getByTestId("refinementlist")
@@ -53,19 +53,19 @@ const runWidgetInteractions = async (page: Page) => {
     .filter({ hasText: "Apple" })
     .first();
   await brandFilter.click();
-  await waitForResults(page);
+  await page.waitForLoadState("networkidle");
 
   const toggleControl = page
     .getByTestId("togglerefinement")
     .locator("input[type='checkbox'], button")
     .first();
   await toggleControl.click();
-  await waitForResults(page);
+  await page.waitForLoadState("networkidle");
 };
 
 const captureState = async (route: string) => {
   const page = await createPage(getTestUrl(route));
-  await waitForResults(page);
+  await page.waitForLoadState("networkidle");
   const initial = await collectNormalizedMarkup(page, widgetTestIds);
   await runWidgetInteractions(page);
   const afterInteractions = await collectNormalizedMarkup(page, widgetTestIds);
@@ -78,14 +78,11 @@ const captureState = async (route: string) => {
 };
 
 describe("swiftsearch parity", async () => {
-  beforeAll(async () => {
-    await setup({
-      rootDir: fileURLToPath(new URL("./fixtures/parity", import.meta.url)),
-      browser: true,
-      server: true,
-      dev: false,
-      port: PORT,
-    });
+  await setup({
+    rootDir: fileURLToPath(new URL('./fixtures/parity', import.meta.url)),
+    browser: true,
+    server: true,
+    port: PORT,
   });
 
   it("matches vue-instantsearch markup before and after interactions", async () => {

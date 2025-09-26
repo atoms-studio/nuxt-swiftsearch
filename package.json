@@ -54,12 +54,13 @@
     "@vitest/browser": "^3.2.0",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
-    "nuxt": "^3.12.4",
+    "happy-dom": "^18.0.1",
+    "nuxt": "^3.19.2",
     "playwright": "^1.55.0",
     "playwright-core": "^1.42.1",
     "typescript": "^5.9.2",
     "vitest": "^3.2.0",
     "vue-instantsearch": "^4.21.0",
-    "vue-tsc": "^3.0.8"
+    "vue-tsc": "^3.0.7"
   }
 }
