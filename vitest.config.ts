@@ -3,6 +3,17 @@ import "dotenv/config";
 
 export default defineVitestConfig({
   test: {
-    testTimeout: 15000,
+    environment: "nuxt",
+    testTimeout: 30000,
+    browser: {
+      enabled: true,
+      headless: true,
+      name: "chromium",
+      provider: "playwright",
+    },
+    setupFiles: ["./test/setup/browser.ts"],
+    sequence: {
+      concurrent: false,
+    },
   },
 });
