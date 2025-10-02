@@ -5,7 +5,10 @@
       :configuration="configuration"
       instance-key="full"
     >
-      <AisSearchBox data-testid="searchbox" />
+      <AisSearchBox
+        data-testid="searchbox"
+        show-loading-indicator
+      />
       <AisStats data-testid="stats" />
       <AisCurrentRefinements data-testid="currentrefinements" />
       <AisClearRefinements data-testid="clearrefinements" />
@@ -42,7 +45,7 @@
         data-testid="ratingmenu"
       />
       <AisHierarchicalMenu
-        :attributes="hierarchicalAttributes"
+        :attribute="hierarchicalAttributes[0]"
         data-testid="hierarchicalmenu"
       />
       <AisRangeInput
@@ -108,7 +111,7 @@ const panelClassNames = {
   body: "custom-body",
 };
 
-const indexBnb = useAisIndex({ indexName: "airbnb" }, "airbnb-index");
+const indexBnb = useAisIndex({ indexName: "airbnb" });
 indexBnb.addWidgets([
   useAisHits({}, "airbnb-hits"),
   useAisRefinementList({ attribute: "city" }, "airbnb-city"),
@@ -125,10 +128,8 @@ const widgets = computed(() => [
   useAisRefinementList(
     {
       attribute: "brand",
-      searchable: true,
       showMore: true,
-    },
-    "brand"
+    }
   ),
   useAisMenu(
     {

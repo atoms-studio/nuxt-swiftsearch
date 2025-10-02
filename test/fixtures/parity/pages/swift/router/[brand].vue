@@ -1,13 +1,11 @@
 <template>
   <div class="brand-page">
-    <header>
-      <h1 data-testid="brand-heading">
-        {{ brandTitle }}
-      </h1>
-      <NuxtLink to="/swift/router">
-        Back to router home
-      </NuxtLink>
-    </header>
+    <h1 data-testid="brand-heading">
+      {{ brandTitle }}
+    </h1>
+    <NuxtLink to="/swift/router">
+      Back to router home
+    </NuxtLink>
 
     <AisInstantSearch
       :widgets="widgets"
@@ -32,7 +30,6 @@
 
 <script setup lang="ts">
 import { algoliasearch } from "algoliasearch";
-import { computed } from "vue";
 
 const route = useRoute();
 const searchClient = algoliasearch("latency", "6be0576ff61c053d5f9a3225e2a90f76");
@@ -56,7 +53,7 @@ const widgets = computed(() => [
   useAisCurrentRefinements({}),
   useAisHits({}),
   useAisToggleRefinement({ attribute: "free_shipping" }),
-  useAisRefinementList({ attribute: "brand", searchable: true }),
+  useAisRefinementList({ attribute: "brand" }),
 ]);
 
 const configuration = computed(() => ({

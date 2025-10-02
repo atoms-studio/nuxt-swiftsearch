@@ -47,7 +47,7 @@ const widgets = computed(() => [
   useAisSearchBox({}),
   useAisStats({}),
   useAisToggleRefinement({ attribute: "free_shipping" }),
-  useAisRefinementList({ attribute: "brand", searchable: true }),
+  useAisRefinementList({ attribute: "brand" }),
   useAisHits({}),
   useAisCurrentRefinements({}),
   useAisPagination({}),

@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import AisHighlighter from './Highlighter'
 import type { Hit } from "instantsearch.js";
 import { useSuit } from "../composables/useSuit";
 import type { RefinementListItem } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";

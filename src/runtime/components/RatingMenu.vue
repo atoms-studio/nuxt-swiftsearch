@@ -45,7 +45,7 @@ const props = defineProps<{
     max?: number;
 }>();
 
-const suit = useSuit("Rating");
+const suit = useSuit("RatingMenu");
 const ratingMenuRenderState = useAisRatingMenuRenderState();
 const { state: ratingMenuState } = useAisWidget("ratingMenu");
 

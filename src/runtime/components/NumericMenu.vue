@@ -19,13 +19,13 @@
           <label :class="suit('label')">
             <input
               type="radio"
-              :name="`numeric-menu-${props.attribute}`"
-              :value="item.value"
+              :class="suit('radio')"
+              :name="`${props.attribute}`" 
               :checked="item.isRefined"
-              :class="suit('input')"
+              :value="item.value"
               @change="state.refine(item.value)"
             >
-            {{ item.label }}
+            <span :class="suit('labelText')">{{ item.label }}</span>
           </label>
         </li>
       </ul>
@@ -48,7 +48,7 @@ const props = defineProps<{
   items: NumericMenuConnectorParamsItem[];
 }>();
 
-const suit = useSuit("Numeric");
+const suit = useSuit("NumericMenu");
 const numericMenuRenderState = useAisNumericMenuRenderState();
 const { state: numericMenuState } = useAisWidget("numericMenu");
 
