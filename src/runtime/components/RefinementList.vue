@@ -22,6 +22,7 @@
       >
         <AisSearchInput
           v-model="searchForFacetValues"
+          :show-loading-indicator="true"
           :placeholder="searchablePlaceholder"
         />
       </div>
@@ -140,11 +141,10 @@ const toggleShowMore = () => {
 };
 
 const items = computed(() =>
-  state.value.items.map((item) =>
-    Object.assign({}, item, {
-      _highlightResult: { item: { value: item.highlighted } },
-    }),
-  ),
+  state.value.items.map((item) => ({
+    ...item,
+    _highlightResult: { item: { value: item.highlighted}}
+  }))
 );
 
 const refine = (value: string) => {

@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import {
   AisInstantSearch,
   AisInfiniteHits,

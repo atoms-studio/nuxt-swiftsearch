@@ -1,27 +1,10 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
-    <slot
-      :current-refinement="currentRefinement"
-      :is-search-stalled="state.isSearchStalled"
-      :refine="state.refine"
-    >
-      <AisSearchInput
-        ref="searchInput"
-        v-model="currentRefinement"
-        :placeholder="placeholder"
-        :autofocus="autofocus"
-        :show-loading-indicator="showLoadingIndicator"
-        :should-show-loading-indicator="state.isSearchStalled"
-        :ignore-composition-events="ignoreCompositionEvents"
-        :submit-title="submitTitle"
-        :reset-title="resetTitle"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-        @reset="emit('reset')"
-      >
+  <div v-if="state" :class="suit()">
+    <slot :current-refinement="currentRefinement" :is-search-stalled="state.isSearchStalled" :refine="state.refine">
+      <AisSearchInput ref="searchInput" v-model="currentRefinement" :placeholder="placeholder" :autofocus="autofocus"
+        :show-loading-indicator="showLoadingIndicator" :should-show-loading-indicator="state.isSearchStalled"
+        :ignore-composition-events="ignoreCompositionEvents" :submit-title="submitTitle" :reset-title="resetTitle"
+        @focus="emit('focus', $event)" @blur="emit('blur', $event)" @reset="emit('reset')">
         <template #loading-indicator>
           <slot name="loading-indicator" />
         </template>
@@ -54,13 +37,13 @@ const props = withDefaults(
     resetTitle?: string;
   }>(),
   {
-    placeholder: "Search here...",
+    placeholder: "",
     autofocus: false,
     showLoadingIndicator: false,
     shouldShowLoadingIndicator: false,
     ignoreCompositionEvents: false,
-    submitTitle: "Search",
-    resetTitle: "Clear",
+    submitTitle: "Submit the search query",
+    resetTitle: "Clear the search query",
   },
 );
 

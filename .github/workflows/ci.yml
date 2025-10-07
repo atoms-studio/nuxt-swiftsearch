@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    name: Browser tests
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+      BROWSERSLIST_IGNORE_OLD_DATA: 1
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: actions/setup-node@v5
+        with:
+          node-version: latest
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Prepare repository
+        run: npm run dev:prepare
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Vitest browser suite
+        run: npm run test

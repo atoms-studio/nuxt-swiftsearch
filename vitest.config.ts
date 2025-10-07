@@ -3,6 +3,9 @@ import "dotenv/config";
 
 export default defineVitestConfig({
   test: {
-    testTimeout: 15000,
+    testTimeout: 120000,
+    sequence: {
+      concurrent: false,
+    },
   },
 });

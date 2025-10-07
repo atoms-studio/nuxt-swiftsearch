@@ -21,8 +21,8 @@
           v-for="item in state.options"
           :key="item.value"
           :class="suit('option')"
-          :value="item.value"
           :selected="item.value === state.currentRefinement"
+          :value="item.value"
         >
           {{ item.label }}
         </option>

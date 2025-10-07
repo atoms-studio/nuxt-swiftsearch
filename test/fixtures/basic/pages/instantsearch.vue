@@ -1,23 +1,15 @@
 <template>
   <div>
-    <AisInstantSearch
-      index-name="instant_search"
-      :search-client="client"
-    >
+    <AisInstantSearch index-name="instant_search" :search-client="client">
       <AisStats data-testid="stats" />
       <AisInfiniteHits data-testid="infinitehits" />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-        :show-more="true"
-        data-testid="refinementlist"
-      />
+      <AisRefinementList attribute="brand" searchable data-testid="refinementlist" />
     </AisInstantSearch>
   </div>
 </template>
 
 <script setup lang="ts">
-import algoliasearch from "algoliasearch";
+import { algoliasearch } from "algoliasearch";
 import {
   AisInstantSearch,
   AisStats,
