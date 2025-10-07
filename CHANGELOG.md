@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v0.9.4
+
+[compare changes](https://undefined/undefined/compare/v0.9.3...v0.9.4)
+
+### 🚀 Enhancements
+
+- Added tests (6027f70)
+
+### 🩹 Fixes
+
+- First working tests (9216513)
+- Fixed parity with components, added working basic tests (9e866dc)
+
+### 🏡 Chore
+
+- Upgraded instantsearch and algoliasearch clients + added first tests implementation (not working) (1f5632c)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.9.3
 
 [compare changes](https://undefined/undefined/compare/v0.9.2...v0.9.3)
