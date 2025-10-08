@@ -49,39 +49,69 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
 };
 </script>
 <template>
-  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
-    <slot :current-refinement="values" :refine="refine" :can-refine="state.canRefine" :range="state.range"
-      :send-event="state.sendEvent">
-      <form :class="suit('form')" @submit.prevent="
-        refine({
-          min: pick(minInput, values.min),
-          max: pick(maxInput, values.max),
-        })
-        ">
+  <div
+    v-if="state"
+    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
+  >
+    <slot
+      :current-refinement="values"
+      :refine="refine"
+      :can-refine="state.canRefine"
+      :range="state.range"
+      :send-event="state.sendEvent"
+    >
+      <form
+        :class="suit('form')"
+        @submit.prevent="
+          refine({
+            min: pick(minInput, values.min),
+            max: pick(maxInput, values.max),
+          })
+        "
+      >
         <label :class="suit('label')">
           <slot name="minLabel" />
-          <input type="number" :class="[suit('input'), suit('input', 'min')]" :step="step" :min="state.range.min"
-            :max="state.range.max" :placeholder="state.range?.min?.toString()" :value="values.min" @change="
+          <input
+            type="number"
+            :class="[suit('input'), suit('input', 'min')]"
+            :step="step"
+            :min="state.range.min"
+            :max="state.range.max"
+            :placeholder="state.range?.min?.toString()"
+            :value="values.min"
+            @change="
               ($event) =>
-              (minInput = parseFloat(
-                ($event?.currentTarget as HTMLInputElement)?.value,
-              ))
-            ">
+                (minInput = parseFloat(
+                  ($event?.currentTarget as HTMLInputElement)?.value,
+                ))
+            "
+          >
         </label>
         <span :class="suit('separator')">
           <slot name="separator">to</slot>
         </span>
         <label :class="suit('label')">
           <slot name="maxLabel" />
-          <input :class="[suit('input'), suit('input', 'max')]" type="number" :step="step" :min="state.range.min"
-            :max="state.range.max" :placeholder="state.range?.max?.toString()" :value="values.max" @change="
+          <input
+            :class="[suit('input'), suit('input', 'max')]"
+            type="number"
+            :step="step"
+            :min="state.range.min"
+            :max="state.range.max"
+            :placeholder="state.range?.max?.toString()"
+            :value="values.max"
+            @change="
               ($event) =>
-              (maxInput = parseFloat(
-                ($event?.currentTarget as HTMLInputElement)?.value,
-              ))
-            ">
+                (maxInput = parseFloat(
+                  ($event?.currentTarget as HTMLInputElement)?.value,
+                ))
+            "
+          >
         </label>
-        <button :class="suit('submit')" type="submit">
+        <button
+          :class="suit('submit')"
+          type="submit"
+        >
           <slot name="submitLabel">
             Go
           </slot>

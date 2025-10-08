@@ -1,9 +1,16 @@
 <template>
   <div>
-    <AisInstantSearch index-name="instant_search" :search-client="client">
+    <AisInstantSearch
+      index-name="instant_search"
+      :search-client="client"
+    >
       <AisStats data-testid="stats" />
       <AisInfiniteHits data-testid="infinitehits" />
-      <AisRefinementList attribute="brand" searchable data-testid="refinementlist" />
+      <AisRefinementList
+        attribute="brand"
+        searchable
+        data-testid="refinementlist"
+      />
     </AisInstantSearch>
   </div>
 </template>

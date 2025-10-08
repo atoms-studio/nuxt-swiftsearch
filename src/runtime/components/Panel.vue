@@ -1,15 +1,30 @@
 <template>
-  <div v-if="state" :class="[suit(), !canRefine && suit('', 'noRefinement')]">
-    <div v-if="$slots.header" :class="suit('header')">
-      <slot name="header" :has-refinements="canRefine" />
+  <div
+    v-if="state"
+    :class="[suit(), !canRefine && suit('', 'noRefinement')]"
+  >
+    <div
+      v-if="$slots.header"
+      :class="suit('header')"
+    >
+      <slot
+        name="header"
+        :has-refinements="canRefine"
+      />
     </div>
 
     <div :class="suit('body')">
       <slot :has-refinements="canRefine" />
     </div>
 
-    <div v-if="$slots.footer" :class="suit('footer')">
-      <slot name="footer" :has-refinements="canRefine" />
+    <div
+      v-if="$slots.footer"
+      :class="suit('footer')"
+    >
+      <slot
+        name="footer"
+        :has-refinements="canRefine"
+      />
     </div>
   </div>
 </template>
