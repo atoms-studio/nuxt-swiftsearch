@@ -15,8 +15,9 @@ function getStateWithoutPage(state: PlainSearchParameters) {
 }
 
 const KEY = "ais.infiniteHits";
+
 function getKeyFromState(state: PlainSearchParameters, key?: string) {
-  return `${key ?? KEY}`;
+  return `${JSON.stringify(getStateWithoutPage(state))}${key ?? KEY}`;
 }
 
 const _storage = () =>
