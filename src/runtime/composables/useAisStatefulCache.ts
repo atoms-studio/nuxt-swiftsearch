@@ -1,4 +1,4 @@
-import type { Cache, CacheEvents } from "@algolia/cache-common";
+import type { Cache, CacheEvents } from "@algolia/client-common";
 import { useState } from "#app";
 
 export const useAisStatefulCache = (key?: string) => {
