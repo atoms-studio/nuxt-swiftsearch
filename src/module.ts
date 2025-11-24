@@ -39,7 +39,6 @@ export default defineNuxtModule<ModuleOptions>({
         "@algolia/events",
         "hogan.js",
         "qs",
-        "lodash.isequal",
       ],
     );
   },
