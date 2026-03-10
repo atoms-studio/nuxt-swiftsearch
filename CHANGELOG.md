@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.9.5
+
+[compare changes](https://undefined/undefined/compare/v0.9.4...v0.9.5)
+
+### 🚀 Enhancements
+
+- Agent skill (f02b139)
+
+### 🩹 Fixes
+
+- Linting (2178f3f)
+- Stateful cache infinite hits should work with filters applied (6bacce2)
+- Types for cache v5 (838a397)
+
+### 🏡 Chore
+
+- Autocomplete test file (a1ba3b4)
+- Merge branch 'main' of github.com:atoms-studio/nuxt-swiftsearch (eadf90f)
+- Fix autocomplete example linting (0662f08)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.9.4
 
 [compare changes](https://undefined/undefined/compare/v0.9.3...v0.9.4)
