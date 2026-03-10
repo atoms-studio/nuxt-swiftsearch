@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisInfiniteHits = (
   widgetParams: InfiniteHitsConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<InfiniteHitsRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisInfiniteHits = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`infiniteHits-${id}`, stateRef);
+      provide(`infiniteHits-${widgetId}`, stateRef);
     }
     // render nothing
     return () => {};
@@ -38,6 +38,6 @@ export const useAisInfiniteHits = (
   return {
     ...customInfiniteHits(widgetParams),
     $$widgetParams: significantParams,
-    $$widgetId: id,
+    $$widgetId: widgetId,
   };
 };

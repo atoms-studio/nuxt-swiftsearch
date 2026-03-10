@@ -6,14 +6,14 @@ import type {
 import type { Renderer } from "instantsearch.js/es/types";
 import { provide, ref } from "vue";
 
-export const useAisSortBy = (widgetParams: SortByConnectorParams, id: string = "") => {
+export const useAisSortBy = (widgetParams: SortByConnectorParams, widgetId: string = "") => {
   const stateRef = ref<SortByRenderState | null>();
   // 1. Create a render function
   const renderSortBy: Renderer<SortByRenderState, SortByConnectorParams> = (renderState, isFirstRender) => {
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`sortBy-${id}`, stateRef);
+      provide(`sortBy-${widgetId}`, stateRef);
     }
     // render nothing
     return () => { };
@@ -23,6 +23,6 @@ export const useAisSortBy = (widgetParams: SortByConnectorParams, id: string = "
   const customSortBy = connectSortBy(renderSortBy);
 
   // 3. Instantiate
-  return { ...customSortBy(widgetParams), $$widgetParams: widgetParams, $$widgetId: id,
+  return { ...customSortBy(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId,
   };
 };

@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisCurrentRefinements = (
   widgetParams: CurrentRefinementsConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<CurrentRefinementsRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisCurrentRefinements = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`currentRefinements-${id}`, stateRef);
+      provide(`currentRefinements-${widgetId}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -34,6 +34,6 @@ export const useAisCurrentRefinements = (
   return {
     ...customCurrentRefinements(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id,
+    $$widgetId: widgetId,
   };
 };

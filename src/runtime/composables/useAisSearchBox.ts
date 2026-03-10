@@ -6,7 +6,7 @@ import type {
 import type { Renderer } from "instantsearch.js/es/types";
 import { provide, ref } from "vue";
 
-export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, id: string = "") => {
+export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, widgetId: string = "") => {
   const stateRef = ref<SearchBoxRenderState | null>();
   // 1. Create a render function
   const renderSearchBox: Renderer<
@@ -16,7 +16,7 @@ export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, id: stri
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`searchBox-${id}`, stateRef);
+      provide(`searchBox-${widgetId}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -26,5 +26,5 @@ export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, id: stri
   const customSearchBox = connectSearchBox(renderSearchBox);
 
   // 3. Instantiate
-  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
+  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
 };

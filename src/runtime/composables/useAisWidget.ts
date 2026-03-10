@@ -5,7 +5,7 @@ import { useState } from "nuxt/app";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
-  id?: string, // is used for getting a widget with multiple widget instances like clearRefinements
+  widgetId?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
   const { getInstance } = useInstantSearch();
   const instance = getInstance();
@@ -18,21 +18,21 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
 
   type TWidgetRenderState = Ref<NonNullable<_TWidgetRenderState>>;
   const _state = (
-    id
-      ? inject<any>(`${widgetName}-${id}`, undefined)
+    widgetId
+      ? inject<any>(`${widgetName}-${widgetId}`, undefined)
       : ref(instance.value.renderState[index][widgetName]!)
   ) as TWidgetRenderState;
 
   // cache injected values on client via useState
   const state = import.meta.server
     ? _state
-    : id
-      ? useState(`${widgetName}-${id}`, () => _state)
+    : widgetId
+      ? useState(`${widgetName}-${widgetId}`, () => _state)
       : _state;
   watch(
     instance,
     () => {
-      if (!id) {
+      if (!widgetId) {
         // @ts-ignore
         state.value = instance.value.renderState[index][widgetName]!;
       } else {

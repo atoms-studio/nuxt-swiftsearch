@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisPagination = (
   widgetParams: PaginationConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<PaginationRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisPagination = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`pagination-${id}`, stateRef);
+      provide(`pagination-${widgetId}`, stateRef);
     }
     // render nothing
     return () => { };
@@ -30,5 +30,5 @@ export const useAisPagination = (
   connectPagination(renderPagination);
 
   // 3. Instantiate
-  return { ...customPagination(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
+  return { ...customPagination(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
 };

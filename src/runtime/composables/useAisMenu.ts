@@ -14,10 +14,10 @@ export const useAisMenuRenderState = (key: string = "") =>
   );
 export const useAisMenu = (
   widgetParams: MenuConnectorParams,
-  id: string = ""
+  widgetId: string = ""
 ) => {
   const stateRef = ref<MenuRenderState | null>();
-  const menuRenderState = useAisMenuRenderState(id);
+  const menuRenderState = useAisMenuRenderState(widgetId);
   // 1. Create a render function
   const renderMenu: Renderer<MenuRenderState, MenuConnectorParams> = (
     renderState,
@@ -30,7 +30,7 @@ export const useAisMenu = (
     }
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`menu-${id}`, stateRef);
+      provide(`menu-${widgetId}`, stateRef);
     }
     // render nothing, provide render state
     return () => { };

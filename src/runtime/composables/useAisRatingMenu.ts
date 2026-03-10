@@ -14,10 +14,10 @@ export const useAisRatingMenuRenderState = (key: string = "") =>
   );
 export const useAisRatingMenu = (
   widgetParams: RatingMenuConnectorParams,
-  id: string = ""
+  widgetId: string = ""
 ) => {
   const stateRef = ref<RatingMenuRenderState | null>();
-  const ratingMenuRenderState = useAisRatingMenuRenderState(id);
+  const ratingMenuRenderState = useAisRatingMenuRenderState(widgetId);
   const renderRatingMenu: Renderer<RatingMenuRenderState, RatingMenuConnectorParams> = (
     renderState,
     isFirstRender
@@ -27,7 +27,7 @@ export const useAisRatingMenu = (
       ratingMenuRenderState.value[widgetParams.attribute] = renderState;
     }
     if (isFirstRender) {
-      provide(`ratingMenu-${id}`, stateRef);
+      provide(`ratingMenu-${widgetId}`, stateRef);
     }
     return () => { };
   };

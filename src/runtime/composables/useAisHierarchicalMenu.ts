@@ -14,10 +14,10 @@ export const useAisHierarchicalMenuRenderState = (key: string = "") =>
   );
 export const useAisHierarchicalMenu = (
   widgetParams: HierarchicalMenuConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<HierarchicalMenuRenderState | null>();
-  const hierarchicalRenderState = useAisHierarchicalMenuRenderState(id);
+  const hierarchicalRenderState = useAisHierarchicalMenuRenderState(widgetId);
   // 1. Create a render function
   const renderHierarchicalMenu: Renderer<
     HierarchicalMenuRenderState,
@@ -30,7 +30,7 @@ export const useAisHierarchicalMenu = (
     }
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`hierarchical-menu-${id}`, stateRef);
+      provide(`hierarchical-menu-${widgetId}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -45,6 +45,6 @@ export const useAisHierarchicalMenu = (
   return {
     ...customHierarchicalMenu(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id,
+    $$widgetId: widgetId,
   };
 };

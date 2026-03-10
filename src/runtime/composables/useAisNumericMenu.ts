@@ -14,10 +14,10 @@ export const useAisNumericMenuRenderState = (key: string = "") =>
   );
 export const useAisNumericMenu = (
   widgetParams: NumericMenuConnectorParams,
-  id: string = ""
+  widgetId: string = ""
 ) => {
   const stateRef = ref<NumericMenuRenderState | null>();
-  const numericMenuRenderState = useAisNumericMenuRenderState(id);
+  const numericMenuRenderState = useAisNumericMenuRenderState(widgetId);
   const renderNumericMenu: Renderer<NumericMenuRenderState, NumericMenuConnectorParams> = (
     renderState,
     isFirstRender
@@ -27,7 +27,7 @@ export const useAisNumericMenu = (
       numericMenuRenderState.value[widgetParams.attribute] = renderState;
     }
     if (isFirstRender) {
-      provide(`numericMenu-${id}`, stateRef);
+      provide(`numericMenu-${widgetId}`, stateRef);
     }
     return () => { };
   };

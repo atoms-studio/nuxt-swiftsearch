@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisToggleRefinement = (
   widgetParams: ToggleRefinementConnectorParams,
-  id: string = ""
+  widgetId: string = ""
 ) => {
   const stateRef = ref<ToggleRefinementRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisToggleRefinement = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`toggleRefinements-${id}`, stateRef);
+      provide(`toggleRefinements-${widgetId}`, stateRef);
     }
     // render nothing
     return () => { };
@@ -34,6 +34,6 @@ export const useAisToggleRefinement = (
   return {
     ...customToggleRefinement(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id
+    $$widgetId: widgetId
   };
 };

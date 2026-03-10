@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisQueryRuleCustomData = (
   widgetParams: QueryRulesConnectorParams = {},
-  id: string = ""
+  widgetId: string = ""
 ) => {
   const stateRef = ref<QueryRulesRenderState | null>();
 
@@ -19,7 +19,7 @@ export const useAisQueryRuleCustomData = (
     stateRef.value = renderState;
 
     if (isFirstRender) {
-      provide(`queryRules-${id}`, stateRef);
+      provide(`queryRules-${widgetId}`, stateRef);
     }
 
     return () => { };
@@ -30,6 +30,6 @@ export const useAisQueryRuleCustomData = (
   return {
     ...customQueryRules(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id,
+    $$widgetId: widgetId,
   };
 };

@@ -6,7 +6,7 @@ import type {
 import type { Renderer } from "instantsearch.js/es/types";
 import { provide, ref } from "vue";
 
-export const useAisAutocomplete = (widgetParams: AutocompleteConnectorParams, id: string = "") => {
+export const useAisAutocomplete = (widgetParams: AutocompleteConnectorParams, widgetId: string = "") => {
   const stateRef = ref<AutocompleteRenderState | null>();
   // 1. Create a render function
   const renderAutocomplete: Renderer<
@@ -16,7 +16,7 @@ export const useAisAutocomplete = (widgetParams: AutocompleteConnectorParams, id
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`autocomplete-${id}`, stateRef);
+      provide(`autocomplete-${widgetId}`, stateRef);
     }
     // render nothing
     return () => null;
@@ -26,5 +26,5 @@ export const useAisAutocomplete = (widgetParams: AutocompleteConnectorParams, id
   const customAutocomplete = connectAutocomplete(renderAutocomplete);
 
   // 3. Instantiate
-  return { ...customAutocomplete(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
+  return { ...customAutocomplete(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
 };

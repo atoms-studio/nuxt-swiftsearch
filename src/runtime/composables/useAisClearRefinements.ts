@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisClearRefinements = (
   widgetParams: ClearRefinementsConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<ClearRefinementsRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisClearRefinements = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`clearRefinements-${id}`, stateRef);
+      provide(`clearRefinements-${widgetId}`, stateRef);
     }
     return () => null;
   };
@@ -33,6 +33,6 @@ export const useAisClearRefinements = (
   return {
     ...customClearRefinements(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: id,
+    $$widgetId: widgetId,
   };
 };

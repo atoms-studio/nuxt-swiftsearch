@@ -8,7 +8,7 @@ import { provide, ref } from "vue";
 
 export const useAisHits = (
   widgetParams: HitsConnectorParams,
-  id: string = "",
+  widgetId: string = "",
 ) => {
   const stateRef = ref<HitsRenderState | null>();
   // 1. Create a render function
@@ -19,7 +19,7 @@ export const useAisHits = (
     stateRef.value = renderState;
     // render nothing, provide render state
     if (isFirstRender) {
-      provide(`hits-${id}`, stateRef);
+      provide(`hits-${widgetId}`, stateRef);
     }
     // render nothing
     return () => { };
@@ -30,5 +30,5 @@ export const useAisHits = (
     connectHitsWithInsights(renderHits);
 
   // 3. Instantiate
-  return { ...customHits(widgetParams), $$widgetParams: widgetParams, $$widgetId: id };
+  return { ...customHits(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
 };
