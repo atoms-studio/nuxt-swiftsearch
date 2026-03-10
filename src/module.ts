@@ -1,6 +1,7 @@
 import {
   defineNuxtModule,
   addImportsDir,
+  addImports,
   createResolver,
   addComponentsDir,
   assertNuxtCompatibility,
@@ -25,6 +26,38 @@ export default defineNuxtModule<ModuleOptions>({
       resolver.resolve("./runtime/composables"),
       resolver.resolve("./runtime/utils"),
     ]);
+    const composables = [
+      'useAisAutocomplete',
+      'useAisClearRefinements',
+      'useAisConfigure',
+      'useAisCurrentRefinements',
+      'useAisHierarchicalMenu',
+      'useAisHits',
+      'useAisIndex',
+      'useAisInfiniteHits',
+      'useAisInfiniteHitsStatefulCache',
+      'useAisMenu',
+      'useAisNumericMenu',
+      'useAisPagination',
+      'useAisQueryRuleCustomData',
+      'useAisRangeInput',
+      'useAisRatingMenu',
+      'useAisRefinementList',
+      'useAisRouter',
+      'useAisSearchBox',
+      'useAisSortBy',
+      'useAisStatefulCache',
+      'useAisStats',
+      'useAisToggleRefinement',
+      'useAisWidget',
+    ]
+
+    for (const name of composables) {
+      addImports({
+        name,
+        from: resolver.resolve(`runtime/composables/${name}`),
+      })
+    }
     addComponentsDir({
       path: resolver.resolve("./runtime/components"),
       prefix: "Ais",
