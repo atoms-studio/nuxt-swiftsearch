@@ -39,6 +39,8 @@ export default defineNuxtModule<ModuleOptions>({
         "@algolia/events",
         "hogan.js",
         "qs",
+        "@vercel/oidc",
+        "react"
       ],
     );
   },
