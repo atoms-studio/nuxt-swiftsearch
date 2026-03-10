@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.9.8
+
+[compare changes](https://undefined/undefined/compare/v0.9.7...v0.9.8)
+
+### 🩹 Fixes
+
+- Changed param name to avoid mlly autoimport errors (efeb8f2)
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v0.9.7
 
 [compare changes](https://undefined/undefined/compare/v0.9.6...v0.9.7)
