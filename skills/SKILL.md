@@ -76,6 +76,8 @@ const configuration = ref({
 
 ### Available Components & Composables
 
+> Full props, slots, composable params, and examples for every widget: **[widgets-reference.md](./widgets-reference.md)**
+
 | Component | Composable | Purpose |
 |---|---|---|
 | `<AisInstantSearch>` | — | Root wrapper, receives `:widgets` and `:configuration` |
@@ -102,6 +104,17 @@ const configuration = ref({
 | `<AisPanel>` | — | Collapsible panel wrapper |
 | `<AisQueryRuleCustomData>` | `useAisQueryRuleCustomData()` | Query rules data |
 | `<AisStateResults>` | — | Generic state renderer |
+
+### Widget Categories (Quick Lookup)
+
+**Search Input:** `AisSearchBox`, `AisAutocomplete`
+**Results:** `AisHits`, `AisInfiniteHits`, `AisStateResults`
+**Refinements:** `AisRefinementList`, `AisMenu`, `AisMenuSelect`, `AisHierarchicalMenu`, `AisNumericMenu`, `AisRangeInput`, `AisRatingMenu`, `AisToggleRefinement`
+**Active Filters:** `AisClearRefinements`, `AisCurrentRefinements`
+**Sorting & Pagination:** `AisSortBy`, `AisPagination`
+**Display:** `AisStats`, `AisHighlight`, `AisPanel`
+**Config:** `AisConfigure`, `AisQueryRuleCustomData`
+**Structure:** `AisInstantSearch`, `AisIndex`
 
 ### URL Routing
 
