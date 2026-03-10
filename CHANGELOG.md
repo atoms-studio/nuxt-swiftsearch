@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.9.7
+
+[compare changes](https://undefined/undefined/compare/v0.9.6...v0.9.7)
+
+### 🩹 Fixes
+
+- Changed param name to avoid mlly autoimport errors (4ecfa32)
+
+### 🏡 Chore
+
+- Skill widgets file (4113507)
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v0.9.6
 
 [compare changes](https://undefined/undefined/compare/v0.9.5...v0.9.6)
