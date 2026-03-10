@@ -1,17 +1,39 @@
 <template>
   <div>
-    <AisInstantSearch :widgets :configuration instance-key="autocomplete">
+    <AisInstantSearch
+      :widgets
+      :configuration
+      instance-key="autocomplete"
+    >
       <AisAutocomplete>
         <template #default="{ currentRefinement, indices, refine }">
-          <input type="search" :value="currentRefinement" placeholder="Search for a product"
-            @input="refine(($event.currentTarget as HTMLInputElement).value)">
-          <ul v-for="index in indices" :key="index.indexId">
+          <input
+            type="search"
+            :value="currentRefinement"
+            placeholder="Search for a product"
+            @input="refine(($event.currentTarget as HTMLInputElement).value)"
+          >
+          <ul
+            v-for="index in indices"
+            :key="index.indexId"
+          >
             <li>
               <h3>{{ index.indexName }}</h3>
               <ul>
-                <li v-for="hit in index.hits" :key="hit.objectID">
-                  <ais-highlight attribute="name" :hit="hit" v-if="hit.name" />
-                  <ais-highlight attribute="title" :hit="hit" v-else="hit.title" />
+                <li
+                  v-for="hit in index.hits"
+                  :key="hit.objectID"
+                >
+                  <ais-highlight
+                    v-if="hit.name"
+                    attribute="name"
+                    :hit="hit"
+                  />
+                  <ais-highlight
+                    v-else-if="hit.title"
+                    attribute="title"
+                    :hit="hit"
+                  />
                 </li>
               </ul>
             </li>
