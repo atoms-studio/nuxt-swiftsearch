@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.9.9
+
+[compare changes](https://undefined/undefined/compare/v0.9.8...v0.9.9)
+
+### 🩹 Fixes
+
+- Removed double auto importing (700ccb8)
+
+### ❤️ Contributors
+
+- Rigo-m <matteo.rigoni@atoms.retex.com>
+
 ## v0.9.8
 
 [compare changes](https://undefined/undefined/compare/v0.9.7...v0.9.8)
