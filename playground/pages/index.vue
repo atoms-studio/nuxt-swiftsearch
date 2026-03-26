@@ -44,7 +44,10 @@
         <AisClearRefinements id="bnb" />
       </AisIndex>
       INDEX2
-      <AisIndex index="airbnb" indexId="bnb2">
+      <AisIndex
+        index="airbnb"
+        index-id="bnb2"
+      >
         <AisInfiniteHits>
           <template #item="{ item }">
             {{ item.city }}
@@ -53,7 +56,6 @@
         <AisRefinementList attribute="city" />
         <AisClearRefinements id="bnb" />
       </AisIndex>
-
     </AisInstantSearch>
   </div>
 </template>
