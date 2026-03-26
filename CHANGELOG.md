@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.9.10
+
+[compare changes](https://undefined/undefined/compare/v0.9.9...v0.9.10)
+
+### 🚀 Enhancements
+
+- Added indexId in widgets (d0a5c6c)
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v0.9.9
 
 [compare changes](https://undefined/undefined/compare/v0.9.8...v0.9.9)
