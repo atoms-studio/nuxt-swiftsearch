@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/menu/connectMenu";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "#app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisMenuRenderState = (key: string = "") =>
   useState<Record<string, MenuRenderState>>(
@@ -14,32 +15,36 @@ export const useAisMenuRenderState = (key: string = "") =>
   );
 export const useAisMenu = (
   widgetParams: MenuConnectorParams,
-  widgetId: string = ""
+  widgetId: string = "",
 ) => {
   const stateRef = ref<MenuRenderState | null>();
   const menuRenderState = useAisMenuRenderState(widgetId);
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderMenu: Renderer<MenuRenderState, MenuConnectorParams> = (
     renderState,
-    isFirstRender
+    isFirstRender,
   ) => {
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
       menuRenderState.value[widgetParams.attribute] = renderState;
     }
-    // render nothing, provide render state
+
     if (isFirstRender) {
-      provide(`menu-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("menu", stateRef);
     }
-    // render nothing, provide render state
-    return () => { };
+
+    return () => {};
   };
-  // 2. Create the custom widget
+
   const customConfigure = connectMenu(renderMenu);
-  // 3. Instantiate
+
   return {
     ...customConfigure(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

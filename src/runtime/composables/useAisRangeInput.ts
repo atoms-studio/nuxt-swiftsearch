@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/range/connectRange";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisRangeInputRenderState = (key: string = "") =>
   useState<Record<string, RangeRenderState>>(
@@ -14,23 +15,27 @@ export const useAisRangeInputRenderState = (key: string = "") =>
   );
 export const useAisRangeInput = (
   widgetParams: RangeConnectorParams,
-  widgetId: string = ""
+  widgetId: string = "",
 ) => {
   const stateRef = ref<RangeRenderState | null>();
   const rangeRenderState = useAisRangeInputRenderState(widgetId);
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderRange: Renderer<
-  RangeRenderState,
-  RangeConnectorParams
+    RangeRenderState,
+    RangeConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
       rangeRenderState.value[widgetParams.attribute] = renderState;
     }
+
     if (isFirstRender) {
-      provide(`rangeInput-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("range", stateRef);
     }
+
     // render nothing
     return () => null;
   };
@@ -42,6 +47,7 @@ export const useAisRangeInput = (
   return {
     ...customRange(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: widgetId
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

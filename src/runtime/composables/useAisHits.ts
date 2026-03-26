@@ -4,25 +4,27 @@ import type {
   HitsRenderState,
 } from "instantsearch.js/es/connectors/hits/connectHits";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisHits = (
   widgetParams: HitsConnectorParams,
   widgetId: string = "",
 ) => {
   const stateRef = ref<HitsRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderHits: Renderer<
     HitsRenderState,
     HitsConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`hits-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("hits", stateRef);
     }
-    // render nothing
-    return () => { };
+
+    return () => {};
   };
 
   // 2. Create the custom widget
@@ -30,5 +32,10 @@ export const useAisHits = (
     connectHitsWithInsights(renderHits);
 
   // 3. Instantiate
-  return { ...customHits(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
+  return {
+    ...customHits(widgetParams),
+    $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
+  };
 };

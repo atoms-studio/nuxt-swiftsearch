@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/hierarchical-menu/connectHierarchicalMenu";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisHierarchicalMenuRenderState = (key: string = "") =>
   useState<Record<string, HierarchicalMenuRenderState>>(
@@ -18,6 +19,8 @@ export const useAisHierarchicalMenu = (
 ) => {
   const stateRef = ref<HierarchicalMenuRenderState | null>();
   const hierarchicalRenderState = useAisHierarchicalMenuRenderState(widgetId);
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderHierarchicalMenu: Renderer<
     HierarchicalMenuRenderState,
@@ -28,11 +31,11 @@ export const useAisHierarchicalMenu = (
     if (import.meta.client) {
       hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
     }
-    // render nothing, provide render state
+
     if (isFirstRender) {
-      provide(`hierarchical-menu-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("hierarchicalMenu", stateRef);
     }
-    // render nothing
+
     return () => null;
   };
 
@@ -46,5 +49,6 @@ export const useAisHierarchicalMenu = (
     ...customHierarchicalMenu(widgetParams),
     $$widgetParams: widgetParams,
     $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

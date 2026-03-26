@@ -4,27 +4,35 @@ import type {
   AutocompleteRenderState,
 } from "instantsearch.js/es/connectors/autocomplete/connectAutocomplete";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
-export const useAisAutocomplete = (widgetParams: AutocompleteConnectorParams, widgetId: string = "") => {
+export const useAisAutocomplete = (
+  widgetParams: AutocompleteConnectorParams,
+  widgetId: string = "",
+) => {
   const stateRef = ref<AutocompleteRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderAutocomplete: Renderer<
     AutocompleteRenderState,
     AutocompleteConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`autocomplete-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("autocomplete", stateRef);
     }
-    // render nothing
+
     return () => null;
   };
 
-  // 2. Create the custom widget
   const customAutocomplete = connectAutocomplete(renderAutocomplete);
 
-  // 3. Instantiate
-  return { ...customAutocomplete(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
+  return {
+    ...customAutocomplete(widgetParams),
+    $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
+  };
 };

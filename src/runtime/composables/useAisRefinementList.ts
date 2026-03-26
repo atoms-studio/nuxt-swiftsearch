@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisRefinementListRenderState = (key: string = "") =>
   useState<Record<string, RefinementListRenderState>>(
@@ -18,6 +19,8 @@ export const useAisRefinementList = (
 ) => {
   const stateRef = ref<RefinementListRenderState | null>();
   const refinementRenderState = useAisRefinementListRenderState(widgetId);
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderRefinementList: Renderer<
     RefinementListRenderState,
@@ -28,11 +31,11 @@ export const useAisRefinementList = (
     if (import.meta.client) {
       refinementRenderState.value[widgetParams.attribute] = renderState;
     }
-    // render nothing, provide render state
+
     if (isFirstRender) {
-      provide(`refinementList-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("refinementList", stateRef);
     }
-    // render nothing
+
     return () => null;
   };
 
@@ -43,6 +46,7 @@ export const useAisRefinementList = (
   return {
     ...customRefinementList(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: widgetId
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

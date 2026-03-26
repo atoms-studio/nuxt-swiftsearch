@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "#app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisNumericMenuRenderState = (key: string = "") =>
   useState<Record<string, NumericMenuRenderState>>(
@@ -14,26 +15,35 @@ export const useAisNumericMenuRenderState = (key: string = "") =>
   );
 export const useAisNumericMenu = (
   widgetParams: NumericMenuConnectorParams,
-  widgetId: string = ""
+  widgetId: string = "",
 ) => {
   const stateRef = ref<NumericMenuRenderState | null>();
   const numericMenuRenderState = useAisNumericMenuRenderState(widgetId);
-  const renderNumericMenu: Renderer<NumericMenuRenderState, NumericMenuConnectorParams> = (
-    renderState,
-    isFirstRender
-  ) => {
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
+  const renderNumericMenu: Renderer<
+    NumericMenuRenderState,
+    NumericMenuConnectorParams
+  > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
+
     if (import.meta.client) {
       numericMenuRenderState.value[widgetParams.attribute] = renderState;
     }
+
     if (isFirstRender) {
-      provide(`numericMenu-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("numericMenu", stateRef);
     }
-    return () => { };
+
+    return () => {};
   };
+
   const customConfigure = connectNumericMenu(renderNumericMenu);
+
   return {
     ...customConfigure(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

@@ -4,27 +4,35 @@ import type {
   SearchBoxRenderState,
 } from "instantsearch.js/es/connectors/search-box/connectSearchBox";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
-export const useAisSearchBox = (widgetParams: SearchBoxConnectorParams, widgetId: string = "") => {
+export const useAisSearchBox = (
+  widgetParams: SearchBoxConnectorParams,
+  widgetId: string = "",
+) => {
   const stateRef = ref<SearchBoxRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderSearchBox: Renderer<
     SearchBoxRenderState,
     SearchBoxConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`searchBox-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("searchBox", stateRef);
     }
-    // render nothing
+
     return () => null;
   };
 
-  // 2. Create the custom widget
   const customSearchBox = connectSearchBox(renderSearchBox);
 
-  // 3. Instantiate
-  return { ...customSearchBox(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
+  return {
+    ...customSearchBox(widgetParams),
+    $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
+  };
 };

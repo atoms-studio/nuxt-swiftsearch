@@ -5,7 +5,8 @@ import type {
 } from "instantsearch.js/es/connectors/rating-menu/connectRatingMenu";
 import type { Renderer } from "instantsearch.js/es/types";
 import { useState } from "#app";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisRatingMenuRenderState = (key: string = "") =>
   useState<Record<string, RatingMenuRenderState>>(
@@ -14,26 +15,35 @@ export const useAisRatingMenuRenderState = (key: string = "") =>
   );
 export const useAisRatingMenu = (
   widgetParams: RatingMenuConnectorParams,
-  widgetId: string = ""
+  widgetId: string = "",
 ) => {
   const stateRef = ref<RatingMenuRenderState | null>();
   const ratingMenuRenderState = useAisRatingMenuRenderState(widgetId);
-  const renderRatingMenu: Renderer<RatingMenuRenderState, RatingMenuConnectorParams> = (
-    renderState,
-    isFirstRender
-  ) => {
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
+  const renderRatingMenu: Renderer<
+    RatingMenuRenderState,
+    RatingMenuConnectorParams
+  > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
+
     if (import.meta.client) {
       ratingMenuRenderState.value[widgetParams.attribute] = renderState;
     }
+
     if (isFirstRender) {
-      provide(`ratingMenu-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("ratingMenu", stateRef);
     }
-    return () => { };
+
+    return () => {};
   };
+
   const customConfigure = connectRatingMenu(renderRatingMenu);
+
   return {
     ...customConfigure(widgetParams),
     $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

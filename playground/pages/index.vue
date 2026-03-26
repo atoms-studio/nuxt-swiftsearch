@@ -19,20 +19,21 @@
       :middlewares
       instance-key="index"
     >
-      <AisStats />
-      <AisClearRefinements id="free_shipping" />
-      <AisClearRefinements id="brand" />
-      <AisClearRefinements id="all" />
-      <AisRangeInput attribute="price" />
-      <AisSearchBox />
-      <AisAutocomplete />
-      <AisSortBy />
-      <AisToggleRefinement attribute="free_shipping" />
-      <AisInfiniteHits />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-      />
+      <!-- <AisStats /> -->
+      <!-- <AisClearRefinements id="free_shipping" /> -->
+      <!-- <AisClearRefinements id="brand" /> -->
+      <!-- <AisClearRefinements id="all" /> -->
+      <!-- <AisRangeInput attribute="price" /> -->
+      <!-- <AisSearchBox /> -->
+      <!-- <AisAutocomplete /> -->
+      <!-- <AisSortBy /> -->
+      <!-- <AisToggleRefinement attribute="free_shipping" /> -->
+      <!-- <AisInfiniteHits /> -->
+      <!-- <AisRefinementList -->
+      <!--   attribute="brand" -->
+      <!--   searchable -->
+      <!-- /> -->
+      INDEX1
       <AisIndex index="airbnb">
         <AisInfiniteHits>
           <template #item="{ item }">
@@ -42,6 +43,17 @@
         <AisRefinementList attribute="city" />
         <AisClearRefinements id="bnb" />
       </AisIndex>
+      INDEX2
+      <AisIndex index="airbnb" indexId="bnb2">
+        <AisInfiniteHits>
+          <template #item="{ item }">
+            {{ item.city }}
+          </template>
+        </AisInfiniteHits>
+        <AisRefinementList attribute="city" />
+        <AisClearRefinements id="bnb" />
+      </AisIndex>
+
     </AisInstantSearch>
   </div>
 </template>
@@ -58,6 +70,21 @@ const indexBnb = useAisIndex({
 });
 
 indexBnb.addWidgets([
+  useAisInfiniteHits({}),
+  useAisClearRefinements({}, "bnb"),
+  useAisRefinementList({ attribute: "city" }),
+]);
+const indexBnb2 = useAisIndex({
+  indexName: "airbnb",
+  indexId: "bnb2",
+});
+
+indexBnb2.addWidgets([
+  useAisConfigure({
+    searchParameters: {
+      filters: `city:Chicago`
+    }
+  }),
   useAisInfiniteHits({}),
   useAisClearRefinements({}, "bnb"),
   useAisRefinementList({ attribute: "city" }),
@@ -95,6 +122,7 @@ const widgets = computed(() => [
   }, "price-index"),
   useAisConfigure({ searchParameters: {} }),
   indexBnb,
+  indexBnb2
 ]);
 
 const middlewares = ref<Middleware[]>([

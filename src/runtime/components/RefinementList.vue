@@ -96,7 +96,6 @@
 </template>
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
 import { computed, ref } from "vue";
 import { useSuit } from "../composables/useSuit";
 const props = withDefaults(
@@ -109,20 +108,12 @@ const props = withDefaults(
 );
 
 const { state: refinementsState } = useAisWidget("refinementList");
-const refinementListState = useAisRefinementListRenderState();
-
-const state = computed(() => {
-  return refinementListState.value[props.attribute]
-    ? refinementListState.value[props.attribute]
-    : refinementsState.value[props.attribute];
-});
-const widgetParams = computed(
-  () => refinementsState.value[props.attribute].widgetParams,
-);
+const state = computed(() => refinementsState.value[props.attribute]);
+const widgetParams = computed(() => state.value?.widgetParams);
 
 const suit = useSuit("RefinementList");
 
-const showMore = computed(() => widgetParams.value.showMore ?? false);
+const showMore = computed(() => widgetParams.value?.showMore ?? false);
 
 const searchForFacetValuesQuery = ref("");
 

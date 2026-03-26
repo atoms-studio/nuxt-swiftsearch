@@ -10,16 +10,20 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const { getInstance } = useInstantSearch();
   const instance = getInstance();
 
-  const maybeInjectedIndex = inject<string | undefined>("index", undefined);
+  const maybeInjectedIndexName = inject<string | undefined>("index", undefined);
+  const maybeInjectedIndexId = inject<string | undefined>("indexId", undefined);
 
-  const index = maybeInjectedIndex ?? instance.value.indexName;
+  const indexScope =
+    maybeInjectedIndexId ?? maybeInjectedIndexName ?? instance.value.indexName;
+  const index = indexScope;
   type _TWidgetRenderState =
     (typeof instance.value.renderState)[typeof index][typeof widgetName];
 
   type TWidgetRenderState = Ref<NonNullable<_TWidgetRenderState>>;
   const _state = (
     widgetId
-      ? inject<any>(`${widgetName}-${widgetId}`, undefined)
+      ? inject<any>(`${widgetName}-${indexScope}-${widgetId}`, undefined) ??
+        inject<any>(`${widgetName}-${widgetId}`, undefined)
       : ref(instance.value.renderState[index][widgetName]!)
   ) as TWidgetRenderState;
 
@@ -27,7 +31,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const state = import.meta.server
     ? _state
     : widgetId
-      ? useState(`${widgetName}-${widgetId}`, () => _state)
+      ? useState(`${widgetName}-${indexScope}-${widgetId}`, () => _state)
       : _state;
   watch(
     instance,

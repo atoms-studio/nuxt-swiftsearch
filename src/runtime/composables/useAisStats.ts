@@ -4,24 +4,35 @@ import type {
   StatsRenderState,
 } from "instantsearch.js/es/connectors/stats/connectStats";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
-export const useAisStats = (widgetParams: StatsConnectorParams, widgetId: string = "") => {
+export const useAisStats = (
+  widgetParams: StatsConnectorParams,
+  widgetId: string = "",
+) => {
   const stateRef = ref<StatsRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
-  const renderStats: Renderer<StatsRenderState, StatsConnectorParams> = (renderState, isFirstRender) => {
+  const renderStats: Renderer<StatsRenderState, StatsConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`stats-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("stats", stateRef);
     }
-    // render nothing
-    return () => { };
+
+    return () => {};
   };
 
-  // 2. Create the custom widget
   const customStats = connectStats(renderStats);
 
-  // 3. Instantiate
-  return { ...customStats(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId };
+  return {
+    ...customStats(widgetParams),
+    $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
+  };
 };

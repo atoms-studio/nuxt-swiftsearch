@@ -4,25 +4,35 @@ import type {
   SortByRenderState,
 } from "instantsearch.js/es/connectors/sort-by/connectSortBy";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
-export const useAisSortBy = (widgetParams: SortByConnectorParams, widgetId: string = "") => {
+export const useAisSortBy = (
+  widgetParams: SortByConnectorParams,
+  widgetId: string = "",
+) => {
   const stateRef = ref<SortByRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
-  const renderSortBy: Renderer<SortByRenderState, SortByConnectorParams> = (renderState, isFirstRender) => {
+  const renderSortBy: Renderer<SortByRenderState, SortByConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`sortBy-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("sortBy", stateRef);
     }
-    // render nothing
-    return () => { };
+
+    return () => {};
   };
 
-  // 2. Create the custom widget
   const customSortBy = connectSortBy(renderSortBy);
 
-  // 3. Instantiate
-  return { ...customSortBy(widgetParams), $$widgetParams: widgetParams, $$widgetId: widgetId,
+  return {
+    ...customSortBy(widgetParams),
+    $$widgetParams: widgetParams,
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

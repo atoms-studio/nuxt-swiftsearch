@@ -4,24 +4,26 @@ import type {
   InfiniteHitsRenderState,
 } from "instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisInfiniteHits = (
   widgetParams: InfiniteHitsConnectorParams,
   widgetId: string = "",
 ) => {
   const stateRef = ref<InfiniteHitsRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderInfiniteHits: Renderer<
     InfiniteHitsRenderState,
     InfiniteHitsConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`infiniteHits-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("infiniteHits", stateRef);
     }
-    // render nothing
+
     return () => {};
   };
 
@@ -39,5 +41,6 @@ export const useAisInfiniteHits = (
     ...customInfiniteHits(widgetParams),
     $$widgetParams: significantParams,
     $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };

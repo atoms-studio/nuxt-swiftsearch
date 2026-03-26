@@ -4,25 +4,27 @@ import type {
   ToggleRefinementRenderState,
 } from "instantsearch.js/es/connectors/toggle-refinement/connectToggleRefinement";
 import type { Renderer } from "instantsearch.js/es/types";
-import { provide, ref } from "vue";
+import { ref } from "vue";
+import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisToggleRefinement = (
   widgetParams: ToggleRefinementConnectorParams,
-  widgetId: string = ""
+  widgetId: string = "",
 ) => {
   const stateRef = ref<ToggleRefinementRenderState | null>();
+  const widgetIdScope = createWidgetIdScope(widgetId);
+
   // 1. Create a render function
   const renderToggleRefinement: Renderer<
     ToggleRefinementRenderState,
     ToggleRefinementConnectorParams
   > = (renderState, isFirstRender) => {
     stateRef.value = renderState;
-    // render nothing, provide render state
     if (isFirstRender) {
-      provide(`toggleRefinements-${widgetId}`, stateRef);
+      widgetIdScope.provideWidgetState("toggleRefinement", stateRef);
     }
-    // render nothing
-    return () => { };
+
+    return () => {};
   };
 
   // 2. Create the custom widget
@@ -34,6 +36,7 @@ export const useAisToggleRefinement = (
   return {
     ...customToggleRefinement(widgetParams),
     $$widgetParams: widgetParams,
-    $$widgetId: widgetId
+    $$widgetId: widgetId,
+    $$setIndexScope: widgetIdScope.setIndexScope,
   };
 };
