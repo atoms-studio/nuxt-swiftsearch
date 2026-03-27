@@ -4,8 +4,10 @@ import {
   addImports,
   createResolver,
   addComponentsDir,
+  addVitePlugin,
   assertNuxtCompatibility,
 } from "@nuxt/kit";
+import { aisDeclarativeWidgetsPlugin } from "./vite/aisDeclarativeWidgetsPlugin";
 
 // Module options TypeScript interface definition
 export interface ModuleOptions { }
@@ -18,8 +20,10 @@ export default defineNuxtModule<ModuleOptions>({
   // Default configuration options of the Nuxt module
   defaults: {},
   setup(_, nuxt) {
-    assertNuxtCompatibility({ nuxt: ">=3.10" }, nuxt);
+    assertNuxtCompatibility({ nuxt: ">=4.0.0" }, nuxt);
     const resolver = createResolver(import.meta.url);
+
+    addVitePlugin(() => aisDeclarativeWidgetsPlugin());
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addImportsDir([
@@ -27,27 +31,35 @@ export default defineNuxtModule<ModuleOptions>({
     ]);
     const composables = [
       'useAisAutocomplete',
+      'useAisBreadcrumb',
       'useAisClearRefinements',
       'useAisConfigure',
+      'useAisConfigureRelatedItems',
       'useAisCurrentRefinements',
+      'useAisDynamicWidgets',
       'useAisHierarchicalMenu',
       'useAisHits',
+      'useAisHitsPerPage',
       'useAisIndex',
       'useAisInfiniteHits',
       'useAisInfiniteHitsStatefulCache',
       'useAisMenu',
       'useAisNumericMenu',
       'useAisPagination',
+      'useAisPoweredBy',
+      'useAisQueryRuleContext',
       'useAisQueryRuleCustomData',
       'useAisRangeInput',
       'useAisRatingMenu',
       'useAisRefinementList',
+      'useAisRelevantSort',
       'useAisRouter',
       'useAisSearchBox',
       'useAisSortBy',
       'useAisStatefulCache',
       'useAisStats',
       'useAisToggleRefinement',
+      'useAisVoiceSearch',
       'useAisWidget',
     ]
 

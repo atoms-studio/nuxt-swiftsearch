@@ -4,7 +4,7 @@
     :class="suit()"
   >
     <slot
-      v-if="showPrevious"
+      v-if="showPreviousEnabled"
       name="loadPrevious"
       :refine-previous="refinePrevious"
       :page="state.results.page"
@@ -76,11 +76,20 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
+
+defineProps<{
+  showBanner?: boolean;
+  showPrevious?: boolean;
+  escapeHTML?: boolean;
+  transformItems?: (...args: any[]) => any;
+  cache?: unknown;
+}>();
+
 const { state, widgetParams } = useAisWidget("infiniteHits");
 
 const suit = useSuit("InfiniteHits");
 
-const showPrevious = computed(() => {
+const showPreviousEnabled = computed(() => {
   return widgetParams.value?.showPrevious ?? false;
 });
 

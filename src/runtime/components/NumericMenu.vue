@@ -37,16 +37,21 @@
 </template>
 
 <script setup lang="ts">
-import type { NumericMenuConnectorParamsItem } from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
+import type {
+  NumericMenuConnectorParamsItem,
+} from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
 import { useAisNumericMenuRenderState } from "../composables/useAisNumericMenu";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const props = defineProps<{
+type NumericMenuProps = {
   attribute: string;
   items: NumericMenuConnectorParamsItem[];
-}>();
+  transformItems?: (...args: any[]) => any;
+};
+
+const props = defineProps<NumericMenuProps>();
 
 const suit = useSuit("NumericMenu");
 const numericMenuRenderState = useAisNumericMenuRenderState();

@@ -1,4 +1,4 @@
-import { connectNumericMenu } from "instantsearch.js/es/connectors";
+import { connectNumericMenu } from "instantsearch.js/es/connectors/index.umd";
 import type {
   NumericMenuRenderState,
   NumericMenuConnectorParams,

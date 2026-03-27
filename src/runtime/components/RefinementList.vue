@@ -74,7 +74,7 @@
         </li>
       </ul>
       <button
-        v-if="showMore"
+        v-if="showMoreEnabled"
         :class="[
           suit('showMore'),
           {
@@ -98,22 +98,40 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { computed, ref } from "vue";
 import { useSuit } from "../composables/useSuit";
+
+type RefinementListProps = {
+  attribute: string;
+  id?: string;
+  searchable?: boolean;
+  searchablePlaceholder?: string;
+  operator?: "and" | "or";
+  limit?: number;
+  showMoreLimit?: number;
+  showMore?: boolean;
+  sortBy?: unknown[] | ((...args: any[]) => unknown);
+  transformItems?: (...args: any[]) => any;
+};
+
 const props = withDefaults(
-  defineProps<{
-    attribute: string;
-    searchable?: boolean;
-    searchablePlaceholder?: string;
-  }>(),
-  { searchablePlaceholder: "Search here…" },
+  defineProps<RefinementListProps>(),
+  {
+    id: "",
+    searchablePlaceholder: "Search here…",
+  },
 );
 
-const { state: refinementsState } = useAisWidget("refinementList");
-const state = computed(() => refinementsState.value[props.attribute]);
-const widgetParams = computed(() => state.value?.widgetParams);
+const { state: refinementsState } = useAisWidget("refinementList", props.id);
+const state = computed(() => {
+  if (props.id) {
+    return refinementsState.value;
+  }
+
+  return refinementsState.value[props.attribute];
+});
 
 const suit = useSuit("RefinementList");
 
-const showMore = computed(() => widgetParams.value?.showMore ?? false);
+const showMoreEnabled = computed(() => props.showMore ?? false);
 
 const searchForFacetValuesQuery = ref("");
 

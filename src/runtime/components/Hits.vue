@@ -29,6 +29,13 @@
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+
+defineProps<{
+  showBanner?: boolean;
+  escapeHTML?: boolean;
+  transformItems?: (...args: any[]) => any;
+}>();
+
 const { state } = useAisWidget("hits");
 const suit = useSuit("Hits");
 </script>

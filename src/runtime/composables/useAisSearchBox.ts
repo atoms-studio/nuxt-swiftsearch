@@ -1,4 +1,4 @@
-import { connectSearchBox } from "instantsearch.js/es/connectors";
+import { connectSearchBox } from "instantsearch.js/es/connectors/index.umd";
 import type {
   SearchBoxConnectorParams,
   SearchBoxRenderState,

@@ -15,7 +15,7 @@
           :class="suit('checkbox')"
           type="checkbox"
           :name="state.value?.name"
-          :value="on"
+          :value="onValue"
           :checked="state.value?.isRefined"
           @change="state.refine(state.value)"
         >
@@ -35,7 +35,15 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
-const props = defineProps<{ attribute: string; label?: string }>();
+
+type ToggleRefinementProps = {
+  attribute: string;
+  on?: string | number | boolean | unknown[];
+  off?: string | number | boolean | unknown[];
+  label?: string;
+};
+
+const props = defineProps<ToggleRefinementProps>();
 
 const { state: refinementsState } = useAisWidget("toggleRefinement");
 
@@ -45,5 +53,5 @@ const widgetParams = computed(() => state.value.widgetParams);
 
 const suit = useSuit("ToggleRefinement");
 
-const on = computed(() => widgetParams.value?.on ?? true);
+const onValue = computed(() => widgetParams.value?.on ?? true);
 </script>

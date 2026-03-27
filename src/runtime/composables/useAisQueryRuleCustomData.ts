@@ -1,4 +1,4 @@
-import { connectQueryRules } from "instantsearch.js/es/connectors";
+import { connectQueryRules } from "instantsearch.js/es/connectors/index.umd";
 import type {
   QueryRulesRenderState,
   QueryRulesConnectorParams,

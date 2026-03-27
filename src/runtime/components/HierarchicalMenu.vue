@@ -47,15 +47,28 @@ import HierarchicalMenuList from "./HierarchicalMenuList.vue";
 import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 import { computed } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
+
+type HierarchicalMenuProps = {
+  attribute?: string;
+  attributes?: string[];
+  limit?: number;
+  showMoreLimit?: number;
+  showMore?: boolean;
+  sortBy?: unknown[] | ((...args: any[]) => unknown);
+  separator?: string;
+  rootPath?: string;
+  showParentLevel?: boolean;
+  transformItems?: (...args: any[]) => any;
+};
+
 const suit = useSuit("HierarchicalMenu");
 
 const props = withDefaults(
-  defineProps<{
-    attribute: string;
-    showMore?: boolean;
-  }>(),
+  defineProps<HierarchicalMenuProps>(),
   {
+    attribute: undefined,
     showMore: false,
+    attributes: () => [],
   },
 );
 
@@ -63,9 +76,15 @@ const hierarchicalMenuRenderState = useAisHierarchicalMenuRenderState();
 
 const { state: hierarchicalMenuState } = useAisWidget("hierarchicalMenu");
 
+const stateAttribute = computed(() => {
+  return props.attribute ?? props.attributes[0];
+});
+
 const state = computed(() => {
-  return hierarchicalMenuRenderState.value[props.attribute]
-    ? hierarchicalMenuRenderState.value[props.attribute]
-    : hierarchicalMenuState.value[props.attribute];
+  if (!stateAttribute.value) return null;
+
+  return hierarchicalMenuRenderState.value[stateAttribute.value]
+    ? hierarchicalMenuRenderState.value[stateAttribute.value]
+    : hierarchicalMenuState.value[stateAttribute.value];
 });
 </script>

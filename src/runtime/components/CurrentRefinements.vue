@@ -56,10 +56,20 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
-import type { CurrentRefinementsConnectorParamsRefinement } from "instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements";
-const props = withDefaults(defineProps<{ id?: string }>(), {
-  id: ''
-})
+import type {
+  CurrentRefinementsConnectorParamsRefinement,
+} from "instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements";
+
+type CurrentRefinementsProps = {
+  includedAttributes?: string[];
+  excludedAttributes?: string[];
+  transformItems?: (...args: any[]) => any;
+  id?: string;
+};
+
+const props = withDefaults(defineProps<CurrentRefinementsProps>(), {
+  id: "",
+});
 const { state } = useAisWidget("currentRefinements", props.id);
 
 const suit = useSuit("CurrentRefinements");

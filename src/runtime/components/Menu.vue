@@ -56,14 +56,20 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
+type MenuProps = {
+  attribute: string;
+  limit?: number;
+  showMoreLimit?: number;
+  showMore?: boolean;
+  sortBy?: unknown[] | ((...args: any[]) => unknown);
+  transformItems?: (...args: any[]) => any;
+};
+
 const props = withDefaults(
-  defineProps<{
-    attribute: string;
-    showMore?: boolean;
-  }>(),
+  defineProps<MenuProps>(),
   {
     showMore: false,
-  }
+  },
 );
 
 const suit = useSuit("Menu");

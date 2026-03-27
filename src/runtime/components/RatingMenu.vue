@@ -40,10 +40,12 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const props = defineProps<{
-    attribute: string;
-    max?: number;
-}>();
+type RatingMenuProps = {
+  attribute: string;
+  max?: number;
+};
+
+const props = defineProps<RatingMenuProps>();
 
 const suit = useSuit("RatingMenu");
 const ratingMenuRenderState = useAisRatingMenuRenderState();

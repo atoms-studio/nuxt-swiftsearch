@@ -1,6 +1,6 @@
 <template>
   <div :class="suit()">
-    <slot v-bind="{ searchParameters, refine }" />
+    <slot v-bind="{ searchParameters: searchParametersState, refine }" />
   </div>
 </template>
 
@@ -8,11 +8,17 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
+
+defineProps<{
+  searchParameters?: { [key: string]: unknown };
+  [key: string]: unknown;
+}>();
+
 const { state, widgetParams } = useAisWidget("configure");
 
 const refine = computed(() => state.value?.refine);
 
-const searchParameters = computed(() => {
+const searchParametersState = computed(() => {
   return widgetParams.value?.searchParameters;
 });
 

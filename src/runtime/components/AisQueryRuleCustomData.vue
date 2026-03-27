@@ -21,6 +21,10 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { computed } from "vue";
 import { useSuit } from "../composables/useSuit";
 
+defineProps<{
+  transformItems?: (...args: any[]) => any;
+}>();
+
 const { state } = useAisWidget("queryRules");
 const suit = useSuit("QueryRuleCustomData");
 

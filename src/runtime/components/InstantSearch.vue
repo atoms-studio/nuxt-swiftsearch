@@ -20,7 +20,7 @@ import type { Ref } from "vue";
 
 const props = defineProps<{
   configuration: InstantSearchOptions;
-  widgets: Array<Widget | IndexWidget>;
+  widgets?: Array<Widget | IndexWidget>;
   instanceKey?: string;
   middlewares?: Middleware[];
 }>();
@@ -40,10 +40,10 @@ else {
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
 const { setup } = useInstantSearch(searchInstance);
-await setup(props.widgets, props.instanceKey);
+await setup(props.widgets ?? [], props.instanceKey);
 
 watch(widgetsRef, async () => {
-  await setup(props.widgets, props.instanceKey);
+  await setup(props.widgets ?? [], props.instanceKey);
 });
 
 // watching middlewares

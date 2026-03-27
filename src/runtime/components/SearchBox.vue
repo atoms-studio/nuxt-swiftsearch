@@ -43,20 +43,26 @@ import { useAisWidget } from "../composables/useAisWidget";
 const { state } = useAisWidget("searchBox");
 import { useSuit } from "../composables/useSuit";
 import { ref, computed } from "vue";
+
+type SearchBoxProps = {
+  placeholder?: string;
+  autofocus?: boolean;
+  showLoadingIndicator?: boolean;
+  shouldShowLoadingIndicator?: boolean;
+  ignoreCompositionEvents?: boolean;
+  submitTitle?: string;
+  resetTitle?: string;
+  queryHook?: (...args: any[]) => any;
+  value?: string;
+  modelValue?: string;
+};
+
 const props = withDefaults(
-  defineProps<{
-    placeholder?: string;
-    autofocus?: boolean;
-    showLoadingIndicator?: boolean;
-    shouldShowLoadingIndicator?: boolean;
-    ignoreCompositionEvents?: boolean;
-    submitTitle?: string;
-    resetTitle?: string;
-  }>(),
+  defineProps<SearchBoxProps>(),
   {
     placeholder: "",
     autofocus: false,
-    showLoadingIndicator: false,
+    showLoadingIndicator: true,
     shouldShowLoadingIndicator: false,
     ignoreCompositionEvents: false,
     submitTitle: "Submit the search query",
@@ -68,7 +74,7 @@ const suit = useSuit("SearchBox");
 
 const localValue = ref("");
 
-const modelValue = defineModel<string>();
+const controlledModelValue = defineModel<string>();
 const emit = defineEmits([
   "input",
   "update:modelValue",
@@ -80,13 +86,13 @@ const emit = defineEmits([
 const searchInput = ref<any>();
 const currentRefinement = computed({
   get() {
-    return modelValue.value || state.value!.query || "";
+    return controlledModelValue.value || state.value!.query || "";
   },
   set(val) {
     if (val !== state.value!.query) {
       state.value!.refine(val);
     }
-    if (modelValue.value) {
+    if (controlledModelValue.value) {
       emit("input", val);
       emit("update:modelValue", val);
     }

@@ -17,6 +17,7 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
+
 const { instance, state } = useAisWidget("stats");
 
 const suit = useSuit("Stats");

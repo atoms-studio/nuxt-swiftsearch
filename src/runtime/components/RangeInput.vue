@@ -4,11 +4,15 @@ import { useAisRangeInputRenderState } from "../composables/useAisRangeInput";
 import { useSuit } from "../composables/useSuit";
 import { ref, computed, type Ref } from "vue";
 
+type RangeInputProps = {
+  attribute: string;
+  min?: number;
+  max?: number;
+  precision?: number;
+};
+
 const props = withDefaults(
-  defineProps<{
-    attribute: string;
-    precision?: number;
-  }>(),
+  defineProps<RangeInputProps>(),
   { precision: 0 },
 );
 

@@ -1,4 +1,4 @@
-import { index } from "instantsearch.js/es/widgets";
+import { index } from "instantsearch.js/es/widgets/index.umd";
 import type { IndexWidgetParams } from "instantsearch.js/es/widgets/index/index";
 import type { ScopedWidget } from "./widgetIdScope";
 

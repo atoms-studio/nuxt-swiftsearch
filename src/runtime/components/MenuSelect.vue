@@ -49,9 +49,14 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const props = defineProps<{
+type MenuSelectProps = {
   attribute: string;
-}>();
+  limit?: number;
+  sortBy?: unknown[] | ((...args: any[]) => unknown);
+  transformItems?: (...args: any[]) => any;
+};
+
+const props = defineProps<MenuSelectProps>();
 
 const suit = useSuit("MenuSelect");
 const menuRenderState = useAisMenuRenderState();

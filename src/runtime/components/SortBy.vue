@@ -34,6 +34,12 @@
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+
+defineProps<{
+  items?: Array<{ value: string; label: string }>;
+  transformItems?: (...args: any[]) => any;
+}>();
+
 const { state } = useAisWidget("sortBy");
 const suit = useSuit("SortBy");
 </script>
