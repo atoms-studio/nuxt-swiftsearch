@@ -4,7 +4,7 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="state.items"
+      :items="items"
       :can-refine="state.canRefine"
       :refine="state.refine"
       :create-u-r-l="state.createURL"
@@ -12,7 +12,7 @@
     >
       <ul :class="suit('list')">
         <li
-          v-for="item in state.items"
+          v-for="item in items"
           :key="item.value"
           :class="[suit('item'), item.isRefined && suit('item', 'selected')]"
         >
@@ -36,19 +36,21 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends NumericMenuRenderStateItem = NumericMenuRenderStateItem">
 import type {
+  NumericMenuRenderStateItem,
   NumericMenuConnectorParamsItem,
 } from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
 import { useAisNumericMenuRenderState } from "../composables/useAisNumericMenu";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 
 type NumericMenuProps = {
   attribute: string;
   items: NumericMenuConnectorParamsItem[];
-  transformItems?: (...args: any[]) => any;
+  transformItems?: TransformItemsTo<NumericMenuRenderStateItem, TItem>;
 };
 
 const props = defineProps<NumericMenuProps>();
@@ -67,4 +69,6 @@ const state = computed(() => {
     return null;
   }
 });
+
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>

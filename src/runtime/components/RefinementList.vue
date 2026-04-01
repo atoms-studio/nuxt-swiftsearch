@@ -94,10 +94,15 @@
     </slot>
   </div>
 </template>
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends RefinementListItem = RefinementListItem">
+import type {
+  RefinementListConnectorParams,
+  RefinementListItem,
+} from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import { useAisWidget } from "../composables/useAisWidget";
 import { computed, ref } from "vue";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 
 type RefinementListProps = {
   attribute: string;
@@ -108,8 +113,8 @@ type RefinementListProps = {
   limit?: number;
   showMoreLimit?: number;
   showMore?: boolean;
-  sortBy?: unknown[] | ((...args: any[]) => unknown);
-  transformItems?: (...args: any[]) => any;
+  sortBy?: RefinementListConnectorParams["sortBy"];
+  transformItems?: TransformItemsTo<RefinementListItem, TItem>;
 };
 
 const props = withDefaults(
@@ -149,12 +154,20 @@ const toggleShowMore = () => {
   state.value.toggleShowMore();
 };
 
-const items = computed(() =>
-  state.value.items.map((item) => ({
+type RefinementListItemWithHighlight = TItem & {
+  _highlightResult: {
+    item: {
+      value: string | undefined;
+    };
+  };
+};
+
+const items = computed<Array<RefinementListItemWithHighlight>>(() => {
+  return (state.value.items as Array<TItem>).map((item) => ({
     ...item,
-    _highlightResult: { item: { value: item.highlighted}}
-  }))
-);
+    _highlightResult: { item: { value: item.highlighted } },
+  }));
+});
 
 const refine = (value: string) => {
   state.value.refine(value);

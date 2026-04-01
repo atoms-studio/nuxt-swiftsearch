@@ -61,6 +61,7 @@ export default defineNuxtModule<ModuleOptions>({
       'useAisToggleRefinement',
       'useAisVoiceSearch',
       'useAisWidget',
+      'useInstantSearch'
     ]
 
     for (const name of composables) {

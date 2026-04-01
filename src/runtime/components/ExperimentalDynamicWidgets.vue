@@ -5,8 +5,10 @@
 </template>
 
 <script setup lang="ts">
+import type { DynamicWidgetsConnectorParams } from "instantsearch.js/es/connectors/dynamic-widgets/connectDynamicWidgets";
+
 type ExperimentalDynamicWidgetsProps = {
-  transformItems?: (...args: any[]) => any;
+  transformItems?: DynamicWidgetsConnectorParams["transformItems"];
   facets?: ["*"] | string[];
   maxValuesPerFacet?: number;
   id?: string;

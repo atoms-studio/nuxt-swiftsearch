@@ -23,7 +23,7 @@
     </slot>
 
     <slot
-      :items="state.hits"
+      :items="items"
       :results="state.results"
       :is-last-page="state.isLastPage"
       :refine-previous="refinePrevious"
@@ -33,7 +33,7 @@
     >
       <ol :class="suit('list')">
         <li
-          v-for="(item, index) in state.hits"
+          v-for="(item, index) in items"
           :key="item.objectID"
           :class="suit('item')"
           @click="state.sendEvent('click:internal', item, 'Hit Clicked')"
@@ -72,22 +72,28 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="THit extends NonNullable<object> = BaseHit">
+import type { BaseHit, Hit } from "instantsearch.js/es/types";
+import type { InfiniteHitsConnectorParams } from "instantsearch.js/es/connectors/infinite-hits/connectInfiniteHits";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
+import type { TransformItemsTo } from "../types/transformItems";
 
-defineProps<{
+type InfiniteHitsProps = {
   showBanner?: boolean;
   showPrevious?: boolean;
   escapeHTML?: boolean;
-  transformItems?: (...args: any[]) => any;
-  cache?: unknown;
-}>();
+  transformItems?: TransformItemsTo<Hit<BaseHit>, Hit<THit>>;
+  cache?: InfiniteHitsConnectorParams<THit>["cache"];
+};
+
+defineProps<InfiniteHitsProps>();
 
 const { state, widgetParams } = useAisWidget("infiniteHits");
 
 const suit = useSuit("InfiniteHits");
+const items = computed(() => (state.value?.items ?? []) as Array<Hit<THit>>);
 
 const showPreviousEnabled = computed(() => {
   return widgetParams.value?.showPrevious ?? false;

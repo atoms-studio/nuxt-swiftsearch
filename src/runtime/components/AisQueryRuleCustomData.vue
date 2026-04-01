@@ -16,19 +16,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends NonNullable<object> = Record<string, unknown>">
 import { useAisWidget } from "../composables/useAisWidget";
 import { computed } from "vue";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 
 defineProps<{
-  transformItems?: (...args: any[]) => any;
+  transformItems?: TransformItemsTo<Record<string, unknown>, TItem & Record<string, unknown>>;
 }>();
 
 const { state } = useAisWidget("queryRules");
 const suit = useSuit("QueryRuleCustomData");
 
 const items = computed(() => {
-  return state.value?.items || [];
+  return (state.value?.items || []) as Array<TItem>;
 });
 </script>

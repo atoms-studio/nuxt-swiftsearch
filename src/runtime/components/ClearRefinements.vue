@@ -22,6 +22,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { ClearRefinementsConnectorParams } from "instantsearch.js/es/connectors/clear-refinements/connectClearRefinements";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
@@ -29,7 +30,7 @@ import { computed } from "vue";
 type ClearRefinementsProps = {
   excludedAttributes?: string[];
   includedAttributes?: string[];
-  transformItems?: (...args: any[]) => any;
+  transformItems?: ClearRefinementsConnectorParams["transformItems"];
   id?: string;
 };
 

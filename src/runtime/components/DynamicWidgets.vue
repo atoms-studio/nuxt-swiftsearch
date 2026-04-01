@@ -14,6 +14,7 @@
 </template>
 
 <script setup lang="ts">
+import type { DynamicWidgetsConnectorParams } from "instantsearch.js/es/connectors/dynamic-widgets/connectDynamicWidgets";
 import {
   computed,
   defineComponent,
@@ -26,7 +27,7 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 
 type DynamicWidgetsProps = {
-  transformItems?: (...args: any[]) => any;
+  transformItems?: DynamicWidgetsConnectorParams["transformItems"];
   facets?: ["*"] | string[];
   maxValuesPerFacet?: number;
   id?: string;

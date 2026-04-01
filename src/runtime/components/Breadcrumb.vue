@@ -4,14 +4,14 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="state.items"
+      :items="items"
       :can-refine="state.canRefine"
       :refine="state.refine"
       :create-u-r-l="state.createURL"
     >
       <ul :class="suit('list')">
         <li
-          :class="[suit('item'), !state.items.length && suit('item', 'selected')]"
+          :class="[suit('item'), !items.length && suit('item', 'selected')]"
         >
           <a
             :href="state.createURL(null)"
@@ -24,7 +24,7 @@
           </a>
         </li>
         <li
-          v-for="(item, index) in state.items"
+          v-for="(item, index) in items"
           :key="createItemKey(item, index)"
           :class="[suit('item'), isLastItem(index) && suit('item', 'selected')]"
         >
@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends BreadcrumbConnectorParamsItem = BreadcrumbConnectorParamsItem">
 import type {
   BreadcrumbConnectorParamsItem,
 } from "instantsearch.js/es/connectors/breadcrumb/connectBreadcrumb";
@@ -59,12 +59,13 @@ import { computed } from "vue";
 import { useAisBreadcrumbRenderState } from "../composables/useAisBreadcrumb";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 
 type BreadcrumbProps = {
   attributes: string[];
   separator?: string;
   rootPath?: string;
-  transformItems?: (...args: any[]) => any;
+  transformItems?: TransformItemsTo<BreadcrumbConnectorParamsItem, TItem>;
   id?: string;
 };
 
@@ -89,11 +90,13 @@ const state = computed(() => {
   );
 });
 
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
+
 const isLastItem = (index: number) => {
-  return state.value.items.length - 1 === index;
+  return items.value.length - 1 === index;
 };
 
-const createItemKey = (item: BreadcrumbConnectorParamsItem, index: number) => {
+const createItemKey = (item: TItem, index: number) => {
   return `${item.label}-${index}`;
 };
 </script>

@@ -5,12 +5,12 @@
   >
     <slot
       :refine="state.refine"
-      :items="state.items"
+      :items="items"
       :create-u-r-l="state.createURL"
     >
       <ul :class="suit('list')">
         <li
-          v-for="item in state.items"
+          v-for="item in items"
           :key="item.attribute"
           :class="suit('item')"
         >
@@ -52,18 +52,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends CurrentRefinementsConnectorParamsItem = CurrentRefinementsConnectorParamsItem">
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 import type {
+  CurrentRefinementsConnectorParamsItem,
   CurrentRefinementsConnectorParamsRefinement,
 } from "instantsearch.js/es/connectors/current-refinements/connectCurrentRefinements";
+import type { TransformItemsTo } from "../types/transformItems";
 
 type CurrentRefinementsProps = {
   includedAttributes?: string[];
   excludedAttributes?: string[];
-  transformItems?: (...args: any[]) => any;
+  transformItems?: TransformItemsTo<CurrentRefinementsConnectorParamsItem, TItem>;
   id?: string;
 };
 
@@ -74,8 +76,10 @@ const { state } = useAisWidget("currentRefinements", props.id);
 
 const suit = useSuit("CurrentRefinements");
 
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
+
 const noRefinement = computed(
-  () => state.value && state.value.items.length === 0,
+  () => !!state.value && items.value.length === 0,
 );
 
 const createItemKey = ({

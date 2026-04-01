@@ -4,7 +4,7 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="state.items"
+      :items="items"
       :can-refine="state.canRefine"
       :refine="state.refine"
       :create-u-r-l="state.createURL"
@@ -25,7 +25,7 @@
           </slot>
         </option>
         <option
-          v-for="item in state.items"
+          v-for="item in items"
           :key="item.value"
           :class="suit('option')"
           :value="item.value"
@@ -43,17 +43,22 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends MenuItem = MenuItem">
+import type {
+  MenuConnectorParams,
+  MenuItem,
+} from "instantsearch.js/es/connectors/menu/connectMenu";
 import { useAisMenuRenderState } from "../composables/useAisMenu";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 
 type MenuSelectProps = {
   attribute: string;
   limit?: number;
-  sortBy?: unknown[] | ((...args: any[]) => unknown);
-  transformItems?: (...args: any[]) => any;
+  sortBy?: MenuConnectorParams["sortBy"];
+  transformItems?: TransformItemsTo<MenuItem, TItem>;
 };
 
 const props = defineProps<MenuSelectProps>();
@@ -67,4 +72,6 @@ const state = computed(() => {
   ? menuRenderState.value[props.attribute]
   : menuState.value[props.attribute];
 });
+
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>

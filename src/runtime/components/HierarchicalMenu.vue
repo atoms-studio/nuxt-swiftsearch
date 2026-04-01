@@ -4,7 +4,7 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="state.items"
+      :items="items"
       :can-refine="state.canRefine"
       :can-toggle-show-more="state.canToggleShowMore"
       :is-showing-more="state.isShowingMore"
@@ -14,7 +14,7 @@
       :send-event="state.sendEvent"
     >
       <hierarchical-menu-list
-        :items="state.items"
+        :items="items"
         :level="0"
         :refine="state.refine"
         :create-u-r-l="state.createURL"
@@ -41,10 +41,15 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends HierarchicalMenuItem = HierarchicalMenuItem">
+import type {
+  HierarchicalMenuConnectorParams,
+  HierarchicalMenuItem,
+} from "instantsearch.js/es/connectors/hierarchical-menu/connectHierarchicalMenu";
 import { useSuit } from "../composables/useSuit";
 import HierarchicalMenuList from "./HierarchicalMenuList.vue";
 import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
+import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
 
@@ -54,11 +59,11 @@ type HierarchicalMenuProps = {
   limit?: number;
   showMoreLimit?: number;
   showMore?: boolean;
-  sortBy?: unknown[] | ((...args: any[]) => unknown);
+  sortBy?: HierarchicalMenuConnectorParams["sortBy"];
   separator?: string;
   rootPath?: string;
   showParentLevel?: boolean;
-  transformItems?: (...args: any[]) => any;
+  transformItems?: TransformItemsTo<HierarchicalMenuItem, TItem>;
 };
 
 const suit = useSuit("HierarchicalMenu");
@@ -87,4 +92,6 @@ const state = computed(() => {
     ? hierarchicalMenuRenderState.value[stateAttribute.value]
     : hierarchicalMenuState.value[stateAttribute.value];
 });
+
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>
