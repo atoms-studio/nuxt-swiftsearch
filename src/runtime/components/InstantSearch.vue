@@ -12,7 +12,7 @@ import type {
   InstantSearch,
   Middleware,
 } from "instantsearch.js";
-import { useInstantSearch } from "../composables/useInstantSearch";
+import { useAisInstantSearch } from "../composables/useAisInstantSearch";
 import { shallowRef, provide, toRefs, watch } from "vue";
 import instantsearch from "instantsearch.js/es";
 import { useState } from "nuxt/app";
@@ -39,7 +39,7 @@ else {
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
 
-const { setup } = useInstantSearch(searchInstance);
+const { setup } = useAisInstantSearch(searchInstance);
 await setup(props.widgets, props.instanceKey);
 
 watch(widgetsRef, async () => {

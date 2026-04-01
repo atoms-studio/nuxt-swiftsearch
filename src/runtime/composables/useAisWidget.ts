@@ -1,13 +1,13 @@
 import type { RenderState } from "instantsearch.js";
 import { computed, inject, watch, ref, type Ref, triggerRef } from "vue";
-import { useInstantSearch } from "./useInstantSearch";
+import { useAisInstantSearch } from "./useAisInstantSearch";
 import { useState } from "nuxt/app";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
   widgetId?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
-  const { getInstance } = useInstantSearch();
+  const { getInstance } = useAisInstantSearch();
   const instance = getInstance();
 
   const maybeInjectedIndexName = inject<string | undefined>("index", undefined);

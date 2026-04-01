@@ -17,7 +17,7 @@ import { useState, createError } from "nuxt/app";
 
 import { type InitialResults } from "instantsearch.js/es";
 
-export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
+export const useAisInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const _searchInstance =
     instance ??
     (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);

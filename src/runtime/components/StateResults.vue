@@ -20,10 +20,10 @@
 
 <script setup lang="ts">
 import { useSuit } from "../composables/useSuit";
-import { useInstantSearch } from "../composables/useInstantSearch";
+import { useAisInstantSearch } from "../composables/useAisInstantSearch";
 import { computed, toRefs } from "vue";
 
-const { getInstance, parentIndex } = useInstantSearch();
+const { getInstance, parentIndex } = useAisInstantSearch();
 const suit = useSuit("StateResults");
 
 const props = withDefaults(
