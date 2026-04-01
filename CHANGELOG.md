@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.9.11
+
+[compare changes](https://undefined/undefined/compare/v0.9.10...v0.9.11)
+
+### 🩹 Fixes
+
+- Readded instatnsearch to auto imports (85e1ab9)
+
+### 🏡 Chore
+
+- Release and playground/pages (92437b4)
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v0.9.10
 
 [compare changes](https://undefined/undefined/compare/v0.9.9...v0.9.10)
