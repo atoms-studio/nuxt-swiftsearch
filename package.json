@@ -32,6 +32,7 @@
   "scripts": {
     "build": "nuxt-module-build build",
     "prepack": "nuxt-module-build build",
+    "prepare": "simple-git-hooks",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
@@ -42,6 +43,7 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "check": "bun run lint && bun run format:check && bun run test",
+    "check:commit": "bunx lint-staged && bun run lint && bun run test",
     "release:prepare": "bun run check",
     "release": "bun run release:prepare && changelogen --release && npm publish --access public --tag latest && git push --follow-tags",
     "release:minor": "bun run release:prepare && changelogen --release --minor && npm publish --access public --tag latest && git push --follow-tags",
@@ -71,16 +73,28 @@
     "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.5.5",
     "happy-dom": "^20.8.9",
+    "lint-staged": "^16.2.7",
     "nuxt": "^4.4.2",
     "oxfmt": "^0.43.0",
     "oxlint": "^1.58.0",
     "playwright": "^1.55.0",
     "playwright-core": "^1.42.1",
+    "simple-git-hooks": "^2.13.1",
     "typescript": "^5.9.2",
     "vite": "^7.3.1",
     "vitest": "^4.1.2",
     "vue-instantsearch": "^4.24.3",
     "vue-tsc": "^3.0.7"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "bun run check:commit"
+  },
+  "lint-staged": {
+    "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue}": [
+      "oxfmt --write",
+      "oxlint --fix"
+    ],
+    "**/*.{json,md,yml,yaml,css,scss,html}": "oxfmt --write"
   },
   "changelog": {
     "repo": "github:atoms-studio/nuxt-swiftsearch"
