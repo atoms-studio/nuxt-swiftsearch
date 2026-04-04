@@ -5,6 +5,8 @@ import { setup, createPage } from "@nuxt/test-utils/e2e";
 import { collectNormalizedMarkup } from "./utils/html";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
+/* eslint-disable jest/valid-describe-callback */
+
 const PORT = 7780;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));

@@ -4,7 +4,7 @@ export const useStateMapping = () => {
   function getIndexStateWithoutConfigure<TIndexUiState extends IndexUiState>(
     uiState: TIndexUiState,
   ): TIndexUiState {
-    const { configure, ...trackedUiState } = uiState;
+    const { configure: _configure, ...trackedUiState } = uiState;
     return trackedUiState as TIndexUiState;
   }
 

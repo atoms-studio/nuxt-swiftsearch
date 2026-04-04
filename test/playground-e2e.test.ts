@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
+/* eslint-disable jest/valid-describe-callback */
+
 const PORT = 7783;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const playgroundRoot = fileURLToPath(new URL("../playground", import.meta.url));

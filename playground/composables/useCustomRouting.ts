@@ -17,14 +17,16 @@ export const useCustomRouting = () => {
         // if I have a page
         const iHavePage = !!routeState?.page;
         console.log(iHavePage);
-        iHavePage
-          ? router.push({
-              name: "pagination-page-page",
-              query: { ...routeState, page: undefined },
-              params: { page: routeState.page as string },
-            })
-          : // @ts-ignore
-            router.push({ query: { ...routeState } });
+        if (iHavePage) {
+          router.push({
+            name: "pagination-page-page",
+            query: { ...routeState, page: undefined },
+            params: { page: routeState.page as string },
+          });
+          return;
+        }
+        // @ts-ignore
+        router.push({ query: { ...routeState } });
       },
       createURL(routeState) {
         console.log(routeState, "createUrl");
@@ -36,7 +38,7 @@ export const useCustomRouting = () => {
       onUpdate(cb: any) {
         if (typeof window === "undefined") return;
         // @ts-ignore
-        this._removeAfterEach = router.afterEach((to, from) => {
+        this._removeAfterEach = router.afterEach((_to, _from) => {
           cb(this.read());
         });
 

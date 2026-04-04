@@ -3,7 +3,7 @@ import { aisDeclarativeWidgetsPlugin } from "../src/vite/aisDeclarativeWidgetsPl
 
 const transform = async (code: string) => {
   const plugin = aisDeclarativeWidgetsPlugin();
-  const warn = vi.fn();
+  const warn = vi.fn<(warning: unknown) => void>();
   const transformHook = plugin.transform;
   const transformHandler =
     typeof transformHook === "function" ? transformHook : transformHook?.handler;

@@ -4,7 +4,7 @@ import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
 
 function stripUndefined(obj: Record<string, any>) {
-  return Object.fromEntries(Object.entries(obj).filter(([k, v]) => v !== undefined));
+  return Object.fromEntries(Object.entries(obj).filter(([_k, v]) => v !== undefined));
 }
 export const useAisRouter = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ export const useAisRouter = () => {
         }
         const prevStateKeys = Object.keys(prevState.value);
         const queryStateToAppend = Object.fromEntries(
-          Object.entries(currentQueryState).filter(([k, v]) => !prevStateKeys.includes(k)),
+          Object.entries(currentQueryState).filter(([k]) => !prevStateKeys.includes(k)),
         );
 
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser

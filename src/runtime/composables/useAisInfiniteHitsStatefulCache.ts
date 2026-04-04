@@ -10,7 +10,7 @@ import type { PlainSearchParameters } from "algoliasearch-helper";
 import type { BaseHit } from "instantsearch.js";
 
 function getStateWithoutPage(state: PlainSearchParameters) {
-  const { page, ...rest } = state || {};
+  const { page: _page, ...rest } = state || {};
   return rest;
 }
 
@@ -53,7 +53,7 @@ export const useAisInfiniteHitsStatefulCache = (key?: string) => {
         if (error instanceof SyntaxError) {
           try {
             sessionStorage.removeItem(KEY);
-          } catch (err) {
+          } catch {
             // do nothing
           }
         }
