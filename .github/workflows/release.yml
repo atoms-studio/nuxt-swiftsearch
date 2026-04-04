@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: release-${{ github.ref }}
@@ -70,15 +71,6 @@ jobs:
               ;;
           esac
 
-      - name: Verify npm token
-        run: |
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "Missing NPM_TOKEN repository secret." >&2
-            exit 1
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
@@ -100,7 +92,6 @@ jobs:
       - name: Publish release
         run: bun run "${{ steps.plan.outputs.script }}"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ github.token }}
           GH_TOKEN: ${{ github.token }}
           GIT_AUTHOR_NAME: github-actions[bot]
