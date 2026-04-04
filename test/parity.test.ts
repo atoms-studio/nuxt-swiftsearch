@@ -48,7 +48,7 @@ const captureState = async (route: string) => {
   }
   await page
     .getByTestId("searchbox")
-    .locator("input[type='search']")
+    .locator("input[type='search'], input[type='text']")
     .first()
     .waitFor({ state: "visible", timeout: 60000 });
   const initial = await collectNormalizedMarkup(page, widgetTestIds);
