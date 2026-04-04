@@ -1,5 +1,7 @@
-import { describe, it, expect, beforeAll } from "vitest";
+import { describe, it, expect } from "vitest";
 import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
+import { resolve } from "node:path";
+import { ensureNuxtBuild } from "./utils/prebuild";
 
 const PORT = 7781;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
@@ -10,11 +12,21 @@ const fixtureRoot = decodeURIComponent(
 const decodeUrl = (url: string) => decodeURIComponent(url);
 
 describe("swiftsearch routing", async () => {
+  ensureNuxtBuild(fixtureRoot);
+
   await setup({
     rootDir: fixtureRoot,
     browser: true,
     server: true,
     dev: false,
+    build: false,
+    nuxtConfig: {
+      nitro: {
+        output: {
+          dir: resolve(fixtureRoot, ".output"),
+        },
+      },
+    } as any,
     port: PORT,
   });
 

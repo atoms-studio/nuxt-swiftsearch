@@ -28,9 +28,14 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 
-const props = withDefaults(defineProps<{ id?: string }>(), {
-  id: ''
-})
+type AutocompleteProps = {
+  escapeHTML?: boolean;
+  id?: string;
+};
+
+const props = withDefaults(defineProps<AutocompleteProps>(), {
+  id: "",
+});
 const { state } = useAisWidget("autocomplete", props.id);
 
 const suit = useSuit("autocomplete");

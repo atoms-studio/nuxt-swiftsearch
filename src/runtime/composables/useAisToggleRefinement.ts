@@ -1,4 +1,4 @@
-import { connectToggleRefinement } from "instantsearch.js/es/connectors";
+import { connectToggleRefinement } from "instantsearch.js/es/connectors/index.umd";
 import type {
   ToggleRefinementConnectorParams,
   ToggleRefinementRenderState,

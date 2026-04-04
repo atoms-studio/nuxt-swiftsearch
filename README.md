@@ -36,6 +36,16 @@ export default defineNuxtConfig({
 
 That's it! You can now use Nuxt Swiftsearch in your Nuxt app ✨
 
+## Try v1 beta
+
+If you want to test the upcoming v1 beta channel:
+
+```bash
+bun add @atoms-studio/nuxt-swiftsearch@beta
+```
+
+This installs the npm `beta` dist-tag, so stable users on `latest` are not impacted.
+
 ## Development
 
 ```bash
@@ -60,7 +70,21 @@ npm run test:watch
 
 # Release new version
 npm run release
+
+# Start v1 beta channel (ex: 1.0.0-beta.0)
+npm run release:beta
+
+# Publish next beta iteration (ex: 1.0.0-beta.1)
+npm run release:beta:next
 ```
+
+## GitHub release workflow
+
+This repo also includes a manual GitHub Actions workflow at `.github/workflows/release.yml`.
+
+- Choose `beta-start-v1` to publish `1.0.0-beta.0` on the `beta` npm dist-tag.
+- Choose `beta-next` to publish the next prerelease (`1.0.0-beta.x`) on `beta`.
+- Choose a `stable-*` option to publish to `latest`.
 
 <!-- Badges -->
 

@@ -8,10 +8,17 @@
 import { provide } from "vue";
 
 const props = defineProps<{
-  index: string;
+  index?: string;
+  indexName?: string;
   indexId?: string;
 }>();
 
-provide("index", props.index);
+const indexName = props.indexName ?? props.index;
+
+if (!indexName) {
+  throw new Error("AisIndex requires either `index` or `indexName`.");
+}
+
+provide("index", indexName);
 provide("indexId", props.indexId);
 </script>

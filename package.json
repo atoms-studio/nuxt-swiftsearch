@@ -1,8 +1,15 @@
 {
   "name": "@atoms-studio/nuxt-swiftsearch",
   "version": "0.9.11",
-  "description": "A tailor made implementation of algolia instantsearch for nuxt 3",
-  "repository": "@atoms-studio/nuxt-swiftsearch",
+  "description": "A tailor made implementation of algolia instantsearch for nuxt 4",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atoms-studio/nuxt-swiftsearch.git"
+  },
+  "homepage": "https://github.com/atoms-studio/nuxt-swiftsearch#readme",
+  "bugs": {
+    "url": "https://github.com/atoms-studio/nuxt-swiftsearch/issues"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -30,18 +37,29 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint --fix && npm run prepack && changelogen --release && npm publish --access public && git push --follow-tags",
-    "release-minor": "npm run lint --fix && npm run prepack && changelogen --release --minor && npm publish --access public && git push --follow-tags",
-    "release-major": "npm run lint --fix && npm run prepack && changelogen --release --major && npm publish --access public && git push --follow-tags",
+    "release:prepare": "npm run lint --fix && npm run prepack",
+    "release": "npm run release:prepare && changelogen --release && npm publish --access public --tag latest && git push --follow-tags",
+    "release:minor": "npm run release:prepare && changelogen --release --minor && npm publish --access public --tag latest && git push --follow-tags",
+    "release:major": "npm run release:prepare && changelogen --release --major && npm publish --access public --tag latest && git push --follow-tags",
+    "release:beta": "npm run release:prepare && changelogen --release --premajor beta && npm publish --access public --tag beta && git push --follow-tags",
+    "release:beta:next": "npm run release:prepare && changelogen --release --prerelease beta && npm publish --access public --tag beta && git push --follow-tags",
+    "release-minor": "npm run release:minor",
+    "release-major": "npm run release:major",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
   },
+  "changelog": {
+    "repo": "github:atoms-studio/nuxt-swiftsearch"
+  },
   "dependencies": {
-    "@babel/runtime": "^7.23.9",
-    "@nuxt/kit": "^3.19.2",
-    "algoliasearch": "^5.38.0",
-    "instantsearch.js": "^4.80.0",
+    "@babel/runtime": "^7.29.2",
+    "@nuxt/kit": "^4.4.2",
+    "@vue/compiler-dom": "^3.5.30",
+    "@vue/compiler-sfc": "^3.5.30",
+    "algoliasearch": "^5.50.0",
+    "instantsearch.js": "^4.92.1",
+    "magic-string": "^0.30.21",
     "ohash": "1.1.6",
     "picoquery": "^2.4.0"
   },
@@ -49,18 +67,20 @@
     "@nuxt/devtools": "latest",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/test-utils": "^3.19.2",
+    "@nuxt/test-utils": "^4.0.0",
     "@types/node": "^20.11.16",
-    "@vitest/browser": "^3.2.0",
+    "@vitest/browser": "^4.1.2",
+    "@vue/test-utils": "^2.4.6",
     "changelogen": "^0.5.5",
     "eslint": "^8.56.0",
     "happy-dom": "^18.0.1",
-    "nuxt": "^3.19.2",
+    "nuxt": "^4.4.2",
     "playwright": "^1.55.0",
     "playwright-core": "^1.42.1",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.0",
-    "vue-instantsearch": "^4.21.0",
+    "vite": "^7.3.1",
+    "vitest": "^4.1.2",
+    "vue-instantsearch": "^4.24.3",
     "vue-tsc": "^3.0.7"
   }
 }

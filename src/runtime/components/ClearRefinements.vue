@@ -22,13 +22,21 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { ClearRefinementsConnectorParams } from "instantsearch.js/es/connectors/clear-refinements/connectClearRefinements";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const props = withDefaults(defineProps<{ id?: string }>(), {
-  id: ''
-})
+type ClearRefinementsProps = {
+  excludedAttributes?: string[];
+  includedAttributes?: string[];
+  transformItems?: ClearRefinementsConnectorParams["transformItems"];
+  id?: string;
+};
+
+const props = withDefaults(defineProps<ClearRefinementsProps>(), {
+  id: "",
+});
 const { state } = useAisWidget("clearRefinements", props.id);
 const canRefine = computed(() => state.value?.canRefine);
 const refine = () => state.value!.refine();

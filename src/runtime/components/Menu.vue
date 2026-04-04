@@ -4,7 +4,7 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="state.items"
+      :items="items"
       :can-refine="state.canRefine"
       :can-toggle-show-more="state.canToggleShowMore"
       :is-showing-more="state.isShowingMore"
@@ -15,7 +15,7 @@
     >
       <ul :class="suit('list')">
         <li
-          v-for="item in state.items"
+          v-for="item in items"
           :key="item.value"
           :class="[suit('item'), item.isRefined && suit('item', 'selected')]"
         >
@@ -50,20 +50,31 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="ts" generic="TItem extends MenuItem = MenuItem">
+import type {
+  MenuConnectorParams,
+  MenuItem,
+} from "instantsearch.js/es/connectors/menu/connectMenu";
 import { useAisMenuRenderState } from "../composables/useAisMenu";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
+import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 
+type MenuProps = {
+  attribute: string;
+  limit?: number;
+  showMoreLimit?: number;
+  showMore?: boolean;
+  sortBy?: MenuConnectorParams["sortBy"];
+  transformItems?: TransformItemsTo<MenuItem, TItem>;
+};
+
 const props = withDefaults(
-  defineProps<{
-    attribute: string;
-    showMore?: boolean;
-  }>(),
+  defineProps<MenuProps>(),
   {
     showMore: false,
-  }
+  },
 );
 
 const suit = useSuit("Menu");
@@ -75,6 +86,8 @@ const state = computed(() => {
     ? menuRenderState.value[props.attribute]
     : menuState.value[props.attribute];
 });
+
+const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 
 const toggleShowMore = () => {
   state.value.toggleShowMore();

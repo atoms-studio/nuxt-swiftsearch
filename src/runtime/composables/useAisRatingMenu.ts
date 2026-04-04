@@ -1,4 +1,4 @@
-import { connectRatingMenu } from "instantsearch.js/es/connectors";
+import { connectRatingMenu } from "instantsearch.js/es/connectors/index.umd";
 import type {
   RatingMenuRenderState,
   RatingMenuConnectorParams,
