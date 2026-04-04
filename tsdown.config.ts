@@ -6,6 +6,7 @@ export default defineConfig({
     skipNodeModulesBundle: true,
   },
   dts: true,
+  tsconfig: "tsconfig.build.json",
   entry: [
     "src/module.ts",
     "src/runtime/composables/**/*.ts",
