@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.0.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.0.0-beta.0...v1.0.0)
+
+### 🏡 Chore
+
+- Migrate build and tooling to bun and ox stack ([c8ec635](https://github.com/atoms-studio/nuxt-swiftsearch/commit/c8ec635))
+
+### ✅ Tests
+
+- Stabilize parity searchbox wait selector ([a49e601](https://github.com/atoms-studio/nuxt-swiftsearch/commit/a49e601))
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v1.0.0-beta.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v0.9.11...v1.0.0-beta.0)

@@ -1,6 +1,6 @@
 {
   "name": "@atoms-studio/nuxt-swiftsearch",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "description": "A tailor made implementation of algolia instantsearch for nuxt 4",
   "homepage": "https://github.com/atoms-studio/nuxt-swiftsearch#readme",
   "bugs": {
