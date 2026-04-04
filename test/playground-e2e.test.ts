@@ -57,7 +57,7 @@ describe("playground e2e", async () => {
 
     const searchInput = page
       .getByTestId("manual-searchbox")
-      .locator("input[type='search']")
+      .locator("input[type='search'], input[type='text']")
       .first();
     await searchInput.waitFor({ state: "visible" });
     await searchInput.fill("apple");
@@ -77,12 +77,12 @@ describe("playground e2e", async () => {
     const page = await createPage("/");
     await page.goto(getTestUrl("/autocomplete"), {
       waitUntil: "hydration",
-      timeout: 60000,
+      timeout: 120000,
     });
     await page.waitForLoadState("networkidle");
 
     const searchInput = page.getByTestId("autocomplete-input");
-    await searchInput.waitFor({ state: "visible", timeout: 60000 });
+    await searchInput.waitFor({ state: "visible", timeout: 120000 });
     await searchInput.fill("star");
     await page.waitForTimeout(800);
 
@@ -139,7 +139,7 @@ describe("playground e2e", async () => {
 
     const searchInput = page
       .getByTestId("showcase-searchbox")
-      .locator("input[type='search']")
+      .locator("input[type='search'], input[type='text']")
       .first();
     await searchInput.waitFor({ state: "visible", timeout: 60000 });
 

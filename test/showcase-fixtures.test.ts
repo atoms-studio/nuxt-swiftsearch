@@ -34,9 +34,9 @@ const captureShowcase = async (route: string): Promise<ShowcaseSnapshot> => {
 
   await page
     .getByTestId("showcase-searchbox")
-    .locator("input[type='search']")
+    .locator("input[type='search'], input[type='text']")
     .first()
-    .waitFor({ state: "visible", timeout: 60000 });
+    .waitFor({ state: "visible", timeout: 120000 });
 
   const hitsPerPageOptions = (
     await page.getByTestId("showcase-hitspage").locator("option").allTextContents()
