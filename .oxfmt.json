@@ -7,8 +7,7 @@
     ".output/**",
     "coverage/**",
     "reports/**",
-    "docs/.nuxt/**",
-    "docs/.output/**"
+    "docs/**"
   ],
   "printWidth": 100,
   "semi": true,

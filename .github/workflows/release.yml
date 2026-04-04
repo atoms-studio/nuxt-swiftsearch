@@ -8,6 +8,7 @@ on:
         required: true
         type: choice
         options:
+          - publish-current
           - stable-patch
           - stable-minor
           - stable-major
@@ -50,6 +51,9 @@ jobs:
         id: plan
         run: |
           case "${{ inputs.channel }}" in
+            publish-current)
+              echo "script=release:current" >> "$GITHUB_OUTPUT"
+              ;;
             stable-patch)
               echo "script=release" >> "$GITHUB_OUTPUT"
               ;;

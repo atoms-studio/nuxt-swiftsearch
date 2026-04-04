@@ -45,6 +45,7 @@
     "check": "bun run lint && bun run format:check && bun run test",
     "check:commit": "bunx lint-staged && bun run lint && bun run test",
     "release:prepare": "bun run check",
+    "release:current": "bun run release:prepare && npm publish --access public --tag latest",
     "release": "bun run release:prepare && changelogen --release && npm publish --access public --tag latest && git push --follow-tags",
     "release:minor": "bun run release:prepare && changelogen --release --minor && npm publish --access public --tag latest && git push --follow-tags",
     "release:major": "bun run release:prepare && changelogen --release --major && npm publish --access public --tag latest && git push --follow-tags",
