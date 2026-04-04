@@ -2,7 +2,14 @@
   "name": "@atoms-studio/nuxt-swiftsearch",
   "version": "0.9.10",
   "description": "A tailor made implementation of algolia instantsearch for nuxt 4",
-  "repository": "@atoms-studio/nuxt-swiftsearch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atoms-studio/nuxt-swiftsearch.git"
+  },
+  "homepage": "https://github.com/atoms-studio/nuxt-swiftsearch#readme",
+  "bugs": {
+    "url": "https://github.com/atoms-studio/nuxt-swiftsearch/issues"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -30,12 +37,20 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "npm run lint --fix && npm run prepack && changelogen --release && npm publish --access public && git push --follow-tags",
-    "release-minor": "npm run lint --fix && npm run prepack && changelogen --release --minor && npm publish --access public && git push --follow-tags",
-    "release-major": "npm run lint --fix && npm run prepack && changelogen --release --major && npm publish --access public && git push --follow-tags",
+    "release:prepare": "npm run lint --fix && npm run prepack",
+    "release": "npm run release:prepare && changelogen --release && npm publish --access public --tag latest && git push --follow-tags",
+    "release:minor": "npm run release:prepare && changelogen --release --minor && npm publish --access public --tag latest && git push --follow-tags",
+    "release:major": "npm run release:prepare && changelogen --release --major && npm publish --access public --tag latest && git push --follow-tags",
+    "release:beta": "npm run release:prepare && changelogen --release --premajor beta && npm publish --access public --tag beta && git push --follow-tags",
+    "release:beta:next": "npm run release:prepare && changelogen --release --prerelease beta && npm publish --access public --tag beta && git push --follow-tags",
+    "release-minor": "npm run release:minor",
+    "release-major": "npm run release:major",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch"
+  },
+  "changelog": {
+    "repo": "github:atoms-studio/nuxt-swiftsearch"
   },
   "dependencies": {
     "@babel/runtime": "^7.29.2",

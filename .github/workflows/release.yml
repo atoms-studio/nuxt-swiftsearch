@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: Release channel and bump strategy
+        required: true
+        type: choice
+        options:
+          - stable-patch
+          - stable-minor
+          - stable-major
+          - beta-start-v1
+          - beta-next
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Resolve release command
+        id: plan
+        run: |
+          case "${{ inputs.channel }}" in
+            stable-patch)
+              echo "script=release" >> "$GITHUB_OUTPUT"
+              ;;
+            stable-minor)
+              echo "script=release:minor" >> "$GITHUB_OUTPUT"
+              ;;
+            stable-major)
+              echo "script=release:major" >> "$GITHUB_OUTPUT"
+              ;;
+            beta-start-v1)
+              echo "script=release:beta" >> "$GITHUB_OUTPUT"
+              ;;
+            beta-next)
+              echo "script=release:beta:next" >> "$GITHUB_OUTPUT"
+              ;;
+            *)
+              echo "Unknown channel: ${{ inputs.channel }}" >&2
+              exit 1
+              ;;
+          esac
+
+      - name: Verify npm token
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "Missing NPM_TOKEN repository secret." >&2
+            exit 1
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Publish release
+        run: npm run "${{ steps.plan.outputs.script }}"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Summarize release
+        run: |
+          VERSION=$(node -p "JSON.parse(require('node:fs').readFileSync('package.json', 'utf8')).version")
+          echo "### Release complete" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Channel: \`${{ inputs.channel }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Script: \`${{ steps.plan.outputs.script }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Version: \`$VERSION\`" >> "$GITHUB_STEP_SUMMARY"
