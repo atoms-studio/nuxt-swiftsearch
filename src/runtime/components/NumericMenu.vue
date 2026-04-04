@@ -4,7 +4,7 @@
     :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
   >
     <slot
-      :items="items"
+      :items="renderItems"
       :can-refine="state.canRefine"
       :refine="state.refine"
       :create-u-r-l="state.createURL"
@@ -12,7 +12,7 @@
     >
       <ul :class="suit('list')">
         <li
-          v-for="item in items"
+          v-for="item in renderItems"
           :key="item.value"
           :class="[suit('item'), item.isRefined && suit('item', 'selected')]"
         >
@@ -70,5 +70,5 @@ const state = computed(() => {
   }
 });
 
-const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
+const renderItems = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>

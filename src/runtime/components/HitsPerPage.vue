@@ -4,7 +4,7 @@
     :class="suit()"
   >
     <slot
-      :items="items"
+      :items="renderItems"
       :refine="state.refine"
       :has-no-results="state.hasNoResults"
       :can-refine="state.canRefine"
@@ -15,7 +15,7 @@
         @change="state.refine(Number(($event.currentTarget as HTMLSelectElement).value))"
       >
         <option
-          v-for="item in items"
+          v-for="item in renderItems"
           :key="item.value"
           :class="suit('option')"
           :value="item.value"
@@ -45,5 +45,5 @@ defineProps<{
 
 const { state } = useAisWidget("hitsPerPage");
 const suit = useSuit("HitsPerPage");
-const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
+const renderItems = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>

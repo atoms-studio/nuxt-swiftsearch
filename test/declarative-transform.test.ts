@@ -111,7 +111,7 @@ const configuration = {
     expect(warn).toHaveBeenCalledTimes(0);
     expect(code).toContain("unref as __swiftsearchUnref");
     expect(code).toContain("filters: __swiftsearchUnref(filters)");
-    expect(code).toContain("\`free_shipping:${__swiftsearchUnref(isFreeShipping)}\`");
+    expect(code).toContain("`free_shipping:${__swiftsearchUnref(isFreeShipping)}`");
   });
 
   it("collects nested widgets inside AisDynamicWidgets", async () => {
