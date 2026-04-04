@@ -5,8 +5,7 @@ export const useCustomRouting = () => {
     router: {
       read() {
         const query = router.currentRoute.value.query;
-        const isPagedRoute =
-          router.currentRoute.value.name === "pagination-page-page";
+        const isPagedRoute = router.currentRoute.value.name === "pagination-page-page";
 
         const queryObj = Array.isArray(query) ? query[0] : query;
         return isPagedRoute

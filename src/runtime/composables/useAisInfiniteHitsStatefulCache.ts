@@ -45,8 +45,8 @@ export const useAisInfiniteHitsStatefulCache = (key?: string) => {
         const maxPage = Math.max(ssrPage.value, state.page ?? 0);
         return cache && isEqual(cache.state, getStateWithoutPage(state))
           ? (Object.fromEntries(
-            Object.entries(cache.hits).slice(0, maxPage),
-          ) as InfiniteHitsCachedHits<BaseHit>)
+              Object.entries(cache.hits).slice(0, maxPage),
+            ) as InfiniteHitsCachedHits<BaseHit>)
           : null;
       } catch (error) {
         console.error(error);
@@ -63,8 +63,7 @@ export const useAisInfiniteHitsStatefulCache = (key?: string) => {
     write: ({ state, hits }) => {
       if (import.meta.server) ssrPage.value = state.page!;
       try {
-        const currentHits =
-          sessionStorage.getItem(getKeyFromState(state, key))?.hits ?? {};
+        const currentHits = sessionStorage.getItem(getKeyFromState(state, key))?.hits ?? {};
         const hitsToWrite = { ...currentHits, ...hits };
         sessionStorage.setItem(getKeyFromState(state, key), {
           state: getStateWithoutPage(state),

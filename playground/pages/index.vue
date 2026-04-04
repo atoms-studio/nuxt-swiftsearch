@@ -6,52 +6,36 @@
           class="flex-1 mx-4 sm:my-0 my-4 py-24 px-40 bg-gradient-white-moon-grey shadow rounded text-center cursor-pointer text-cosmos-black no-underline"
           to="/"
         >
-          <h2 class="mb-8 font-semibold text-base">
-            InstantSearch
-          </h2>
-          <p class="text-base">
-            Declarative search interface
-          </p>
+          <h2 class="mb-8 font-semibold text-base">InstantSearch</h2>
+          <p class="text-base">Declarative search interface</p>
         </NuxtLink>
         <NuxtLink
           class="flex-1 mx-4 sm:my-0 my-4 py-24 px-40 bg-proton-grey-opacity-20 rounded text-center cursor-pointer text-nova-grey no-underline"
           to="/autocomplete"
         >
-          <h2 class="mb-8 font-semibold text-base">
-            AutoComplete
-          </h2>
-          <p class="text-base">
-            Multi-index suggestions
-          </p>
+          <h2 class="mb-8 font-semibold text-base">AutoComplete</h2>
+          <p class="text-base">Multi-index suggestions</p>
         </NuxtLink>
         <NuxtLink
           class="flex-1 mx-4 sm:my-0 my-4 py-24 px-40 bg-proton-grey-opacity-20 rounded text-center cursor-pointer text-nova-grey no-underline"
           to="/Samsung"
         >
-          <h2 class="mb-8 font-semibold text-base">
-            Brand Search
-          </h2>
-          <p class="text-base">
-            Route based faceted search
-          </p>
+          <h2 class="mb-8 font-semibold text-base">Brand Search</h2>
+          <p class="text-base">Route based faceted search</p>
         </NuxtLink>
         <NuxtLink
           class="flex-1 mx-4 sm:my-0 my-4 py-24 px-40 bg-proton-grey-opacity-20 rounded text-center cursor-pointer text-nova-grey no-underline"
           to="/showcase"
         >
-          <h2 class="mb-8 font-semibold text-base">
-            Parity Showcase
-          </h2>
-          <p class="text-base">
-            New parity widgets
-          </p>
+          <h2 class="mb-8 font-semibold text-base">Parity Showcase</h2>
+          <p class="text-base">New parity widgets</p>
         </NuxtLink>
       </div>
 
-      <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-        <h1 class="text-base font-semibold text-cosmos-black mb-8">
-          Nuxt SwiftSearch Playground
-        </h1>
+      <div
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
+        <h1 class="text-base font-semibold text-cosmos-black mb-8">Nuxt SwiftSearch Playground</h1>
         <p class="text-sm text-cosmos-black-opacity-70">
           Structure and utility classes aligned with the Algolia showcase CSS.
         </p>
@@ -99,63 +83,52 @@
 
       <div class="flex sm:flex-row flex-col-reverse">
         <div class="flex flex-col flex-no-grow sm:max-w-296 w-full">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Search
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Search</h4>
             <AisSearchBox data-testid="home-searchbox" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Shipping
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Shipping</h4>
             <AisToggleRefinement attribute="free_shipping" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Brand
-            </h4>
-            <AisRefinementList
-              id="brand-index"
-              attribute="brand"
-              :show-more="true"
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Brand</h4>
+            <AisRefinementList id="brand-index" attribute="brand" :show-more="true" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Price
-            </h4>
-            <AisRangeInput
-              attribute="price"
-              id="price-index"
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Price</h4>
+            <AisRangeInput attribute="price" id="price-index" />
           </div>
         </div>
 
         <div class="flex flex-col flex-1">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
             <div class="flex sm:flex-row flex-col">
               <div class="flex-1 mr-16">
-                <h4 class="subtitle">
-                  SortBy
-                </h4>
+                <h4 class="subtitle">SortBy</h4>
                 <AisSortBy :items="sortByItems" />
               </div>
               <div class="flex-1">
-                <h4 class="subtitle">
-                  Stats
-                </h4>
+                <h4 class="subtitle">Stats</h4>
                 <AisStats />
               </div>
             </div>
 
             <div class="mt-8">
-              <h4 class="subtitle">
-                Clear refinements
-              </h4>
+              <h4 class="subtitle">Clear refinements</h4>
               <div class="flex flex-wrap -mx-4">
                 <div class="m-2">
                   <AisClearRefinements
@@ -164,10 +137,7 @@
                   />
                 </div>
                 <div class="m-2">
-                  <AisClearRefinements
-                    id="brand"
-                    :included-attributes="['brand']"
-                  />
+                  <AisClearRefinements id="brand" :included-attributes="['brand']" />
                 </div>
                 <div class="m-2">
                   <AisClearRefinements id="all" />
@@ -176,22 +146,19 @@
             </div>
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Results
-            </h4>
-            <AisInfiniteHits
-              :show-previous="true"
-              :cache="mainInfiniteHitsCache"
-            >
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Results</h4>
+            <AisInfiniteHits :show-previous="true" :cache="mainInfiniteHitsCache">
               <template #item="{ item }">
-                <div class="flex py-16 px-24 bg-gradient-white-moon-grey font-sans text-sm text-color-inherit rounded shadow">
-                  <div class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink">
-                    <img
-                      class="h-auto max-h-48 w-auto"
-                      :src="item.image"
-                      alt=""
-                    >
+                <div
+                  class="flex py-16 px-24 bg-gradient-white-moon-grey font-sans text-sm text-color-inherit rounded shadow"
+                >
+                  <div
+                    class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink"
+                  >
+                    <img class="h-auto max-h-48 w-auto" :src="item.image" alt="" />
                   </div>
                   <div>
                     <h5 class="mb-8 text-cosmos-black font-bold text-sm">
@@ -211,50 +178,33 @@
         </div>
       </div>
 
-      <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-        <h4 class="subtitle">
-          Multi-index isolation
-        </h4>
+      <div
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
+        <h4 class="subtitle">Multi-index isolation</h4>
         <div class="flex sm:flex-row flex-col">
-          <section
-            data-testid="index-1"
-            class="flex-1 m-4"
-          >
-            <h5 class="mb-8 text-cosmos-black font-bold text-sm">
-              Index 1 - airbnb
-            </h5>
+          <section data-testid="index-1" class="flex-1 m-4">
+            <h5 class="mb-8 text-cosmos-black font-bold text-sm">Index 1 - airbnb</h5>
             <AisIndex index="airbnb">
               <AisRefinementList attribute="city" />
               <AisClearRefinements id="bnb" />
               <AisInfiniteHits>
                 <template #item="{ item }">
-                  <div class="py-8 text-sm">
-                    {{ item.city }} - {{ item.name }}
-                  </div>
+                  <div class="py-8 text-sm">{{ item.city }} - {{ item.name }}</div>
                 </template>
               </AisInfiniteHits>
             </AisIndex>
           </section>
 
-          <section
-            data-testid="index-2"
-            class="flex-1 m-4"
-          >
-            <h5 class="mb-8 text-cosmos-black font-bold text-sm">
-              Index 2 - Chicago filter
-            </h5>
-            <AisIndex
-              index="airbnb"
-              index-id="bnb2"
-            >
+          <section data-testid="index-2" class="flex-1 m-4">
+            <h5 class="mb-8 text-cosmos-black font-bold text-sm">Index 2 - Chicago filter</h5>
+            <AisIndex index="airbnb" index-id="bnb2">
               <AisConfigure :search-parameters="{ filters: 'city:Chicago' }" />
               <AisRefinementList attribute="city" />
               <AisClearRefinements id="bnb" />
               <AisInfiniteHits>
                 <template #item="{ item }">
-                  <div class="py-8 text-sm">
-                    {{ item.city }} - {{ item.name }}
-                  </div>
+                  <div class="py-8 text-sm">{{ item.city }} - {{ item.name }}</div>
                 </template>
               </AisInfiniteHits>
             </AisIndex>
@@ -285,8 +235,8 @@ const middlewares = ref<Middleware[]>([
       onStateChange({ uiState }) {
         console.log(uiState, "from middleware");
       },
-      subscribe() { },
-      unsubscribe() { },
+      subscribe() {},
+      unsubscribe() {},
     };
   },
 ]);

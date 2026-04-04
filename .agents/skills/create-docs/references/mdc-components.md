@@ -5,8 +5,8 @@ Docus uses Nuxt UI components with MDC syntax.
 **CRITICAL: Always use the `u-` prefix for Nuxt UI components in MDC:**
 
 ```markdown
-::u-page-hero      ✅ Correct (resolves to UPageHero)
-::page-hero        ❌ Wrong (fails to resolve)
+::u-page-hero ✅ Correct (resolves to UPageHero)
+::page-hero ❌ Wrong (fails to resolve)
 ```
 
 ---
@@ -14,10 +14,12 @@ Docus uses Nuxt UI components with MDC syntax.
 ## Documentation Sources
 
 **Components:**
+
 - Component list: https://ui.nuxt.com/llms.txt
 - Raw docs: `https://ui.nuxt.com/raw/docs/components/[component].md`
 
 **Typography/Prose:**
+
 - Introduction: https://ui.nuxt.com/raw/docs/typography.md
 - Headers and text: https://ui.nuxt.com/raw/docs/typography/headers-and-text.md
 - Lists and tables: https://ui.nuxt.com/raw/docs/typography/lists-and-tables.md
@@ -32,15 +34,15 @@ Docus uses Nuxt UI components with MDC syntax.
 
 Most used components for documentation sites:
 
-| Component | Raw Docs | Use For |
-|-----------|----------|---------|
-| `u-page-hero` | [page-hero.md](https://ui.nuxt.com/raw/docs/components/page-hero.md) | Landing page hero |
-| `u-page-section` | [page-section.md](https://ui.nuxt.com/raw/docs/components/page-section.md) | Content sections |
-| `u-page-grid` | [page-grid.md](https://ui.nuxt.com/raw/docs/components/page-grid.md) | Responsive grid layout |
-| `u-page-card` | [page-card.md](https://ui.nuxt.com/raw/docs/components/page-card.md) | Rich content cards |
-| `u-page-feature` | [page-feature.md](https://ui.nuxt.com/raw/docs/components/page-feature.md) | Feature showcase |
-| `u-page-cta` | [page-cta.md](https://ui.nuxt.com/raw/docs/components/page-cta.md) | Call to action |
-| `u-page-header` | [page-header.md](https://ui.nuxt.com/raw/docs/components/page-header.md) | Page headers |
+| Component        | Raw Docs                                                                   | Use For                |
+| ---------------- | -------------------------------------------------------------------------- | ---------------------- |
+| `u-page-hero`    | [page-hero.md](https://ui.nuxt.com/raw/docs/components/page-hero.md)       | Landing page hero      |
+| `u-page-section` | [page-section.md](https://ui.nuxt.com/raw/docs/components/page-section.md) | Content sections       |
+| `u-page-grid`    | [page-grid.md](https://ui.nuxt.com/raw/docs/components/page-grid.md)       | Responsive grid layout |
+| `u-page-card`    | [page-card.md](https://ui.nuxt.com/raw/docs/components/page-card.md)       | Rich content cards     |
+| `u-page-feature` | [page-feature.md](https://ui.nuxt.com/raw/docs/components/page-feature.md) | Feature showcase       |
+| `u-page-cta`     | [page-cta.md](https://ui.nuxt.com/raw/docs/components/page-cta.md)         | Call to action         |
+| `u-page-header`  | [page-header.md](https://ui.nuxt.com/raw/docs/components/page-header.md)   | Page headers           |
 
 ---
 
@@ -57,18 +59,18 @@ Project Name
 Short description
 
 #headline
-  :::u-button{size="sm" to="/changelog" variant="outline"}
-  v1.0.0 →
-  :::
+:::u-button{size="sm" to="/changelog" variant="outline"}
+v1.0.0 →
+:::
 
 #links
-  :::u-button{color="neutral" size="xl" to="/getting-started" trailing-icon="i-lucide-arrow-right"}
-  Get Started
-  :::
+:::u-button{color="neutral" size="xl" to="/getting-started" trailing-icon="i-lucide-arrow-right"}
+Get Started
+:::
 
-  :::u-button{color="neutral" size="xl" to="https://github.com/..." target="_blank" variant="outline" icon="i-simple-icons-github"}
-  GitHub
-  :::
+:::u-button{color="neutral" size="xl" to="https://github.com/..." target="\_blank" variant="outline" icon="i-simple-icons-github"}
+GitHub
+:::
 ::
 ```
 
@@ -76,10 +78,10 @@ Short description
 
 ```markdown
 ::u-page-section
-  :::u-page-grid
-    ::::u-page-card{spotlight class="col-span-2 lg:col-span-1" to="/feature"}
-    #title
-    Feature Title
+:::u-page-grid
+::::u-page-card{spotlight class="col-span-2 lg:col-span-1" to="/feature"}
+#title
+Feature Title
 
     #description
     Feature description
@@ -95,21 +97,25 @@ Short description
     #description
     With light/dark mode images
     ::::
-  :::
+
+:::
 ::
 ```
 
 ### Card with Code Block
 
-```markdown
+````markdown
 ::::u-page-card{spotlight class="col-span-2 md:col-span-1"}
-  :::::div{.bg-elevated.rounded-lg.p-3}
-  ```ts [config.ts]
-  export default {
-    option: 'value'
-  }
-  ```
-  :::::
+:::::div{.bg-elevated.rounded-lg.p-3}
+
+```ts [config.ts]
+export default {
+  option: "value",
+};
+```
+````
+
+:::::
 
 #title
 Configuration
@@ -117,7 +123,8 @@ Configuration
 #description
 Easy to configure
 ::::
-```
+
+````
 
 ---
 
@@ -136,13 +143,15 @@ Easy to configure
 ::code-group
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({})
-```
+````
 
 ```ts [app.config.ts]
-export default defineAppConfig({})
+export default defineAppConfig({});
 ```
+
 ::
-```
+
+````
 
 ### Steps (Nuxt Content)
 
@@ -160,18 +169,18 @@ Add your configuration.
 
 Start using the feature.
 ::
-```
+````
 
 ---
 
 ## Callout Components
 
-| Component | Use For |
-|-----------|---------|
-| `::note` | Additional information |
-| `::tip` | Helpful suggestions |
-| `::warning` | Important cautions |
-| `::caution` | Critical warnings |
+| Component   | Use For                |
+| ----------- | ---------------------- |
+| `::note`    | Additional information |
+| `::tip`     | Helpful suggestions    |
+| `::warning` | Important cautions     |
+| `::caution` | Critical warnings      |
 
 ```markdown
 ::note{title="Custom Title"}
@@ -205,9 +214,9 @@ This action cannot be undone.
 
 ## Grid Classes Reference
 
-| Class | Usage |
-|-------|-------|
-| `col-span-2` | Full width |
+| Class                      | Usage                     |
+| -------------------------- | ------------------------- |
+| `col-span-2`               | Full width                |
 | `col-span-2 lg:col-span-1` | Full mobile, half desktop |
 | `col-span-2 md:col-span-1` | Full mobile, half tablet+ |
 

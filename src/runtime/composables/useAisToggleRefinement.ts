@@ -28,9 +28,7 @@ export const useAisToggleRefinement = (
   };
 
   // 2. Create the custom widget
-  const customToggleRefinement = connectToggleRefinement(
-    renderToggleRefinement,
-  );
+  const customToggleRefinement = connectToggleRefinement(renderToggleRefinement);
 
   // 3. Instantiate
   return {

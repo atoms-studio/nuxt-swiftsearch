@@ -3,10 +3,7 @@ import { useState } from "#app";
 
 export const useAisStatefulCache = (key?: string) => {
   const options = { serializable: false };
-  const cache = useState<Record<string, any>>(
-    key ?? "swiftsearch_cache_stateful",
-    () => ({}),
-  );
+  const cache = useState<Record<string, any>>(key ?? "swiftsearch_cache_stateful", () => ({}));
 
   return {
     get<TValue>(
@@ -20,9 +17,7 @@ export const useAisStatefulCache = (key?: string) => {
 
       if (keyAsString in cache.value) {
         return Promise.resolve(
-          options.serializable
-            ? JSON.parse(cache.value[keyAsString])
-            : cache.value[keyAsString],
+          options.serializable ? JSON.parse(cache.value[keyAsString]) : cache.value[keyAsString],
         );
       }
 
@@ -32,13 +27,8 @@ export const useAisStatefulCache = (key?: string) => {
       return promise.then((value: TValue) => miss(value)).then(() => promise);
     },
 
-    set<TValue>(
-      key: object | string,
-      value: TValue,
-    ): Readonly<Promise<TValue>> {
-      cache.value[JSON.stringify(key)] = options.serializable
-        ? JSON.stringify(value)
-        : value;
+    set<TValue>(key: object | string, value: TValue): Readonly<Promise<TValue>> {
+      cache.value[JSON.stringify(key)] = options.serializable ? JSON.stringify(value) : value;
 
       return Promise.resolve(value);
     },

@@ -1,5 +1,5 @@
 {
-  "private": true,
   "name": "parity",
+  "private": true,
   "type": "module"
 }

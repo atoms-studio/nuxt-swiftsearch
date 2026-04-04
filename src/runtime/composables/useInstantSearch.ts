@@ -1,17 +1,7 @@
-import type {
-  IndexWidget,
-  InstantSearch,
-  Widget,
-} from "instantsearch.js/es/types";
-import { isEqual } from 'ohash'
-import {
-  waitForResults,
-  getInitialResults,
-} from "instantsearch.js/es/lib/server";
-import {
-  clearRefinements,
-  getRefinements,
-} from "instantsearch.js/es/lib/utils";
+import type { IndexWidget, InstantSearch, Widget } from "instantsearch.js/es/types";
+import { isEqual } from "ohash";
+import { waitForResults, getInitialResults } from "instantsearch.js/es/lib/server";
+import { clearRefinements, getRefinements } from "instantsearch.js/es/lib/utils";
 import { computed, triggerRef, inject, nextTick, type Ref } from "vue";
 import { useState, createError } from "nuxt/app";
 
@@ -19,8 +9,7 @@ import { type InitialResults } from "instantsearch.js/es";
 
 export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const _searchInstance =
-    instance ??
-    (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);
+    instance ?? (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);
 
   const getInstance = () => {
     if (!_searchInstance || _searchInstance.value === null) {
@@ -32,10 +21,8 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const parentIndex = computed(() => {
     return getInstance().value.mainIndex;
   });
-  const setup = async (widgets: Array<Widget | IndexWidget>, instanceKey: string = '') => {
-    const _results = useState<InitialResults | null>(
-      `instantsearch_ssr_results_${instanceKey}`,
-    );
+  const setup = async (widgets: Array<Widget | IndexWidget>, instanceKey: string = "") => {
+    const _results = useState<InitialResults | null>(`instantsearch_ssr_results_${instanceKey}`);
     const instance = getInstance();
     // adding widgets to instance if not presents (new instance)
     if (!instance.value.mainIndex.getWidgets().length) {
@@ -92,9 +79,7 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
       await nextTick(async () => {
         await new Promise((resolve) => {
           if (!instance.value.mainHelper!.hasPendingRequests()) resolve(true);
-          instance.value.mainHelper!.once("searchQueueEmpty", () =>
-            resolve(true),
-          );
+          instance.value.mainHelper!.once("searchQueueEmpty", () => resolve(true));
         });
       });
     }

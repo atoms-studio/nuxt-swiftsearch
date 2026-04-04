@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :items="options"
       :has-no-results="state.hasNoResults"
@@ -13,9 +10,7 @@
       <select
         :class="suit('select')"
         aria-label="Sort results by"
-        @change="
-          state.refine(($event?.currentTarget as HTMLSelectElement)?.value)
-        "
+        @change="state.refine(($event?.currentTarget as HTMLSelectElement)?.value)"
       >
         <option
           v-for="item in options"

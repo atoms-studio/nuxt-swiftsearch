@@ -1,11 +1,7 @@
 <template>
   <ul
     v-if="items && items.length > 0"
-    :class="[
-      suit('list'),
-      level > 0 && suit('list', 'child'),
-      suit('list', `lvl${level}`),
-    ]"
+    :class="[suit('list'), level > 0 && suit('list', 'child'), suit('list', `lvl${level}`)]"
   >
     <li
       v-for="item in items"

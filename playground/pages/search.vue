@@ -1,10 +1,9 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-      <h1
-        class="text-base font-semibold text-cosmos-black mb-8"
-        data-testid="manual-page"
-      >
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
+      <h1 class="text-base font-semibold text-cosmos-black mb-8" data-testid="manual-page">
         Manual widgets mode
       </h1>
       <p class="text-sm text-cosmos-black-opacity-70">
@@ -26,60 +25,51 @@
       </div>
     </div>
 
-    <AisInstantSearch
-      :widgets
-      :configuration
-      instance-key="search"
-    >
+    <AisInstantSearch :widgets :configuration instance-key="search">
       <div class="flex sm:flex-row flex-col-reverse">
         <div class="flex flex-col flex-no-grow sm:max-w-296 w-full">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Search
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Search</h4>
             <AisSearchBox data-testid="manual-searchbox" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Shipping
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Shipping</h4>
             <AisToggleRefinement attribute="free_shipping" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Brand
-            </h4>
-            <AisRefinementList
-              attribute="brand"
-              searchable
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Brand</h4>
+            <AisRefinementList attribute="brand" searchable />
           </div>
         </div>
 
         <div class="flex flex-col flex-1">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
             <div class="flex sm:flex-row flex-col">
               <div class="flex-1 mr-16">
-                <h4 class="subtitle">
-                  SortBy
-                </h4>
+                <h4 class="subtitle">SortBy</h4>
                 <AisSortBy />
               </div>
               <div class="flex-1">
-                <h4 class="subtitle">
-                  Stats
-                </h4>
+                <h4 class="subtitle">Stats</h4>
                 <AisStats />
               </div>
             </div>
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Results
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Results</h4>
             <AisInfiniteHits data-testid="manual-main-hits">
               <template #default="{ items }">
                 <div
@@ -88,12 +78,10 @@
                   data-testid="manual-main-item"
                   class="flex py-16 px-24 bg-gradient-white-moon-grey font-sans text-sm text-color-inherit rounded shadow"
                 >
-                  <div class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink">
-                    <img
-                      class="h-auto max-h-48 w-auto"
-                      :src="item.image"
-                      alt=""
-                    >
+                  <div
+                    class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink"
+                  >
+                    <img class="h-auto max-h-48 w-auto" :src="item.image" alt="" />
                   </div>
                   <div>
                     <h5 class="mb-8 text-cosmos-black font-bold text-sm">
@@ -110,16 +98,14 @@
         </div>
       </div>
 
-      <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-        <h4 class="subtitle">
-          Secondary index (manual)
-        </h4>
+      <div
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
+        <h4 class="subtitle">Secondary index (manual)</h4>
         <AisIndex index="airbnb">
           <AisInfiniteHits data-testid="manual-index-hits">
             <template #item="{ item }">
-              <div class="py-8 text-sm">
-                {{ item.city }} - {{ item.name }}
-              </div>
+              <div class="py-8 text-sm">{{ item.city }} - {{ item.name }}</div>
             </template>
           </AisInfiniteHits>
         </AisIndex>
@@ -153,10 +139,13 @@ const widgets = computed(() => [
   useAisInfiniteHits({
     showPrevious: true,
   }),
-  useAisRefinementList({
-    attribute: "brand",
-    showMore: true,
-  }, "brand-search"),
+  useAisRefinementList(
+    {
+      attribute: "brand",
+      showMore: true,
+    },
+    "brand-search",
+  ),
   useAisToggleRefinement({ attribute: "free_shipping" }),
   useAisSearchBox({}),
   indexBnb,

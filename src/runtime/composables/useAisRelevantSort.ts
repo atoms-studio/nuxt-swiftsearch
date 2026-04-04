@@ -14,10 +14,10 @@ export const useAisRelevantSort = (
   const stateRef = ref<RelevantSortRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderRelevantSort: Renderer<
-    RelevantSortRenderState,
-    RelevantSortConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderRelevantSort: Renderer<RelevantSortRenderState, RelevantSortConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

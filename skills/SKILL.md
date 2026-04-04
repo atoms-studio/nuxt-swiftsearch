@@ -78,32 +78,32 @@ const configuration = ref({
 
 > Full props, slots, composable params, and examples for every widget: **[widgets-reference.md](./widgets-reference.md)**
 
-| Component | Composable | Purpose |
-|---|---|---|
-| `<AisInstantSearch>` | — | Root wrapper, receives `:widgets` and `:configuration` |
-| `<AisIndex>` | `useAisIndex()` | Multi-index scoping |
-| `<AisSearchBox>` | `useAisSearchBox()` | Search input |
-| `<AisHits>` | `useAisHits()` | Paginated results |
-| `<AisInfiniteHits>` | `useAisInfiniteHits()` | Infinite scroll results |
-| `<AisRefinementList>` | `useAisRefinementList()` | Facet filtering |
-| `<AisMenu>` | `useAisMenu()` | Single-select facet menu |
-| `<AisMenuSelect>` | — | Dropdown facet menu |
-| `<AisHierarchicalMenu>` | `useAisHierarchicalMenu()` | Nested category navigation |
-| `<AisNumericMenu>` | `useAisNumericMenu()` | Numeric range filtering |
-| `<AisRangeInput>` | `useAisRangeInput()` | Min/max range input |
-| `<AisRatingMenu>` | `useAisRatingMenu()` | Star rating filter |
-| `<AisToggleRefinement>` | `useAisToggleRefinement()` | Boolean toggle filter |
-| `<AisClearRefinements>` | `useAisClearRefinements()` | Clear all active filters |
-| `<AisCurrentRefinements>` | `useAisCurrentRefinements()` | Show active filters |
-| `<AisSortBy>` | `useAisSortBy()` | Sort order selector |
-| `<AisStats>` | `useAisStats()` | Results count & timing |
-| `<AisPagination>` | `useAisPagination()` | Page navigation |
-| `<AisConfigure>` | `useAisConfigure()` | Hidden search parameters |
-| `<AisHighlight>` | — | Highlight matched text |
-| `<AisAutocomplete>` | `useAisAutocomplete()` | Autocomplete suggestions |
-| `<AisPanel>` | — | Collapsible panel wrapper |
-| `<AisQueryRuleCustomData>` | `useAisQueryRuleCustomData()` | Query rules data |
-| `<AisStateResults>` | — | Generic state renderer |
+| Component                  | Composable                    | Purpose                                                |
+| -------------------------- | ----------------------------- | ------------------------------------------------------ |
+| `<AisInstantSearch>`       | —                             | Root wrapper, receives `:widgets` and `:configuration` |
+| `<AisIndex>`               | `useAisIndex()`               | Multi-index scoping                                    |
+| `<AisSearchBox>`           | `useAisSearchBox()`           | Search input                                           |
+| `<AisHits>`                | `useAisHits()`                | Paginated results                                      |
+| `<AisInfiniteHits>`        | `useAisInfiniteHits()`        | Infinite scroll results                                |
+| `<AisRefinementList>`      | `useAisRefinementList()`      | Facet filtering                                        |
+| `<AisMenu>`                | `useAisMenu()`                | Single-select facet menu                               |
+| `<AisMenuSelect>`          | —                             | Dropdown facet menu                                    |
+| `<AisHierarchicalMenu>`    | `useAisHierarchicalMenu()`    | Nested category navigation                             |
+| `<AisNumericMenu>`         | `useAisNumericMenu()`         | Numeric range filtering                                |
+| `<AisRangeInput>`          | `useAisRangeInput()`          | Min/max range input                                    |
+| `<AisRatingMenu>`          | `useAisRatingMenu()`          | Star rating filter                                     |
+| `<AisToggleRefinement>`    | `useAisToggleRefinement()`    | Boolean toggle filter                                  |
+| `<AisClearRefinements>`    | `useAisClearRefinements()`    | Clear all active filters                               |
+| `<AisCurrentRefinements>`  | `useAisCurrentRefinements()`  | Show active filters                                    |
+| `<AisSortBy>`              | `useAisSortBy()`              | Sort order selector                                    |
+| `<AisStats>`               | `useAisStats()`               | Results count & timing                                 |
+| `<AisPagination>`          | `useAisPagination()`          | Page navigation                                        |
+| `<AisConfigure>`           | `useAisConfigure()`           | Hidden search parameters                               |
+| `<AisHighlight>`           | —                             | Highlight matched text                                 |
+| `<AisAutocomplete>`        | `useAisAutocomplete()`        | Autocomplete suggestions                               |
+| `<AisPanel>`               | —                             | Collapsible panel wrapper                              |
+| `<AisQueryRuleCustomData>` | `useAisQueryRuleCustomData()` | Query rules data                                       |
+| `<AisStateResults>`        | —                             | Generic state renderer                                 |
 
 ### Widget Categories (Quick Lookup)
 
@@ -176,9 +176,7 @@ For stateful caching across page navigations:
 const cache = useAisStatefulCache();
 const infiniteCache = useAisInfiniteHitsStatefulCache();
 
-const widgets = computed(() => [
-  useAisInfiniteHits({ cache: infiniteCache }),
-]);
+const widgets = computed(() => [useAisInfiniteHits({ cache: infiniteCache })]);
 ```
 
 ### Accessing the Instance

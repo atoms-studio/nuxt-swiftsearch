@@ -31,6 +31,7 @@ content/
 ### Depth Guidelines
 
 **Recommended:** Maximum 3 levels of nesting
+
 - Level 1: Main sections (`1.getting-started/`)
 - Level 2: Pages within sections (`1.introduction.md`)
 - Level 3: Subsections via headings (H2, H3 within pages)
@@ -42,24 +43,28 @@ content/
 ### Standard Section Types
 
 **1. Getting Started** (Always first)
+
 - Introduction (what & why)
 - Installation (prerequisites, commands)
 - Quick Start / First Steps
 - Project Structure (if applicable)
 
 **2. Guide / Concepts** (Core documentation)
+
 - Feature documentation
 - Configuration guides
 - Integration tutorials
 - Best practices
 
 **3. API / Reference** (If applicable)
+
 - Component reference
 - Composable reference
 - Function reference
 - Configuration options
 
 **4. Advanced / Recipes** (Optional)
+
 - Advanced patterns
 - Customization guides
 - Troubleshooting
@@ -68,11 +73,13 @@ content/
 ### Pages Per Section
 
 **Guidelines:**
+
 - **Minimum:** 2 pages per section (1 page = should be merged into another section)
 - **Optimal:** 3-8 pages per section
 - **Maximum:** 15 pages (beyond this, consider splitting into subsections)
 
 **Red flags:**
+
 - Section with 1 page only
 - Section with 20+ pages (too broad, hard to navigate)
 
@@ -88,19 +95,20 @@ icon: i-lucide-rocket
 ```
 
 **Required fields:**
+
 - `title`: Section display name in sidebar
 - `icon`: Lucide icon (format: `i-lucide-{name}`)
 
 ### Icon Recommendations
 
-| Section | Suggested Icons |
-|---------|----------------|
-| Getting Started | `i-lucide-rocket`, `i-lucide-play` |
-| Guide / Concepts | `i-lucide-book-open`, `i-lucide-layers` |
-| API / Reference | `i-lucide-code`, `i-lucide-book` |
-| Advanced | `i-lucide-settings`, `i-lucide-wrench` |
-| Deployment | `i-lucide-cloud`, `i-lucide-upload` |
-| Troubleshooting | `i-lucide-alert-circle`, `i-lucide-help-circle` |
+| Section          | Suggested Icons                                 |
+| ---------------- | ----------------------------------------------- |
+| Getting Started  | `i-lucide-rocket`, `i-lucide-play`              |
+| Guide / Concepts | `i-lucide-book-open`, `i-lucide-layers`         |
+| API / Reference  | `i-lucide-code`, `i-lucide-book`                |
+| Advanced         | `i-lucide-settings`, `i-lucide-wrench`          |
+| Deployment       | `i-lucide-cloud`, `i-lucide-upload`             |
+| Troubleshooting  | `i-lucide-alert-circle`, `i-lucide-help-circle` |
 
 ## Content Flow
 
@@ -148,6 +156,7 @@ More content
 ### Next Steps / Related Content
 
 **Every guide page should include:**
+
 - Links to related documentation
 - Suggested next pages
 - Prerequisites or dependencies
@@ -174,11 +183,13 @@ More content
 **Use relative links from the content root:**
 
 ✅ Good:
+
 ```markdown
 Learn more about [authentication](/guide/authentication).
 ```
 
 ❌ Avoid:
+
 ```markdown
 Learn more about [authentication](../guide/authentication.md).
 ```
@@ -186,11 +197,13 @@ Learn more about [authentication](../guide/authentication.md).
 ### Link Patterns
 
 **Inline links** for contextual references:
+
 ```markdown
 Configure your app by setting up [environment variables](/guide/configuration#environment-variables).
 ```
 
 **Callout links** for important related content:
+
 ```markdown
 ::note
 This feature requires authentication. See the [Authentication Guide](/guide/authentication) for setup instructions.
@@ -198,6 +211,7 @@ This feature requires authentication. See the [Authentication Guide](/guide/auth
 ```
 
 **Frontmatter links** for primary related pages:
+
 ```yaml
 ---
 links:
@@ -226,6 +240,7 @@ links:
 ## Common Structure Issues
 
 ### Orphaned Pages
+
 - Pages with no incoming links
 - No path from landing page to this page
 - Not included in navigation
@@ -233,6 +248,7 @@ links:
 **Fix:** Add links from parent/related pages
 
 ### Redundant Content
+
 - Multiple pages covering the same topic
 - Duplicate information across sections
 - Overlapping content without clear differentiation
@@ -240,6 +256,7 @@ links:
 **Fix:** Consolidate or clearly differentiate purpose
 
 ### Missing Landing Page
+
 - Section without index.md
 - Direct jump to numbered pages (causes 404 on the section root URL)
 
@@ -256,12 +273,14 @@ navigation: false
 This pattern is useful for section landing pages that serve as entry points (e.g. via redirect or direct URL) but shouldn't clutter the sidebar.
 
 ### Inconsistent Numbering
+
 - Gaps in numbering (1, 2, 4, 5 - where's 3?)
 - Duplicate numbers (1.intro.md, 1.install.md in same directory)
 
 **Fix:** Renumber files consistently
 
 ### Poor Information Architecture
+
 - Guide content in Getting Started section
 - Basic setup in Advanced section
 - API reference mixed with tutorials
@@ -287,19 +306,28 @@ description: Project tagline
 ---
 
 ::u-page-hero
+
 # Hero content
+
 ::
 
 ::u-page-section
+
 # Features
-  :::u-page-grid
-  # Feature cards
-  :::
+
+:::u-page-grid
+
+# Feature cards
+
+:::
 ::
 
 ::u-page-section
+
 # Quick Start
+
 # Minimal code example
+
 ::
 ```
 

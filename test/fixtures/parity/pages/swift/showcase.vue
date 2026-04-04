@@ -1,9 +1,6 @@
 <template>
   <div class="page">
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="showcase"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="showcase">
       <AisConfigure
         :search-parameters="{
           query: 'apple',
@@ -12,10 +9,7 @@
         }"
       />
 
-      <AisConfigureRelatedItems
-        :hit="relatedHit"
-        :matching-patterns="matchingPatterns"
-      />
+      <AisConfigureRelatedItems :hit="relatedHit" :matching-patterns="matchingPatterns" />
 
       <AisExperimentalConfigureRelatedItems
         :hit="relatedHit"
@@ -67,10 +61,7 @@
           <template #item="{ item }">
             <article>
               <h4>{{ item.name }}</h4>
-              <AisSnippet
-                :hit="item"
-                attribute="description"
-              />
+              <AisSnippet :hit="item" attribute="description" />
             </article>
           </template>
         </AisHits>

@@ -33,11 +33,13 @@
 [Detailed explanation of the issue]
 
 **Current:**
+
 ```markdown
 [Current problematic code]
 ```
 
 **Should Be:**
+
 ```markdown
 [Corrected code]
 ```
@@ -114,23 +116,23 @@
 
 ### Content Overview
 
-| Section | Pages (en) | Pages (fr) | Avg Words/Page |
-|---------|------------|------------|----------------|
-| Getting Started | X | X | ~XXX |
-| Guide | X | X | ~XXX |
-| API | X | X | ~XXX |
+| Section         | Pages (en) | Pages (fr) | Avg Words/Page |
+| --------------- | ---------- | ---------- | -------------- |
+| Getting Started | X          | X          | ~XXX           |
+| Guide           | X          | X          | ~XXX           |
+| API             | X          | X          | ~XXX           |
 
 ### Issue Breakdown
 
-| Category | Critical | Important | Nice-to-Have | Total |
-|----------|----------|-----------|--------------|-------|
-| Technical (MDC/Frontmatter) | X | X | X | X |
-| Code Blocks (labels/lang/groups) | X | X | X | X |
-| SEO | X | X | X | X |
-| Clarity | X | X | X | X |
-| Structure | X | X | X | X |
-| i18n | X | X | X | X |
-| **Total** | **X** | **X** | **X** | **X** |
+| Category                         | Critical | Important | Nice-to-Have | Total |
+| -------------------------------- | -------- | --------- | ------------ | ----- |
+| Technical (MDC/Frontmatter)      | X        | X         | X            | X     |
+| Code Blocks (labels/lang/groups) | X        | X         | X            | X     |
+| SEO                              | X        | X         | X            | X     |
+| Clarity                          | X        | X         | X            | X     |
+| Structure                        | X        | X         | X            | X     |
+| i18n                             | X        | X         | X            | X     |
+| **Total**                        | **X**    | **X**     | **X**        | **X** |
 
 ---
 
@@ -203,6 +205,7 @@
 **Structure:** ✅ Logical flow, includes next steps
 
 **Recommendations:**
+
 - Expand meta description to 120-160 characters
 
 ---

@@ -1,6 +1,8 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
       <h1
         v-if="brand"
         data-testid="brand-heading"
@@ -8,12 +10,7 @@
       >
         {{ brand }}
       </h1>
-      <h1
-        v-else
-        class="text-base font-semibold text-cosmos-black mb-8"
-      >
-        Brand search
-      </h1>
+      <h1 v-else class="text-base font-semibold text-cosmos-black mb-8">Brand search</h1>
       <p class="text-sm text-cosmos-black-opacity-70">
         Showcase-inspired faceted layout with grouped widgets and infinite hits.
       </p>
@@ -34,28 +31,24 @@
 
       <div class="flex sm:flex-row flex-col-reverse">
         <div class="flex flex-col flex-no-grow sm:max-w-296 w-full">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Search
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Search</h4>
             <AisSearchBox />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Brand
-            </h4>
-            <AisRefinementList
-              attribute="brand"
-              searchable
-              :show-more="true"
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Brand</h4>
+            <AisRefinementList attribute="brand" searchable :show-more="true" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Category
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Category</h4>
             <AisMenuSelect attribute="categories" />
             <div class="mt-8">
               <AisMenu
@@ -69,79 +62,73 @@
             </div>
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Price
-            </h4>
-            <AisNumericMenu
-              attribute="price"
-              :items="numericMenuItems"
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Price</h4>
+            <AisNumericMenu attribute="price" :items="numericMenuItems" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Rating
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Rating</h4>
             <AisRatingMenu attribute="rating" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Hierarchy
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Hierarchy</h4>
             <AisHierarchicalMenu :attributes="hierarchicalAttributes" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Shipping
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Shipping</h4>
             <AisToggleRefinement attribute="free_shipping" />
           </div>
         </div>
 
         <div class="flex flex-col flex-1">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
             <div class="flex sm:flex-row flex-col">
               <div class="flex-1 mr-16">
-                <h4 class="subtitle">
-                  SortBy
-                </h4>
+                <h4 class="subtitle">SortBy</h4>
                 <AisSortBy :items="sortByItems" />
               </div>
               <div class="flex-1">
-                <h4 class="subtitle">
-                  Stats
-                </h4>
+                <h4 class="subtitle">Stats</h4>
                 <AisStats />
               </div>
             </div>
 
             <div class="mt-8">
-              <h4 class="subtitle">
-                Clear refinements
-              </h4>
+              <h4 class="subtitle">Clear refinements</h4>
               <AisClearRefinements />
             </div>
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Infinite hits
-            </h4>
-            <AisInfiniteHits
-              :show-previous="true"
-              :cache="infiniteHitsCache"
-            >
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Infinite hits</h4>
+            <AisInfiniteHits :show-previous="true" :cache="infiniteHitsCache">
               <template #item="{ item }">
-                <div class="flex py-16 px-24 bg-gradient-white-moon-grey font-sans text-sm text-color-inherit rounded shadow">
-                  <div class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink">
+                <div
+                  class="flex py-16 px-24 bg-gradient-white-moon-grey font-sans text-sm text-color-inherit rounded shadow"
+                >
+                  <div
+                    class="flex items-center justify-center h-56 w-56 px-8 bg-white mr-16 flex-no-grow flex-no-shrink"
+                  >
                     <img
                       class="h-auto max-h-48 w-auto"
                       :src="(item as unknown as TProduct).image"
                       alt=""
-                    >
+                    />
                   </div>
                   <div>
                     <h5 class="mb-8 text-cosmos-black font-bold text-sm">
@@ -158,7 +145,9 @@
         </div>
       </div>
 
-      <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+      <div
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
         <button
           class="h-32 px-16 bg-gradient-white-moon-grey rounded shadow text-sm"
           type="button"

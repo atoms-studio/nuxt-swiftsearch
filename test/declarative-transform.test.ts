@@ -137,7 +137,7 @@ const configuration = {
 
     expect(warn).toHaveBeenCalledTimes(0);
     expect(code).toContain("__swiftsearchUseAisDynamicWidgets({})");
-    expect(code).toContain("__swiftsearchUseAisRefinementList({ attribute: \"brand\" },");
-    expect(code).toContain("__swiftsearchUseAisRefinementList({ attribute: \"categories\" },");
+    expect(code).toContain('__swiftsearchUseAisRefinementList({ attribute: "brand" },');
+    expect(code).toContain('__swiftsearchUseAisRefinementList({ attribute: "categories" },');
   });
 });

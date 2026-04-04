@@ -14,10 +14,10 @@ export const useAisPoweredBy = (
   const stateRef = ref<PoweredByRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderPoweredBy: Renderer<
-    PoweredByRenderState,
-    PoweredByConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderPoweredBy: Renderer<PoweredByRenderState, PoweredByConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

@@ -15,14 +15,14 @@ Guidelines for writing effective documentation content.
 
 Use action verbs in **H2/H3 headings** to make pages scannable and task-oriented.
 
-| Static heading | Action-based heading |
-|----------------|---------------------|
-| Configuration | Configure your app |
-| Database setup | Connect a database |
-| Route protection | Protect your routes |
-| Session management | Handle user sessions |
-| Error handling | Handle errors gracefully |
-| Deployment | Deploy your application |
+| Static heading     | Action-based heading     |
+| ------------------ | ------------------------ |
+| Configuration      | Configure your app       |
+| Database setup     | Connect a database       |
+| Route protection   | Protect your routes      |
+| Session management | Handle user sessions     |
+| Error handling     | Handle errors gracefully |
+| Deployment         | Deploy your application  |
 
 ### Action Verbs to Use
 
@@ -36,12 +36,12 @@ Use action verbs in **H2/H3 headings** to make pages scannable and task-oriented
 
 Different sections use different title styles:
 
-| Section | Style | Examples |
-|---------|-------|----------|
-| Getting Started | Nouns | Introduction, Installation, Quick Start |
-| Guide | Topics | Authentication, Configuration, Deployment |
-| API | Function/Component names | useSession, fetchData, Button |
-| Recipes | Action phrases | Add Dark Mode, Deploy to Vercel |
+| Section         | Style                    | Examples                                  |
+| --------------- | ------------------------ | ----------------------------------------- |
+| Getting Started | Nouns                    | Introduction, Installation, Quick Start   |
+| Guide           | Topics                   | Authentication, Configuration, Deployment |
+| API             | Function/Component names | useSession, fetchData, Button             |
+| Recipes         | Action phrases           | Add Dark Mode, Deploy to Vercel           |
 
 The action style lives in the **content headings**, not the page titles or file names.
 
@@ -58,12 +58,12 @@ The action style lives in the **content headings**, not the page titles or file 
 
 ### Examples
 
-| Passive/Wordy | Active/Direct |
-|---------------|---------------|
-| The configuration can be set by... | Configure your app by... |
-| It is recommended that you... | We recommend... |
-| The file should be created in... | Create the file in... |
-| Authentication is handled by... | Handle authentication with... |
+| Passive/Wordy                      | Active/Direct                 |
+| ---------------------------------- | ----------------------------- |
+| The configuration can be set by... | Configure your app by...      |
+| It is recommended that you...      | We recommend...               |
+| The file should be created in...   | Create the file in...         |
+| Authentication is handled by...    | Handle authentication with... |
 
 ---
 
@@ -76,18 +76,20 @@ Always add file path labels to code blocks:
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   // ...
-})
+});
 ```
 
 ### Multi-Package Manager Examples
 
 Use `::code-group` and show the **detected package manager first**:
 
-```markdown
+````markdown
 ::code-group
+
 ```bash [pnpm]
 pnpm add package-name
 ```
+````
 
 ```bash [npm]
 npm install package-name
@@ -100,7 +102,9 @@ yarn add package-name
 ```bash [bun]
 bun add package-name
 ```
+
 ::
+
 ```
 
 ### Best Practices
@@ -109,3 +113,4 @@ bun add package-name
 - Show **complete** code, not fragments
 - Add **comments** for complex logic
 - Use **realistic** variable names
+```

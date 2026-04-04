@@ -1,12 +1,10 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-      <h1 class="text-base font-semibold text-cosmos-black mb-8">
-        URL-synced pages
-      </h1>
-      <p class="text-sm text-cosmos-black-opacity-70">
-        Pagination state is restored from the URL.
-      </p>
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
+      <h1 class="text-base font-semibold text-cosmos-black mb-8">URL-synced pages</h1>
+      <p class="text-sm text-cosmos-black-opacity-70">Pagination state is restored from the URL.</p>
       <div class="flex flex-wrap -mx-4 mt-8">
         <NuxtLink
           class="flex items-center m-2 py-4 px-8 bg-nova-grey text-xxs uppercase font-semibold text-white no-underline rounded"
@@ -23,13 +21,12 @@
       </div>
     </div>
 
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="index"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="index">
       <AisConfigure :search-parameters="{ hitsPerPage: 20 }" />
 
-      <section class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+      <section
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
         <div class="flex sm:flex-row flex-col">
           <div class="flex-1">
             <AisStats />

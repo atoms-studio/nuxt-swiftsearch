@@ -9,10 +9,7 @@ import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisRatingMenuRenderState = (key: string = "") =>
-  useState<Record<string, RatingMenuRenderState>>(
-    `ais_rating_menu_render_state${key}`,
-    () => ({})
-  );
+  useState<Record<string, RatingMenuRenderState>>(`ais_rating_menu_render_state${key}`, () => ({}));
 export const useAisRatingMenu = (
   widgetParams: RatingMenuConnectorParams,
   widgetId: string = "",
@@ -21,10 +18,10 @@ export const useAisRatingMenu = (
   const ratingMenuRenderState = useAisRatingMenuRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderRatingMenu: Renderer<
-    RatingMenuRenderState,
-    RatingMenuConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderRatingMenu: Renderer<RatingMenuRenderState, RatingMenuConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (import.meta.client) {

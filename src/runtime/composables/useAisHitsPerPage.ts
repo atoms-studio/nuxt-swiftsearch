@@ -14,10 +14,10 @@ export const useAisHitsPerPage = (
   const stateRef = ref<HitsPerPageRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderHitsPerPage: Renderer<
-    HitsPerPageRenderState,
-    HitsPerPageConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderHitsPerPage: Renderer<HitsPerPageRenderState, HitsPerPageConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

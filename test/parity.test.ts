@@ -1,17 +1,13 @@
 import { describe, it, expect } from "vitest";
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { setup, createPage } from "@nuxt/test-utils/e2e";
-import {
-  collectNormalizedMarkup,
-} from "./utils/html";
+import { collectNormalizedMarkup } from "./utils/html";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 const PORT = 7780;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
-const fixtureRoot = fileURLToPath(new URL('./fixtures/parity', import.meta.url));
-
-
+const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 const widgetTestIds = [
   "searchbox",
@@ -36,10 +32,8 @@ const widgetTestIds = [
   "index-refinementlist",
 ];
 
-
-
 const captureState = async (route: string) => {
-  const page = await createPage('/');
+  const page = await createPage("/");
   const pageErrors: string[] = [];
   page.on("pageerror", (error) => {
     pageErrors.push(error.message);
@@ -92,6 +86,4 @@ describe("swiftsearch parity", async () => {
       expect(swiftState.initial[testId]).toBe(originalState.initial[testId]);
     }
   });
-
-
 });

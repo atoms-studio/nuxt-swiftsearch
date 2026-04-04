@@ -1,14 +1,8 @@
 <template>
   <div :class="suit()">
     <slot v-bind="{ items }">
-      <div
-        v-for="(item, index) in items"
-        :key="index"
-      >
-        <slot
-          name="item"
-          :item="item"
-        >
+      <div v-for="(item, index) in items" :key="index">
+        <slot name="item" :item="item">
           <div>{{ item }}</div>
         </slot>
       </div>

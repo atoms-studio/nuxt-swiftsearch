@@ -9,14 +9,8 @@ import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisMenuRenderState = (key: string = "") =>
-  useState<Record<string, MenuRenderState>>(
-    `ais_menu_render_state${key}`,
-    () => ({})
-  );
-export const useAisMenu = (
-  widgetParams: MenuConnectorParams,
-  widgetId: string = "",
-) => {
+  useState<Record<string, MenuRenderState>>(`ais_menu_render_state${key}`, () => ({}));
+export const useAisMenu = (widgetParams: MenuConnectorParams, widgetId: string = "") => {
   const stateRef = ref<MenuRenderState | null>();
   const menuRenderState = useAisMenuRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);

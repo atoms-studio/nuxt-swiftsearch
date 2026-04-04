@@ -27,11 +27,10 @@ const props = defineProps<{
 
 const { widgets: widgetsRef, middlewares } = toRefs(props);
 
-let searchInstance: Ref<InstantSearch>
+let searchInstance: Ref<InstantSearch>;
 if (import.meta.server) {
   searchInstance = shallowRef(instantsearch(props.configuration));
-}
-else {
+} else {
   searchInstance = useState(`instant_search_instance-${props.instanceKey ?? ""}`, () =>
     shallowRef(instantsearch(props.configuration)),
   );

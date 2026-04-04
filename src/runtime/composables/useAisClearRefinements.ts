@@ -28,9 +28,7 @@ export const useAisClearRefinements = (
   };
 
   // 2. Create the custom widget
-  const customClearRefinements = connectClearRefinements(
-    renderClearRefinements,
-  );
+  const customClearRefinements = connectClearRefinements(renderClearRefinements);
 
   // 3. Instantiate
   return {

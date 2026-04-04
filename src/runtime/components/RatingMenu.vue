@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="state.items"
       :can-refine="state.canRefine"
@@ -29,9 +26,7 @@
       </ul>
     </slot>
   </div>
-  <div v-else>
-    Rating Menu: No state available
-  </div>
+  <div v-else>Rating Menu: No state available</div>
 </template>
 
 <script setup lang="ts">
@@ -57,14 +52,14 @@ const state = computed(() => {
       ? ratingMenuRenderState.value[props.attribute]
       : ratingMenuState.value?.[props.attribute];
   } catch (error) {
-    console.warn('RatingMenu: Error accessing state:', error);
+    console.warn("RatingMenu: Error accessing state:", error);
     return null;
   }
 });
 
 const renderStars = (rating: number, max: number) => {
-  const filledStars = '★'.repeat(rating);
-  const emptyStars = '☆'.repeat(max - rating);
+  const filledStars = "★".repeat(rating);
+  const emptyStars = "☆".repeat(max - rating);
   return filledStars + emptyStars;
 };
 </script>

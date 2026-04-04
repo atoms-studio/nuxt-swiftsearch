@@ -27,10 +27,7 @@ const collectContextIdentifiers = (expression: string) => {
   return [...identifiers];
 };
 
-const normalizeDirectiveExpression = (
-  expression: string,
-  context?: GenerationContext,
-) => {
+const normalizeDirectiveExpression = (expression: string, context?: GenerationContext) => {
   const source = expression.trim();
 
   if (!source || !context) {
@@ -85,10 +82,7 @@ const normalizeDirectiveExpression = (
   }
 };
 
-export const getDirectiveExpression = (
-  directive: DirectiveNode,
-  context?: GenerationContext,
-) => {
+export const getDirectiveExpression = (directive: DirectiveNode, context?: GenerationContext) => {
   const expression = directive.exp;
   if (!expression) return "";
 

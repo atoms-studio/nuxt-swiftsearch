@@ -11,7 +11,7 @@ import { createWidgetIdScope } from "./widgetIdScope";
 export const useAisNumericMenuRenderState = (key: string = "") =>
   useState<Record<string, NumericMenuRenderState>>(
     `ais_numeric_menu_render_state${key}`,
-    () => ({})
+    () => ({}),
   );
 export const useAisNumericMenu = (
   widgetParams: NumericMenuConnectorParams,
@@ -21,10 +21,10 @@ export const useAisNumericMenu = (
   const numericMenuRenderState = useAisNumericMenuRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderNumericMenu: Renderer<
-    NumericMenuRenderState,
-    NumericMenuConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderNumericMenu: Renderer<NumericMenuRenderState, NumericMenuConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (import.meta.client) {

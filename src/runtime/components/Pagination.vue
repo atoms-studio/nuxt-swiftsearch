@@ -22,20 +22,17 @@ withDefaults(defineProps<PaginationProps>(), {
 });
 
 const emit = defineEmits<{
-  (e: "page-change", page: number): void
-}>()
+  (e: "page-change", page: number): void;
+}>();
 
 const refine = (page: number) => {
   const p = Math.min(Math.max(page, 0), state.value.nbPages - 1);
   state.value.refine(p);
-  emit('page-change', p);
-}
+  emit("page-change", p);
+};
 </script>
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :refine="refine"
       :create-u-r-l="state.createURL"
@@ -53,7 +50,6 @@ const refine = (page: number) => {
             [suit('item')]: true,
             [suit('item', 'disabled')]: state.isFirstPage,
             [suit('item', 'firstPage')]: true,
-
           }"
         >
           <slot
@@ -68,13 +64,11 @@ const refine = (page: number) => {
                 aria-label="First Page"
                 :href="state.createURL(0)"
                 @click.prevent="refine(0)"
-              >‹‹</a>
+                >‹‹</a
+              >
             </template>
             <template v-else>
-              <span
-                :class="suit('link')"
-                aria-label="First Page"
-              >‹‹</span>
+              <span :class="suit('link')" aria-label="First Page">‹‹</span>
             </template>
           </slot>
         </li>
@@ -84,7 +78,6 @@ const refine = (page: number) => {
             [suit('item')]: true,
             [suit('item', 'disabled')]: state.isFirstPage,
             [suit('item', 'previousPage')]: true,
-
           }"
         >
           <slot
@@ -99,13 +92,11 @@ const refine = (page: number) => {
                 aria-label="Previous Page"
                 :href="state.createURL(state.currentRefinement - 1)"
                 @click.prevent="refine(state.currentRefinement - 1)"
-              >‹</a>
+                >‹</a
+              >
             </template>
             <template v-else>
-              <span
-                :class="suit('link')"
-                aria-label="Previous Page"
-              >‹</span>
+              <span :class="suit('link')" aria-label="Previous Page">‹</span>
             </template>
           </slot>
         </li>
@@ -116,7 +107,7 @@ const refine = (page: number) => {
           :class="{
             [suit('item')]: true,
             [suit('item', 'page')]: true,
-            [suit('item', 'selected')]: state.currentRefinement === page
+            [suit('item', 'selected')]: state.currentRefinement === page,
           }"
         >
           <slot
@@ -132,8 +123,8 @@ const refine = (page: number) => {
               :href="state.createURL(page)"
               :aria-label="'Page ' + (i + 1)"
               @click.prevent="refine(page)"
-            >{{
-              page + 1 }}</a>
+              >{{ page + 1 }}</a
+            >
           </slot>
         </li>
 
@@ -142,7 +133,7 @@ const refine = (page: number) => {
           :class="{
             [suit('item')]: true,
             [suit('item', 'nextPage')]: true,
-            [suit('item', 'disabled')]: state.isLastPage
+            [suit('item', 'disabled')]: state.isLastPage,
           }"
         >
           <slot
@@ -157,13 +148,11 @@ const refine = (page: number) => {
                 aria-label="Next Page"
                 :href="state.createURL(state.currentRefinement + 1)"
                 @click.prevent="refine(state.currentRefinement + 1)"
-              >›</a>
+                >›</a
+              >
             </template>
             <template v-else>
-              <span
-                :class="suit('link')"
-                aria-label="Next Page"
-              >›</span>
+              <span :class="suit('link')" aria-label="Next Page">›</span>
             </template>
           </slot>
         </li>
@@ -187,13 +176,11 @@ const refine = (page: number) => {
                 :aria-label="'Last Page, Page ' + state.nbPages"
                 :href="state.createURL(state.nbPages - 1)"
                 @click.prevent="refine(state.nbPages - 1)"
-              >››</a>
+                >››</a
+              >
             </template>
             <template v-else>
-              <span
-                :class="suit('link')"
-                :aria-label="'Last Page, Page ' + state.nbPages"
-              >››</span>
+              <span :class="suit('link')" :aria-label="'Last Page, Page ' + state.nbPages">››</span>
             </template>
           </slot>
         </li>

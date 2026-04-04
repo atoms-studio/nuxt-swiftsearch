@@ -5,11 +5,7 @@ import {
   type TemplateChildNode,
 } from "@vue/compiler-dom";
 import { getDirectiveExpression } from "./expression";
-import type {
-  ConditionalBranch,
-  ControlFlow,
-  GenerationContext,
-} from "./types";
+import type { ConditionalBranch, ControlFlow, GenerationContext } from "./types";
 import { normalizeAisTag } from "./widgets";
 
 export const toCamelCase = (value: string) =>
@@ -17,22 +13,21 @@ export const toCamelCase = (value: string) =>
 
 const isIdentifier = (value: string) => /^[A-Za-z_$][A-Za-z0-9_$]*$/.test(value);
 
-export const renderObjectKey = (key: string) =>
-  (isIdentifier(key) ? key : JSON.stringify(key));
+export const renderObjectKey = (key: string) => (isIdentifier(key) ? key : JSON.stringify(key));
 
 export const shouldIgnoreProp = (name: string) => {
   const lowered = name.toLowerCase();
 
   return (
-    lowered === "id"
-    || lowered === "class"
-    || lowered === "style"
-    || lowered === "key"
-    || lowered === "ref"
-    || lowered === "is"
-    || lowered === "slot"
-    || lowered.startsWith("data-")
-    || lowered.startsWith("aria-")
+    lowered === "id" ||
+    lowered === "class" ||
+    lowered === "style" ||
+    lowered === "key" ||
+    lowered === "ref" ||
+    lowered === "is" ||
+    lowered === "slot" ||
+    lowered.startsWith("data-") ||
+    lowered.startsWith("aria-")
   );
 };
 
@@ -83,7 +78,7 @@ const findStartTagClose = (source: string) => {
       continue;
     }
 
-    if (char === "\"" || char === "'") {
+    if (char === '"' || char === "'") {
       quote = char;
       continue;
     }
@@ -96,16 +91,12 @@ const findStartTagClose = (source: string) => {
   return -1;
 };
 
-export const getTagAttributeInsertIndex = (
-  node: ElementNode,
-  templateOffset: number,
-) => {
+export const getTagAttributeInsertIndex = (node: ElementNode, templateOffset: number) => {
   const closeIndex = findStartTagClose(node.loc.source);
 
   if (closeIndex < 0) return null;
 
-  const offsetInNode =
-    node.loc.source[closeIndex - 1] === "/" ? closeIndex - 1 : closeIndex;
+  const offsetInNode = node.loc.source[closeIndex - 1] === "/" ? closeIndex - 1 : closeIndex;
 
   return templateOffset + node.loc.start.offset + offsetInNode;
 };
@@ -117,11 +108,11 @@ export const hasWidgetsProp = (node: ElementNode) => {
     }
 
     if (
-      prop.type === NodeTypes.DIRECTIVE
-      && prop.name === "bind"
-      && prop.arg?.type === NodeTypes.SIMPLE_EXPRESSION
-      && prop.arg.isStatic
-      && prop.arg.content === "widgets"
+      prop.type === NodeTypes.DIRECTIVE &&
+      prop.name === "bind" &&
+      prop.arg?.type === NodeTypes.SIMPLE_EXPRESSION &&
+      prop.arg.isStatic &&
+      prop.arg.content === "widgets"
     ) {
       return true;
     }
@@ -130,10 +121,7 @@ export const hasWidgetsProp = (node: ElementNode) => {
   return false;
 };
 
-export const getControlFlow = (
-  node: ElementNode,
-  context?: GenerationContext,
-): ControlFlow => {
+export const getControlFlow = (node: ElementNode, context?: GenerationContext): ControlFlow => {
   for (const prop of node.props) {
     if (prop.type !== NodeTypes.DIRECTIVE) {
       continue;

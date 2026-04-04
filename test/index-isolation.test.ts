@@ -57,12 +57,8 @@ describe("swiftsearch index isolation", async () => {
     await indexTwo.locator("input[type='checkbox']").first().check();
     await page.waitForTimeout(400);
 
-    const indexOneSelected = await indexOne
-      .locator(".ais-RefinementList-item--selected")
-      .count();
-    const indexTwoSelected = await indexTwo
-      .locator(".ais-RefinementList-item--selected")
-      .count();
+    const indexOneSelected = await indexOne.locator(".ais-RefinementList-item--selected").count();
+    const indexTwoSelected = await indexTwo.locator(".ais-RefinementList-item--selected").count();
 
     expect(indexOneSelected).toBe(0);
     expect(indexTwoSelected).toBeGreaterThan(0);

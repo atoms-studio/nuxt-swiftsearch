@@ -3,9 +3,7 @@
     <h1 data-testid="brand-heading">
       {{ brandTitle }}
     </h1>
-    <NuxtLink to="/swift/router">
-      Back to router home
-    </NuxtLink>
+    <NuxtLink to="/swift/router"> Back to router home </NuxtLink>
 
     <AisInstantSearch
       :widgets="widgets"
@@ -15,15 +13,8 @@
       <AisStats data-testid="brand-stats" />
       <AisCurrentRefinements data-testid="brand-currentrefinements" />
       <AisHits data-testid="brand-hits" />
-      <AisToggleRefinement
-        attribute="free_shipping"
-        data-testid="brand-togglerefinement"
-      />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-        data-testid="brand-refinementlist"
-      />
+      <AisToggleRefinement attribute="free_shipping" data-testid="brand-togglerefinement" />
+      <AisRefinementList attribute="brand" searchable data-testid="brand-refinementlist" />
     </AisInstantSearch>
   </div>
 </template>

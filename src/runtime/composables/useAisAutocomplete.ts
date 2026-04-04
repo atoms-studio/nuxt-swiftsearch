@@ -15,10 +15,10 @@ export const useAisAutocomplete = (
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   // 1. Create a render function
-  const renderAutocomplete: Renderer<
-    AutocompleteRenderState,
-    AutocompleteConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderAutocomplete: Renderer<AutocompleteRenderState, AutocompleteConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
     if (isFirstRender) {
       widgetIdScope.provideWidgetState("autocomplete", stateRef);

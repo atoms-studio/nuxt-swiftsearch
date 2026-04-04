@@ -13,36 +13,48 @@ Nuxt Swiftsearch
 SSR-first Algolia InstantSearch for Nuxt, with declarative widget syntax and full manual-widget compatibility.
 
 #links
-  :::u-button
-  ---
-  color: neutral
-  size: xl
-  to: /getting-started/installation
-  trailing-icon: i-lucide-arrow-right
-  ---
-  Get started
-  :::
+:::u-button
 
-  :::u-button
-  ---
-  color: neutral
-  size: xl
-  to: /examples
-  variant: outline
-  ---
-  Examples
-  :::
+---
 
-  :::u-button
-  ---
-  color: neutral
-  icon: i-simple-icons-github
-  size: xl
-  to: https://github.com/atoms-studio/nuxt-swiftsearch
-  variant: outline
-  ---
-  View on GitHub
-  :::
+color: neutral
+size: xl
+to: /getting-started/installation
+trailing-icon: i-lucide-arrow-right
+
+---
+
+Get started
+:::
+
+:::u-button
+
+---
+
+color: neutral
+size: xl
+to: /examples
+variant: outline
+
+---
+
+Examples
+:::
+
+:::u-button
+
+---
+
+color: neutral
+icon: i-simple-icons-github
+size: xl
+to: https://github.com/atoms-studio/nuxt-swiftsearch
+variant: outline
+
+---
+
+View on GitHub
+:::
 ::
 
 ::u-page-section
@@ -50,47 +62,63 @@ SSR-first Algolia InstantSearch for Nuxt, with declarative widget syntax and ful
 Why teams use it
 
 #features
-  :::u-page-feature
-  ---
-  icon: i-lucide-server
-  ---
-  #title
-  SSR-first architecture
+:::u-page-feature
 
-  #description
-  Widgets are resolved from a parent-owned InstantSearch instance so SSR and hydration stay deterministic.
-  :::
+---
 
-  :::u-page-feature
-  ---
-  icon: i-lucide-code
-  ---
-  #title
-  Declarative widgets
+icon: i-lucide-server
 
-  #description
-  Write `<AisHits />` directly in `<AisInstantSearch>` and let the Vite transform generate `:widgets`.
-  :::
+---
 
-  :::u-page-feature
-  ---
-  icon: i-lucide-layers
-  ---
-  #title
-  Multi-index isolation
+#title
+SSR-first architecture
 
-  #description
-  Scoped state resolution with `indexId` prevents cross-index leakage for duplicated widget types.
-  :::
+#description
+Widgets are resolved from a parent-owned InstantSearch instance so SSR and hydration stay deterministic.
+:::
 
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-algolia
-  ---
-  #title
-  Vue InstantSearch parity
+:::u-page-feature
 
-  #description
-  Declarative DX and widget output are validated against vue-instantsearch parity fixtures.
-  :::
+---
+
+icon: i-lucide-code
+
+---
+
+#title
+Declarative widgets
+
+#description
+Write `<AisHits />` directly in `<AisInstantSearch>` and let the Vite transform generate `:widgets`.
+:::
+
+:::u-page-feature
+
+---
+
+icon: i-lucide-layers
+
+---
+
+#title
+Multi-index isolation
+
+#description
+Scoped state resolution with `indexId` prevents cross-index leakage for duplicated widget types.
+:::
+
+:::u-page-feature
+
+---
+
+icon: i-simple-icons-algolia
+
+---
+
+#title
+Vue InstantSearch parity
+
+#description
+Declarative DX and widget output are validated against vue-instantsearch parity fixtures.
+:::
 ::

@@ -14,10 +14,10 @@ export const useAisDynamicWidgets = (
   const stateRef = ref<DynamicWidgetsRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderDynamicWidgets: Renderer<
-    DynamicWidgetsRenderState,
-    DynamicWidgetsConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderDynamicWidgets: Renderer<DynamicWidgetsRenderState, DynamicWidgetsConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

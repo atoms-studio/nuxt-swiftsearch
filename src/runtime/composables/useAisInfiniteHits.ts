@@ -15,10 +15,10 @@ export const useAisInfiniteHits = (
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   // 1. Create a render function
-  const renderInfiniteHits: Renderer<
-    InfiniteHitsRenderState,
-    InfiniteHitsConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderInfiniteHits: Renderer<InfiniteHitsRenderState, InfiniteHitsConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
     if (isFirstRender) {
       widgetIdScope.provideWidgetState("infiniteHits", stateRef);
@@ -28,8 +28,7 @@ export const useAisInfiniteHits = (
   };
 
   // 2. Create the custom widget
-  const customInfiniteHits =
-    connectInfiniteHitsWithInsights(renderInfiniteHits);
+  const customInfiniteHits = connectInfiniteHitsWithInsights(renderInfiniteHits);
 
   const significantParams = {
     ...widgetParams,

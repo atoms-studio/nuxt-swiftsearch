@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## v1.0.0-beta.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v0.9.11...v1.0.0-beta.0)
@@ -842,7 +841,7 @@
 
 ### 🩹 Fixes
 
-- **ts:** Fixed  useAisRouter not typing ref correctly (ba294aa)
+- **ts:** Fixed useAisRouter not typing ref correctly (ba294aa)
 
 ### ❤️ Contributors
 
@@ -981,7 +980,6 @@
 
 ## v0.1.1
 
-
 ### 🚀 Enhancements
 
 - First implementation in playground (dff4c1d)
@@ -1001,4 +999,3 @@
 ### ❤️ Contributors
 
 - Matteo Rigoni <matteo.rigoni@atoms.studio>
-

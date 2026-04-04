@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :current-refinement="currentRefinement"
       :is-search-stalled="state.isSearchStalled"
@@ -57,31 +54,22 @@ type SearchBoxProps = {
   modelValue?: string;
 };
 
-const props = withDefaults(
-  defineProps<SearchBoxProps>(),
-  {
-    placeholder: "",
-    autofocus: false,
-    showLoadingIndicator: true,
-    shouldShowLoadingIndicator: false,
-    ignoreCompositionEvents: false,
-    submitTitle: "Submit the search query",
-    resetTitle: "Clear the search query",
-  },
-);
+const props = withDefaults(defineProps<SearchBoxProps>(), {
+  placeholder: "",
+  autofocus: false,
+  showLoadingIndicator: true,
+  shouldShowLoadingIndicator: false,
+  ignoreCompositionEvents: false,
+  submitTitle: "Submit the search query",
+  resetTitle: "Clear the search query",
+});
 
 const suit = useSuit("SearchBox");
 
 const localValue = ref("");
 
 const controlledModelValue = defineModel<string>();
-const emit = defineEmits([
-  "input",
-  "update:modelValue",
-  "focus",
-  "blur",
-  "reset",
-]);
+const emit = defineEmits(["input", "update:modelValue", "focus", "blur", "reset"]);
 
 const searchInput = ref<any>();
 const currentRefinement = computed({

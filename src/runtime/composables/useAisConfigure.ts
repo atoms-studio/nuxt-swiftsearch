@@ -7,17 +7,14 @@ import type { Renderer } from "instantsearch.js/es/types";
 
 export const useAisConfigure = (widgetParams: ConfigureConnectorParams) => {
   // 1. Create a render function
-  const renderConfigure: Renderer<
-    ConfigureRenderState,
-    ConfigureConnectorParams
-  > = (_, __) => {
+  const renderConfigure: Renderer<ConfigureRenderState, ConfigureConnectorParams> = (_, __) => {
     // render nothing, provide render state
-    return () => { };
+    return () => {};
   };
 
   // 2. Create the custom widget
   const customConfigure = connectConfigure(renderConfigure);
 
   // 3. Instantiate
-  return { ...customConfigure(widgetParams), $$widgetParams: widgetParams};
+  return { ...customConfigure(widgetParams), $$widgetParams: widgetParams };
 };

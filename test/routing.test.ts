@@ -5,9 +5,7 @@ import { ensureNuxtBuild } from "./utils/prebuild";
 
 const PORT = 7781;
 const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
-const fixtureRoot = decodeURIComponent(
-  new URL("./fixtures/parity", import.meta.url).pathname,
-);
+const fixtureRoot = decodeURIComponent(new URL("./fixtures/parity", import.meta.url).pathname);
 
 const decodeUrl = (url: string) => decodeURIComponent(url);
 
@@ -33,10 +31,10 @@ describe("swiftsearch routing", async () => {
   it("hydrates search parameters from the incoming URL", async () => {
     const route = "/swift/router?instant_search%5Bquery%5D=Samsung";
     const html = await $fetch<string>(route);
-    expect(html).toContain("value=\"Samsung\"");
+    expect(html).toContain('value="Samsung"');
 
-    const page = await createPage('/');
-    await page.goto(getTestUrl(route), { waitUntil: 'hydration' })
+    const page = await createPage("/");
+    await page.goto(getTestUrl(route), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
     const searchValue = await page
@@ -48,8 +46,8 @@ describe("swiftsearch routing", async () => {
   });
 
   it("syncs refinements into the URL and restores them on reload", async () => {
-    const page = await createPage('/');
-    await page.goto(getTestUrl("/swift/router"), { waitUntil: 'hydration' })
+    const page = await createPage("/");
+    await page.goto(getTestUrl("/swift/router"), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
 
@@ -73,16 +71,14 @@ describe("swiftsearch routing", async () => {
     expect(refinedUrl).toContain("instant_search[query]=tv");
 
     await page.reload({ waitUntil: "networkidle" });
-    const currentRefinements = await page
-      .getByTestId("router-currentrefinements")
-      .innerHTML();
+    const currentRefinements = await page.getByTestId("router-currentrefinements").innerHTML();
     expect(currentRefinements).toContain("Free_shipping");
     await page.close();
   });
 
   it("keeps InstantSearch state across route navigation", async () => {
-    const page = await createPage('/');
-    await page.goto(getTestUrl("/swift/router"), { waitUntil: 'hydration' })
+    const page = await createPage("/");
+    await page.goto(getTestUrl("/swift/router"), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
 
@@ -97,9 +93,7 @@ describe("swiftsearch routing", async () => {
     await page.waitForLoadState("networkidle");
     expect(decodeUrl(page.url())).toContain("/swift/router");
 
-    const currentRefinements = await page
-      .getByTestId("router-currentrefinements")
-      .innerHTML();
+    const currentRefinements = await page.getByTestId("router-currentrefinements").innerHTML();
     expect(currentRefinements).not.toBe("");
     await page.close();
   });

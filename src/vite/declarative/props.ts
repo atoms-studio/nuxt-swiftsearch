@@ -5,17 +5,8 @@ import {
   type ElementNode,
 } from "@vue/compiler-dom";
 import { getDirectiveExpression } from "./expression";
-import {
-  renderObjectKey,
-  shouldIgnoreProp,
-  toCamelCase,
-} from "./template";
-import type {
-  ExtractedProps,
-  GenerationContext,
-  HierarchicalMenuProps,
-  IndexProps,
-} from "./types";
+import { renderObjectKey, shouldIgnoreProp, toCamelCase } from "./template";
+import type { ExtractedProps, GenerationContext, HierarchicalMenuProps, IndexProps } from "./types";
 
 export const extractWidgetProps = (
   node: ElementNode,
@@ -29,7 +20,7 @@ export const extractWidgetProps = (
       const attribute = prop as AttributeNode;
 
       if (attribute.name === "id") {
-        idExpr = attribute.value ? JSON.stringify(attribute.value.content) : "\"\"";
+        idExpr = attribute.value ? JSON.stringify(attribute.value.content) : '""';
         continue;
       }
 
@@ -38,9 +29,7 @@ export const extractWidgetProps = (
       }
 
       const key = toCamelCase(attribute.name);
-      const valueExpr = attribute.value
-        ? JSON.stringify(attribute.value.content)
-        : "true";
+      const valueExpr = attribute.value ? JSON.stringify(attribute.value.content) : "true";
 
       entries.push(`${renderObjectKey(key)}: ${valueExpr}`);
       continue;
@@ -98,10 +87,7 @@ export const extractWidgetProps = (
   };
 };
 
-export const extractIndexProps = (
-  node: ElementNode,
-  context: GenerationContext,
-): IndexProps => {
+export const extractIndexProps = (node: ElementNode, context: GenerationContext): IndexProps => {
   const entries: string[] = [];
   let hasIndexName = false;
 
@@ -111,17 +97,13 @@ export const extractIndexProps = (
       const key = toCamelCase(attribute.name);
 
       if (key === "index" || key === "indexName") {
-        const valueExpr = attribute.value
-          ? JSON.stringify(attribute.value.content)
-          : "true";
+        const valueExpr = attribute.value ? JSON.stringify(attribute.value.content) : "true";
         entries.push(`indexName: ${valueExpr}`);
         hasIndexName = true;
       }
 
       if (key === "indexId") {
-        const valueExpr = attribute.value
-          ? JSON.stringify(attribute.value.content)
-          : "true";
+        const valueExpr = attribute.value ? JSON.stringify(attribute.value.content) : "true";
         entries.push(`indexId: ${valueExpr}`);
       }
 
@@ -182,9 +164,7 @@ export const extractHierarchicalMenuProps = (
     if (prop.type === NodeTypes.ATTRIBUTE) {
       const attribute = prop as AttributeNode;
       const key = toCamelCase(attribute.name);
-      const valueExpr = attribute.value
-        ? JSON.stringify(attribute.value.content)
-        : "true";
+      const valueExpr = attribute.value ? JSON.stringify(attribute.value.content) : "true";
 
       if (key === "attribute") {
         attributeExpr = valueExpr;

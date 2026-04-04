@@ -1,9 +1,6 @@
 <template>
   <div class="page">
-    <AisInstantSearch
-      index-name="instant_search"
-      :search-client="searchClient"
-    >
+    <AisInstantSearch index-name="instant_search" :search-client="searchClient">
       <AisConfigure
         :query="'apple'"
         :hits-per-page.camel="4"
@@ -64,10 +61,7 @@
           <template #item="{ item }">
             <article>
               <h4>{{ item.name }}</h4>
-              <AisSnippet
-                :hit="item"
-                attribute="description"
-              />
+              <AisSnippet :hit="item" attribute="description" />
             </article>
           </template>
         </AisHits>

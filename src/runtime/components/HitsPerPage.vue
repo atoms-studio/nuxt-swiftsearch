@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :items="renderItems"
       :refine="state.refine"
@@ -28,7 +25,11 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="TItem extends HitsPerPageRenderStateItem = HitsPerPageRenderStateItem">
+<script
+  setup
+  lang="ts"
+  generic="TItem extends HitsPerPageRenderStateItem = HitsPerPageRenderStateItem"
+>
 import type {
   HitsPerPageRenderStateItem,
   HitsPerPageConnectorParamsItem,

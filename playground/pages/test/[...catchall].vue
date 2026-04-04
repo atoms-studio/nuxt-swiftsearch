@@ -1,9 +1,9 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-      <h1 class="text-base font-semibold text-cosmos-black mb-8">
-        Route-driven brand filtering
-      </h1>
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
+      <h1 class="text-base font-semibold text-cosmos-black mb-8">Route-driven brand filtering</h1>
       <p class="text-sm text-cosmos-black-opacity-70">
         The catch-all segment updates the Algolia filters through <code>AisConfigure</code>.
       </p>
@@ -35,10 +35,7 @@
       </span>
     </div>
 
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="catchall"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="catchall">
       <AisConfigure
         :search-parameters="{
           filters,
@@ -48,60 +45,52 @@
 
       <div class="flex sm:flex-row flex-col-reverse">
         <div class="flex flex-col flex-no-grow sm:max-w-296 w-full">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Search
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Search</h4>
             <AisSearchBox />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Brand
-            </h4>
-            <AisRefinementList
-              attribute="brand"
-              searchable
-              :show-more="true"
-            />
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Brand</h4>
+            <AisRefinementList attribute="brand" searchable :show-more="true" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Price
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Price</h4>
             <AisRangeInput attribute="price" />
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Shipping
-            </h4>
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Shipping</h4>
             <AisToggleRefinement attribute="free_shipping" />
           </div>
         </div>
 
         <div class="flex flex-col flex-1">
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
             <div class="flex sm:flex-row flex-col">
               <div class="flex-1 mr-16">
-                <h4 class="subtitle">
-                  SortBy
-                </h4>
+                <h4 class="subtitle">SortBy</h4>
                 <AisSortBy :items="sortByItems" />
               </div>
               <div class="flex-1">
-                <h4 class="subtitle">
-                  Stats
-                </h4>
+                <h4 class="subtitle">Stats</h4>
                 <AisStats />
               </div>
             </div>
 
             <div class="mt-8">
-              <h4 class="subtitle">
-                Clear refinements
-              </h4>
+              <h4 class="subtitle">Clear refinements</h4>
               <div class="flex flex-wrap -mx-4">
                 <div class="m-2">
                   <AisClearRefinements
@@ -110,10 +99,7 @@
                   />
                 </div>
                 <div class="m-2">
-                  <AisClearRefinements
-                    id="brand"
-                    :included-attributes="['brand']"
-                  />
+                  <AisClearRefinements id="brand" :included-attributes="['brand']" />
                 </div>
                 <div class="m-2">
                   <AisClearRefinements id="all" />
@@ -122,14 +108,11 @@
             </div>
           </div>
 
-          <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-            <h4 class="subtitle">
-              Results
-            </h4>
-            <AisInfiniteHits
-              :show-previous="true"
-              :cache="infiniteHitsCache"
-            >
+          <div
+            class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+          >
+            <h4 class="subtitle">Results</h4>
+            <AisInfiniteHits :show-previous="true" :cache="infiniteHitsCache">
               <template #default="{ items }">
                 <Product
                   v-for="item in items"

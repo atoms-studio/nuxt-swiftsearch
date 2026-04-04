@@ -40,9 +40,7 @@ export const useAisHierarchicalMenu = (
   };
 
   // 2. Create the custom widget
-  const customHierarchicalMenu = connectHierarchicalMenu(
-    renderHierarchicalMenu,
-  );
+  const customHierarchicalMenu = connectHierarchicalMenu(renderHierarchicalMenu);
 
   // 3. Instantiate
   return {

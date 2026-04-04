@@ -61,17 +61,13 @@ export const useAisVoiceSearch = (
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   if (import.meta.server) {
-    return createServerVoiceSearchWidget(
-      widgetParams,
-      widgetId,
-      widgetIdScope.setIndexScope,
-    );
+    return createServerVoiceSearchWidget(widgetParams, widgetId, widgetIdScope.setIndexScope);
   }
 
-  const renderVoiceSearch: Renderer<
-    VoiceSearchRenderState,
-    VoiceSearchConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderVoiceSearch: Renderer<VoiceSearchRenderState, VoiceSearchConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

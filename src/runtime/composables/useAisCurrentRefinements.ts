@@ -28,9 +28,7 @@ export const useAisCurrentRefinements = (
   };
 
   // 2. Create the custom widget
-  const customCurrentRefinements = connectCurrentRefinements(
-    renderCurrentRefinements,
-  );
+  const customCurrentRefinements = connectCurrentRefinements(renderCurrentRefinements);
 
   // 3. Instantiate
   return {

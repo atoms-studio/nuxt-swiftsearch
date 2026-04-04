@@ -1,9 +1,6 @@
 <template>
   <div class="page">
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="full"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="full">
       <AisConfigure :search-parameters="{ hitsPerPage: 5 }" />
       <div data-testid="searchbox">
         <AisSearchBox show-loading-indicator />
@@ -33,19 +30,13 @@
         />
       </div>
       <div data-testid="menu">
-        <AisMenu
-          attribute="categories"
-          :show-more="true"
-        />
+        <AisMenu attribute="categories" :show-more="true" />
       </div>
       <div data-testid="menuselect">
         <AisMenuSelect attribute="categories" />
       </div>
       <div data-testid="numericmenu">
-        <AisNumericMenu
-          attribute="price"
-          :items="numericMenuItems"
-        />
+        <AisNumericMenu attribute="price" :items="numericMenuItems" />
       </div>
       <div data-testid="ratingmenu">
         <AisRatingMenu attribute="rating" />

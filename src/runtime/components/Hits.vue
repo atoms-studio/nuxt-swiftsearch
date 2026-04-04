@@ -1,23 +1,9 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
-    <slot
-      :items="items"
-      :send-event="state.sendEvent"
-    >
+  <div v-if="state" :class="suit()">
+    <slot :items="items" :send-event="state.sendEvent">
       <ol :class="suit('list')">
-        <li
-          v-for="(item, itemIndex) in items"
-          :key="item.objectID"
-          :class="suit('item')"
-        >
-          <slot
-            name="item"
-            :item="item"
-            :index="itemIndex"
-          >
+        <li v-for="(item, itemIndex) in items" :key="item.objectID" :class="suit('item')">
+          <slot name="item" :item="item" :index="itemIndex">
             objectID: {{ item.objectID }}, index: {{ itemIndex }}
           </slot>
         </li>

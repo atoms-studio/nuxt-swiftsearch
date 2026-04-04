@@ -50,32 +50,33 @@ This installs the npm `beta` dist-tag, so stable users on `latest` are not impac
 
 ```bash
 # Install dependencies
-npm install
+bun install
 
 # Generate type stubs
-npm run dev:prepare
+bun run dev:prepare
 
 # Develop with the playground
-npm run dev
+bun run dev
 
 # Build the playground
-npm run dev:build
+bun run dev:build
 
-# Run ESLint
-npm run lint
+# Run Oxlint and Oxfmt check
+bun run lint
+bun run format:check
 
 # Run Vitest
-npm run test
-npm run test:watch
+bun run test
+bun run test:watch
 
 # Release new version
-npm run release
+bun run release
 
 # Start v1 beta channel (ex: 1.0.0-beta.0)
-npm run release:beta
+bun run release:beta
 
 # Publish next beta iteration (ex: 1.0.0-beta.1)
-npm run release:beta:next
+bun run release:beta:next
 ```
 
 ## GitHub release workflow

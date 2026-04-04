@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="items"
       :can-refine="state.canRefine"
@@ -12,17 +9,10 @@
     >
       <select
         :class="suit('select')"
-        @change="
-          state.refine(($event?.currentTarget as HTMLInputElement)?.value)
-        "
+        @change="state.refine(($event?.currentTarget as HTMLInputElement)?.value)"
       >
-        <option
-          :class="suit('option')"
-          value=""
-        >
-          <slot name="defaultOption">
-            See all
-          </slot>
+        <option :class="suit('option')" value="">
+          <slot name="defaultOption"> See all </slot>
         </option>
         <option
           v-for="item in items"
@@ -31,12 +21,7 @@
           :value="item.value"
           :selected="item.isRefined"
         >
-          <slot
-            name="item"
-            :item="item"
-          >
-            {{ item.label }} ({{ item.count }})
-          </slot>
+          <slot name="item" :item="item"> {{ item.label }} ({{ item.count }}) </slot>
         </option>
       </select>
     </slot>
@@ -69,8 +54,8 @@ const { state: menuState } = useAisWidget("menu");
 
 const state = computed(() => {
   return menuRenderState.value[props.attribute]
-  ? menuRenderState.value[props.attribute]
-  : menuState.value[props.attribute];
+    ? menuRenderState.value[props.attribute]
+    : menuState.value[props.attribute];
 });
 
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);

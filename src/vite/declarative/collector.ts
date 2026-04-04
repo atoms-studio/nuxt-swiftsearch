@@ -1,13 +1,5 @@
-import {
-  NodeTypes,
-  type ElementNode,
-  type TemplateChildNode,
-} from "@vue/compiler-dom";
-import {
-  extractHierarchicalMenuProps,
-  extractIndexProps,
-  extractWidgetProps,
-} from "./props";
+import { NodeTypes, type ElementNode, type TemplateChildNode } from "@vue/compiler-dom";
+import { extractHierarchicalMenuProps, extractIndexProps, extractWidgetProps } from "./props";
 import {
   getControlFlow,
   getTagAttributeInsertIndex,
@@ -18,10 +10,7 @@ import {
 import type { ConditionalBranch, GenerationContext } from "./types";
 import { normalizeAisTag, WIDGET_COMPONENTS } from "./widgets";
 
-const useComposableAlias = (
-  composable: string,
-  context: GenerationContext,
-) => {
+const useComposableAlias = (composable: string, context: GenerationContext) => {
   context.usedComposables.add(composable);
 
   const existing = context.aliasByComposable.get(composable);
@@ -32,10 +21,7 @@ const useComposableAlias = (
   return alias;
 };
 
-const collectElementWidgets = (
-  element: ElementNode,
-  context: GenerationContext,
-): string[] => {
+const collectElementWidgets = (element: ElementNode, context: GenerationContext): string[] => {
   const tag = normalizeAisTag(element.tag);
 
   if (tag === "AisInstantSearch") {
@@ -78,10 +64,7 @@ ${nested.map((entry) => indent(entry, 6)).join(",\n")}
         return [];
       }
 
-      return [
-        `${composableAlias}(${extractedProps.paramsExpr})`,
-        ...nestedWidgets,
-      ];
+      return [`${composableAlias}(${extractedProps.paramsExpr})`, ...nestedWidgets];
     }
 
     if (tag === "AisHierarchicalMenu") {
@@ -177,10 +160,7 @@ export const collectWidgets = (
           break;
         }
 
-        if (
-          (branchFlow.kind === "if" || branchFlow.kind === "else-if")
-          && !branchFlow.condition
-        ) {
+        if ((branchFlow.kind === "if" || branchFlow.kind === "else-if") && !branchFlow.condition) {
           context.unsupported = true;
           return expressions;
         }

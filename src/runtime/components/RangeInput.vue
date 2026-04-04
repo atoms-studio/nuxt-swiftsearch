@@ -11,10 +11,7 @@ type RangeInputProps = {
   precision?: number;
 };
 
-const props = withDefaults(
-  defineProps<RangeInputProps>(),
-  { precision: 0 },
-);
+const props = withDefaults(defineProps<RangeInputProps>(), { precision: 0 });
 
 const { state: rangesState } = useAisWidget("range");
 const rangeState = useAisRangeInputRenderState();
@@ -53,10 +50,7 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
 };
 </script>
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :current-refinement="values"
       :refine="refine"
@@ -85,11 +79,9 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
             :value="values.min"
             @change="
               ($event) =>
-                (minInput = parseFloat(
-                  ($event?.currentTarget as HTMLInputElement)?.value,
-                ))
+                (minInput = parseFloat(($event?.currentTarget as HTMLInputElement)?.value))
             "
-          >
+          />
         </label>
         <span :class="suit('separator')">
           <slot name="separator">to</slot>
@@ -106,19 +98,12 @@ const refine = (data: { min: number | undefined; max: number | undefined }) => {
             :value="values.max"
             @change="
               ($event) =>
-                (maxInput = parseFloat(
-                  ($event?.currentTarget as HTMLInputElement)?.value,
-                ))
+                (maxInput = parseFloat(($event?.currentTarget as HTMLInputElement)?.value))
             "
-          >
+          />
         </label>
-        <button
-          :class="suit('submit')"
-          type="submit"
-        >
-          <slot name="submitLabel">
-            Go
-          </slot>
+        <button :class="suit('submit')" type="submit">
+          <slot name="submitLabel"> Go </slot>
         </button>
       </form>
     </slot>

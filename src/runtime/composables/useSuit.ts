@@ -25,7 +25,6 @@ const _suit = (widgetName: string, element?: string, modifier?: string) => {
   return elements.join("");
 };
 
-export const useSuit =
-  (name: string) => (element?: string, modifier?: string) => {
-    return _suit(name, element, modifier);
-  };
+export const useSuit = (name: string) => (element?: string, modifier?: string) => {
+  return _suit(name, element, modifier);
+};

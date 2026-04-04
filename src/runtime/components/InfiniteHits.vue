@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.results" :class="suit()">
     <slot
       v-if="showPreviousEnabled"
       name="loadPrevious"
@@ -11,10 +8,7 @@
       :is-first-page="state.isFirstPage"
     >
       <button
-        :class="[
-          suit('loadPrevious'),
-          state.isFirstPage && suit('loadPrevious', 'disabled'),
-        ]"
+        :class="[suit('loadPrevious'), state.isFirstPage && suit('loadPrevious', 'disabled')]"
         :disabled="state.isFirstPage"
         @click="refinePrevious()"
       >
@@ -39,12 +33,7 @@
           @click="state.sendEvent('click:internal', item, 'Hit Clicked')"
           @auxclick="state.sendEvent('click:internal', item, 'Hit Clicked')"
         >
-          <slot
-            name="item"
-            :item="item"
-            :index="index"
-            :send-event="state.sendEvent"
-          >
+          <slot name="item" :item="item" :index="index" :send-event="state.sendEvent">
             objectID: {{ item.objectID }}, index: {{ index }}
           </slot>
         </li>
@@ -58,10 +47,7 @@
         :is-last-page="state.isLastPage"
       >
         <button
-          :class="[
-            suit('loadMore'),
-            state.isLastPage && suit('loadMore', 'disabled'),
-          ]"
+          :class="[suit('loadMore'), state.isLastPage && suit('loadMore', 'disabled')]"
           :disabled="state.isLastPage"
           @click="refineNext()"
         >

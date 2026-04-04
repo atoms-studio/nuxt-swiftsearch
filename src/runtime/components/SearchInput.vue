@@ -24,7 +24,7 @@
       @blur="$emit('blur', $event)"
       @input="onInput($event as InputEvent)"
       @compositionend="onInput($event as CompositionEvent)"
-    >
+    />
     <button
       type="submit"
       :title="submitTitle"
@@ -50,9 +50,7 @@
       type="reset"
       :title="resetTitle"
       :class="suit('reset')"
-      :hidden="(!value && !modelValue) ||
-        (showLoadingIndicator && shouldShowLoadingIndicator)
-      "
+      :hidden="(!value && !modelValue) || (showLoadingIndicator && shouldShowLoadingIndicator)"
     >
       <slot name="reset-icon">
         <svg
@@ -84,20 +82,9 @@
           viewBox="0 0 38 38"
           :class="suit('loadingIcon')"
         >
-          <g
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <g
-              transform="translate(1 1)"
-              stroke-width="2"
-            >
-              <circle
-                stroke-opacity=".5"
-                cx="18"
-                cy="18"
-                r="18"
-              />
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(1 1)" stroke-width="2">
+              <circle stroke-opacity=".5" cx="18" cy="18" r="18" />
               <path d="M36 18c0-9.94-8.06-18-18-18">
                 <animateTransform
                   attributeName="transform"
@@ -146,13 +133,7 @@ const props = withDefaults(
 );
 
 const modelValue = defineModel<string>();
-const emit = defineEmits([
-  "input",
-  "update:modelValue",
-  "blur",
-  "focus",
-  "reset",
-]);
+const emit = defineEmits(["input", "update:modelValue", "blur", "focus", "reset"]);
 
 const isFocused = () => {
   return document.activeElement === input.value;

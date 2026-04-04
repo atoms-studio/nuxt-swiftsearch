@@ -1,29 +1,17 @@
 <template>
   <div class="page">
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="index-isolation"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="index-isolation">
       <AisConfigure :search-parameters="{ hitsPerPage: 5 }" />
       <AisIndex index="airbnb">
         <section data-testid="index-1">
-          <AisClearRefinements
-            id="shared-clear"
-            data-testid="index-1-clear"
-          />
+          <AisClearRefinements id="shared-clear" data-testid="index-1-clear" />
           <AisRefinementList attribute="city" />
         </section>
       </AisIndex>
 
-      <AisIndex
-        index="airbnb"
-        index-id="bnb2"
-      >
+      <AisIndex index="airbnb" index-id="bnb2">
         <section data-testid="index-2">
-          <AisClearRefinements
-            id="shared-clear"
-            data-testid="index-2-clear"
-          />
+          <AisClearRefinements id="shared-clear" data-testid="index-2-clear" />
           <AisRefinementList attribute="city" />
         </section>
       </AisIndex>

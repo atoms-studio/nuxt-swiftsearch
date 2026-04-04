@@ -1,33 +1,16 @@
 <template>
   <div class="router-page">
     <nav class="links">
-      <NuxtLink to="/swift/router?instant_search%5Bquery%5D=apple">
-        Prefilled query
-      </NuxtLink>
-      <NuxtLink to="/swift/router/Samsung">
-        Samsung route
-      </NuxtLink>
-      <NuxtLink to="/swift/router/Apple">
-        Apple route
-      </NuxtLink>
+      <NuxtLink to="/swift/router?instant_search%5Bquery%5D=apple"> Prefilled query </NuxtLink>
+      <NuxtLink to="/swift/router/Samsung"> Samsung route </NuxtLink>
+      <NuxtLink to="/swift/router/Apple"> Apple route </NuxtLink>
     </nav>
 
-    <AisInstantSearch
-      :widgets="widgets"
-      :configuration="configuration"
-      instance-key="router"
-    >
+    <AisInstantSearch :widgets="widgets" :configuration="configuration" instance-key="router">
       <AisSearchBox data-testid="router-searchbox" />
       <AisStats data-testid="router-stats" />
-      <AisToggleRefinement
-        attribute="free_shipping"
-        data-testid="router-togglerefinement"
-      />
-      <AisRefinementList
-        attribute="brand"
-        searchable
-        data-testid="router-refinementlist"
-      />
+      <AisToggleRefinement attribute="free_shipping" data-testid="router-togglerefinement" />
+      <AisRefinementList attribute="brand" searchable data-testid="router-refinementlist" />
       <AisHits data-testid="router-hits" />
       <AisCurrentRefinements data-testid="router-currentrefinements" />
       <AisPagination data-testid="router-pagination" />

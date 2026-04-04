@@ -38,8 +38,8 @@ const reHasEscapedHtml = RegExp(reEscapedHtml.source);
 export function unescape(string: string) {
   return string && reHasEscapedHtml.test(string)
     ? string.replace(
-      reEscapedHtml,
-      (character) => htmlUnescapes[character as keyof typeof htmlUnescapes],
-    )
+        reEscapedHtml,
+        (character) => htmlUnescapes[character as keyof typeof htmlUnescapes],
+      )
     : string;
 }

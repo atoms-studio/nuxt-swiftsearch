@@ -4,14 +4,12 @@ import type { Ref } from "vue";
 import type { RouterProps } from "instantsearch.js/es/middlewares";
 
 function stripUndefined(obj: Record<string, any>) {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([k, v]) => v !== undefined),
-  );
+  return Object.fromEntries(Object.entries(obj).filter(([k, v]) => v !== undefined));
 }
 export const useAisRouter = () => {
   const router = useRouter();
   const app = useNuxtApp();
-  const prevState = ref<Record<string, any>>({})
+  const prevState = ref<Record<string, any>>({});
   const algoliaRouter: Ref<Pick<Required<RouterProps>, "router">> = ref({
     router: {
       read() {
@@ -22,22 +20,21 @@ export const useAisRouter = () => {
       write(routeState) {
         // strip routeState and query from possible undefined values
         const currentQueryState = this.read();
-        if (
-          JSON.stringify(currentQueryState) ===
-          JSON.stringify(stripUndefined(routeState))
-        ) {
-          prevState.value = stripUndefined(routeState)
+        if (JSON.stringify(currentQueryState) === JSON.stringify(stripUndefined(routeState))) {
+          prevState.value = stripUndefined(routeState);
           return;
         }
-        const prevStateKeys = Object.keys(prevState.value)
-        const queryStateToAppend = Object.fromEntries(Object.entries(currentQueryState).filter(([k, v]) => !prevStateKeys.includes(k)))
+        const prevStateKeys = Object.keys(prevState.value);
+        const queryStateToAppend = Object.fromEntries(
+          Object.entries(currentQueryState).filter(([k, v]) => !prevStateKeys.includes(k)),
+        );
 
         // @ts-ignore ignoring because uiState is compatible with query after introducing qs as a query param parser
         router.push({
           query: { ...queryStateToAppend, ...stripUndefined(routeState) },
         });
         // saving previous state
-        prevState.value = stripUndefined(routeState)
+        prevState.value = stripUndefined(routeState);
       },
       createURL(routeState) {
         return router.resolve({

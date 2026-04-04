@@ -7,9 +7,7 @@
       rel="noopener"
       aria-label="search by Algolia"
     >
-      <slot>
-        Search by <span :class="suit('logo')">Algolia</span>
-      </slot>
+      <slot> Search by <span :class="suit('logo')">Algolia</span> </slot>
     </a>
   </div>
 </template>

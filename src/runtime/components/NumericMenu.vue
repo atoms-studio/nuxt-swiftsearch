@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="renderItems"
       :can-refine="state.canRefine"
@@ -20,23 +17,25 @@
             <input
               type="radio"
               :class="suit('radio')"
-              :name="`${props.attribute}`" 
+              :name="`${props.attribute}`"
               :checked="item.isRefined"
               :value="item.value"
               @change="state.refine(item.value)"
-            >
+            />
             <span :class="suit('labelText')">{{ item.label }}</span>
           </label>
         </li>
       </ul>
     </slot>
   </div>
-  <div v-else>
-    Numeric Menu: No state available
-  </div>
+  <div v-else>Numeric Menu: No state available</div>
 </template>
 
-<script setup lang="ts" generic="TItem extends NumericMenuRenderStateItem = NumericMenuRenderStateItem">
+<script
+  setup
+  lang="ts"
+  generic="TItem extends NumericMenuRenderStateItem = NumericMenuRenderStateItem"
+>
 import type {
   NumericMenuRenderStateItem,
   NumericMenuConnectorParamsItem,

@@ -1,17 +1,12 @@
 <template>
-  <div
-    v-if="state"
-    :class="suit()"
-  >
+  <div v-if="state" :class="suit()">
     <slot
       :refine="state.refine"
       :current-refinement="state.currentRefinement"
       :indices="state.indices"
     >
       <ClientOnly>
-        <p>
-          This widget doesn't render anything without a filled in default slot.
-        </p>
+        <p>This widget doesn't render anything without a filled in default slot.</p>
         <p>query, function to refine and results are provided.</p>
         <pre>refine: Function</pre>
         <pre>currentRefinement: "{{ state.currentRefinement }}"</pre>

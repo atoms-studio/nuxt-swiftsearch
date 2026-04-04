@@ -15,10 +15,10 @@ export const useAisPagination = (
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   // 1. Create a render function
-  const renderPagination: Renderer<
-    PaginationRenderState,
-    PaginationConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderPagination: Renderer<PaginationRenderState, PaginationConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
     if (isFirstRender) {
       widgetIdScope.provideWidgetState("pagination", stateRef);

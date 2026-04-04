@@ -1,13 +1,8 @@
 <template>
-  <div
-    v-if="state && state.state && state.results"
-    :class="suit()"
-  >
+  <div v-if="state && state.state && state.results" :class="suit()">
     <slot v-bind="stateResults">
       <ClientOnly>
-        <p>
-          Use this component to have a different layout based on a certain state.
-        </p>
+        <p>Use this component to have a different layout based on a certain state.</p>
         <p>Fill in the slot, and get access to the following things:</p>
         <pre>results: {{ Object.keys(state.results) }}</pre>
         <pre>state: {{ Object.keys(state.state) }}</pre>
@@ -26,10 +21,10 @@ import { computed, toRefs } from "vue";
 const { getInstance, parentIndex } = useInstantSearch();
 const suit = useSuit("StateResults");
 
-const props = withDefaults(
-  defineProps<{ catchError?: boolean; errorFn?: () => void }>(),
-  { catchError: false, errorFn: undefined },
-);
+const props = withDefaults(defineProps<{ catchError?: boolean; errorFn?: () => void }>(), {
+  catchError: false,
+  errorFn: undefined,
+});
 
 const { catchError } = toRefs(props);
 const instance = getInstance();

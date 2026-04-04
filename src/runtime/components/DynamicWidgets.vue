@@ -1,13 +1,6 @@
 <template>
-  <div
-    :class="suit()"
-    :hidden="hidden"
-  >
-    <div
-      v-for="entry in renderedEntries"
-      :key="entry.key"
-      :class="suit('widget')"
-    >
+  <div :class="suit()" :hidden="hidden">
+    <div v-for="entry in renderedEntries" :key="entry.key" :class="suit('widget')">
       <RenderVNode :vnode="entry.vnode" />
     </div>
   </div>
@@ -15,14 +8,7 @@
 
 <script setup lang="ts">
 import type { DynamicWidgetsConnectorParams } from "instantsearch.js/es/connectors/dynamic-widgets/connectDynamicWidgets";
-import {
-  computed,
-  defineComponent,
-  type PropType,
-  type Slot,
-  type VNode,
-  useSlots,
-} from "vue";
+import { computed, defineComponent, type PropType, type Slot, type VNode, useSlots } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 
@@ -48,10 +34,7 @@ const getWidgetAttribute = (vnode: VNode): string | undefined => {
       return vnodeProps.attribute;
     }
 
-    if (
-      Array.isArray(vnodeProps.attributes)
-      && typeof vnodeProps.attributes[0] === "string"
-    ) {
+    if (Array.isArray(vnodeProps.attributes) && typeof vnodeProps.attributes[0] === "string") {
       return vnodeProps.attributes[0];
     }
   }

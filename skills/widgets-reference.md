@@ -323,7 +323,7 @@ Nested multi-level category navigation (e.g., Electronics > Phones > Smartphones
 ```ts
 useAisHierarchicalMenu({
   attributes: ["category.lvl0", "category.lvl1", "category.lvl2"],
-})
+});
 ```
 
 ---
@@ -526,7 +526,7 @@ useAisSortBy({
     { value: "products_price_asc", label: "Price (low to high)" },
     { value: "products_price_desc", label: "Price (high to low)" },
   ],
-})
+});
 ```
 
 ---
@@ -662,7 +662,7 @@ useAisConfigure({
     analytics: true,
     distinct: true,
   },
-})
+});
 ```
 
 ---

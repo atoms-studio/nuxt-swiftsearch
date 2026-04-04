@@ -13,10 +13,7 @@ const getBreadcrumbAttribute = (widgetParams: BreadcrumbConnectorParams) => {
 };
 
 export const useAisBreadcrumbRenderState = (key: string = "") =>
-  useState<Record<string, BreadcrumbRenderState>>(
-    `ais_breadcrumb_render_state${key}`,
-    () => ({}),
-  );
+  useState<Record<string, BreadcrumbRenderState>>(`ais_breadcrumb_render_state${key}`, () => ({}));
 
 export const useAisBreadcrumb = (
   widgetParams: BreadcrumbConnectorParams,
@@ -26,10 +23,10 @@ export const useAisBreadcrumb = (
   const breadcrumbRenderState = useAisBreadcrumbRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderBreadcrumb: Renderer<
-    BreadcrumbRenderState,
-    BreadcrumbConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderBreadcrumb: Renderer<BreadcrumbRenderState, BreadcrumbConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (import.meta.client) {

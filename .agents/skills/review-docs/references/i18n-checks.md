@@ -24,6 +24,7 @@ If only one language directory exists, skip i18n checks.
 All locales should have the same directory structure:
 
 ✅ Correct:
+
 ```
 content/
 ├── en/
@@ -37,6 +38,7 @@ content/
 ```
 
 ❌ Inconsistent:
+
 ```
 content/
 ├── en/
@@ -54,6 +56,7 @@ content/
 Each locale should have matching files:
 
 ✅ Correct:
+
 ```
 en/1.getting-started/
 ├── 1.introduction.md
@@ -67,6 +70,7 @@ fr/1.getting-started/
 ```
 
 ❌ Missing translations:
+
 ```
 en/1.getting-started/
 ├── 1.introduction.md
@@ -85,12 +89,14 @@ fr/1.getting-started/
 **Expected:** Similar content length across translations (±30%)
 
 **Red flags:**
+
 - English page: 1000 words, French page: 200 words (likely incomplete)
 - English page has 5 H2 sections, French has 2 (missing content)
 
 ### Structural Completeness
 
 Check that translations include:
+
 - Same number of major headings (H2)
 - Same sections and subsections
 - Same code examples
@@ -121,6 +127,7 @@ icon: i-lucide-rocket    # Same icon across locales
 ```
 
 **Validation:**
+
 - [ ] Same icon used across locales
 - [ ] Title translated appropriately
 - [ ] All sections have navigation files in all locales
@@ -130,16 +137,19 @@ icon: i-lucide-rocket    # Same icon across locales
 ### Language-Specific Checks
 
 **English:**
+
 - Active voice
 - Present tense
 - Second person
 
 **French:**
+
 - Correct formal/informal tone (tu vs vous)
 - Proper accents (é, è, à, etc.)
 - Agreement (gender/number)
 
 **Other languages:**
+
 - Appropriate formality level
 - Correct grammar and syntax
 - Cultural appropriateness
@@ -147,12 +157,14 @@ icon: i-lucide-rocket    # Same icon across locales
 ### Code Examples
 
 **Keep consistent across locales:**
+
 - Variable names (usually English)
 - Function names
 - Technical terminology
 - Package names
 
 **Translate:**
+
 - Comments in code blocks
 - String values where appropriate
 - Console output messages
@@ -160,26 +172,28 @@ icon: i-lucide-rocket    # Same icon across locales
 **Example:**
 
 English:
+
 ````markdown
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   // Configure your app
   app: {
-    name: 'My App'
-  }
-})
+    name: "My App",
+  },
+});
 ```
 ````
 
 French:
+
 ````markdown
 ```ts [nuxt.config.ts]
 export default defineNuxtConfig({
   // Configurez votre application
   app: {
-    name: 'Mon Application'
-  }
-})
+    name: "Mon Application",
+  },
+});
 ```
 ````
 
@@ -190,6 +204,7 @@ export default defineNuxtConfig({
 **Issue:** Documentation started in one language, partially translated to others.
 
 **Detection:**
+
 - Missing files in some locales
 - Incomplete page content (much shorter than original)
 - Untranslated sections within otherwise translated pages
@@ -201,6 +216,7 @@ export default defineNuxtConfig({
 **Issue:** Same technical term translated differently across pages.
 
 **Example:**
+
 - Page 1: "authentication" → "authentification"
 - Page 2: "authentication" → "connexion"
 - Page 3: "authentication" → "identification"
@@ -212,6 +228,7 @@ export default defineNuxtConfig({
 **Issue:** English text appearing in non-English locales (besides code/technical terms).
 
 **Common examples:**
+
 - English headings in French pages
 - Untranslated navigation labels
 - English error messages
@@ -224,11 +241,13 @@ export default defineNuxtConfig({
 **Issue:** Internal links not updated for locale.
 
 ❌ Wrong (in French docs):
+
 ```markdown
 See [installation guide](/en/getting-started/installation)
 ```
 
 ✅ Correct:
+
 ```markdown
 See [guide d'installation](/fr/getting-started/installation)
 ```

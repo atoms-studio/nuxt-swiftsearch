@@ -147,9 +147,7 @@ export const aisDeclarativeWidgetsPlugin = (): Plugin => {
 
       const generatedScript = [
         `import { ${vueImports.join(", ")} } from "vue";`,
-        composableImport
-          ? `import { ${composableImport} } from "#imports";`
-          : "",
+        composableImport ? `import { ${composableImport} } from "#imports";` : "",
         ...scriptStatements,
       ]
         .filter(Boolean)

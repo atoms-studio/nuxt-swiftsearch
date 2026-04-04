@@ -1,13 +1,7 @@
 <template>
   <div>
-    <NuxtLink to="/">
-      Home
-    </NuxtLink>
-    <AisInstantSearch
-      index-name="instant_search"
-      :search-client="client"
-      :routing="routing"
-    >
+    <NuxtLink to="/"> Home </NuxtLink>
+    <AisInstantSearch index-name="instant_search" :search-client="client" :routing="routing">
       <AisInfiniteHits data-testid="infinitehits" />
       <AisClearRefinements />
       <AisClearRefinements :included-attributes="['brand']" />

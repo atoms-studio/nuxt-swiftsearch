@@ -22,10 +22,10 @@ export const useAisRefinementList = (
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   // 1. Create a render function
-  const renderRefinementList: Renderer<
-    RefinementListRenderState,
-    RefinementListConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderRefinementList: Renderer<RefinementListRenderState, RefinementListConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {

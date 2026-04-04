@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :value="state.value"
       :can-refine="state.canRefine"
@@ -18,12 +15,9 @@
           :value="onValue"
           :checked="state.value?.isRefined"
           @change="state.refine(state.value)"
-        >
+        />
         <span :class="suit('labelText')">{{ label || state.value?.name }}</span>
-        <span
-          v-if="state.value.count !== null"
-          :class="suit('count')"
-        >{{
+        <span v-if="state.value.count !== null" :class="suit('count')">{{
           state.value?.count?.toLocaleString()
         }}</span>
       </label>

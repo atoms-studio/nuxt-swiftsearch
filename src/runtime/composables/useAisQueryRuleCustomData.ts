@@ -14,10 +14,10 @@ export const useAisQueryRuleCustomData = (
   const stateRef = ref<QueryRulesRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderQueryRules: Renderer<
-    QueryRulesRenderState,
-    QueryRulesConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderQueryRules: Renderer<QueryRulesRenderState, QueryRulesConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
 
     if (isFirstRender) {

@@ -1,25 +1,9 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), noRefinement && suit('', 'noRefinement')]"
-  >
-    <slot
-      :refine="state.refine"
-      :items="items"
-      :create-u-r-l="state.createURL"
-    >
+  <div v-if="state" :class="[suit(), noRefinement && suit('', 'noRefinement')]">
+    <slot :refine="state.refine" :items="items" :create-u-r-l="state.createURL">
       <ul :class="suit('list')">
-        <li
-          v-for="item in items"
-          :key="item.attribute"
-          :class="suit('item')"
-        >
-          <slot
-            name="item"
-            :refine="item.refine"
-            :item="item"
-            :create-u-r-l="state.createURL"
-          >
+        <li v-for="item in items" :key="item.attribute" :class="suit('item')">
+          <slot name="item" :refine="item.refine" :item="item" :create-u-r-l="state.createURL">
             <span :class="suit('label')">{{ capitalize(item.label) }}: </span>
             <span
               v-for="refinement in item.refinements"
@@ -33,10 +17,9 @@
                 :create-u-r-l="state.createURL"
               >
                 <span :class="suit('categoryLabel')">
-                  <q v-if="refinement.attribute === 'query'">{{
-                    refinement.label
-                  }}</q>
-                  <template v-else>{{ refinement.label }}</template> </span><button
+                  <q v-if="refinement.attribute === 'query'">{{ refinement.label }}</q>
+                  <template v-else>{{ refinement.label }}</template> </span
+                ><button
                   :class="suit('delete')"
                   type="button"
                   @click.left.exact="item.refine(refinement)"
@@ -52,7 +35,13 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="TItem extends CurrentRefinementsConnectorParamsItem = CurrentRefinementsConnectorParamsItem">
+<script
+  setup
+  lang="ts"
+  generic="
+    TItem extends CurrentRefinementsConnectorParamsItem = CurrentRefinementsConnectorParamsItem
+  "
+>
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
@@ -78,9 +67,7 @@ const suit = useSuit("CurrentRefinements");
 
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 
-const noRefinement = computed(
-  () => !!state.value && items.value.length === 0,
-);
+const noRefinement = computed(() => !!state.value && items.value.length === 0);
 
 const createItemKey = ({
   attribute,
@@ -94,8 +81,6 @@ const createItemKey = ({
 const capitalize = (value?: string) => {
   if (!value) return "";
 
-  return (
-    value.toString().charAt(0).toLocaleUpperCase() + value.toString().slice(1)
-  );
+  return value.toString().charAt(0).toLocaleUpperCase() + value.toString().slice(1);
 };
 </script>

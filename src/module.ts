@@ -10,7 +10,7 @@ import {
 import { aisDeclarativeWidgetsPlugin } from "./vite/aisDeclarativeWidgetsPlugin";
 
 // Module options TypeScript interface definition
-export interface ModuleOptions { }
+export interface ModuleOptions {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -26,49 +26,47 @@ export default defineNuxtModule<ModuleOptions>({
     addVitePlugin(() => aisDeclarativeWidgetsPlugin());
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
-    addImportsDir([
-      resolver.resolve("./runtime/utils"),
-    ]);
+    addImportsDir([resolver.resolve("./runtime/utils")]);
     const composables = [
-      'useAisAutocomplete',
-      'useAisBreadcrumb',
-      'useAisClearRefinements',
-      'useAisConfigure',
-      'useAisConfigureRelatedItems',
-      'useAisCurrentRefinements',
-      'useAisDynamicWidgets',
-      'useAisHierarchicalMenu',
-      'useAisHits',
-      'useAisHitsPerPage',
-      'useAisIndex',
-      'useAisInfiniteHits',
-      'useAisInfiniteHitsStatefulCache',
-      'useAisMenu',
-      'useAisNumericMenu',
-      'useAisPagination',
-      'useAisPoweredBy',
-      'useAisQueryRuleContext',
-      'useAisQueryRuleCustomData',
-      'useAisRangeInput',
-      'useAisRatingMenu',
-      'useAisRefinementList',
-      'useAisRelevantSort',
-      'useAisRouter',
-      'useAisSearchBox',
-      'useAisSortBy',
-      'useAisStatefulCache',
-      'useAisStats',
-      'useAisToggleRefinement',
-      'useAisVoiceSearch',
-      'useAisWidget',
-      'useInstantSearch'
-    ]
+      "useAisAutocomplete",
+      "useAisBreadcrumb",
+      "useAisClearRefinements",
+      "useAisConfigure",
+      "useAisConfigureRelatedItems",
+      "useAisCurrentRefinements",
+      "useAisDynamicWidgets",
+      "useAisHierarchicalMenu",
+      "useAisHits",
+      "useAisHitsPerPage",
+      "useAisIndex",
+      "useAisInfiniteHits",
+      "useAisInfiniteHitsStatefulCache",
+      "useAisMenu",
+      "useAisNumericMenu",
+      "useAisPagination",
+      "useAisPoweredBy",
+      "useAisQueryRuleContext",
+      "useAisQueryRuleCustomData",
+      "useAisRangeInput",
+      "useAisRatingMenu",
+      "useAisRefinementList",
+      "useAisRelevantSort",
+      "useAisRouter",
+      "useAisSearchBox",
+      "useAisSortBy",
+      "useAisStatefulCache",
+      "useAisStats",
+      "useAisToggleRefinement",
+      "useAisVoiceSearch",
+      "useAisWidget",
+      "useInstantSearch",
+    ];
 
     for (const name of composables) {
       addImports({
         name,
         from: resolver.resolve(`runtime/composables/${name}`),
-      })
+      });
     }
     addComponentsDir({
       path: resolver.resolve("./runtime/components"),
@@ -79,14 +77,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.vite.optimizeDeps ??= {};
     nuxt.options.vite.optimizeDeps.include ??= [];
     nuxt.options.vite.optimizeDeps.include.push(
-      ...[
-        "algoliasearch-helper",
-        "@algolia/events",
-        "hogan.js",
-        "qs",
-        "@vercel/oidc",
-        "react"
-      ],
+      ...["algoliasearch-helper", "@algolia/events", "hogan.js", "qs", "@vercel/oidc", "react"],
     );
   },
 });

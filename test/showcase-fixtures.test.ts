@@ -38,15 +38,13 @@ const captureShowcase = async (route: string): Promise<ShowcaseSnapshot> => {
     .first()
     .waitFor({ state: "visible", timeout: 60000 });
 
-  const hitsPerPageOptions = (await page
-    .getByTestId("showcase-hitspage")
-    .locator("option")
-    .allTextContents()).map((value) => value.trim());
+  const hitsPerPageOptions = (
+    await page.getByTestId("showcase-hitspage").locator("option").allTextContents()
+  ).map((value) => value.trim());
 
-  const breadcrumbItems = (await page
-    .getByTestId("showcase-breadcrumb")
-    .locator(".ais-Breadcrumb-item")
-    .allTextContents()).map((value) => value.replace(/\s+/g, " ").trim());
+  const breadcrumbItems = (
+    await page.getByTestId("showcase-breadcrumb").locator(".ais-Breadcrumb-item").allTextContents()
+  ).map((value) => value.replace(/\s+/g, " ").trim());
 
   const poweredByHref = await page
     .getByTestId("showcase-poweredby")
@@ -70,9 +68,7 @@ const captureShowcase = async (route: string): Promise<ShowcaseSnapshot> => {
     .locator(".ais-DynamicWidgets-widget")
     .count();
 
-  const snippetText = (await page
-    .getByTestId("showcase-snippet")
-    .innerText())
+  const snippetText = (await page.getByTestId("showcase-snippet").innerText())
     .replace(/\s+/g, " ")
     .trim();
 

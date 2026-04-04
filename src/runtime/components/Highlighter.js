@@ -1,10 +1,6 @@
-import { createHighlightComponent } from 'instantsearch-ui-components';
-import {
-  getHighlightedParts,
-  getPropertyByPath,
-  unescape,
-} from 'instantsearch.js/es/lib/utils';
-import { h, Fragment } from 'vue'
+import { createHighlightComponent } from "instantsearch-ui-components";
+import { getHighlightedParts, getPropertyByPath, unescape } from "instantsearch.js/es/lib/utils";
+import { h, Fragment } from "vue";
 
 const createElement = (tag, props, children) => {
   if (!children) {
@@ -16,11 +12,9 @@ const createElement = (tag, props, children) => {
   }
 
   // It does work to just pass a string but outputs a warning about performance issues
-  const newChildren =
-    typeof children === 'string' ? { default: () => children } : children;
+  const newChildren = typeof children === "string" ? { default: () => children } : children;
   // Passing a `children` prop to a DOM element outputs a warning
-  const newProps =
-    typeof tag === 'string' ? props : Object.assign(props, { children });
+  const newProps = typeof tag === "string" ? props : Object.assign(props, { children });
 
   return h(tag, newProps, newChildren);
 };
@@ -28,7 +22,7 @@ const createElement = (tag, props, children) => {
 const Highlight = createHighlightComponent({ createElement, Fragment });
 
 export default {
-  name: 'AisHighlighter',
+  name: "AisHighlighter",
   props: {
     hit: {
       type: Object,
@@ -40,7 +34,7 @@ export default {
     },
     highlightedTagName: {
       type: String,
-      default: 'mark',
+      default: "mark",
     },
     suit: {
       type: Function,
@@ -60,24 +54,21 @@ export default {
     },
   },
   render() {
-    const property =
-      getPropertyByPath(this.hit[this.highlightProperty], this.attribute) || [];
+    const property = getPropertyByPath(this.hit[this.highlightProperty], this.attribute) || [];
     const properties = Array.isArray(property) ? property : [property];
 
     const parts = properties.map((singleValue) =>
-      getHighlightedParts(unescape(singleValue.value || '')).map(
-        ({ value, isHighlighted }) => ({
-          // We have to do this because Vue gets rid of TextNodes with a single white space
-          value: value === ' ' ? '  ' : value,
-          isHighlighted,
-        })
-      )
+      getHighlightedParts(unescape(singleValue.value || "")).map(({ value, isHighlighted }) => ({
+        // We have to do this because Vue gets rid of TextNodes with a single white space
+        value: value === " " ? "  " : value,
+        isHighlighted,
+      })),
     );
 
     return createElement(Highlight, {
       classNames: {
         root: this.suit(),
-        highlighted: this.suit('highlighted'),
+        highlighted: this.suit("highlighted"),
       },
       highlightedTagName: this.highlightedTagName,
       nonHighlightedTagName: Fragment,

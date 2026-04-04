@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="items"
       :can-refine="state.canRefine"
@@ -32,17 +29,11 @@
 
       <button
         v-if="showMoreButton"
-        :class="[
-          suit('showMore'),
-          !state.canToggleShowMore && suit('showMore', 'disabled'),
-        ]"
+        :class="[suit('showMore'), !state.canToggleShowMore && suit('showMore', 'disabled')]"
         :disabled="!state.canToggleShowMore"
         @click.prevent="toggleShowMore"
       >
-        <slot
-          name="showMoreLabel"
-          :is-showing-more="state.isShowingMore"
-        >
+        <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">
           {{ state.isShowingMore ? "Show less" : "Show more" }}
         </slot>
       </button>
@@ -70,12 +61,9 @@ type MenuProps = {
   transformItems?: TransformItemsTo<MenuItem, TItem>;
 };
 
-const props = withDefaults(
-  defineProps<MenuProps>(),
-  {
-    showMore: false,
-  },
-);
+const props = withDefaults(defineProps<MenuProps>(), {
+  showMore: false,
+});
 
 const suit = useSuit("Menu");
 const menuRenderState = useAisMenuRenderState();

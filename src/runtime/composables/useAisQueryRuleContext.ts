@@ -12,10 +12,7 @@ export const useAisQueryRuleContext = (
 ) => {
   const widgetIdScope = createWidgetIdScope(widgetId);
 
-  const renderQueryRules: Renderer<
-    QueryRulesRenderState,
-    QueryRulesConnectorParams
-  > = () => {
+  const renderQueryRules: Renderer<QueryRulesRenderState, QueryRulesConnectorParams> = () => {
     return () => {};
   };
 

@@ -40,12 +40,8 @@ describe("playground e2e", async () => {
     await indexTwoCheckbox.check();
     await page.waitForTimeout(500);
 
-    const indexOneSelected = await indexOne
-      .locator(".ais-RefinementList-item--selected")
-      .count();
-    const indexTwoSelected = await indexTwo
-      .locator(".ais-RefinementList-item--selected")
-      .count();
+    const indexOneSelected = await indexOne.locator(".ais-RefinementList-item--selected").count();
+    const indexTwoSelected = await indexTwo.locator(".ais-RefinementList-item--selected").count();
 
     expect(indexOneSelected).toBe(0);
     expect(indexTwoSelected).toBeGreaterThan(0);
@@ -70,9 +66,7 @@ describe("playground e2e", async () => {
 
     expect(decodeURIComponent(page.url())).toContain("query=apple");
 
-    const manualHitsCount = await page
-      .getByTestId("manual-main-item")
-      .count();
+    const manualHitsCount = await page.getByTestId("manual-main-item").count();
     expect(manualHitsCount).toBeGreaterThan(0);
 
     await page.getByTestId("manual-index-hits").waitFor({ state: "visible" });
@@ -155,10 +149,7 @@ describe("playground e2e", async () => {
       .count();
     expect(hitsPerPageOptions).toBeGreaterThan(1);
 
-    const voiceButton = page
-      .getByTestId("showcase-voicesearch")
-      .locator("button")
-      .first();
+    const voiceButton = page.getByTestId("showcase-voicesearch").locator("button").first();
     await voiceButton.waitFor({ state: "visible" });
 
     const dynamicWidgets = await page

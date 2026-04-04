@@ -1,27 +1,11 @@
 <template>
-  <div
-    v-if="state && state.isVirtualReplica"
-    :class="suit()"
-  >
-    <slot
-      :is-relevant-sorted="state.isRelevantSorted"
-      :refine="refine"
-    >
+  <div v-if="state && state.isVirtualReplica" :class="suit()">
+    <slot :is-relevant-sorted="state.isRelevantSorted" :refine="refine">
       <div :class="suit('text')">
-        <slot
-          name="text"
-          :is-relevant-sorted="state.isRelevantSorted"
-        />
+        <slot name="text" :is-relevant-sorted="state.isRelevantSorted" />
       </div>
-      <button
-        type="button"
-        :class="suit('button')"
-        @click="refine()"
-      >
-        <slot
-          name="button"
-          :is-relevant-sorted="state.isRelevantSorted"
-        >
+      <button type="button" :class="suit('button')" @click="refine()">
+        <slot name="button" :is-relevant-sorted="state.isRelevantSorted">
           {{ state.isRelevantSorted ? "See all results" : "See relevant results" }}
         </slot>
       </button>

@@ -7,10 +7,7 @@ import type { Renderer } from "instantsearch.js/es/types";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
-export const useAisStats = (
-  widgetParams: StatsConnectorParams,
-  widgetId: string = "",
-) => {
+export const useAisStats = (widgetParams: StatsConnectorParams, widgetId: string = "") => {
   const stateRef = ref<StatsRenderState | null>();
   const widgetIdScope = createWidgetIdScope(widgetId);
 

@@ -9,23 +9,17 @@ import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
 export const useAisRangeInputRenderState = (key: string = "") =>
-  useState<Record<string, RangeRenderState>>(
-    `ais_range_render_state${key}`,
-    () => ({}),
-  );
-export const useAisRangeInput = (
-  widgetParams: RangeConnectorParams,
-  widgetId: string = "",
-) => {
+  useState<Record<string, RangeRenderState>>(`ais_range_render_state${key}`, () => ({}));
+export const useAisRangeInput = (widgetParams: RangeConnectorParams, widgetId: string = "") => {
   const stateRef = ref<RangeRenderState | null>();
   const rangeRenderState = useAisRangeInputRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 
   // 1. Create a render function
-  const renderRange: Renderer<
-    RangeRenderState,
-    RangeConnectorParams
-  > = (renderState, isFirstRender) => {
+  const renderRange: Renderer<RangeRenderState, RangeConnectorParams> = (
+    renderState,
+    isFirstRender,
+  ) => {
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {

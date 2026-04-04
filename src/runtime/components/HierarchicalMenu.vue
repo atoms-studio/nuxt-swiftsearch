@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="items"
       :can-refine="state.canRefine"
@@ -23,17 +20,11 @@
 
       <button
         v-if="showMore"
-        :class="[
-          suit('showMore'),
-          !state.canToggleShowMore && suit('showMore', 'disabled'),
-        ]"
+        :class="[suit('showMore'), !state.canToggleShowMore && suit('showMore', 'disabled')]"
         :disabled="!state.canToggleShowMore"
         @click.prevent="state.toggleShowMore"
       >
-        <slot
-          name="showMoreLabel"
-          :is-showing-more="state.isShowingMore"
-        >
+        <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">
           {{ state.isShowingMore ? "Show less" : "Show more" }}
         </slot>
       </button>
@@ -68,14 +59,11 @@ type HierarchicalMenuProps = {
 
 const suit = useSuit("HierarchicalMenu");
 
-const props = withDefaults(
-  defineProps<HierarchicalMenuProps>(),
-  {
-    attribute: undefined,
-    showMore: false,
-    attributes: () => [],
-  },
-);
+const props = withDefaults(defineProps<HierarchicalMenuProps>(), {
+  attribute: undefined,
+  showMore: false,
+  attributes: () => [],
+});
 
 const hierarchicalMenuRenderState = useAisHierarchicalMenuRenderState();
 

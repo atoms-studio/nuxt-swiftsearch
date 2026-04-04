@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="state"
-    :class="[suit(), !state.canRefine && suit('', 'noRefinement')]"
-  >
+  <div v-if="state" :class="[suit(), !state.canRefine && suit('', 'noRefinement')]">
     <slot
       :items="items"
       :can-refine="state.canRefine"
@@ -10,17 +7,13 @@
       :create-u-r-l="state.createURL"
     >
       <ul :class="suit('list')">
-        <li
-          :class="[suit('item'), !items.length && suit('item', 'selected')]"
-        >
+        <li :class="[suit('item'), !items.length && suit('item', 'selected')]">
           <a
             :href="state.createURL(null)"
             :class="suit('link')"
             @click.exact.left.prevent="state.refine(null)"
           >
-            <slot name="rootLabel">
-              Home
-            </slot>
+            <slot name="rootLabel"> Home </slot>
           </a>
         </li>
         <li
@@ -28,10 +21,7 @@
           :key="createItemKey(item, index)"
           :class="[suit('item'), isLastItem(index) && suit('item', 'selected')]"
         >
-          <span
-            :class="suit('separator')"
-            aria-hidden="true"
-          >
+          <span :class="suit('separator')" aria-hidden="true">
             <slot name="separator">></slot>
           </span>
           <a
@@ -51,10 +41,12 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="TItem extends BreadcrumbConnectorParamsItem = BreadcrumbConnectorParamsItem">
-import type {
-  BreadcrumbConnectorParamsItem,
-} from "instantsearch.js/es/connectors/breadcrumb/connectBreadcrumb";
+<script
+  setup
+  lang="ts"
+  generic="TItem extends BreadcrumbConnectorParamsItem = BreadcrumbConnectorParamsItem"
+>
+import type { BreadcrumbConnectorParamsItem } from "instantsearch.js/es/connectors/breadcrumb/connectBreadcrumb";
 import { computed } from "vue";
 import { useAisBreadcrumbRenderState } from "../composables/useAisBreadcrumb";
 import { useAisWidget } from "../composables/useAisWidget";
@@ -84,10 +76,7 @@ const state = computed(() => {
     return breadcrumbState.value;
   }
 
-  return (
-    breadcrumbRenderState.value[attribute.value]
-    || breadcrumbState.value?.[attribute.value]
-  );
+  return breadcrumbRenderState.value[attribute.value] || breadcrumbState.value?.[attribute.value];
 });
 
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);

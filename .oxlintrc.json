@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "typescript", "vitest", "vue"],
+  "ignorePatterns": [
+    "dist/**",
+    "node_modules/**",
+    ".nuxt/**",
+    ".output/**",
+    "coverage/**",
+    "reports/**",
+    "docs/.nuxt/**",
+    "docs/.output/**"
+  ]
+}

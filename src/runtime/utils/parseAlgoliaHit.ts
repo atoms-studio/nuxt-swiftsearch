@@ -26,8 +26,7 @@ function parseHighlightedAttribute({
 }) {
   const splitByPreTag = highlightedValue.split(preTag);
   const firstValue = splitByPreTag.shift();
-  const elements =
-    firstValue === "" ? [] : [{ value: firstValue, isHighlighted: false }];
+  const elements = firstValue === "" ? [] : [{ value: firstValue, isHighlighted: false }];
 
   if (postTag === preTag) {
     let isHighlighted = true;
@@ -90,8 +89,7 @@ export function parseAlgoliaHit({
 }) {
   if (!hit) throw new Error("`hit`, the matching record, must be provided");
 
-  const highlightObject =
-    getPropertyByPath(hit[highlightProperty], attribute) || {};
+  const highlightObject = getPropertyByPath(hit[highlightProperty], attribute) || {};
 
   if (Array.isArray(highlightObject)) {
     return highlightObject.map((item) =>

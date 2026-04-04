@@ -1,9 +1,9 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
-      <h1 class="text-base font-semibold text-cosmos-black mb-8">
-        Multi-index autocomplete
-      </h1>
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
+      <h1 class="text-base font-semibold text-cosmos-black mb-8">Multi-index autocomplete</h1>
       <p class="text-sm text-cosmos-black-opacity-70">
         Structure inspired by the Algolia showcase autocomplete panel.
       </p>
@@ -17,11 +17,10 @@
       </div>
     </div>
 
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="autocomplete"
-    >
-      <section class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+    <AisInstantSearch :configuration="configuration" instance-key="autocomplete">
+      <section
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
         <AisAutocomplete>
           <template #default="{ currentRefinement, indices, refine }">
             <input
@@ -31,7 +30,7 @@
               :value="currentRefinement"
               placeholder="Search for a product"
               @input="refine(($event.currentTarget as HTMLInputElement).value)"
-            >
+            />
 
             <div class="mt-8">
               <section
@@ -49,16 +48,8 @@
                     :key="hit.objectID"
                     class="py-8 text-sm text-cosmos-black"
                   >
-                    <ais-highlight
-                      v-if="hit.name"
-                      attribute="name"
-                      :hit="hit"
-                    />
-                    <ais-highlight
-                      v-else-if="hit.title"
-                      attribute="title"
-                      :hit="hit"
-                    />
+                    <ais-highlight v-if="hit.name" attribute="name" :hit="hit" />
+                    <ais-highlight v-else-if="hit.title" attribute="title" :hit="hit" />
                   </li>
                 </ul>
               </section>

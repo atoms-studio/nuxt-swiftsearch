@@ -14,9 +14,7 @@ export const useStateMapping = () => {
     return {
       $$type: "ais.singleIndex",
       stateToRoute(uiState) {
-        const stateWithoutConfigure = getIndexStateWithoutConfigure(
-          uiState[indexName] || {},
-        );
+        const stateWithoutConfigure = getIndexStateWithoutConfigure(uiState[indexName] || {});
         return stateWithoutConfigure as unknown as TUiState;
       },
       routeToState(routeState = {} as TUiState) {

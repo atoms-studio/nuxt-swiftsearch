@@ -1,6 +1,8 @@
 <template>
   <div class="p-8 font-sans overflow-hidden">
-    <div class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+    <div
+      class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+    >
       <h1 class="text-base font-semibold text-cosmos-black mb-8">
         /pagination/page/{{ params.page }}
       </h1>
@@ -23,13 +25,12 @@
       </div>
     </div>
 
-    <AisInstantSearch
-      :configuration="configuration"
-      instance-key="index"
-    >
+    <AisInstantSearch :configuration="configuration" instance-key="index">
       <AisConfigure :search-parameters="{ hitsPerPage: 20 }" />
 
-      <section class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue">
+      <section
+        class="m-4 p-16 border-dashed border border-proton-grey-opacity-80 rounded text-solstice-blue"
+      >
         <AisStats />
         <AisHits data-testid="pagination-hits" />
         <AisPagination

@@ -43,6 +43,7 @@ This skill generates a **detailed report only**. After reviewing, it offers to f
 ### Detection Indicators
 
 **Check for Docus/Nuxt Content:**
+
 1. **package.json dependencies:**
    - `"docus"` - Docus theme
    - `"@nuxt/content"` - Nuxt Content module
@@ -64,6 +65,7 @@ This skill generates a **detailed report only**. After reviewing, it offers to f
 ### Project Type Classification
 
 **Type A: Docus/Nuxt Content Project**
+
 - All Docus-specific validations apply
 - MDC component syntax checks (u- prefix requirement)
 - Nuxt Content frontmatter structure
@@ -71,6 +73,7 @@ This skill generates a **detailed report only**. After reviewing, it offers to f
 - Full technical validation
 
 **Type B: Generic Markdown Documentation**
+
 - Basic Markdown validation only
 - Generic frontmatter (title, description, date, author)
 - Standard Markdown syntax
@@ -80,12 +83,14 @@ This skill generates a **detailed report only**. After reviewing, it offers to f
 ### Detection Output
 
 After detection, note in the report:
+
 ```
 Project Type: [Docus/Nuxt Content | Generic Markdown]
 Validation Mode: [Full (Docus-specific) | Basic (Markdown-only)]
 ```
 
 **Adapt validation steps based on detected type:**
+
 - **Type A (Docus):** Execute all steps with full validation
 - **Type B (Generic):** Skip Docus-specific checks, focus on content quality
 
@@ -96,6 +101,7 @@ Validation Mode: [Full (Docus-specific) | Basic (Markdown-only)]
 ### Locate Content Directory
 
 Find the documentation content directory:
+
 - Check for `docs/content/` (most common)
 - Check for `content/` (root-level)
 - Check for `app/content/` (alternative location)
@@ -105,6 +111,7 @@ Find the documentation content directory:
 Identify language structure by examining subdirectories:
 
 **Single language** (no locale subdirectories):
+
 ```
 content/
 ├── index.md
@@ -113,6 +120,7 @@ content/
 ```
 
 **Multi-language** (locale subdirectories):
+
 ```
 content/
 ├── en/
@@ -126,18 +134,21 @@ content/
 ```
 
 **Detection logic:**
+
 - If immediate subdirectories are 2-letter codes (en, fr, es, de, etc.), it's multi-language
 - If immediate subdirectories are numbered (1.getting-started), it's single language
 
 ### List Documentation Sections
 
 Identify all numbered directories within each locale:
+
 - `1.getting-started/`
 - `2.guide/` or `2.concepts/`
 - `3.api/` or `3.essentials/`
 - `4.advanced/` or `4.ai/`
 
 For each section, note:
+
 - Section name
 - Presence of `.navigation.yml` file
 - Number of pages (count `.md` files)
@@ -146,6 +157,7 @@ For each section, note:
 ### Verify Core Files
 
 Check for required files:
+
 - [ ] `index.md` exists at root of each locale
 - [ ] `.navigation.yml` in each section directory
 - [ ] Numbered files follow pattern (`1.introduction.md`, `2.installation.md`)
@@ -153,6 +165,7 @@ Check for required files:
 ### Create Structure Map
 
 Document the structure for the report:
+
 ```
 Project: [project-name]
 Locales: [en, fr] (or "Single language")
@@ -173,6 +186,7 @@ Sections:
 Perform full technical validation using [references/technical-checks.md](references/technical-checks.md):
 
 **Validate:**
+
 1. **Frontmatter structure** - Required: `title`, `description`. Optional: `navigation`, `seo`, `links`
 2. **MDC component syntax** - All Nuxt UI components MUST have `u-` prefix (`::u-page-hero`, `:::u-button`)
 3. **Code block labels** - All code blocks representing files need descriptive labels (` ```vue [App.vue] `, ` ```ts [config.ts] `)
@@ -184,6 +198,7 @@ Perform full technical validation using [references/technical-checks.md](referen
 9. **Hidden pages** - Use `navigation: false` for pages that should exist as routes but not appear in sidebar
 
 **Common Critical Errors:**
+
 - Missing `u-` prefix: `::page-hero` → should be `::u-page-hero`
 - Missing required frontmatter: `title`, `description`
 - Invalid `.navigation.yml` structure
@@ -196,22 +211,26 @@ See [references/technical-checks.md](references/technical-checks.md) for complet
 **Simplified validation** - Skip Docus-specific checks:
 
 **Basic Frontmatter Validation:**
+
 - Check for common fields: `title`, `description`, `date`, `author`, `tags`
 - No strict requirements - just recommendations
 - Flag if completely missing frontmatter
 
 **Standard Markdown Syntax:**
+
 - Validate basic markdown (headings, lists, links, code blocks)
 - Check for broken internal links
 - Verify image paths exist
 
 **Skip:**
+
 - MDC component syntax (not applicable)
 - Nuxt Content frontmatter structure
 - `.navigation.yml` files
 - Docus-specific conventions
 
 **Focus on:**
+
 - Content quality (next step)
 - SEO optimization
 - Clarity and readability
@@ -228,6 +247,7 @@ Evaluate content quality across four dimensions. Refer to reference files for de
 ### Clarity Review
 
 Use [references/clarity-checks.md](references/clarity-checks.md) to check:
+
 - **Voice & Tone:** Active voice, present tense, second person
 - **Sentence Structure:** 15-20 words target, avoid wordy phrases
 - **Paragraph Structure:** 2-5 sentences, 200-400 words between headings
@@ -240,6 +260,7 @@ Use [references/clarity-checks.md](references/clarity-checks.md) to check:
 ### SEO Review
 
 Use [references/seo-checks.md](references/seo-checks.md) to check:
+
 - **Titles:** 50-60 chars, keywords, unique
 - **Descriptions:** 120-160 chars, compelling, unique
 - **Headings:** Single H1, logical hierarchy (H1→H2→H3), descriptive
@@ -251,6 +272,7 @@ Use [references/seo-checks.md](references/seo-checks.md) to check:
 ### Structure Review
 
 Use [references/structure-checks.md](references/structure-checks.md) to check:
+
 - **Hierarchy:** Max 3 levels, logical progression
 - **Organization:** 2-15 pages per section, `.navigation.yml` present, appropriate icons
 - **Flow:** Logical progression, "Next Steps" links, no orphaned pages
@@ -260,6 +282,7 @@ Use [references/structure-checks.md](references/structure-checks.md) to check:
 ### i18n Review (if multi-language)
 
 Use [references/i18n-checks.md](references/i18n-checks.md) to check:
+
 - **Parallel Structure:** Same directories, files, page counts across locales
 - **Translation Completeness:** Similar content length (±30%), same headings
 - **Navigation:** Same icons, translated titles
@@ -272,6 +295,7 @@ Use [references/i18n-checks.md](references/i18n-checks.md) to check:
 Create a comprehensive review report using [assets/report-template.md](assets/report-template.md).
 
 **Adapt report based on project type:**
+
 - **Docus/Nuxt Content:** Include all sections (Technical, SEO, Clarity, Structure, i18n)
 - **Generic Markdown:** Focus on content quality (SEO, Clarity, Structure), omit Docus-specific technical issues
 
@@ -357,12 +381,15 @@ Welcome
 [List optimization suggestions by category]
 
 ### SEO Optimizations
+
 - **[File]**: [Suggestion]
 
 ### Clarity Improvements
+
 - **[File]**: Consider adding `::tip` callout for [specific content]
 
 ### Structure Enhancements
+
 - **[Section]**: Consider splitting into subsections
 
 ---
@@ -372,6 +399,7 @@ Welcome
 [Only if multi-language detected]
 
 ### French (`/fr/`)
+
 - [Translation issues]
 
 ---
@@ -380,27 +408,28 @@ Welcome
 
 ### Content Overview
 
-| Section | Pages (en) | Pages (fr) | Avg Words/Page |
-|---------|------------|------------|----------------|
-| Getting Started | [X] | [X] | ~[XXX] |
-| Guide | [X] | [X] | ~[XXX] |
+| Section         | Pages (en) | Pages (fr) | Avg Words/Page |
+| --------------- | ---------- | ---------- | -------------- |
+| Getting Started | [X]        | [X]        | ~[XXX]         |
+| Guide           | [X]        | [X]        | ~[XXX]         |
 
 ### Issue Breakdown
 
-| Category | Critical | Important | Nice-to-Have | Total |
-|----------|----------|-----------|--------------|-------|
-| Technical | [X] | [X] | [X] | [X] |
-| SEO | [X] | [X] | [X] | [X] |
-| Clarity | [X] | [X] | [X] | [X] |
-| Structure | [X] | [X] | [X] | [X] |
-| i18n | [X] | [X] | [X] | [X] |
-| **Total** | **[X]** | **[X]** | **[X]** | **[X]** |
+| Category  | Critical | Important | Nice-to-Have | Total   |
+| --------- | -------- | --------- | ------------ | ------- |
+| Technical | [X]      | [X]       | [X]          | [X]     |
+| SEO       | [X]      | [X]       | [X]          | [X]     |
+| Clarity   | [X]      | [X]       | [X]          | [X]     |
+| Structure | [X]      | [X]       | [X]          | [X]     |
+| i18n      | [X]      | [X]       | [X]          | [X]     |
+| **Total** | **[X]**  | **[X]**   | **[X]**      | **[X]** |
 
 ---
 
 ## Positive Highlights
 
 [Call out 2-3 things done well]
+
 - Good use of callouts and code examples
 - Consistent MDC component usage
 - Well-organized section structure
@@ -410,16 +439,19 @@ Welcome
 ## Recommended Action Plan
 
 ### Priority 1: Fix Critical Issues (Today)
+
 1. [Specific actionable items]
 
 **Estimated fixes:** [X] files
 
 ### Priority 2: Important Issues (This Week)
+
 1. [Specific actionable items]
 
 **Estimated fixes:** [X] files
 
 ### Priority 3: Nice-to-Have (Next Sprint)
+
 1. [Specific actionable items]
 
 **Estimated fixes:** [X] files
@@ -442,21 +474,25 @@ Welcome
 ### Report Generation Guidelines
 
 **Be specific:**
+
 - Include exact file paths and line numbers
 - Show current vs. recommended code
 - Explain why each issue matters (impact)
 
 **Be actionable:**
+
 - Provide clear fix instructions
 - Include code examples
 - Prioritize by impact
 
 **Be balanced:**
+
 - Highlight positive aspects
 - Don't overwhelm with minor issues
 - Focus on high-impact improvements
 
 **After generating the report:**
+
 - Offer to fix issues if the user requests
 - Be ready to address specific categories or files
 - Suggest starting with Critical issues
@@ -466,6 +502,7 @@ Welcome
 ## Quick Reference
 
 **Most Common Issues:**
+
 - Missing `u-` prefix on Nuxt UI components (`::page-hero` → `::u-page-hero`)
 - SEO descriptions too short (need 120-160 chars)
 - Passive voice in instructions ("can be done" → "do it")
