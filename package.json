@@ -30,11 +30,11 @@
     }
   },
   "scripts": {
-    "build": "tsdown && node scripts/postbuild.mjs",
-    "prepack": "bun run build",
+    "build": "nuxt-module-build build",
+    "prepack": "nuxt-module-build build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
-    "dev:prepare": "bun run build && nuxi prepare playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "format": "oxfmt --write .",
@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/module-builder": "^1.0.2",
     "@nuxt/test-utils": "^4.0.0",
     "@types/node": "^20.19.0",
     "@vitest/browser": "^4.1.2",
@@ -75,7 +76,6 @@
     "oxlint": "^1.58.0",
     "playwright": "^1.55.0",
     "playwright-core": "^1.42.1",
-    "tsdown": "^0.21.7",
     "typescript": "^5.9.2",
     "vite": "^7.3.1",
     "vitest": "^4.1.2",

@@ -1,3 +1,15 @@
 {
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./tsconfig.build.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "test/**/*.ts",
+    "scripts/**/*.mjs",
+    "vitest.config.ts"
+  ]
 }
