@@ -1,6 +1,27 @@
 # Changelog
 
 
+## v1.0.0-beta.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v0.9.11...v1.0.0-beta.0)
+
+### 🚀 Enhancements
+
+- V1 beta first commit ([60e9d50](https://github.com/atoms-studio/nuxt-swiftsearch/commit/60e9d50))
+- V1 beta more refinements and docs ([c827ebc](https://github.com/atoms-studio/nuxt-swiftsearch/commit/c827ebc))
+
+### 🩹 Fixes
+
+- Clear lint blockers for release ([3477959](https://github.com/atoms-studio/nuxt-swiftsearch/commit/3477959))
+
+### 🏡 Chore
+
+- Add changelogen beta release workflow ([74b6dd7](https://github.com/atoms-studio/nuxt-swiftsearch/commit/74b6dd7))
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v0.9.11
 
 [compare changes](https://undefined/undefined/compare/v0.9.10...v0.9.11)
