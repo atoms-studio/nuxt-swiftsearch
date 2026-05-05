@@ -33,5 +33,5 @@ const props = withDefaults(defineProps<AutocompleteProps>(), {
 });
 const { state } = useAisWidget("autocomplete", props.id);
 
-const suit = useSuit("autocomplete");
+const suit = useSuit("Autocomplete");
 </script>

@@ -17,7 +17,9 @@
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 
-const { state } = useAisWidget("relevantSort");
+const props = withDefaults(defineProps<{ id?: string }>(), { id: "" });
+
+const { state } = useAisWidget("relevantSort", props.id);
 const suit = useSuit("RelevantSort");
 
 const refine = () => {

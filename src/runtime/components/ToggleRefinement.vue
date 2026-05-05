@@ -31,17 +31,23 @@ import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
 type ToggleRefinementProps = {
+  id?: string;
   attribute: string;
   on?: string | number | boolean | unknown[];
   off?: string | number | boolean | unknown[];
   label?: string;
 };
 
-const props = defineProps<ToggleRefinementProps>();
+const props = withDefaults(defineProps<ToggleRefinementProps>(), { id: "" });
 
-const { state: refinementsState } = useAisWidget("toggleRefinement");
+const { state: refinementsState } = useAisWidget("toggleRefinement", props.id);
 
-const state = computed(() => refinementsState.value[props.attribute]);
+const state = computed(() => {
+  if (props.id) {
+    return refinementsState.value;
+  }
+  return refinementsState.value?.[props.attribute];
+});
 
 const widgetParams = computed(() => state.value.widgetParams);
 

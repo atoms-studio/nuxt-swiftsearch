@@ -39,12 +39,16 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 
-defineProps<{
-  items: HitsPerPageConnectorParamsItem[];
-  transformItems?: TransformItemsTo<HitsPerPageRenderStateItem, TItem>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    id?: string;
+    items: HitsPerPageConnectorParamsItem[];
+    transformItems?: TransformItemsTo<HitsPerPageRenderStateItem, TItem>;
+  }>(),
+  { id: "" },
+);
 
-const { state } = useAisWidget("hitsPerPage");
+const { state } = useAisWidget("hitsPerPage", props.id);
 const suit = useSuit("HitsPerPage");
 const renderItems = computed(() => (state.value?.items ?? []) as Array<TItem>);
 </script>

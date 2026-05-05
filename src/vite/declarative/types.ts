@@ -20,6 +20,7 @@ export type IndexProps = {
 
 export type HierarchicalMenuProps = {
   paramsExpr: string;
+  idExpr?: string;
   hasAttributes: boolean;
 };
 
@@ -46,4 +47,8 @@ export type GenerationContext = {
   indexCounter: number;
   unsupported: boolean;
   usesUnref: boolean;
+  // Tracks (composable + explicit id) pairs already emitted in this root.
+  // A second element with the same explicit id is treated as a view of the
+  // first widget's state and contributes no extra factory call.
+  seenExplicitIds: Set<string>;
 };

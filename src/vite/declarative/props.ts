@@ -159,10 +159,17 @@ export const extractHierarchicalMenuProps = (
   const entries: string[] = [];
   let attributeExpr: string | undefined;
   let attributesExpr: string | undefined;
+  let idExpr: string | undefined;
 
   for (const prop of node.props) {
     if (prop.type === NodeTypes.ATTRIBUTE) {
       const attribute = prop as AttributeNode;
+
+      if (attribute.name === "id") {
+        idExpr = attribute.value ? JSON.stringify(attribute.value.content) : '""';
+        continue;
+      }
+
       const key = toCamelCase(attribute.name);
       const valueExpr = attribute.value ? JSON.stringify(attribute.value.content) : "true";
 
@@ -213,6 +220,11 @@ export const extractHierarchicalMenuProps = (
     const rawName = toCamelCase(directive.arg.content);
     const valueExpr = getDirectiveExpression(directive, context) || "true";
 
+    if (rawName === "id") {
+      idExpr = valueExpr;
+      continue;
+    }
+
     if (rawName === "attribute") {
       attributeExpr = valueExpr;
       continue;
@@ -237,6 +249,7 @@ export const extractHierarchicalMenuProps = (
 
   return {
     paramsExpr: entries.length ? `{ ${entries.join(", ")} }` : "{}",
+    idExpr,
     hasAttributes: !!resolvedAttributes,
   };
 };

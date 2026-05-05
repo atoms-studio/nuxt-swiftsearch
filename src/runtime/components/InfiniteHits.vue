@@ -67,6 +67,7 @@ import { computed } from "vue";
 import type { TransformItemsTo } from "../types/transformItems";
 
 type InfiniteHitsProps = {
+  id?: string;
   showBanner?: boolean;
   showPrevious?: boolean;
   escapeHTML?: boolean;
@@ -74,9 +75,9 @@ type InfiniteHitsProps = {
   cache?: InfiniteHitsConnectorParams<THit>["cache"];
 };
 
-defineProps<InfiniteHitsProps>();
+const props = withDefaults(defineProps<InfiniteHitsProps>(), { id: "" });
 
-const { state, widgetParams } = useAisWidget("infiniteHits");
+const { state, widgetParams } = useAisWidget("infiniteHits", props.id);
 
 const suit = useSuit("InfiniteHits");
 const items = computed(() => (state.value?.items ?? []) as Array<Hit<THit>>);

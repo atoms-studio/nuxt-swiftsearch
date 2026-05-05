@@ -17,8 +17,32 @@ export const normalizeWhitespace = (html: string) => {
       .trim()
   );
 };
+// Algolia returns a fresh `processingTimeMS` per request, so two parallel
+// search runs (vue-instantsearch fixture vs swift fixture) almost always
+// disagree on the millisecond value even when the rest of the markup is
+// identical. Normalize it away so parity comparisons stay deterministic.
+export const normalizeProcessingTime = (html: string) => {
+  return html.replace(/found in [\d,.]+ms/g, "found in <T>ms");
+};
+
+// Vue 3's compiled-template output and vue-instantsearch's pre-built JS disagree
+// on whether `style="display: none"` keeps the space after the colon. The
+// rendered visual is identical; collapse it so parity diffs don't trip on it.
+export const normalizeStyleAttributes = (html: string) => {
+  return html.replace(
+    /style="([^"]*)"/g,
+    (_match, value: string) =>
+      `style="${value
+        .replace(/\s*:\s*/g, ":")
+        .replace(/\s*;\s*/g, ";")
+        .trim()}"`,
+  );
+};
+
 export const normalizeHtml = (html: string) => {
-  return normalizeWhitespace(stripHtmlComments(html)).replace(/\u00a0/g, "");
+  return normalizeStyleAttributes(
+    normalizeProcessingTime(normalizeWhitespace(stripHtmlComments(html))),
+  ).replace(/\u00a0/g, "");
 };
 
 export const extractTestIdInnerHtml = (markup: string, testId: string) => {

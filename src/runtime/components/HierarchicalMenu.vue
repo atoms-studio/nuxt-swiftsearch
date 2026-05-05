@@ -39,12 +39,13 @@ import type {
 } from "instantsearch.js/es/connectors/hierarchical-menu/connectHierarchicalMenu";
 import { useSuit } from "../composables/useSuit";
 import HierarchicalMenuList from "./HierarchicalMenuList.vue";
-import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
+import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
 
 type HierarchicalMenuProps = {
+  id?: string;
   attribute?: string;
   attributes?: string[];
   limit?: number;
@@ -60,25 +61,28 @@ type HierarchicalMenuProps = {
 const suit = useSuit("HierarchicalMenu");
 
 const props = withDefaults(defineProps<HierarchicalMenuProps>(), {
+  id: "",
   attribute: undefined,
   showMore: false,
   attributes: () => [],
 });
 
+const { state: hierarchicalMenuState } = useAisWidget("hierarchicalMenu", props.id);
 const hierarchicalMenuRenderState = useAisHierarchicalMenuRenderState();
-
-const { state: hierarchicalMenuState } = useAisWidget("hierarchicalMenu");
 
 const stateAttribute = computed(() => {
   return props.attribute ?? props.attributes[0];
 });
 
 const state = computed(() => {
+  if (props.id) {
+    return hierarchicalMenuState.value;
+  }
   if (!stateAttribute.value) return null;
-
-  return hierarchicalMenuRenderState.value[stateAttribute.value]
-    ? hierarchicalMenuRenderState.value[stateAttribute.value]
-    : hierarchicalMenuState.value[stateAttribute.value];
+  return (
+    hierarchicalMenuRenderState.value[stateAttribute.value] ||
+    hierarchicalMenuState.value?.[stateAttribute.value]
+  );
 });
 
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);

@@ -3,6 +3,7 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 
 type PaginationProps = {
+  id?: string;
   padding?: number;
   totalPages?: number;
   showFirst?: boolean;
@@ -11,15 +12,16 @@ type PaginationProps = {
   showPrevious?: boolean;
 };
 
-const { state } = useAisWidget("pagination");
-const suit = useSuit("Pagination");
-
-withDefaults(defineProps<PaginationProps>(), {
+const props = withDefaults(defineProps<PaginationProps>(), {
+  id: "",
   showFirst: true,
   showLast: true,
   showNext: true,
   showPrevious: true,
 });
+
+const { state } = useAisWidget("pagination", props.id);
+const suit = useSuit("Pagination");
 
 const emit = defineEmits<{
   (e: "page-change", page: number): void;

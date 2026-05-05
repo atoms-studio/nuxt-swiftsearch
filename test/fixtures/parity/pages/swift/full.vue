@@ -48,7 +48,12 @@
         <AisRangeInput attribute="price" />
       </div>
       <div data-testid="autocomplete">
-        <AisAutocomplete />
+        <AisAutocomplete>
+          <template #default="{ currentRefinement, indices }">
+            <p class="autocomplete-current">{{ currentRefinement }}</p>
+            <p class="autocomplete-indices">{{ indices.length }}</p>
+          </template>
+        </AisAutocomplete>
       </div>
       <div data-testid="hits">
         <AisHits />

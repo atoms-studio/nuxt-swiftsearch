@@ -12,7 +12,9 @@ import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
-const { instance, state } = useAisWidget("stats");
+const props = withDefaults(defineProps<{ id?: string }>(), { id: "" });
+
+const { instance, state } = useAisWidget("stats", props.id);
 
 const suit = useSuit("Stats");
 

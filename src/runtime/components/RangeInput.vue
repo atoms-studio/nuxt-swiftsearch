@@ -5,22 +5,24 @@ import { useSuit } from "../composables/useSuit";
 import { ref, computed, type Ref } from "vue";
 
 type RangeInputProps = {
+  id?: string;
   attribute: string;
   min?: number;
   max?: number;
   precision?: number;
 };
 
-const props = withDefaults(defineProps<RangeInputProps>(), { precision: 0 });
+const props = withDefaults(defineProps<RangeInputProps>(), { id: "", precision: 0 });
 
-const { state: rangesState } = useAisWidget("range");
-const rangeState = useAisRangeInputRenderState();
+const { state: rangesState } = useAisWidget("range", props.id);
+const rangeRenderState = useAisRangeInputRenderState();
 const suit = useSuit("RangeInput");
 
 const state = computed(() => {
-  return rangeState.value[props.attribute]
-    ? rangeState.value[props.attribute]
-    : rangesState.value![props.attribute];
+  if (props.id) {
+    return rangesState.value;
+  }
+  return rangeRenderState.value[props.attribute] || rangesState.value?.[props.attribute];
 });
 
 const minInput: Ref<number | undefined> = ref();

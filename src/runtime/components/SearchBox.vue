@@ -37,11 +37,11 @@
 
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
-const { state } = useAisWidget("searchBox");
 import { useSuit } from "../composables/useSuit";
 import { ref, computed } from "vue";
 
 type SearchBoxProps = {
+  id?: string;
   placeholder?: string;
   autofocus?: boolean;
   showLoadingIndicator?: boolean;
@@ -55,6 +55,7 @@ type SearchBoxProps = {
 };
 
 const props = withDefaults(defineProps<SearchBoxProps>(), {
+  id: "",
   placeholder: "",
   autofocus: false,
   showLoadingIndicator: true,
@@ -63,6 +64,8 @@ const props = withDefaults(defineProps<SearchBoxProps>(), {
   submitTitle: "Submit the search query",
   resetTitle: "Clear the search query",
 });
+
+const { state } = useAisWidget("searchBox", props.id);
 
 const suit = useSuit("SearchBox");
 

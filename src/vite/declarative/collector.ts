@@ -7,7 +7,7 @@ import {
   isIgnorableControlFlowSibling,
   toConditionalEntriesExpression,
 } from "./template";
-import type { ConditionalBranch, GenerationContext } from "./types";
+import type { ConditionalBranch, GenerationContext, WidgetConfig } from "./types";
 import { normalizeAisTag, WIDGET_COMPONENTS } from "./widgets";
 
 const useComposableAlias = (composable: string, context: GenerationContext) => {
@@ -19,6 +19,46 @@ const useComposableAlias = (composable: string, context: GenerationContext) => {
   const alias = `__swiftsearch${composable.charAt(0).toUpperCase()}${composable.slice(1)}`;
   context.aliasByComposable.set(composable, alias);
   return alias;
+};
+
+type WidgetIdResolution = { kind: "none" } | { kind: "ok"; arg: string } | { kind: "duplicate" };
+
+const resolveWidgetIdArg = (
+  widgetConfig: WidgetConfig,
+  element: ElementNode,
+  idExpr: string | undefined,
+  context: GenerationContext,
+): WidgetIdResolution => {
+  if (!widgetConfig.usesId) return { kind: "none" };
+
+  if (idExpr) {
+    const dedupeKey = `${widgetConfig.composable}::${idExpr}`;
+    if (context.seenExplicitIds.has(dedupeKey)) {
+      return { kind: "duplicate" };
+    }
+    context.seenExplicitIds.add(dedupeKey);
+    return { kind: "ok", arg: idExpr };
+  }
+
+  const generatedId = `swiftsearch-${context.rootIndex}-${++context.idCounter}`;
+  const insertIndex = getTagAttributeInsertIndex(element, context.templateOffset);
+  if (insertIndex !== null) {
+    context.edits.push({
+      index: insertIndex,
+      content: ` id="${generatedId}"`,
+    });
+  }
+  return { kind: "ok", arg: JSON.stringify(generatedId) };
+};
+
+const buildWidgetCall = (
+  composableAlias: string,
+  paramsExpr: string,
+  resolution: WidgetIdResolution,
+): string | null => {
+  if (resolution.kind === "duplicate") return null;
+  const args = resolution.kind === "ok" ? [paramsExpr, resolution.arg] : [paramsExpr];
+  return `${composableAlias}(${args.join(", ")})`;
 };
 
 const collectElementWidgets = (element: ElementNode, context: GenerationContext): string[] => {
@@ -36,7 +76,12 @@ const collectElementWidgets = (element: ElementNode, context: GenerationContext)
       return [];
     }
 
+    // AisIndex starts a new index scope at runtime, so explicit ids reused
+    // inside a different index are not duplicates of ones in the parent scope.
+    const parentSeenExplicitIds = context.seenExplicitIds;
+    context.seenExplicitIds = new Set();
     const nested = collectWidgets(element.children, context);
+    context.seenExplicitIds = parentSeenExplicitIds;
     if (context.unsupported) return [];
 
     const indexAlias = useComposableAlias("useAisIndex", context);
@@ -58,13 +103,15 @@ ${nested.map((entry) => indent(entry, 6)).join(",\n")}
 
     if (tag === "AisDynamicWidgets" || tag === "AisExperimentalDynamicWidgets") {
       const extractedProps = extractWidgetProps(element, context);
+      const resolution = resolveWidgetIdArg(widgetConfig, element, extractedProps.idExpr, context);
       const nestedWidgets = collectWidgets(element.children, context);
 
       if (context.unsupported) {
         return [];
       }
 
-      return [`${composableAlias}(${extractedProps.paramsExpr})`, ...nestedWidgets];
+      const call = buildWidgetCall(composableAlias, extractedProps.paramsExpr, resolution);
+      return call !== null ? [call, ...nestedWidgets] : nestedWidgets;
     }
 
     if (tag === "AisHierarchicalMenu") {
@@ -74,32 +121,15 @@ ${nested.map((entry) => indent(entry, 6)).join(",\n")}
         return [];
       }
 
-      return [`${composableAlias}(${extractedProps.paramsExpr})`];
+      const resolution = resolveWidgetIdArg(widgetConfig, element, extractedProps.idExpr, context);
+      const call = buildWidgetCall(composableAlias, extractedProps.paramsExpr, resolution);
+      return call !== null ? [call] : [];
     }
 
     const extractedProps = extractWidgetProps(element, context);
-    const args = [extractedProps.paramsExpr];
-
-    if (widgetConfig.usesId) {
-      let widgetIdExpr = extractedProps.idExpr;
-
-      if (!widgetIdExpr) {
-        const generatedId = `swiftsearch-${context.rootIndex}-${++context.idCounter}`;
-        widgetIdExpr = JSON.stringify(generatedId);
-
-        const insertIndex = getTagAttributeInsertIndex(element, context.templateOffset);
-        if (insertIndex !== null) {
-          context.edits.push({
-            index: insertIndex,
-            content: ` id="${generatedId}"`,
-          });
-        }
-      }
-
-      args.push(widgetIdExpr);
-    }
-
-    return [`${composableAlias}(${args.join(", ")})`];
+    const resolution = resolveWidgetIdArg(widgetConfig, element, extractedProps.idExpr, context);
+    const call = buildWidgetCall(composableAlias, extractedProps.paramsExpr, resolution);
+    return call !== null ? [call] : [];
   }
 
   if (element.children.length) {
