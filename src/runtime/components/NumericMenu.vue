@@ -40,33 +40,30 @@ import type {
   NumericMenuRenderStateItem,
   NumericMenuConnectorParamsItem,
 } from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
-import { useAisNumericMenuRenderState } from "../composables/useAisNumericMenu";
 import { useAisWidget } from "../composables/useAisWidget";
+import { useAisNumericMenuRenderState } from "../composables/useAisNumericMenu";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 
 type NumericMenuProps = {
+  id?: string;
   attribute: string;
   items: NumericMenuConnectorParamsItem[];
   transformItems?: TransformItemsTo<NumericMenuRenderStateItem, TItem>;
 };
 
-const props = defineProps<NumericMenuProps>();
+const props = withDefaults(defineProps<NumericMenuProps>(), { id: "" });
 
 const suit = useSuit("NumericMenu");
+const { state: numericMenuState } = useAisWidget("numericMenu", props.id);
 const numericMenuRenderState = useAisNumericMenuRenderState();
-const { state: numericMenuState } = useAisWidget("numericMenu");
 
 const state = computed(() => {
-  try {
-    return numericMenuRenderState.value[props.attribute]
-      ? numericMenuRenderState.value[props.attribute]
-      : numericMenuState.value?.[props.attribute];
-  } catch (error) {
-    console.warn("NumericMenu: Error accessing state:", error);
-    return null;
+  if (props.id) {
+    return numericMenuState.value;
   }
+  return numericMenuRenderState.value[props.attribute] || numericMenuState.value?.[props.attribute];
 });
 
 const renderItems = computed(() => (state.value?.items ?? []) as Array<TItem>);

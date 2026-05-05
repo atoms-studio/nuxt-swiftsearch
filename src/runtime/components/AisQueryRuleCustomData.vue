@@ -16,11 +16,15 @@ import { computed } from "vue";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 
-defineProps<{
-  transformItems?: TransformItemsTo<Record<string, unknown>, TItem & Record<string, unknown>>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    id?: string;
+    transformItems?: TransformItemsTo<Record<string, unknown>, TItem & Record<string, unknown>>;
+  }>(),
+  { id: "" },
+);
 
-const { state } = useAisWidget("queryRules");
+const { state } = useAisWidget("queryRules", props.id);
 const suit = useSuit("QueryRuleCustomData");
 
 const items = computed(() => {

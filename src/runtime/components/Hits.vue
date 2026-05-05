@@ -20,14 +20,15 @@ import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 
 type HitsProps = {
+  id?: string;
   showBanner?: boolean;
   escapeHTML?: boolean;
   transformItems?: TransformItemsTo<Hit<BaseHit>, Hit<THit>>;
 };
 
-defineProps<HitsProps>();
+const props = withDefaults(defineProps<HitsProps>(), { id: "" });
 
-const { state } = useAisWidget("hits");
+const { state } = useAisWidget("hits", props.id);
 const suit = useSuit("Hits");
 const items = computed(() => (state.value?.items ?? []) as Array<Hit<THit>>);
 </script>

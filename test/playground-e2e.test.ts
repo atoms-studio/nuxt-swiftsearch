@@ -169,4 +169,30 @@ describe("playground e2e", async () => {
       throw new Error(`Page errors on /showcase: ${pageErrors.join(" | ")}`);
     }
   });
+
+  // Regression for #48: in manual widgets mode without a widgetId,
+  // toggleShowMore() must reactively update the rendered item count.
+  it("re-renders RefinementList in manual mode when toggleShowMore is called", async () => {
+    const page = await createPage("/");
+    await page.goto(getTestUrl("/issue-48"), {
+      waitUntil: "hydration",
+      timeout: 60000,
+    });
+    await page.waitForLoadState("networkidle");
+
+    const list = page.getByTestId("issue-48-list");
+    const items = list.locator(".ais-RefinementList-item");
+    await items.first().waitFor({ state: "visible", timeout: 60000 });
+
+    const initialCount = await items.count();
+    expect(initialCount).toBe(3);
+
+    await list.locator(".ais-RefinementList-showMore").click();
+    await page.waitForTimeout(500);
+
+    const expandedCount = await items.count();
+    expect(expandedCount).toBeGreaterThan(initialCount);
+
+    await page.close();
+  });
 });

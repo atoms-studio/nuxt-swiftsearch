@@ -33,29 +33,33 @@ import type {
   MenuConnectorParams,
   MenuItem,
 } from "instantsearch.js/es/connectors/menu/connectMenu";
-import { useAisMenuRenderState } from "../composables/useAisMenu";
 import { useAisWidget } from "../composables/useAisWidget";
+import { useAisMenuRenderState } from "../composables/useAisMenu";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 
 type MenuSelectProps = {
+  id?: string;
   attribute: string;
   limit?: number;
   sortBy?: MenuConnectorParams["sortBy"];
   transformItems?: TransformItemsTo<MenuItem, TItem>;
 };
 
-const props = defineProps<MenuSelectProps>();
+const props = withDefaults(defineProps<MenuSelectProps>(), {
+  id: "",
+});
 
 const suit = useSuit("MenuSelect");
+const { state: menuState } = useAisWidget("menu", props.id);
 const menuRenderState = useAisMenuRenderState();
-const { state: menuState } = useAisWidget("menu");
 
 const state = computed(() => {
-  return menuRenderState.value[props.attribute]
-    ? menuRenderState.value[props.attribute]
-    : menuState.value[props.attribute];
+  if (props.id) {
+    return menuState.value;
+  }
+  return menuRenderState.value[props.attribute] || menuState.value?.[props.attribute];
 });
 
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);

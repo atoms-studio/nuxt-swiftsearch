@@ -78,6 +78,7 @@ export const aisDeclarativeWidgetsPlugin = (): Plugin => {
           indexCounter: 0,
           unsupported: false,
           usesUnref: false,
+          seenExplicitIds: new Set(),
         };
 
         const widgetExpressions = collectWidgets(instantSearchNode.children, context);

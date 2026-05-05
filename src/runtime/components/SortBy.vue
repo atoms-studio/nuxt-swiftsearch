@@ -35,12 +35,16 @@ import type { TransformItemsTo } from "../types/transformItems";
 
 type SortByOption = SortByRenderState["options"][number];
 
-defineProps<{
-  items?: Array<TItem>;
-  transformItems?: TransformItemsTo<SortByOption, TItem>;
-}>();
+const props = withDefaults(
+  defineProps<{
+    id?: string;
+    items?: Array<TItem>;
+    transformItems?: TransformItemsTo<SortByOption, TItem>;
+  }>(),
+  { id: "" },
+);
 
-const { state } = useAisWidget("sortBy");
+const { state } = useAisWidget("sortBy", props.id);
 const suit = useSuit("SortBy");
 const options = computed(() => (state.value?.options ?? []) as Array<TItem>);
 </script>

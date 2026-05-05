@@ -13,7 +13,7 @@ const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url))
 
 const widgetTestIds = [
   "searchbox",
-  // "stats", => flaky data inside, maybe needs a dedicated test, maybe test is useless since UI is simple
+  "stats",
   "currentrefinements",
   "clearrefinements",
   "sortby",
@@ -22,10 +22,10 @@ const widgetTestIds = [
   "menu",
   "menuselect",
   "numericmenu",
-  // "ratingmenu", => will need dedicated test since we went without svg for stars
+  "ratingmenu",
   "hierarchicalmenu",
   "rangeinput",
-  // "autocomplete", => will need dedicated test
+  "autocomplete",
   "hits",
   "infinitehits",
   "pagination",

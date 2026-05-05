@@ -75,6 +75,7 @@ import type {
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import { useAisWidget } from "../composables/useAisWidget";
+import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
 import { computed, ref } from "vue";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
@@ -98,12 +99,17 @@ const props = withDefaults(defineProps<RefinementListProps>(), {
 });
 
 const { state: refinementsState } = useAisWidget("refinementList", props.id);
+const refinementsRenderState = useAisRefinementListRenderState();
+// In manual mode without `id`, `toggleShowMore`/`searchForItems` re-render the
+// widget inline without touching `instance.renderState`, so the useAisWidget
+// path goes stale. The composable-level render state map IS updated by the
+// connector renderer, so prefer it as the source of truth there.
 const state = computed(() => {
   if (props.id) {
     return refinementsState.value;
   }
 
-  return refinementsState.value[props.attribute];
+  return refinementsRenderState.value[props.attribute] || refinementsState.value?.[props.attribute];
 });
 
 const suit = useSuit("RefinementList");
