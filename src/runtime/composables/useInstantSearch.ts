@@ -1,15 +1,32 @@
-import type { IndexWidget, InstantSearch, Widget } from "instantsearch.js/es/types";
+import type {
+  IndexWidget,
+  InstantSearch,
+  InstantSearchStatus,
+  Widget,
+} from "instantsearch.js/es/types";
 import { isEqual } from "ohash";
 import { waitForResults, getInitialResults } from "instantsearch.js/es/lib/server";
 import { clearRefinements, getRefinements } from "instantsearch.js/es/lib/utils";
-import { computed, triggerRef, inject, nextTick, type Ref } from "vue";
+import { computed, inject, nextTick, provide, shallowRef, triggerRef, type Ref } from "vue";
 import { useState, createError } from "nuxt/app";
 
 import { type InitialResults } from "instantsearch.js/es";
 
+const STATUS_KEY = "swiftsearchStatus";
+const ERROR_KEY = "swiftsearchError";
+
 export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const _searchInstance =
     instance ?? (inject<Ref<InstantSearch | null>>("searchInstance") as Ref<InstantSearch>);
+
+  let status = inject<Ref<InstantSearchStatus> | null>(STATUS_KEY, null);
+  let error = inject<Ref<Error | undefined> | null>(ERROR_KEY, null);
+  if (!status || !error) {
+    status = shallowRef<InstantSearchStatus>("idle");
+    error = shallowRef<Error | undefined>(undefined);
+    provide(STATUS_KEY, status);
+    provide(ERROR_KEY, error);
+  }
 
   const getInstance = () => {
     if (!_searchInstance || _searchInstance.value === null) {
@@ -99,13 +116,16 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
         });
       });
 
-      instance.value.on("error", ({ error }) => {
+      instance.value.on("error", ({ error: searchError }) => {
+        error!.value = searchError;
+        status!.value = "error";
         throw createError({
           statusCode: 500,
-          statusMessage: error,
+          statusMessage: searchError,
         });
       });
       instance.value.start();
+      attachStatusListeners(instance.value, status!, error!);
     }
   };
 
@@ -113,5 +133,49 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
     getInstance,
     parentIndex,
     setup,
+    status,
+    error,
   };
+};
+
+type StatusInternals = {
+  __swiftsearchStatusAttached?: boolean;
+  __swiftsearchStallTimer?: ReturnType<typeof setTimeout> | null;
+};
+
+const attachStatusListeners = (
+  instance: InstantSearch,
+  status: Ref<InstantSearchStatus>,
+  error: Ref<Error | undefined>,
+) => {
+  const tagged = instance as InstantSearch & StatusInternals;
+  if (tagged.__swiftsearchStatusAttached) return;
+  tagged.__swiftsearchStatusAttached = true;
+
+  const helper = instance.mainHelper;
+  if (!helper) return;
+
+  const stalledDelay =
+    (instance as InstantSearch & { _stalledSearchDelay?: number })._stalledSearchDelay ?? 200;
+
+  const clearStallTimer = () => {
+    if (tagged.__swiftsearchStallTimer) {
+      clearTimeout(tagged.__swiftsearchStallTimer);
+      tagged.__swiftsearchStallTimer = null;
+    }
+  };
+
+  helper.on("search", () => {
+    error.value = undefined;
+    status.value = "loading";
+    clearStallTimer();
+    tagged.__swiftsearchStallTimer = setTimeout(() => {
+      if (status.value === "loading") status.value = "stalled";
+    }, stalledDelay);
+  });
+
+  helper.on("searchQueueEmpty", () => {
+    clearStallTimer();
+    if (status.value !== "error") status.value = "idle";
+  });
 };
