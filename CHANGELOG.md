@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.2.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.1.0...v1.2.0)
+
+### 🚀 Enhancements
+
+- **useInstantSearch:** Expose reactive status and error refs ([#50](https://github.com/atoms-studio/nuxt-swiftsearch/pull/50))
+
+### 🏡 Chore
+
+- **release:** V1.1.0 ([7ac3dd2](https://github.com/atoms-studio/nuxt-swiftsearch/commit/7ac3dd2))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v1.1.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.0.0...v1.1.0)
