@@ -1,5 +1,20 @@
 # Changelog
 
+## v1.1.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.0.0...v1.1.0)
+
+### 🩹 Fixes
+
+- Ignoring docs formatting, added release current to workflow ([bd4dd0e](https://github.com/atoms-studio/nuxt-swiftsearch/commit/bd4dd0e))
+- Oxfmtrc ([d540e04](https://github.com/atoms-studio/nuxt-swiftsearch/commit/d540e04))
+- Complete widget registry and per-instance state isolation ([#49](https://github.com/atoms-studio/nuxt-swiftsearch/pull/49))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+
 ## v1.0.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.0.0-beta.0...v1.0.0)
