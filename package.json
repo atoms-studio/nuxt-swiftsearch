@@ -92,10 +92,10 @@
   },
   "lint-staged": {
     "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue}": [
-      "oxfmt --write",
+      "oxfmt --write --no-error-on-unmatched-pattern",
       "oxlint --fix"
     ],
-    "**/*.{json,md,yml,yaml,css,scss,html}": "oxfmt --write"
+    "**/*.{json,md,yml,yaml,css,scss,html}": "oxfmt --write --no-error-on-unmatched-pattern"
   },
   "changelog": {
     "repo": "github:atoms-studio/nuxt-swiftsearch"
