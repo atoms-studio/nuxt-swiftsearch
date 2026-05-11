@@ -1,4 +1,4 @@
-import { connectBreadcrumb } from "instantsearch.js/es/connectors/index.umd";
+import { connectBreadcrumb } from "instantsearch.js/es/connectors/index.js";
 import type {
   BreadcrumbConnectorParams,
   BreadcrumbRenderState,

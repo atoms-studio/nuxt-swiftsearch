@@ -1,4 +1,4 @@
-import { connectPagination } from "instantsearch.js/es/connectors/index.umd";
+import { connectPagination } from "instantsearch.js/es/connectors/index.js";
 import type {
   PaginationConnectorParams,
   PaginationRenderState,

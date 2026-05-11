@@ -1,4 +1,4 @@
-import { connectVoiceSearch } from "instantsearch.js/es/connectors/index.umd";
+import { connectVoiceSearch } from "instantsearch.js/es/connectors/index.js";
 import type {
   VoiceSearchConnectorParams,
   VoiceSearchRenderState,

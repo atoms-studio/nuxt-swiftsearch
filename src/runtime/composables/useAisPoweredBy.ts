@@ -1,4 +1,4 @@
-import { connectPoweredBy } from "instantsearch.js/es/connectors/index.umd";
+import { connectPoweredBy } from "instantsearch.js/es/connectors/index.js";
 import type {
   PoweredByConnectorParams,
   PoweredByRenderState,

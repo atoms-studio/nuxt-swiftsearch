@@ -1,4 +1,4 @@
-import { connectConfigure } from "instantsearch.js/es/connectors/index.umd";
+import { connectConfigure } from "instantsearch.js/es/connectors/index.js";
 import type {
   ConfigureConnectorParams,
   ConfigureRenderState,

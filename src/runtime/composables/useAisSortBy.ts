@@ -1,4 +1,4 @@
-import { connectSortBy } from "instantsearch.js/es/connectors/index.umd";
+import { connectSortBy } from "instantsearch.js/es/connectors/index.js";
 import type {
   SortByConnectorParams,
   SortByRenderState,

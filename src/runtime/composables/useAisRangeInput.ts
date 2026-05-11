@@ -1,4 +1,4 @@
-import { connectRange } from "instantsearch.js/es/connectors/index.umd";
+import { connectRange } from "instantsearch.js/es/connectors/index.js";
 import type {
   RangeRenderState,
   RangeConnectorParams,

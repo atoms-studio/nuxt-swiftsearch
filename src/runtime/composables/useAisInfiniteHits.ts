@@ -1,4 +1,4 @@
-import { connectInfiniteHitsWithInsights } from "instantsearch.js/es/connectors/index.umd";
+import { connectInfiniteHitsWithInsights } from "instantsearch.js/es/connectors/index.js";
 import type {
   InfiniteHitsConnectorParams,
   InfiniteHitsRenderState,

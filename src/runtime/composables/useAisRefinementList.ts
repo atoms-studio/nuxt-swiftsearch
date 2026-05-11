@@ -1,4 +1,4 @@
-import { connectRefinementList } from "instantsearch.js/es/connectors/index.umd";
+import { connectRefinementList } from "instantsearch.js/es/connectors/index.js";
 import type {
   RefinementListRenderState,
   RefinementListConnectorParams,
