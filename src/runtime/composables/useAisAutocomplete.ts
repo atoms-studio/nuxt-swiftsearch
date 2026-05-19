@@ -1,4 +1,4 @@
-import { connectAutocomplete } from "instantsearch.js/es/connectors/index.umd";
+import { connectAutocomplete } from "instantsearch.js/es/connectors/index.js";
 import type {
   AutocompleteConnectorParams,
   AutocompleteRenderState,

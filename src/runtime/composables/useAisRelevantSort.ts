@@ -1,4 +1,4 @@
-import { connectRelevantSort } from "instantsearch.js/es/connectors/index.umd";
+import { connectRelevantSort } from "instantsearch.js/es/connectors/index.js";
 import type {
   RelevantSortConnectorParams,
   RelevantSortRenderState,

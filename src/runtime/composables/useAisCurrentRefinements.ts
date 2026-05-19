@@ -1,4 +1,4 @@
-import { connectCurrentRefinements } from "instantsearch.js/es/connectors/index.umd";
+import { connectCurrentRefinements } from "instantsearch.js/es/connectors/index.js";
 import type {
   CurrentRefinementsConnectorParams,
   CurrentRefinementsRenderState,

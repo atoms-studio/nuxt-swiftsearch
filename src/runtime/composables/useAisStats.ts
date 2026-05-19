@@ -1,4 +1,4 @@
-import { connectStats } from "instantsearch.js/es/connectors/index.umd";
+import { connectStats } from "instantsearch.js/es/connectors/index.js";
 import type {
   StatsConnectorParams,
   StatsRenderState,

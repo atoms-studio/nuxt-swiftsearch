@@ -1,4 +1,4 @@
-import { connectHitsWithInsights } from "instantsearch.js/es/connectors/index.umd";
+import { connectHitsWithInsights } from "instantsearch.js/es/connectors/index.js";
 import type {
   HitsConnectorParams,
   HitsRenderState,

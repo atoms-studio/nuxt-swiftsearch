@@ -1,4 +1,4 @@
-import { connectClearRefinements } from "instantsearch.js/es/connectors/index.umd";
+import { connectClearRefinements } from "instantsearch.js/es/connectors/index.js";
 import type {
   ClearRefinementsConnectorParams,
   ClearRefinementsRenderState,

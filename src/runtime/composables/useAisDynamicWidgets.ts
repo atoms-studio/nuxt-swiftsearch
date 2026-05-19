@@ -1,4 +1,4 @@
-import { connectDynamicWidgets } from "instantsearch.js/es/connectors/index.umd";
+import { connectDynamicWidgets } from "instantsearch.js/es/connectors/index.js";
 import type {
   DynamicWidgetsConnectorParams,
   DynamicWidgetsRenderState,

@@ -1,4 +1,4 @@
-import { EXPERIMENTAL_connectConfigureRelatedItems } from "instantsearch.js/es/connectors/index.umd";
+import { EXPERIMENTAL_connectConfigureRelatedItems } from "instantsearch.js/es/connectors/index.js";
 import type { ConfigureRelatedItemsConnectorParams } from "instantsearch.js/es/connectors/configure-related-items/connectConfigureRelatedItems";
 import type { ConfigureRenderState } from "instantsearch.js/es/connectors/configure/connectConfigure";
 import type { Renderer } from "instantsearch.js/es/types";

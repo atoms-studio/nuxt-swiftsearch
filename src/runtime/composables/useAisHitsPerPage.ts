@@ -1,4 +1,4 @@
-import { connectHitsPerPage } from "instantsearch.js/es/connectors/index.umd";
+import { connectHitsPerPage } from "instantsearch.js/es/connectors/index.js";
 import type {
   HitsPerPageConnectorParams,
   HitsPerPageRenderState,

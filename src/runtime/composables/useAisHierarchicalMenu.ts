@@ -1,4 +1,4 @@
-import { connectHierarchicalMenu } from "instantsearch.js/es/connectors/index.umd";
+import { connectHierarchicalMenu } from "instantsearch.js/es/connectors/index.js";
 import type {
   HierarchicalMenuRenderState,
   HierarchicalMenuConnectorParams,
