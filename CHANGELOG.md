@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.2
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.1...v1.3.2)
+
+### 🩹 Fixes
+
+- Track InstantSearch status via render event instead of helper events ([#53](https://github.com/atoms-studio/nuxt-swiftsearch/pull/53), [#57](https://github.com/atoms-studio/nuxt-swiftsearch/pull/57))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v1.3.1
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.0...v1.3.1)
