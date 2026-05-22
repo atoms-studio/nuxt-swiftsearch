@@ -40,6 +40,15 @@ describe("swiftsearch index isolation", async () => {
     const indexOne = page.getByTestId("index-1");
     const indexTwo = page.getByTestId("index-2");
 
+    await indexOne
+      .locator("input[type='checkbox']")
+      .first()
+      .waitFor({ state: "visible", timeout: 120000 });
+    await indexTwo
+      .locator("input[type='checkbox']")
+      .first()
+      .waitFor({ state: "visible", timeout: 120000 });
+
     await indexOne.locator("input[type='checkbox']").first().check();
     await page.waitForTimeout(300);
 
