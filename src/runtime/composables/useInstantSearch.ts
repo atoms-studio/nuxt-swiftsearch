@@ -140,9 +140,15 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
 
 type StatusInternals = {
   __swiftsearchStatusAttached?: boolean;
-  __swiftsearchStallTimer?: ReturnType<typeof setTimeout> | null;
 };
 
+// InstantSearch core maintains its own `status` and `error` on the instance and
+// emits a `render` event whenever they change. We mirror them into the injected
+// refs on every render. Listening to the helper's `search` event is unreliable
+// here: instantsearch.js drives normal queries through `searchOnlyWithDerivedHelpers`,
+// which only emits `search` on derived helpers — never on the main helper this
+// composable sees. That is why the status stayed permanently `idle` for
+// `AisStateResults` consumers (see issue #53).
 const attachStatusListeners = (
   instance: InstantSearch,
   status: Ref<InstantSearchStatus>,
@@ -152,30 +158,11 @@ const attachStatusListeners = (
   if (tagged.__swiftsearchStatusAttached) return;
   tagged.__swiftsearchStatusAttached = true;
 
-  const helper = instance.mainHelper;
-  if (!helper) return;
-
-  const stalledDelay =
-    (instance as InstantSearch & { _stalledSearchDelay?: number })._stalledSearchDelay ?? 200;
-
-  const clearStallTimer = () => {
-    if (tagged.__swiftsearchStallTimer) {
-      clearTimeout(tagged.__swiftsearchStallTimer);
-      tagged.__swiftsearchStallTimer = null;
-    }
+  const sync = () => {
+    status.value = instance.status;
+    error.value = instance.error;
   };
 
-  helper.on("search", () => {
-    error.value = undefined;
-    status.value = "loading";
-    clearStallTimer();
-    tagged.__swiftsearchStallTimer = setTimeout(() => {
-      if (status.value === "loading") status.value = "stalled";
-    }, stalledDelay);
-  });
-
-  helper.on("searchQueueEmpty", () => {
-    clearStallTimer();
-    if (status.value !== "error") status.value = "idle";
-  });
+  sync();
+  instance.on("render", sync);
 };
