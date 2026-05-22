@@ -12,6 +12,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
 
   const maybeInjectedIndexName = inject<string | undefined>("index", undefined);
   const maybeInjectedIndexId = inject<string | undefined>("indexId", undefined);
+  const maybeInjectedInstanceKey = inject<string | undefined>("instanceKey", undefined);
 
   const indexScope = maybeInjectedIndexId ?? maybeInjectedIndexName ?? instance.value.indexName;
   const index = indexScope;
@@ -25,11 +26,17 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
       : ref(instance.value.renderState[index][widgetName]!)
   ) as TWidgetRenderState;
 
+  // Suffix the cache key with the InstantSearch instance key so widgets with
+  // the same widgetName + index + widgetId on different pages do not share
+  // Nuxt's app-level useState cache. provide/inject is already scoped to the
+  // component tree, but useState is global.
+  const instanceSuffix = maybeInjectedInstanceKey ? `-${maybeInjectedInstanceKey}` : "";
+
   // cache injected values on client via useState
   const state = import.meta.server
     ? _state
     : widgetId
-      ? useState(`${widgetName}-${indexScope}-${widgetId}`, () => _state)
+      ? useState(`${widgetName}-${indexScope}-${widgetId}${instanceSuffix}`, () => _state)
       : _state;
   watch(
     instance,

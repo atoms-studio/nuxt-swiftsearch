@@ -37,6 +37,7 @@ if (import.meta.server) {
 }
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
+provide<string>("instanceKey", instanceKey);
 
 const { setup } = useInstantSearch(searchInstance);
 await setup(props.widgets ?? [], props.instanceKey);
