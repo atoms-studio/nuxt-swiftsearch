@@ -278,7 +278,7 @@ const configuration = {
 `;
 
       const { code, warn } = await transform(source);
-      expect(warn, `transform warned for ${tag}`).toHaveBeenCalledTimes(0);
+      expect(warn).toHaveBeenCalledTimes(0);
 
       const alias = aliasFor(config.composable);
       // Each call site for this composable must include a 2nd arg referencing
@@ -286,7 +286,7 @@ const configuration = {
       const callPattern = new RegExp(
         String.raw`${alias}\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*?,\s*"`,
       );
-      expect(code, `${tag} did not inject an id arg`).toMatch(callPattern);
+      expect(code).toMatch(callPattern);
     }
   });
 });
