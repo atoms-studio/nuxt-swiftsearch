@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.1
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.0...v1.3.1)
+
+### 🩹 Fixes
+
+- Scope widget useState cache by InstantSearch instanceKey ([#56](https://github.com/atoms-studio/nuxt-swiftsearch/pull/56))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v1.3.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.2.0...v1.3.0)
