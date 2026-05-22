@@ -13,9 +13,9 @@ import type {
   Middleware,
 } from "instantsearch.js";
 import { useInstantSearch } from "../composables/useInstantSearch";
-import { shallowRef, provide, toRefs, watch } from "vue";
+import { shallowRef, provide, toRefs, watch, onBeforeUnmount } from "vue";
 import instantsearch from "instantsearch.js/es";
-import { useState } from "nuxt/app";
+import { useState, clearNuxtState } from "nuxt/app";
 import type { Ref } from "vue";
 
 const props = defineProps<{
@@ -26,14 +26,14 @@ const props = defineProps<{
 }>();
 
 const { widgets: widgetsRef, middlewares } = toRefs(props);
+const instanceKey = props.instanceKey ?? "";
+const stateKey = `instant_search_instance_${instanceKey}`;
 
 let searchInstance: Ref<InstantSearch>;
 if (import.meta.server) {
   searchInstance = shallowRef(instantsearch(props.configuration));
 } else {
-  searchInstance = useState(`instant_search_instance-${props.instanceKey ?? ""}`, () =>
-    shallowRef(instantsearch(props.configuration)),
-  );
+  searchInstance = useState(stateKey, () => shallowRef(instantsearch(props.configuration)));
 }
 
 provide<Ref<InstantSearch>>("searchInstance", searchInstance);
@@ -63,6 +63,13 @@ watch(
   },
   { immediate: true },
 );
+
+onBeforeUnmount(() => {
+  if (searchInstance.value?.started) {
+    searchInstance.value.dispose();
+  }
+  clearNuxtState(stateKey);
+});
 </script>
 
 <style scoped></style>
