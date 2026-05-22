@@ -1,5 +1,24 @@
 # Changelog
 
+## v1.3.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.2.0...v1.3.0)
+
+### 🩹 Fixes
+
+- Use instantsearch.js ESM index.js after index.umd removal ([#52](https://github.com/atoms-studio/nuxt-swiftsearch/pull/52))
+- Formatting and linting ([3d99461](https://github.com/atoms-studio/nuxt-swiftsearch/commit/3d99461))
+- Linting ([a3671de](https://github.com/atoms-studio/nuxt-swiftsearch/commit/a3671de))
+
+### 🏡 Chore
+
+- **release:** V1.2.0 ([b51ca72](https://github.com/atoms-studio/nuxt-swiftsearch/commit/b51ca72))
+
+### ❤️ Contributors
+
+- Rigo-m ([@Rigo-m](http://github.com/Rigo-m))
+- Alireza Jahandideh ([@Youhan](http://github.com/Youhan))
+
 ## v1.2.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.1.0...v1.2.0)
