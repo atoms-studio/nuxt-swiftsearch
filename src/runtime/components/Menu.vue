@@ -47,7 +47,7 @@ import type {
   MenuItem,
 } from "instantsearch.js/es/connectors/menu/connectMenu";
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisMenuRenderState } from "../composables/useAisMenu";
+import { useAisMenuRenderState, type MenuWidgetState } from "../composables/useAisMenu";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
@@ -71,9 +71,10 @@ const suit = useSuit("Menu");
 const { state: menuState } = useAisWidget("menu", props.id);
 const menuRenderState = useAisMenuRenderState();
 
-const state = computed(() => {
+const state = computed((): MenuWidgetState | undefined => {
   if (props.id) {
-    return menuState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return menuState.value as unknown as MenuWidgetState;
   }
   return menuRenderState.value[props.attribute] || menuState.value?.[props.attribute];
 });
@@ -81,10 +82,10 @@ const state = computed(() => {
 const items = computed(() => (state.value?.items ?? []) as Array<TItem>);
 
 const toggleShowMore = () => {
-  state.value.toggleShowMore();
+  state.value?.toggleShowMore();
 };
 
 const showMoreButton = computed(() => {
-  return state.value.canRefine && props.showMore;
+  return (state.value?.canRefine ?? false) && props.showMore;
 });
 </script>

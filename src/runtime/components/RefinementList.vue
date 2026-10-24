@@ -75,7 +75,10 @@ import type {
   RefinementListItem,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisRefinementListRenderState } from "../composables/useAisRefinementList";
+import {
+  useAisRefinementListRenderState,
+  type RefinementListWidgetState,
+} from "../composables/useAisRefinementList";
 import { computed, ref } from "vue";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
@@ -104,9 +107,10 @@ const refinementsRenderState = useAisRefinementListRenderState();
 // widget inline without touching `instance.renderState`, so the useAisWidget
 // path goes stale. The composable-level render state map IS updated by the
 // connector renderer, so prefer it as the source of truth there.
-const state = computed(() => {
+const state = computed((): RefinementListWidgetState | undefined => {
   if (props.id) {
-    return refinementsState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return refinementsState.value as unknown as RefinementListWidgetState;
   }
 
   return refinementsRenderState.value[props.attribute] || refinementsState.value?.[props.attribute];
@@ -123,13 +127,13 @@ const searchForFacetValues = computed({
     return searchForFacetValuesQuery.value;
   },
   set(value) {
-    state.value.searchForItems(value);
+    state.value?.searchForItems(value);
     searchForFacetValuesQuery.value = value;
   },
 });
 
 const toggleShowMore = () => {
-  state.value.toggleShowMore();
+  state.value?.toggleShowMore();
 };
 
 type RefinementListItemWithHighlight = TItem & {
@@ -141,14 +145,14 @@ type RefinementListItemWithHighlight = TItem & {
 };
 
 const items = computed<Array<RefinementListItemWithHighlight>>(() => {
-  return (state.value.items as Array<TItem>).map((item) => ({
+  return ((state.value?.items ?? []) as Array<TItem>).map((item) => ({
     ...item,
     _highlightResult: { item: { value: item.highlighted } },
   }));
 });
 
 const refine = (value: string) => {
-  state.value.refine(value);
+  state.value?.refine(value);
   searchForFacetValuesQuery.value = "";
 };
 </script>

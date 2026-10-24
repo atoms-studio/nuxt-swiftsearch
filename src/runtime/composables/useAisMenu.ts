@@ -3,15 +3,17 @@ import type {
   MenuRenderState,
   MenuConnectorParams,
 } from "instantsearch.js/es/connectors/menu/connectMenu";
-import type { Renderer } from "instantsearch.js/es/types";
+import type { Renderer, WidgetRenderState } from "instantsearch.js/es/types";
 import { useState } from "#app";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
+export type MenuWidgetState = WidgetRenderState<MenuRenderState, MenuConnectorParams>;
+
 export const useAisMenuRenderState = (key: string = "") =>
-  useState<Record<string, MenuRenderState>>(`ais_menu_render_state${key}`, () => ({}));
+  useState<Record<string, MenuWidgetState>>(`ais_menu_render_state${key}`, () => ({}));
 export const useAisMenu = (widgetParams: MenuConnectorParams, widgetId: string = "") => {
-  const stateRef = ref<MenuRenderState | null>();
+  const stateRef = ref<MenuWidgetState | null>();
   const menuRenderState = useAisMenuRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 

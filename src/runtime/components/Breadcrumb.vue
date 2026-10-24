@@ -48,7 +48,10 @@
 >
 import type { BreadcrumbConnectorParamsItem } from "instantsearch.js/es/connectors/breadcrumb/connectBreadcrumb";
 import { computed } from "vue";
-import { useAisBreadcrumbRenderState } from "../composables/useAisBreadcrumb";
+import {
+  useAisBreadcrumbRenderState,
+  type BreadcrumbWidgetState,
+} from "../composables/useAisBreadcrumb";
 import { useAisWidget } from "../composables/useAisWidget";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
@@ -71,9 +74,10 @@ const suit = useSuit("Breadcrumb");
 
 const attribute = computed(() => props.attributes[0] || "");
 
-const state = computed(() => {
+const state = computed((): BreadcrumbWidgetState | undefined => {
   if (props.id) {
-    return breadcrumbState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return breadcrumbState.value as unknown as BreadcrumbWidgetState;
   }
 
   return breadcrumbRenderState.value[attribute.value] || breadcrumbState.value?.[attribute.value];

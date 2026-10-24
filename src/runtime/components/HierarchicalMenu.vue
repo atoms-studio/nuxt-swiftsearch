@@ -42,7 +42,10 @@ import HierarchicalMenuList from "./HierarchicalMenuList.vue";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisHierarchicalMenuRenderState } from "../composables/useAisHierarchicalMenu";
+import {
+  useAisHierarchicalMenuRenderState,
+  type HierarchicalMenuWidgetState,
+} from "../composables/useAisHierarchicalMenu";
 
 type HierarchicalMenuProps = {
   id?: string;
@@ -74,11 +77,12 @@ const stateAttribute = computed(() => {
   return props.attribute ?? props.attributes[0];
 });
 
-const state = computed(() => {
+const state = computed((): HierarchicalMenuWidgetState | undefined => {
   if (props.id) {
-    return hierarchicalMenuState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return hierarchicalMenuState.value as unknown as HierarchicalMenuWidgetState;
   }
-  if (!stateAttribute.value) return null;
+  if (!stateAttribute.value) return undefined;
   return (
     hierarchicalMenuRenderState.value[stateAttribute.value] ||
     hierarchicalMenuState.value?.[stateAttribute.value]
