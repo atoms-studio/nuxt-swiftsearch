@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage } from "@nuxt/test-utils/e2e";
+import { setup, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7786;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 describe("swiftsearch cross-file widget discovery (issue #58, nested components)", async () => {
@@ -26,7 +25,6 @@ describe("swiftsearch cross-file widget discovery (issue #58, nested components)
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("renders and refines widgets that live inside a child component", async () => {
@@ -40,7 +38,7 @@ describe("swiftsearch cross-file widget discovery (issue #58, nested components)
       }
     });
 
-    await page.goto(getTestUrl("/swift/nested-child"), {
+    await page.goto(url("/swift/nested-child"), {
       waitUntil: "hydration",
       timeout: 60000,
     });

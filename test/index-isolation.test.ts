@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage } from "@nuxt/test-utils/e2e";
+import { setup, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7782;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 describe("swiftsearch index isolation", async () => {
@@ -26,12 +25,11 @@ describe("swiftsearch index isolation", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("keeps refinements isolated across indexId scopes", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/swift/index-isolation"), {
+    await page.goto(url("/swift/index-isolation"), {
       waitUntil: "hydration",
       timeout: 60000,
     });

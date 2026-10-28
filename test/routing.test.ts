@@ -1,12 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
+import { setup, $fetch, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { resolve } from "node:path";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7781;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = decodeURIComponent(new URL("./fixtures/parity", import.meta.url).pathname);
 
 const decodeUrl = (url: string) => decodeURIComponent(url);
@@ -27,7 +26,6 @@ describe("swiftsearch routing", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("hydrates search parameters from the incoming URL", async () => {
@@ -36,7 +34,7 @@ describe("swiftsearch routing", async () => {
     expect(html).toContain('value="Samsung"');
 
     const page = await createPage("/");
-    await page.goto(getTestUrl(route), { waitUntil: "hydration" });
+    await page.goto(url(route), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
     const searchValue = await page
@@ -49,7 +47,7 @@ describe("swiftsearch routing", async () => {
 
   it("syncs refinements into the URL and restores them on reload", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/swift/router"), { waitUntil: "hydration" });
+    await page.goto(url("/swift/router"), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
 
@@ -80,7 +78,7 @@ describe("swiftsearch routing", async () => {
 
   it("keeps InstantSearch state across route navigation", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/swift/router"), { waitUntil: "hydration" });
+    await page.goto(url("/swift/router"), { waitUntil: "hydration" });
 
     await page.waitForLoadState("networkidle");
 

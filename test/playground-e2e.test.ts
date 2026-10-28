@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage, $fetch } from "@nuxt/test-utils/e2e";
+import { setup, $fetch, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7783;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const playgroundRoot = fileURLToPath(new URL("../playground", import.meta.url));
 
 describe("playground e2e", async () => {
@@ -26,12 +25,11 @@ describe("playground e2e", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("keeps home page refinements isolated across declarative index scopes", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/"), { waitUntil: "hydration" });
+    await page.goto(url("/"), { waitUntil: "hydration" });
     await page.waitForLoadState("networkidle");
 
     const indexOne = page.getByTestId("index-1");
@@ -52,7 +50,7 @@ describe("playground e2e", async () => {
 
   it("keeps manual widgets syntax interoperable on /search", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/search"), { waitUntil: "hydration" });
+    await page.goto(url("/search"), { waitUntil: "hydration" });
     await page.waitForLoadState("networkidle");
 
     await page.getByTestId("manual-page").waitFor({ state: "visible" });
@@ -77,7 +75,7 @@ describe("playground e2e", async () => {
 
   it("renders autocomplete slot and index groups", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/autocomplete"), {
+    await page.goto(url("/autocomplete"), {
       waitUntil: "hydration",
       timeout: 120000,
     });
@@ -97,7 +95,7 @@ describe("playground e2e", async () => {
 
   it("restores pagination page from URL", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/pagination/page/3"), {
+    await page.goto(url("/pagination/page/3"), {
       waitUntil: "hydration",
       timeout: 60000,
     });
@@ -131,7 +129,7 @@ describe("playground e2e", async () => {
       pageErrors.push(error.message);
     });
 
-    await page.goto(getTestUrl("/showcase"), {
+    await page.goto(url("/showcase"), {
       waitUntil: "hydration",
       timeout: 60000,
     });
@@ -174,7 +172,7 @@ describe("playground e2e", async () => {
   // toggleShowMore() must reactively update the rendered item count.
   it("re-renders RefinementList in manual mode when toggleShowMore is called", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/issue-48"), {
+    await page.goto(url("/issue-48"), {
       waitUntil: "hydration",
       timeout: 60000,
     });
