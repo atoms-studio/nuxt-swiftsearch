@@ -34,7 +34,8 @@ export const useAisHierarchicalMenu = (
     stateRef.value = renderState;
     // save renderState
     if (import.meta.client) {
-      hierarchicalRenderState.value[widgetParams.attributes[0]] = renderState;
+      // The connector throws when `attributes` is empty, so the root attribute exists.
+      hierarchicalRenderState.value[widgetParams.attributes[0]!] = renderState;
     }
 
     if (isFirstRender) {

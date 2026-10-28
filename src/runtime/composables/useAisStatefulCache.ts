@@ -1,5 +1,5 @@
 import type { Cache, CacheEvents } from "@algolia/client-common";
-import { useState } from "#app";
+import { useState } from "nuxt/app";
 
 export const useAisStatefulCache = (key?: string) => {
   const options = { serializable: false };

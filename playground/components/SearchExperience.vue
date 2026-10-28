@@ -162,6 +162,7 @@
 
 <script setup lang="ts">
 import { algoliasearch } from "algoliasearch";
+import type { MenuItem } from "instantsearch.js/es/connectors/menu/connectMenu";
 import type { InstantSearchOptions } from "instantsearch.js/es/types";
 import { singleIndex as singleIndexMapping } from "instantsearch.js/es/lib/stateMappings";
 
@@ -195,7 +196,7 @@ const numericMenuItems = [
   { label: ">= 500$", start: 500 },
 ];
 
-const menuTransformItems = (items: Array<{ label: string }>) => {
+const menuTransformItems = (items: MenuItem[]) => {
   return items.map((item) => {
     return {
       ...item,

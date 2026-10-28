@@ -1,5 +1,5 @@
 import { isEqual } from "ohash";
-import { useState } from "#app";
+import { useState } from "nuxt/app";
 import { ref } from "vue";
 
 import type {

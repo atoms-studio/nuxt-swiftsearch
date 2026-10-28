@@ -2,7 +2,9 @@ import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
 import { setup, createPage } from "@nuxt/test-utils/e2e";
-import type { Page } from "playwright-core";
+
+// createPage adds the "hydration" wait state, which the plain playwright Page type does not have.
+type Page = Awaited<ReturnType<typeof createPage>>;
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */

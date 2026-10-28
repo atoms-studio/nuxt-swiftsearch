@@ -38,5 +38,8 @@ jobs:
       - name: Run Oxfmt check
         run: bun run format:check
 
+      - name: Run type check
+        run: bun run typecheck
+
       - name: Run test suite
         run: bun run test
