@@ -30,7 +30,7 @@ const createServerVoiceSearchWidget = (
     $$widgetParams: widgetParams,
     $$widgetId: widgetId,
     $$setIndexScope: setIndexScope,
-    init() {},
+    init(_initOptions: { instantSearchInstance: object }) {},
     render() {},
     dispose({ state }: { state: unknown }) {
       return state;
@@ -66,11 +66,14 @@ export const useAisVoiceSearch = (
       widgetId,
       widgetIdScope.setIndexScope,
     );
-    stateRef.value = serverWidget.getWidgetRenderState() as VoiceSearchRenderState;
-    const baseInit = serverWidget.init;
-    serverWidget.init = function (...args) {
+    // The stub render state has no instance, unlike connector render states.
+    // The registry needs it, so it is taken from the init options.
+    serverWidget.init = ({ instantSearchInstance }: { instantSearchInstance: object }) => {
+      stateRef.value = {
+        ...serverWidget.getWidgetRenderState(),
+        instantSearchInstance,
+      } as VoiceSearchRenderState;
       widgetIdScope.provideWidgetState("voiceSearch", stateRef);
-      return baseInit?.apply(this, args);
     };
     return serverWidget;
   }

@@ -60,6 +60,7 @@
           },
         ]"
         :disabled="!state.canToggleShowMore"
+        :aria-expanded="state.isShowingMore ? 'true' : 'false'"
         @click="toggleShowMore"
       >
         <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">

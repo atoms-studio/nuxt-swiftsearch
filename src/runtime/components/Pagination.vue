@@ -124,6 +124,7 @@ const refine = (page: number) => {
               :class="suit('link')"
               :href="state.createURL(page)"
               :aria-label="'Page ' + (i + 1)"
+              :aria-current="state.currentRefinement === page ? 'page' : undefined"
               @click.prevent="refine(page)"
               >{{ page + 1 }}</a
             >

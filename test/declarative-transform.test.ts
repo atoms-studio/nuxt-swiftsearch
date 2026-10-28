@@ -290,3 +290,329 @@ const configuration = {
     }
   });
 });
+
+const sfc = (template: string, script = "") => `
+<template>
+  <AisInstantSearch :configuration="configuration">
+${template}
+  </AisInstantSearch>
+</template>
+
+<script setup lang="ts">
+${script}
+const configuration = {
+  indexName: "instant_search",
+  searchClient: {} as any,
+};
+</script>
+`;
+
+describe("declarative widgets transform — v-for", () => {
+  it("generates widgets from a basic v-for over an attribute list (issue #58 repro)", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisSearchBox />
+    <AisRefinementList v-for="attr in refinementListAttributes" :key="attr" :attribute="attr" />`,
+        `const refinementListAttributes = ["brand", "price", "free_shipping"];`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    expect(code).toContain(':widgets="__swiftsearchWidgets1"');
+    // the :key suffixes the id, so the v-for alias list stays untouched
+    expect(code).toContain('v-for="attr in refinementListAttributes"');
+    // the element resolves the same per-iteration id the factory call uses
+    expect(code).toContain(':id="`swiftsearch-1-2-${attr}`"');
+    expect(code).toContain("renderList as __swiftsearchRenderList");
+    expect(code).toContain(
+      "...__swiftsearchRenderList(__swiftsearchUnref(refinementListAttributes), (attr) => [",
+    );
+    expect(code).toContain(".flat()");
+    expect(code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: attr }, `swiftsearch-1-2-${attr}`)",
+    );
+  });
+
+  it("falls back to the item position when the loop has no :key, with a warning", async () => {
+    const { code, warn } = await transform(
+      sfc(`    <AisRefinementList v-for="attr in attrs" :attribute="attr" />`),
+    );
+
+    // the alias list is rewritten in place to expose an index alias
+    expect(code).toContain('v-for="(attr, __swiftsearchI) in attrs"');
+    expect(code).toContain(':id="`swiftsearch-1-1-${__swiftsearchI}`"');
+    expect(code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: attr }, `swiftsearch-1-1-${__swiftsearchI}`)",
+    );
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]![0])).toContain("has no usable :key");
+  });
+
+  it("uses the key expression in the template and its normalized form in the factory", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisRefinementList v-for="item in items" :key="prefix + item.id" :attribute="item.attr" />`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    expect(code).toContain(':id="`swiftsearch-1-1-${prefix + item.id}`"');
+    expect(code).toContain("`swiftsearch-1-1-${__swiftsearchUnref(prefix) + item.id}`");
+  });
+
+  it("reuses the user's index alias and supports the `of` form", async () => {
+    const withIndex = await transform(
+      sfc(`    <AisRefinementList v-for="(item, index) in attrs" :key="item" :attribute="item" />`),
+    );
+
+    expect(withIndex.warn).toHaveBeenCalledTimes(0);
+    // no rewrite: the original alias list is untouched
+    expect(withIndex.code).toContain('v-for="(item, index) in attrs"');
+    expect(withIndex.code).not.toContain("__swiftsearchI");
+    expect(withIndex.code).toContain("(item, index) => [");
+    expect(withIndex.code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: item }, `swiftsearch-1-1-${item}`)",
+    );
+
+    // without a :key, the user's index alias is the id suffix
+    const keyless = await transform(
+      sfc(`    <AisRefinementList v-for="(item, index) in attrs" :attribute="item" />`),
+    );
+    expect(keyless.code).not.toContain("__swiftsearchI");
+    expect(keyless.code).toContain("`swiftsearch-1-1-${index}`");
+
+    const ofForm = await transform(
+      sfc(`    <AisRefinementList v-for="item of attrs" :key="item" :attribute="item" />`),
+    );
+
+    expect(ofForm.warn).toHaveBeenCalledTimes(0);
+    expect(ofForm.code).toContain('v-for="item of attrs"');
+    expect(ofForm.code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: item }, `swiftsearch-1-1-${item}`)",
+    );
+  });
+
+  it("unref-wraps the loop source but never the loop aliases", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisRefinementList v-for="attr in attrs" :key="attr" :attribute="attr" :limit="limit" />`,
+        `import { ref } from "vue";\nconst attrs = ref(["brand"]);\nconst limit = ref(10);`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    expect(code).toContain("__swiftsearchRenderList(__swiftsearchUnref(attrs),");
+    // the alias stays a raw identifier inside the callback...
+    expect(code).toContain("attribute: attr,");
+    expect(code).not.toContain("__swiftsearchUnref(attr)");
+    // ...while other setup bindings still get unwrapped
+    expect(code).toContain("limit: __swiftsearchUnref(limit)");
+  });
+
+  it("passes explicit dynamic :id through and does not dedupe across loops over different sources", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisRefinementList v-for="a in attrsA" :key="a" :id="a" :attribute="a" />
+    <AisRefinementList v-for="a in attrsB" :key="a" :id="a" :attribute="a" />`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    // explicit :id used verbatim — no generated id, no injected :id attribute
+    expect(code).not.toContain("swiftsearch-1-1");
+    expect(code).toContain("__swiftsearchUseAisRefinementList({ attribute: a }, a)");
+    const calls = code.match(/__swiftsearchUseAisRefinementList\(/g) ?? [];
+    expect(calls).toHaveLength(2);
+  });
+
+  it("supports v-for on container elements wrapping multiple widgets and inner v-if", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <template v-for="c in configs" :key="c.attr">
+      <AisRefinementList :attribute="c.attr" />
+      <AisMenu v-if="c.menu" :attribute="c.attr" />
+    </template>`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    expect(code).toContain("...__swiftsearchRenderList(__swiftsearchUnref(configs), (c) => [");
+    expect(code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: c.attr }, `swiftsearch-1-1-${c.attr}`)",
+    );
+    // inner v-if compiles to a ternary spread with the alias left raw
+    expect(code).toContain("...((c.menu) ? [");
+    expect(code).toContain(
+      "__swiftsearchUseAisMenu({ attribute: c.attr }, `swiftsearch-1-2-${c.attr}`)",
+    );
+    expect(code).toContain(".flat()");
+  });
+
+  it("supports v-for inside AisIndex children", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisIndex index="airbnb">
+      <AisRefinementList v-for="a in attrs" :key="a" :attribute="a" />
+    </AisIndex>`,
+      ),
+    );
+
+    expect(warn).toHaveBeenCalledTimes(0);
+    expect(code).toMatch(/\.addWidgets\(\[[\s\S]*__swiftsearchRenderList\(/);
+    expect(code).toContain(
+      "__swiftsearchUseAisRefinementList({ attribute: a }, `swiftsearch-1-1-${a}`)",
+    );
+  });
+
+  it("skips only the unsupported node and keeps generating the rest", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisSearchBox />
+    <AisStats v-if="showStats" v-for="n in 5" />
+    <AisHits />`,
+      ),
+    );
+
+    // partial generation: the two supported widgets survive
+    expect(code).toContain(':widgets="__swiftsearchWidgets1"');
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(code).toContain("__swiftsearchUseAisHits(");
+    expect(code).not.toContain("__swiftsearchUseAisStats(");
+
+    expect(warn).toHaveBeenCalledTimes(1);
+    const message = String(warn.mock.calls[0]![0]);
+    expect(message).toContain("/tmp/page.vue");
+    expect(message).toContain("AisStats");
+  });
+
+  it("skips a widget with a static id inside a loop", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisRefinementList v-for="a in attrs" :key="a" id="fixed" :attribute="a" />
+    <AisSearchBox />`,
+      ),
+    );
+
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(code).not.toContain("__swiftsearchUseAisRefinementList(");
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]![0])).toContain("AisRefinementList");
+  });
+
+  it("skips v-if + v-for on the same element instead of silently emitting one static widget", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisSearchBox />
+    <AisStats v-if="showStats" v-for="n in 5" />`,
+      ),
+    );
+
+    // regression: previously the v-for was silently ignored and a single
+    // static-id widget was emitted for N rendered elements
+    expect(code).not.toContain("__swiftsearchUseAisStats(");
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]![0])).toContain("v-if");
+  });
+
+  it("skips nested v-for loops", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <div v-for="g in groups" :key="g.name">
+      <AisRefinementList v-for="a in g.attrs" :key="a" :attribute="a" />
+    </div>
+    <AisSearchBox />`,
+      ),
+    );
+
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(code).not.toContain("__swiftsearchUseAisRefinementList(");
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]![0])).toContain("nested v-for");
+  });
+
+  it("skips v-for on AisIndex and AisDynamicWidgets", async () => {
+    const onIndex = await transform(
+      sfc(
+        `    <AisIndex v-for="name in indexes" :key="name" :index="name">
+      <AisHits />
+    </AisIndex>
+    <AisSearchBox />`,
+      ),
+    );
+
+    expect(onIndex.code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(onIndex.code).not.toContain("__swiftsearchUseAisIndex(");
+    expect(onIndex.warn).toHaveBeenCalledTimes(1);
+    expect(String(onIndex.warn.mock.calls[0]![0])).toContain("AisIndex");
+
+    const onDynamic = await transform(
+      sfc(
+        `    <AisDynamicWidgets v-for="n in 2" :key="n">
+      <AisRefinementList attribute="brand" />
+    </AisDynamicWidgets>
+    <AisSearchBox />`,
+      ),
+    );
+
+    expect(onDynamic.code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(onDynamic.code).not.toContain("__swiftsearchUseAisDynamicWidgets(");
+    expect(onDynamic.warn).toHaveBeenCalledTimes(1);
+    expect(String(onDynamic.warn.mock.calls[0]![0])).toContain("AisDynamicWidgets");
+  });
+
+  it("skips destructured v-for aliases", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisRefinementList v-for="{ attribute } in defs" :key="attribute" :attribute="attribute" />
+    <AisSearchBox />`,
+      ),
+    );
+
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+    expect(code).not.toContain("__swiftsearchUseAisRefinementList(");
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(String(warn.mock.calls[0]![0])).toContain("AisRefinementList");
+  });
+});
+
+describe("declarative widgets transform — nested components", () => {
+  it("warns about childless custom components inside the root that cannot be scanned", async () => {
+    const { code, warn } = await transform(
+      sfc(
+        `    <AisSearchBox />
+    <FiltersPanel :config="cfg" />
+    <NuxtLink to="/">home</NuxtLink>
+    <div class="plain" />`,
+      ),
+    );
+
+    // widgets in the root file are still generated
+    expect(code).toContain(':widgets="__swiftsearchWidgets1"');
+    expect(code).toContain("__swiftsearchUseAisSearchBox(");
+
+    // exactly one informational warning, naming the component; native tags and
+    // known framework components do not trigger it
+    expect(warn).toHaveBeenCalledTimes(1);
+    const message = String(warn.mock.calls[0]![0]);
+    expect(message).toContain("FiltersPanel");
+    expect(message).not.toContain("NuxtLink");
+    expect(message).not.toContain("div");
+  });
+
+  it("leaves child-component files without an AisInstantSearch root untouched", async () => {
+    const source = `
+<template>
+  <AisRefinementList attribute="brand" />
+  <AisRefinementList attribute="price" />
+</template>
+`;
+
+    const { code, warn } = await transform(source);
+
+    // pins current behavior: discovery is scoped to the file containing the
+    // root, so a widgets-only child component is not transformed at all
+    expect(code).toBe("");
+    expect(warn).toHaveBeenCalledTimes(0);
+  });
+});

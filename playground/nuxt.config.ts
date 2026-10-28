@@ -4,6 +4,9 @@ const localPublicDir = fileURLToPath(new URL("./public", import.meta.url));
 
 export default defineNuxtConfig({
   modules: ["../src/module"],
+  swiftsearch: {
+    childWidgetDiscovery: true,
+  },
   devtools: { enabled: true },
   experimental: {
     componentIslands: true,

@@ -1,4 +1,5 @@
-import { provide } from "vue";
+import { toRaw, type Ref } from "vue";
+import { getWidgetStateRegistry, widgetStateKey } from "./widgetStateRegistry";
 
 export type ScopedWidget = {
   $$setIndexScope?: (scope: string) => void;
@@ -11,14 +12,17 @@ export const createWidgetIdScope = (widgetId: string) => {
     indexScope = scope;
   };
 
-  const provideWidgetState = (widgetName: string, stateRef: unknown) => {
+  // Call on the first render, after the render state is stored in `stateRef`.
+  // Every connector passes `instantSearchInstance` in its render state, so
+  // the registry of the right instance is found without any global state.
+  const provideWidgetState = (widgetName: string, stateRef: Ref<unknown>) => {
     if (!widgetId) return;
 
-    const key = indexScope
-      ? `${widgetName}-${indexScope}-${widgetId}`
-      : `${widgetName}-${widgetId}`;
+    const renderState = toRaw(stateRef.value) as { instantSearchInstance?: object } | null;
+    const instance = renderState?.instantSearchInstance;
+    if (!instance) return;
 
-    provide(key, stateRef);
+    getWidgetStateRegistry(instance)[widgetStateKey(widgetName, indexScope, widgetId)] = stateRef;
   };
 
   return {
