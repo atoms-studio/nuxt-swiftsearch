@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: true
+      SKIP_INSTALL_SIMPLE_GIT_HOOKS: "1"
       BROWSERSLIST_IGNORE_OLD_DATA: 1
     steps:
       - name: Checkout repository

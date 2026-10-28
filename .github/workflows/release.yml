@@ -29,6 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CI: true
+      # The pre-commit hook runs the full test suite. changelogen commits the
+      # release, so an installed hook runs the tests a second time there.
+      SKIP_INSTALL_SIMPLE_GIT_HOOKS: "1"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -84,18 +87,8 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps chromium
 
-      - name: Run Oxlint
-        run: bun run lint
-
-      - name: Run Oxfmt check
-        run: bun run format:check
-
-      - name: Run type check
-        run: bun run typecheck
-
-      - name: Run test suite
-        run: bun run test
-
+      # Each release script runs `release:prepare` (lint, format, type check
+      # and tests) before it bumps and publishes, so no separate steps here.
       - name: Publish release
         run: bun run "${{ steps.plan.outputs.script }}"
         env:
