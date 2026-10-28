@@ -4,9 +4,9 @@ import type {
   InstantSearchStatus,
   Widget,
 } from "instantsearch.js/es/types";
-import { isEqual } from "ohash";
+import { hash } from "ohash";
 import { waitForResults, getInitialResults } from "instantsearch.js/es/lib/server";
-import { clearRefinements, getRefinements } from "instantsearch.js/es/lib/utils";
+import { isIndexWidget } from "instantsearch.js/es/lib/utils";
 import { computed, inject, nextTick, provide, shallowRef, triggerRef, type Ref } from "vue";
 import { useState, createError } from "nuxt/app";
 
@@ -41,46 +41,12 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
   const setup = async (widgets: Array<Widget | IndexWidget>, instanceKey: string = "") => {
     const _results = useState<InitialResults | null>(`instantsearch_ssr_results_${instanceKey}`);
     const instance = getInstance();
-    // adding widgets to instance if not presents (new instance)
-    if (!instance.value.mainIndex.getWidgets().length) {
-      instance.value.addWidgets(widgets);
-      // }
+    const mainIndex = instance.value.mainIndex;
+
+    if (!mainIndex.getWidgets().length) {
+      mainIndex.addWidgets(widgets);
     } else {
-      const oldWidgets = instance.value.mainIndex.getWidgets();
-      // compare widgets
-      const widgetsToAdd = widgets.filter(
-        (newW) =>
-          !oldWidgets.some(
-            // @ts-ignore
-            (oldW) => isEqual(oldW.$$widgetParams, newW.$$widgetParams),
-          ),
-      );
-      const widgetsToRemove = oldWidgets.filter(
-        (oldW) =>
-          !widgets.some((newW) =>
-            // @ts-ignore
-            isEqual(oldW.$$widgetParams, newW.$$widgetParams),
-          ),
-      );
-
-      if (widgetsToAdd.length || widgetsToRemove.length) {
-        // clear refinements
-        const refs = getRefinements(
-          instance.value.mainIndex.getScopedResults()![0].results,
-          instance.value.mainIndex!.getScopedResults()![0].helper.state,
-          true,
-        );
-
-        instance.value.helper!.setState(
-          clearRefinements({
-            helper: instance.value.mainHelper!,
-            attributesToClear: refs.map((refinement) => refinement.attribute),
-          }),
-        );
-      }
-
-      if (widgetsToRemove.length) instance.value.removeWidgets(widgetsToRemove);
-      if (widgetsToAdd.length) instance.value.addWidgets(widgetsToAdd);
+      applyWidgetDiff(mainIndex, widgets);
     }
 
     if (!instance.value.started && !_results.value) {
@@ -136,6 +102,49 @@ export const useInstantSearch = (instance?: Ref<InstantSearch> | null) => {
     status,
     error,
   };
+};
+
+type DiffableWidget = (Widget | IndexWidget) & {
+  $$widgetId?: string;
+  $$widgetParams?: unknown;
+};
+
+const widgetIdentity = (widget: DiffableWidget) => {
+  if (isIndexWidget(widget)) return `index:${widget.getIndexId()}`;
+  if (widget.$$widgetId) return `id:${widget.$$type}:${widget.$$widgetId}`;
+  return `params:${widget.$$type}:${hash(widget.$$widgetParams ?? null)}`;
+};
+
+// Brings the widgets of `parent` in line with `nextWidgets`, a freshly built
+// widget tree. Widgets match by id (by params when they have no id):
+// - same params: the current widget stays, and the new object is dropped.
+// - other params: updateWidget swaps it in place and keeps its UI state.
+// - index widgets: the diff continues into their children.
+// Removed widgets clean their own refinements on dispose. The refinements of
+// all other widgets stay.
+const applyWidgetDiff = (parent: IndexWidget, nextWidgets: Array<Widget | IndexWidget>) => {
+  const current = new Map<string, DiffableWidget>();
+  for (const widget of parent.getWidgets() as DiffableWidget[]) {
+    current.set(widgetIdentity(widget), widget);
+  }
+
+  const toAdd: Array<Widget | IndexWidget> = [];
+  for (const next of nextWidgets as DiffableWidget[]) {
+    const identity = widgetIdentity(next);
+    const existing = current.get(identity);
+    current.delete(identity);
+
+    if (!existing) {
+      toAdd.push(next);
+    } else if (isIndexWidget(existing) && isIndexWidget(next)) {
+      applyWidgetDiff(existing, next.getWidgets());
+    } else if (hash(existing.$$widgetParams ?? null) !== hash(next.$$widgetParams ?? null)) {
+      parent.updateWidget(existing, next);
+    }
+  }
+
+  if (current.size) parent.removeWidgets([...current.values()]);
+  if (toAdd.length) parent.addWidgets(toAdd);
 };
 
 type StatusInternals = {

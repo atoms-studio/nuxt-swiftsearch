@@ -22,6 +22,7 @@
         v-if="showMore"
         :class="[suit('showMore'), !state.canToggleShowMore && suit('showMore', 'disabled')]"
         :disabled="!state.canToggleShowMore"
+        :aria-expanded="state.isShowingMore ? 'true' : 'false'"
         @click.prevent="state.toggleShowMore"
       >
         <slot name="showMoreLabel" :is-showing-more="state.isShowingMore">

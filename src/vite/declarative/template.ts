@@ -4,8 +4,7 @@ import {
   type ElementNode,
   type TemplateChildNode,
 } from "@vue/compiler-dom";
-import { getDirectiveExpression } from "./expression";
-import type { ConditionalBranch, ControlFlow, GenerationContext } from "./types";
+import type { ConditionalBranch, ControlFlow } from "./types";
 import { normalizeAisTag } from "./widgets";
 
 export const toCamelCase = (value: string) =>
@@ -121,27 +120,96 @@ export const hasWidgetsProp = (node: ElementNode) => {
   return false;
 };
 
-export const getControlFlow = (node: ElementNode, context?: GenerationContext): ControlFlow => {
+const directiveSource = (directive: DirectiveNode) =>
+  directive.exp?.type === NodeTypes.SIMPLE_EXPRESSION
+    ? directive.exp.content
+    : (directive.exp?.loc.source ?? "");
+
+// Structural only: conditions stay raw template source. The collector
+// normalizes them, so that it can skip the node when an expression bails.
+export const getControlFlow = (node: ElementNode): ControlFlow => {
+  let forDirective: DirectiveNode | undefined;
+  let conditional: { kind: "if" | "else-if"; condition: string } | { kind: "else" } | undefined;
+
   for (const prop of node.props) {
-    if (prop.type !== NodeTypes.DIRECTIVE) {
-      continue;
-    }
+    if (prop.type !== NodeTypes.DIRECTIVE) continue;
 
     if (prop.name === "for") {
-      return { kind: "for" };
-    }
-
-    if (prop.name === "if" || prop.name === "else-if") {
-      const condition = getDirectiveExpression(prop as DirectiveNode, context);
-      return { kind: prop.name, condition };
-    }
-
-    if (prop.name === "else") {
-      return { kind: "else" };
+      forDirective = prop;
+    } else if (prop.name === "if" || prop.name === "else-if") {
+      conditional = { kind: prop.name, condition: directiveSource(prop) };
+    } else if (prop.name === "else") {
+      conditional = { kind: "else" };
     }
   }
 
-  return { kind: "none" };
+  // Both directives on one element cannot be modeled as a single widget call.
+  if (forDirective && conditional) return { kind: "for-and-if" };
+  if (forDirective) return { kind: "for", forDirective };
+  return conditional ?? { kind: "none" };
+};
+
+export const findBoundAttribute = (node: ElementNode, name: string) => {
+  for (const prop of node.props) {
+    if (
+      prop.type === NodeTypes.DIRECTIVE &&
+      prop.name === "bind" &&
+      prop.arg?.type === NodeTypes.SIMPLE_EXPRESSION &&
+      prop.arg.isStatic &&
+      prop.arg.content === name
+    ) {
+      return directiveSource(prop).trim() || undefined;
+    }
+  }
+  return undefined;
+};
+
+export const SYNTHETIC_LOOP_INDEX_ALIAS = "__swiftsearchI";
+
+export type ParsedForDirective =
+  | {
+      ok: true;
+      rawSource: string;
+      valueAlias: string;
+      // Second callback argument: array index or object key.
+      keyAlias?: string;
+      indexAlias?: string;
+    }
+  | { ok: false; reason: string };
+
+export const parseForDirective = (directive: DirectiveNode): ParsedForDirective => {
+  const parseResult = directive.forParseResult;
+
+  if (!parseResult?.source || !directive.exp) {
+    return { ok: false, reason: "the v-for expression could not be parsed" };
+  }
+
+  const { source, value, key, index } = parseResult;
+  const valueAlias = value?.loc.source.trim();
+  const keyAlias = key?.loc.source.trim();
+  const indexAlias = index?.loc.source.trim();
+
+  if (!valueAlias) {
+    return { ok: false, reason: "v-for without an item alias is not supported" };
+  }
+  if (!isIdentifier(valueAlias)) {
+    return {
+      ok: false,
+      reason:
+        "destructured v-for aliases are not supported; use a simple identifier (for example `item in items`)",
+    };
+  }
+  if (keyAlias !== undefined && !isIdentifier(keyAlias)) {
+    return { ok: false, reason: "the v-for key/index alias must be a simple identifier" };
+  }
+  if (indexAlias !== undefined && !isIdentifier(indexAlias)) {
+    return { ok: false, reason: "the v-for index alias must be a simple identifier" };
+  }
+  if (indexAlias !== undefined && keyAlias === undefined) {
+    return { ok: false, reason: "v-for with a skipped key alias is not supported" };
+  }
+
+  return { ok: true, rawSource: source.loc.source, valueAlias, keyAlias, indexAlias };
 };
 
 export const isIgnorableControlFlowSibling = (node: TemplateChildNode) => {

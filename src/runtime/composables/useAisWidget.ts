@@ -1,7 +1,7 @@
 import type { RenderState } from "instantsearch.js";
-import { computed, inject, watch, ref, type Ref, triggerRef } from "vue";
+import { computed, inject, shallowRef, watchEffect, type Ref } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
-import { useState } from "nuxt/app";
+import { getWidgetStateRegistry, widgetStateKey } from "./widgetStateRegistry";
 
 export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   widgetName: TWidget,
@@ -10,57 +10,54 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
   const { getInstance } = useInstantSearch();
   const instance = getInstance();
 
-  const maybeInjectedIndexName = inject<string | undefined>("index", undefined);
-  const maybeInjectedIndexId = inject<string | undefined>("indexId", undefined);
-  const maybeInjectedInstanceKey = inject<string | undefined>("instanceKey", undefined);
+  const injectedIndexScope =
+    inject<string | undefined>("indexId", undefined) ??
+    inject<string | undefined>("index", undefined);
+  const indexScope = injectedIndexScope ?? instance.value.indexName;
 
-  const indexScope = maybeInjectedIndexId ?? maybeInjectedIndexName ?? instance.value.indexName;
-  const index = indexScope;
-  type _TWidgetRenderState = (typeof instance.value.renderState)[typeof index][typeof widgetName];
+  type TWidgetRenderState = NonNullable<RenderState[string][TWidget]>;
+  let state: Ref<TWidgetRenderState | undefined>;
 
-  type TWidgetRenderState = Ref<NonNullable<_TWidgetRenderState>>;
-  const _state = (
-    widgetId
-      ? (inject<any>(`${widgetName}-${indexScope}-${widgetId}`, undefined) ??
-        inject<any>(`${widgetName}-${widgetId}`, undefined))
-      : ref(instance.value.renderState[index][widgetName]!)
-  ) as TWidgetRenderState;
-
-  // Suffix the cache key with the InstantSearch instance key so widgets with
-  // the same widgetName + index + widgetId on different pages do not share
-  // Nuxt's app-level useState cache. provide/inject is already scoped to the
-  // component tree, but useState is global.
-  const instanceSuffix = maybeInjectedInstanceKey ? `-${maybeInjectedInstanceKey}` : "";
-
-  // cache injected values on client via useState
-  const state = import.meta.server
-    ? _state
-    : widgetId
-      ? useState(`${widgetName}-${indexScope}-${widgetId}${instanceSuffix}`, () => _state)
-      : _state;
-  watch(
-    instance,
-    () => {
-      if (!widgetId) {
-        // @ts-ignore
-        state.value = instance.value.renderState[index][widgetName]!;
-      } else {
-        triggerRef(state);
-      }
-    },
-    { deep: true },
-  );
-
-  if (!state.value)
-    throw new Error(
-      `Connector for component ${widgetName} not found, did you forget to add the proper widget?`,
+  if (widgetId) {
+    // The widget wrote its state ref into the registry on its first render.
+    // The computed tracks the key, so it also resolves a widget that registers later.
+    const registry = getWidgetStateRegistry(instance.value);
+    state = computed(
+      () =>
+        (
+          registry[widgetStateKey(widgetName, injectedIndexScope ?? "", widgetId)] ??
+          registry[widgetStateKey(widgetName, "", widgetId)]
+        )?.value as TWidgetRenderState | undefined,
     );
+  } else {
+    // Without an id there is one widget of this type per index: read its render
+    // state again each time the instance is triggered after a render.
+    const unkeyedState = shallowRef<TWidgetRenderState | undefined>();
+    watchEffect(() => {
+      unkeyedState.value = instance.value.renderState[indexScope]?.[widgetName] as
+        | TWidgetRenderState
+        | undefined;
+    });
+    state = unkeyedState;
+  }
 
-  const widgetParams = computed(() => state.value!.widgetParams);
+  if (!state.value) {
+    throw new Error(
+      `Connector for component ${widgetName} not found, did you forget to add the proper widget? ` +
+        `Common causes: the widget lives in a child component (enable the swiftsearch.childWidgetDiscovery module option, ` +
+        `or declare the widget in the file containing <AisInstantSearch>), the component could not be resolved to a file, ` +
+        `or the build logged a "[nuxt-swiftsearch]" warning for this element. See the declarative transform docs.`,
+    );
+  }
+
+  type TWidgetParams = TWidgetRenderState extends { widgetParams: infer P } ? P : unknown;
+  const widgetParams = computed(
+    () => (state.value as { widgetParams?: TWidgetParams } | undefined)?.widgetParams,
+  );
 
   return {
     instance,
-    state,
+    state: state as Ref<TWidgetRenderState>,
     widgetParams,
   };
 };

@@ -10,7 +10,14 @@ import {
 import { aisDeclarativeWidgetsPlugin } from "./vite/aisDeclarativeWidgetsPlugin";
 
 // Module options TypeScript interface definition
-export interface ModuleOptions {}
+export interface ModuleOptions {
+  /**
+   * Opt-in: discover Ais widgets rendered inside child components. Child SFCs
+   * are compiled into exported widget factories that the file containing
+   * `<AisInstantSearch>` imports and registers automatically.
+   */
+  childWidgetDiscovery?: boolean;
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -18,12 +25,41 @@ export default defineNuxtModule<ModuleOptions>({
     configKey: "swiftsearch",
   },
   // Default configuration options of the Nuxt module
-  defaults: {},
-  setup(_, nuxt) {
+  defaults: {
+    childWidgetDiscovery: false,
+  },
+  setup(options, nuxt) {
     assertNuxtCompatibility({ nuxt: ">=4.0.0" }, nuxt);
     const resolver = createResolver(import.meta.url);
 
-    addVitePlugin(() => aisDeclarativeWidgetsPlugin());
+    // Filled by the components:extend hook (which re-fires on dev rescans);
+    // the plugin reads it lazily at transform time, so hook order is safe.
+    const componentRegistry = new Map<
+      string,
+      { filePath: string; mode: "all" | "client" | "server" }
+    >();
+
+    if (options.childWidgetDiscovery) {
+      nuxt.hook("components:extend", (components) => {
+        componentRegistry.clear();
+        for (const component of components) {
+          if (typeof component === "object" && "pascalName" in component && component.filePath) {
+            componentRegistry.set(component.pascalName, {
+              filePath: component.filePath,
+              mode: component.mode ?? "all",
+            });
+          }
+        }
+      });
+    }
+
+    addVitePlugin(() =>
+      aisDeclarativeWidgetsPlugin({
+        childWidgetDiscovery: options.childWidgetDiscovery,
+        resolveComponent: (name) => componentRegistry.get(name),
+        exclude: [resolver.resolve("./runtime")],
+      }),
+    );
 
     // Do not add the extension since the `.ts` will be transpiled to `.mjs` after `npm run prepack`
     addImportsDir([resolver.resolve("./runtime/utils")]);

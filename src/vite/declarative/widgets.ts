@@ -32,13 +32,12 @@ export const WIDGET_COMPONENTS: Record<string, WidgetConfig> = {
   AisVoiceSearch: { composable: "useAisVoiceSearch", usesId: true },
 };
 
-const toPascalCase = (value: string) => {
-  return value
+export const toPascalCase = (value: string) =>
+  value
     .split("-")
     .filter(Boolean)
     .map((chunk) => chunk.charAt(0).toUpperCase() + chunk.slice(1))
     .join("");
-};
 
 export const normalizeAisTag = (tag: string) => {
   if (tag.startsWith("Ais")) return tag;
@@ -48,3 +47,9 @@ export const normalizeAisTag = (tag: string) => {
   }
   return tag;
 };
+
+export const hasInstantSearchRoot = (code: string) =>
+  /<AisInstantSearch|<ais-instant-search/.test(code);
+
+// Files that use vue-instantsearch directly are left to that library.
+export const usesVueInstantSearch = (code: string) => /from\s+["']vue-instantsearch/.test(code);
