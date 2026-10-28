@@ -3,23 +3,28 @@ import type {
   BreadcrumbConnectorParams,
   BreadcrumbRenderState,
 } from "instantsearch.js/es/connectors/breadcrumb/connectBreadcrumb";
-import type { Renderer } from "instantsearch.js/es/types";
+import type { Renderer, WidgetRenderState } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
+
+export type BreadcrumbWidgetState = WidgetRenderState<
+  BreadcrumbRenderState,
+  BreadcrumbConnectorParams
+>;
 
 const getBreadcrumbAttribute = (widgetParams: BreadcrumbConnectorParams) => {
   return widgetParams.attributes[0] || "";
 };
 
 export const useAisBreadcrumbRenderState = (key: string = "") =>
-  useState<Record<string, BreadcrumbRenderState>>(`ais_breadcrumb_render_state${key}`, () => ({}));
+  useState<Record<string, BreadcrumbWidgetState>>(`ais_breadcrumb_render_state${key}`, () => ({}));
 
 export const useAisBreadcrumb = (
   widgetParams: BreadcrumbConnectorParams,
   widgetId: string = "",
 ) => {
-  const stateRef = ref<BreadcrumbRenderState | null>();
+  const stateRef = ref<BreadcrumbWidgetState | null>();
   const breadcrumbRenderState = useAisBreadcrumbRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 

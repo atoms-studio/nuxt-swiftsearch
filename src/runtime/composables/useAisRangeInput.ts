@@ -3,15 +3,17 @@ import type {
   RangeRenderState,
   RangeConnectorParams,
 } from "instantsearch.js/es/connectors/range/connectRange";
-import type { Renderer } from "instantsearch.js/es/types";
+import type { Renderer, WidgetRenderState } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
+export type RangeWidgetState = WidgetRenderState<RangeRenderState, RangeConnectorParams>;
+
 export const useAisRangeInputRenderState = (key: string = "") =>
-  useState<Record<string, RangeRenderState>>(`ais_range_render_state${key}`, () => ({}));
+  useState<Record<string, RangeWidgetState>>(`ais_range_render_state${key}`, () => ({}));
 export const useAisRangeInput = (widgetParams: RangeConnectorParams, widgetId: string = "") => {
-  const stateRef = ref<RangeRenderState | null>();
+  const stateRef = ref<RangeWidgetState | null>();
   const rangeRenderState = useAisRangeInputRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 

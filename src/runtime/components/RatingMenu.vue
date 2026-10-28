@@ -68,7 +68,10 @@
 
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisRatingMenuRenderState } from "../composables/useAisRatingMenu";
+import {
+  useAisRatingMenuRenderState,
+  type RatingMenuWidgetState,
+} from "../composables/useAisRatingMenu";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
@@ -84,9 +87,10 @@ const suit = useSuit("RatingMenu");
 const { state: ratingMenuState } = useAisWidget("ratingMenu", props.id);
 const ratingMenuRenderState = useAisRatingMenuRenderState();
 
-const state = computed(() => {
+const state = computed((): RatingMenuWidgetState | undefined => {
   if (props.id) {
-    return ratingMenuState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return ratingMenuState.value as unknown as RatingMenuWidgetState;
   }
   return ratingMenuRenderState.value[props.attribute] || ratingMenuState.value?.[props.attribute];
 });

@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { useAisWidget } from "../composables/useAisWidget";
+import type { ToggleRefinementWidgetState } from "../composables/useAisToggleRefinement";
 import { useSuit } from "../composables/useSuit";
 import { computed } from "vue";
 
@@ -42,14 +43,15 @@ const props = withDefaults(defineProps<ToggleRefinementProps>(), { id: "" });
 
 const { state: refinementsState } = useAisWidget("toggleRefinement", props.id);
 
-const state = computed(() => {
+const state = computed((): ToggleRefinementWidgetState | undefined => {
   if (props.id) {
-    return refinementsState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return refinementsState.value as unknown as ToggleRefinementWidgetState;
   }
   return refinementsState.value?.[props.attribute];
 });
 
-const widgetParams = computed(() => state.value.widgetParams);
+const widgetParams = computed(() => state.value?.widgetParams);
 
 const suit = useSuit("ToggleRefinement");
 

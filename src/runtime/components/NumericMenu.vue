@@ -41,7 +41,10 @@ import type {
   NumericMenuConnectorParamsItem,
 } from "instantsearch.js/es/connectors/numeric-menu/connectNumericMenu";
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisNumericMenuRenderState } from "../composables/useAisNumericMenu";
+import {
+  useAisNumericMenuRenderState,
+  type NumericMenuWidgetState,
+} from "../composables/useAisNumericMenu";
 import { useSuit } from "../composables/useSuit";
 import type { TransformItemsTo } from "../types/transformItems";
 import { computed } from "vue";
@@ -59,9 +62,10 @@ const suit = useSuit("NumericMenu");
 const { state: numericMenuState } = useAisWidget("numericMenu", props.id);
 const numericMenuRenderState = useAisNumericMenuRenderState();
 
-const state = computed(() => {
+const state = computed((): NumericMenuWidgetState | undefined => {
   if (props.id) {
-    return numericMenuState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return numericMenuState.value as unknown as NumericMenuWidgetState;
   }
   return numericMenuRenderState.value[props.attribute] || numericMenuState.value?.[props.attribute];
 });

@@ -3,13 +3,18 @@ import type {
   RefinementListRenderState,
   RefinementListConnectorParams,
 } from "instantsearch.js/es/connectors/refinement-list/connectRefinementList";
-import type { Renderer } from "instantsearch.js/es/types";
+import type { Renderer, WidgetRenderState } from "instantsearch.js/es/types";
 import { useState } from "nuxt/app";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 
+export type RefinementListWidgetState = WidgetRenderState<
+  RefinementListRenderState,
+  RefinementListConnectorParams
+>;
+
 export const useAisRefinementListRenderState = (key: string = "") =>
-  useState<Record<string, RefinementListRenderState>>(
+  useState<Record<string, RefinementListWidgetState>>(
     `ais_refinement_render_state${key}`,
     () => ({}),
   );
@@ -17,7 +22,7 @@ export const useAisRefinementList = (
   widgetParams: RefinementListConnectorParams,
   widgetId: string = "",
 ) => {
-  const stateRef = ref<RefinementListRenderState | null>();
+  const stateRef = ref<RefinementListWidgetState | null>();
   const refinementRenderState = useAisRefinementListRenderState(widgetId);
   const widgetIdScope = createWidgetIdScope(widgetId);
 

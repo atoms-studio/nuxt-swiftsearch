@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { useAisWidget } from "../composables/useAisWidget";
-import { useAisRangeInputRenderState } from "../composables/useAisRangeInput";
+import {
+  useAisRangeInputRenderState,
+  type RangeWidgetState,
+} from "../composables/useAisRangeInput";
 import { useSuit } from "../composables/useSuit";
 import { ref, computed, type Ref } from "vue";
 
@@ -18,9 +21,10 @@ const { state: rangesState } = useAisWidget("range", props.id);
 const rangeRenderState = useAisRangeInputRenderState();
 const suit = useSuit("RangeInput");
 
-const state = computed(() => {
+const state = computed((): RangeWidgetState | undefined => {
   if (props.id) {
-    return rangesState.value;
+    // With an id, useAisWidget holds this widget's own state, not the attribute map.
+    return rangesState.value as unknown as RangeWidgetState;
   }
   return rangeRenderState.value[props.attribute] || rangesState.value?.[props.attribute];
 });
@@ -31,6 +35,7 @@ const maxInput: Ref<number | undefined> = ref();
 const step = computed(() => 1 / Math.pow(10, props.precision));
 
 const values = computed(() => {
+  if (!state.value) return { min: undefined, max: undefined };
   const [minValue, maxValue] = state.value.start;
   const { min: minRange, max: maxRange } = state.value.range;
   return {
@@ -48,7 +53,7 @@ const pick = (first: number | null | undefined, second: number | undefined) => {
 };
 
 const refine = (data: { min: number | undefined; max: number | undefined }) => {
-  state.value.refine([data.min, data.max]);
+  state.value?.refine([data.min, data.max]);
 };
 </script>
 <template>
