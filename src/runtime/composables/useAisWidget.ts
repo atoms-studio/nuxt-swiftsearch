@@ -1,9 +1,19 @@
-import type { RenderState } from "instantsearch.js";
+import type {
+  DynamicWidgetsConnectorParams,
+  DynamicWidgetsRenderState,
+} from "instantsearch.js/es/connectors/dynamic-widgets/connectDynamicWidgets";
+import type { IndexRenderState, WidgetRenderState } from "instantsearch.js/es/types";
 import { computed, inject, shallowRef, watchEffect, type Ref } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 import { getWidgetStateRegistry, widgetStateKey } from "./widgetStateRegistry";
 
-export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
+// instantsearch.js does not list `dynamicWidgets` in IndexRenderState, but the
+// connector stores its render state under that key.
+export type AisIndexRenderState = IndexRenderState & {
+  dynamicWidgets?: WidgetRenderState<DynamicWidgetsRenderState, DynamicWidgetsConnectorParams>;
+};
+
+export const useAisWidget = <const TWidget extends keyof AisIndexRenderState>(
   widgetName: TWidget,
   widgetId?: string, // is used for getting a widget with multiple widget instances like clearRefinements
 ) => {
@@ -15,7 +25,7 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
     inject<string | undefined>("index", undefined);
   const indexScope = injectedIndexScope ?? instance.value.indexName;
 
-  type TWidgetRenderState = NonNullable<RenderState[string][TWidget]>;
+  type TWidgetRenderState = NonNullable<AisIndexRenderState[TWidget]>;
   let state: Ref<TWidgetRenderState | undefined>;
 
   if (widgetId) {
@@ -34,9 +44,10 @@ export const useAisWidget = <const TWidget extends keyof RenderState["string"]>(
     // state again each time the instance is triggered after a render.
     const unkeyedState = shallowRef<TWidgetRenderState | undefined>();
     watchEffect(() => {
-      unkeyedState.value = instance.value.renderState[indexScope]?.[widgetName] as
-        | TWidgetRenderState
+      const indexRenderState = instance.value.renderState[indexScope] as
+        | AisIndexRenderState
         | undefined;
+      unkeyedState.value = indexRenderState?.[widgetName] as TWidgetRenderState | undefined;
     });
     state = unkeyedState;
   }

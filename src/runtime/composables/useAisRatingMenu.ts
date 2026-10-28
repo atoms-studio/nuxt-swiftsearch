@@ -4,7 +4,7 @@ import type {
   RatingMenuConnectorParams,
 } from "instantsearch.js/es/connectors/rating-menu/connectRatingMenu";
 import type { Renderer, WidgetRenderState } from "instantsearch.js/es/types";
-import { useState } from "#app";
+import { useState } from "nuxt/app";
 import { ref } from "vue";
 import { createWidgetIdScope } from "./widgetIdScope";
 

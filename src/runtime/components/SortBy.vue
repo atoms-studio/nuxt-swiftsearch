@@ -26,7 +26,13 @@
   </div>
 </template>
 
-<script setup lang="ts" generic="TItem extends SortByOption = SortByOption">
+<script
+  setup
+  lang="ts"
+  generic="
+    TItem extends SortByRenderState['options'][number] = SortByRenderState['options'][number]
+  "
+>
 import type { SortByRenderState } from "instantsearch.js/es/connectors/sort-by/connectSortBy";
 import { computed } from "vue";
 import { useAisWidget } from "../composables/useAisWidget";
