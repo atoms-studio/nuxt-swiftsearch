@@ -1,5 +1,23 @@
 # Changelog
 
+## v1.4.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.2...v1.4.0)
+
+### 🚀 Enhancements
+
+- Support v-for and child-component widgets, remove deep instance watch ([#62](https://github.com/atoms-studio/nuxt-swiftsearch/pull/62))
+
+### 🩹 Fixes
+
+- Correct slot prop types for attribute-based widgets ([#61](https://github.com/atoms-studio/nuxt-swiftsearch/pull/61))
+- Resolve remaining type errors and upgrade Playwright for Ubuntu 26.04 ([#63](https://github.com/atoms-studio/nuxt-swiftsearch/pull/63))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+- Alireza Jahandideh ([@Youhan](http://github.com/Youhan))
+
 ## v1.3.2
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.1...v1.3.2)
