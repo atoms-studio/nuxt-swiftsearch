@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage } from "@nuxt/test-utils/e2e";
+import { setup, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 
 // createPage adds the "hydration" wait state, which the plain playwright Page type does not have.
 type Page = Awaited<ReturnType<typeof createPage>>;
@@ -9,13 +10,11 @@ import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7785;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 const openPage = async (page: Page, errors: string[]) => {
   page.on("pageerror", (error) => errors.push(String(error)));
-  await page.goto(getTestUrl("/swift/v-for"), {
+  await page.goto(url("/swift/v-for"), {
     waitUntil: "hydration",
     timeout: 60000,
   });
@@ -38,7 +37,6 @@ describe("swiftsearch declarative v-for (issue #58)", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("renders looped refinement lists via SSR and refines them independently", async () => {

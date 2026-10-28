@@ -1,13 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage } from "@nuxt/test-utils/e2e";
+import { setup, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7783;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 describe("swiftsearch widget state collision across pages", async () => {
@@ -26,12 +25,11 @@ describe("swiftsearch widget state collision across pages", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("does not leak refinements between pages sharing the same widget id + index", async () => {
     const page = await createPage("/");
-    await page.goto(getTestUrl("/swift/state-collision/a"), {
+    await page.goto(url("/swift/state-collision/a"), {
       waitUntil: "hydration",
       timeout: 60000,
     });

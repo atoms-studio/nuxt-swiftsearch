@@ -1,14 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { fileURLToPath } from "node:url";
 import { resolve } from "node:path";
-import { setup, createPage } from "@nuxt/test-utils/e2e";
+import { setup, url } from "@nuxt/test-utils/e2e";
+import { createPage } from "./utils/page";
 import { collectNormalizedMarkup } from "./utils/html";
 import { ensureNuxtBuild } from "./utils/prebuild";
 
 /* eslint-disable jest/valid-describe-callback */
 
-const PORT = 7780;
-const getTestUrl = (route: string) => `http://127.0.0.1:${PORT}${route}`;
 const fixtureRoot = fileURLToPath(new URL("./fixtures/parity", import.meta.url));
 
 const widgetTestIds = [
@@ -41,7 +40,7 @@ const captureState = async (route: string) => {
     pageErrors.push(error.message);
   });
 
-  await page.goto(getTestUrl(route), {
+  await page.goto(url(route), {
     waitUntil: "hydration",
     timeout: 60000,
   });
@@ -77,7 +76,6 @@ describe("swiftsearch parity", async () => {
         },
       },
     } as any,
-    port: PORT,
   });
 
   it("matches vue-instantsearch markup before and after interactions", async () => {
