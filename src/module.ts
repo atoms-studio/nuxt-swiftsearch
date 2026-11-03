@@ -8,6 +8,7 @@ import {
   assertNuxtCompatibility,
 } from "@nuxt/kit";
 import { aisDeclarativeWidgetsPlugin } from "./vite/aisDeclarativeWidgetsPlugin";
+import { applyTypedComponentDeclarations } from "./componentDeclarations";
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -104,9 +105,15 @@ export default defineNuxtModule<ModuleOptions>({
         from: resolver.resolve(`runtime/composables/${name}`),
       });
     }
+    const componentsDir = resolver.resolve("./runtime/components");
     addComponentsDir({
-      path: resolver.resolve("./runtime/components"),
+      path: componentsDir,
       prefix: "Ais",
+    });
+    // Give the generated component types the typed `.vue.d.ts` declarations,
+    // not the `.vue` files that the build writes without their TypeScript.
+    nuxt.hook("components:extend", (components) => {
+      applyTypedComponentDeclarations(components, componentsDir);
     });
     // transpiling modules
     nuxt.options.vite ??= {};
