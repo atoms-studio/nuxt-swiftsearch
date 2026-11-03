@@ -2,7 +2,7 @@ import type {
   DynamicWidgetsConnectorParams,
   DynamicWidgetsRenderState,
 } from "instantsearch.js/es/connectors/dynamic-widgets/connectDynamicWidgets";
-import type { IndexRenderState, WidgetRenderState } from "instantsearch.js/es/types";
+import type { IndexRenderState, InstantSearch, WidgetRenderState } from "instantsearch.js/es/types";
 import { computed, inject, shallowRef, watchEffect, type Ref } from "vue";
 import { useInstantSearch } from "./useInstantSearch";
 import { getWidgetStateRegistry, widgetStateKey } from "./widgetStateRegistry";
@@ -11,6 +11,24 @@ import { getWidgetStateRegistry, widgetStateKey } from "./widgetStateRegistry";
 // connector stores its render state under that key.
 export type AisIndexRenderState = IndexRenderState & {
   dynamicWidgets?: WidgetRenderState<DynamicWidgetsRenderState, DynamicWidgetsConnectorParams>;
+};
+
+// Describes the instance state for the "connector not found" error. The text
+// shows if the search ran, if results came back and which render states exist.
+const describeInstanceState = (instance: InstantSearch, indexScope: string) => {
+  const index = instance.mainIndex;
+  const renderStateKeys = Object.keys(instance.renderState[indexScope] ?? {});
+  return (
+    `Instance state: status=${instance.status}, error=${instance.error?.message ?? "none"}, ` +
+    `started=${instance.started}, hasSearchWidget=${instance._hasSearchWidget}, ` +
+    `widgets=[${index
+      .getWidgets()
+      .map((widget) => widget.$$type)
+      .join(",")}], ` +
+    `hasResults=${Boolean(index.getResults())}, indexScope=${indexScope}, ` +
+    `renderState indices=[${Object.keys(instance.renderState).join(",")}], ` +
+    `renderState[${indexScope}]=[${renderStateKeys.join(",")}].`
+  );
 };
 
 export const useAisWidget = <const TWidget extends keyof AisIndexRenderState>(
@@ -57,7 +75,8 @@ export const useAisWidget = <const TWidget extends keyof AisIndexRenderState>(
       `Connector for component ${widgetName} not found, did you forget to add the proper widget? ` +
         `Common causes: the widget lives in a child component (enable the swiftsearch.childWidgetDiscovery module option, ` +
         `or declare the widget in the file containing <AisInstantSearch>), the component could not be resolved to a file, ` +
-        `or the build logged a "[nuxt-swiftsearch]" warning for this element. See the declarative transform docs.`,
+        `or the build logged a "[nuxt-swiftsearch]" warning for this element. See the declarative transform docs. ` +
+        describeInstanceState(instance.value, indexScope),
     );
   }
 
