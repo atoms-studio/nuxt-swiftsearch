@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.5.0
+
+[compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.4.0...v1.5.0)
+
+### 🩹 Fixes
+
+- Give the generated component types the typed declarations ([#66](https://github.com/atoms-studio/nuxt-swiftsearch/pull/66))
+
+### ✅ Tests
+
+- Print page diagnostics on e2e failure and use free ports ([#65](https://github.com/atoms-studio/nuxt-swiftsearch/pull/65))
+
+### 🤖 CI
+
+- Run release checks once and publish only after the release commit ([#64](https://github.com/atoms-studio/nuxt-swiftsearch/pull/64))
+
+### ❤️ Contributors
+
+- Matteo Rigoni <matteo.rigoni@atoms.studio>
+
 ## v1.4.0
 
 [compare changes](https://github.com/atoms-studio/nuxt-swiftsearch/compare/v1.3.2...v1.4.0)
